@@ -26,7 +26,6 @@ const Button = ({
         ...props,
       }}
     >
-      {console.log(padding)}
       {children}
     </button>
   );
