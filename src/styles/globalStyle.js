@@ -11,6 +11,10 @@ export const GlobalStyle = createGlobalStyle`
   &:focus,&:hover,&:active{
   outline:none 
   }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 ul {
@@ -23,11 +27,7 @@ a {
 body{
   height: 100vh;
   position: relative;
-   
-  /* 스크롤바 제거 */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  
 }
 
 `;

@@ -61,7 +61,6 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: 100%;
-  overflow: hidden;
 
   background-color: #f6f6f6;
   //배경 이미지 받으면 url에 넣기
