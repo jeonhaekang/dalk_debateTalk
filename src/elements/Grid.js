@@ -1,6 +1,7 @@
 const Grid = ({
   display = "flex",
   flexDirection = "column",
+  children,
 
   ...props
 }) => {
@@ -11,7 +12,9 @@ const Grid = ({
         flexDirection,
         ...props,
       }}
-    ></div>
+    >
+      {children}
+    </div>
   );
 };
 
