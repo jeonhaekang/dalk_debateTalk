@@ -4,6 +4,8 @@ import { history } from "../redux/configStore";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
+import Input from "../elements/Input";
+import Button from "../elements/Button";
 
 const Signup = (props) => {
 
@@ -49,7 +51,7 @@ const Signup = (props) => {
   const onChangePasswordCheck = (e) => {
     const currentPasswordCheck = e.target.value;
     setPasswordCheck(currentPasswordCheck);
-  
+
     if (password !== currentPasswordCheck) {
       setIsPasswordCheck(false);
     } else {
@@ -70,6 +72,8 @@ const Signup = (props) => {
     }
   };
 
+  //회원가입 하면 자동로그인
+  //회원가입 DB => loginDB => history.push('/')
   const clickSignUp = () => {
     if (
       id == "" ||
@@ -81,73 +85,86 @@ const Signup = (props) => {
       return;
     } else {
       //dispatch 해야됨
-      alert("회원가입 완료!")
+      alert("회원가입 완료! 바로 메인창으로 이동합니다")
     }
   };
 
   return (
-    <div>
-      <div>
-        <Grid>
-          <input
-            value={id}
+    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+      <Grid margin="30px 0px">
+        <Grid margin="30px 0px 0px 0px">
+          <Input
+            width="250px"
+            boxSizing="border-box"
+            defaultValue={id}
             onChange={onChangeId}
             placeholder={"아이디"}
-          ></input>
+          ></Input>
           {id.length > 0 && !isId && (
-                <p>아이디는 5자리 이상의 영문숫자 조합으로 해주세요.</p>
-              )}
+            <Validation>아이디는 5자리 이상의 영문숫자 조합으로 해주세요.</Validation>
+          )}
         </Grid>
-        <Grid>
-          <input
-            value={nickname}
+        <Grid margin="30px 0px 0px 0px">
+          <Input
+            width="250px"
+            boxSizing="border-box"
+            defaultValue={nickname}
             onChange={onChangeNickname}
             placeholder={"닉네임"}
-          ></input>
+          ></Input>
           {nickname.length > 0 && !isNickname && (
-                <p>닉네임은 2자리 이상 8자리 이하로 해주세요.</p>
-              )}
+            <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
+          )}
         </Grid>
-        <Grid>
-          <input
+        <Grid margin="30px 0px 0px 0px">
+          <Input
+            width="250px"
+            boxSizing="border-box"
             type="password"
-            value={password}
+            defaultValue={password}
             onChange={onChangePassword}
             placeholder={"비밀번호"}
-          ></input>
+          ></Input>
           {password.length > 0 && !isPassword && (
-                <p>8자 이상의 영문과 숫자, 특수문자 조합을 입력해주세요.</p>
-              )}
+            <Validation>8자 이상의 영문과 숫자, 특수문자 조합을 입력해주세요.</Validation>
+          )}
         </Grid>
-        <Grid>
-          <input
+        <Grid margin="30px 0px 0px 0px">
+          <Input
+            width="250px"
+            boxSizing="border-box"
             type="password"
-            value={passwordCheck}
+            defaultValue={passwordCheck}
             onChange={onChangePasswordCheck}
             placeholder={"비밀번호 확인"}
-          ></input>
+          ></Input>
           {passwordCheck.length > 0 && !isPasswordCheck && (
-                <p>비밀번호가 다릅니다.</p>
-              )}
+            <Validation>비밀번호가 다릅니다.</Validation>
+          )}
         </Grid>
-      </div>
-      <div>
-        <button
-          onClick={clickSignUp}
-        >회원가입 완료</button>
-      </div>
+      </Grid>
       <Grid>
+        <Button
+          onClick={clickSignUp}
+        >회원가입 완료</Button>
+      </Grid>
+      <Grid margin="30px 0px 0px 0px">
         <Text>이미 계정이 있으신가요?</Text>
-        <div
+        <Text color="#A64BF5" cursor="pointer"
           onClick={() => {
             history.push("/login");
           }}
         >
           로그인
-        </div>
+        </Text>
       </Grid>
-    </div>
+    </Grid>
   );
 };
+
+const Validation = styled.p`
+    margin-top: 5px;
+    font-size: 5px;
+`;
 
 export default Signup;
