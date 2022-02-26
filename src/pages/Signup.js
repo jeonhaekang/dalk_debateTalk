@@ -1,7 +1,11 @@
 import React from "react";
 
 const Signup = (props) => {
-  return <></>;
+  return (
+  <>
+  <div>회원가입</div>
+  </>
+  )
 };
 
 Signup.defaultProps = {};
