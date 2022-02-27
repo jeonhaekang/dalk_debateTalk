@@ -58,7 +58,7 @@ const ModalLayout = styled.div`
   top: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.4s;
   z-index: 999;
 `;
@@ -89,7 +89,6 @@ const ModalContents = styled.div`
   top: 0;
   background-color: white;
   animation: ${(props) => (props.aniState ? slideOut : slideIn)} 0.4s;
-  animation-fill-mode: forwards;
 `;
 
 export default HamburgerModal;
