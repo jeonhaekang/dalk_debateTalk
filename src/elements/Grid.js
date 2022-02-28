@@ -8,7 +8,6 @@ const Grid = ({
   alignItems,
   width,
   height,
-
   ...props
 }) => {
   return (
@@ -22,7 +21,6 @@ const Grid = ({
         alignItems,
         width,
         height,
-
         ...props,
       }}
     >

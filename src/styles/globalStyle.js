@@ -28,7 +28,10 @@ a {
 body{
   height: 100vh;
   position: relative;
-   
+}
+
+input[type=radio]{
+  vertical-align: -1px;
 }
 
 `;

@@ -79,9 +79,9 @@ const Wrap = styled.div`
   max-width: 420px;
   height: calc(var(--vh) * 100);
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  position: relative;
 
   @media screen and (min-width: 1024px) {
-    position: relative;
     left: 11%;
     top: 0%;
     overflow: auto;
