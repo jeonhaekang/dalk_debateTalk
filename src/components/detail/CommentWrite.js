@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+
+import Button from '../../elements/Button'
 import { history } from '../../redux/configStore'
 
 const CommentWrite = (props) => {
@@ -21,7 +23,7 @@ const CommentWrite = (props) => {
             onChange={onChangeComment}
           ></input>
         </ImgInput>
-        <button style={{ cursor: 'pointer' }} onClick={null}>아이콘</button>
+        <Button onClick={null}>아이콘</Button>
       </CommentWriteContainer>
 
     </>

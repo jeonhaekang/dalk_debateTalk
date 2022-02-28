@@ -90,19 +90,16 @@ const Wrap = styled.div`
   border-top: 2px solid #e5e5e5;
   padding: 10px 0px;
 `
-
 const FlexAlign = styled.div`
   display: flex;
   align-items: center;
 `
-
 const LevelImg = styled.img`
-width: 30px;
-height: 30px;
-object-fit: cover;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
   margin:0 12px 0 20px ;
 `
-
 const UserName = styled.div`
   font-weight: 500;
   font-size: 14px;
@@ -110,17 +107,14 @@ const UserName = styled.div`
   display: flex;
   align-items: center;
 `
-
 const CreatedAt = styled.div`
   font-size: 8px;
   font-weight: 300;
 `
-
 const ContentWrap = styled.div`
   border-bottom: 10px solid #e5e5e5;
   padding: 16px 20px;
 `
-
 const Content = styled.div`
   font-size: 10px;
   line-height: 16px;
@@ -128,7 +122,6 @@ const Content = styled.div`
   align-items: center;
   padding: 0 0 20px;
 `
-
 const IconBox = styled.div`
   display: flex;
   align-items: center;

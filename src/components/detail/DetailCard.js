@@ -3,15 +3,17 @@ import Grid from "../../elements/Grid";
 
 const DetailCard = (props) => {
     return (
-        <Grid display="flex">
-            <div>주제1</div>
-            <div>
+        <>
+        <Grid display="flex" justifyContent="center" margin="30px">
+            <Grid display="flex" justifyContent="center" margin="30px">주제1</Grid>
+            <Grid display="flex" justifyContent="center" margin="30px">
                 주제2
-                <div>
-                    승리!!!!
-                </div>
-            </div>
+            </Grid>
         </Grid>
+            <Grid display="flex" justifyContent="center" margin="30px">
+                승리!!!!
+            </Grid>
+        </>
     )
 };
 
