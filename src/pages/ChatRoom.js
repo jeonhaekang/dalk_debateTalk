@@ -2,9 +2,9 @@ import React from "react";
 import Header from "../shared/Header";
 import Input from "../elements/Input";
 import Grid from "../elements/Grid";
-import Text from "../elements/Text";
 
 const ChatRoom = (props) => {
+
   return (
     <>
       <Header page="토론방" />
