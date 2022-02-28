@@ -11,7 +11,6 @@ const CreateRoom = (props) => {
   ];
 
   const [time, setTime] = React.useState(false);
-  console.log(time);
 
   return (
     <Grid padding="15px" display="flex" flexDirection="column" gap="30px">
