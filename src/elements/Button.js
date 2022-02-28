@@ -9,6 +9,7 @@ const Button = ({
   ref,
   onClick,
   children,
+  cursor = "pointer",
   ...props
 }) => {
   return (
@@ -23,6 +24,7 @@ const Button = ({
         height,
         margin,
         padding,
+        cursor,
         ...props,
       }}
     >

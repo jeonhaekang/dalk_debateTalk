@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { history } from "../redux/configStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 
 import Grid from "../elements/Grid";
@@ -8,24 +10,25 @@ import Text from "../elements/Text";
 import Button from "../elements/Button"
 
 const Login = (props) => {
+  const dispatch = useDispatch();
 
   // 유저ID, PW 상태관리
-  const [id, setId] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   // 유효성검사
-  const [isId, setIsId] = useState(false);
+  const [isUsername, setIsUsername] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
-  const onChangeId = (e) => {
-    let idReg = /^[A-za-z0-9]{5,15}/g;
-    const currentId = e.target.value;
-    setId(currentId);
+  const onChangeUsername = (e) => {
+    let userNameReg = /^[A-za-z0-9]{5,15}/g;
+    const currentUsername = e.target.value;
+    setUsername(currentUsername);
 
-    if (!idReg.test(currentId)) {
-      setIsId(false);
+    if (!userNameReg.test(currentUsername)) {
+      setIsUsername(false);
     } else {
-      setIsId(true);
+      setIsUsername(true);
     }
   }
 
@@ -43,10 +46,11 @@ const Login = (props) => {
 
   //로그인 버튼
   const handleLogin = () => {
-    if (id === "" || password === "") {
+    if (username === "" || password === "") {
       alert("아이디 또는 비밀번호를 채워주세요!")
     } else {
       //DB dispatch 하기
+      dispatch(userActions.logInDB(username,password))
       alert("로그인 완료!")
     }
   };
@@ -69,10 +73,10 @@ const Login = (props) => {
             type="text"
             placeholder={"아이디를 입력하세요"}
             onKeyDown={handleKeyDown}
-            onChange={onChangeId}
+            onChange={onChangeUsername}
           >
           </Input>
-          {id.length > 0 && !isId && (
+          {username.length > 0 && !isUsername && (
             <Validation>
               올바른 아이디 형식을 입력해주세요.
             </Validation>
@@ -80,9 +84,9 @@ const Login = (props) => {
         </Grid>
         <Grid margin="0px 0px 30px 0px">
           <Input
-          width="250px"
+            width="250px"
             boxSizing="border-box"
-            type="text"
+            type="password"
             placeholder={"비밀번호를 입력하세요"}
             onKeyDown={handleKeyDown}
             onChange={onChangePassword}

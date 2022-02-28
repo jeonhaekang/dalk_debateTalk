@@ -2,36 +2,40 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 
+import { useDispatch } from "react-redux";
+import { actionCreators as userAcions } from "../redux/modules/user";
+
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import Input from "../elements/Input";
 import Button from "../elements/Button";
 
 const Signup = (props) => {
+  const dispatch = useDispatch()
 
   //아이디, 닉네임, 비밀번호 상태관리
-  const [id, setId] = useState("");
+  const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // 유효성검사 체크
-  const [isId, setIsId] = useState(false);
+  const [isUsername, setIsUsername] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
 
 
   //5자이상 15자 이하 아이디
-  const onChangeId = (e) => {
-    let idReg = /^[A-za-z0-9]{5,15}/g;
-    const currentId = e.target.value;
-    setId(currentId);
+  const onChangeUsername = (e) => {
+    let userNameReg = /^[A-za-z0-9]{5,15}/g;
+    const currentUsername = e.target.value;
+    setUsername(currentUsername);
 
-    if (!idReg.test(currentId)) {
-      setIsId(false);
+    if (!userNameReg.test(currentUsername)) {
+      setIsUsername(false);
     } else {
-      setIsId(true);
+      setIsUsername(true);
     }
   }
 
@@ -72,11 +76,11 @@ const Signup = (props) => {
     }
   };
 
-  //회원가입 하면 자동로그인
-  //회원가입 DB => loginDB => history.push('/')
+  //회원가입 하면 자동로그인하게 만들기
+  //signDB redux에 자동으로 로그인되게 함
   const clickSignUp = () => {
     if (
-      id == "" ||
+      username == "" ||
       password === "" ||
       passwordCheck === "" ||
       nickname == ""
@@ -84,8 +88,8 @@ const Signup = (props) => {
       alert("빈칸을 다 채워주세요!");
       return;
     } else {
-      //dispatch 해야됨
       alert("회원가입 완료! 바로 메인창으로 이동합니다")
+      dispatch(userAcions.signUpDB(username, password, nickname, passwordCheck))
     }
   };
 
@@ -96,12 +100,12 @@ const Signup = (props) => {
           <Input
             width="250px"
             boxSizing="border-box"
-            defaultValue={id}
-            onChange={onChangeId}
+            defaultValue={username}
+            onChange={onChangeUsername}
             placeholder={"아이디"}
           ></Input>
-          {id.length > 0 && !isId && (
-            <Validation>아이디는 5자리 이상의 영문숫자 조합으로 해주세요.</Validation>
+          {username.length > 0 && !isUsername && (
+            <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
           )}
         </Grid>
         <Grid margin="30px 0px 0px 0px">
@@ -126,7 +130,7 @@ const Signup = (props) => {
             placeholder={"비밀번호"}
           ></Input>
           {password.length > 0 && !isPassword && (
-            <Validation>8자 이상의 영문과 숫자, 특수문자 조합을 입력해주세요.</Validation>
+            <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
           )}
         </Grid>
         <Grid margin="30px 0px 0px 0px">
@@ -145,7 +149,10 @@ const Signup = (props) => {
       </Grid>
       <Grid>
         <Button
+          cursor="pointer"
           onClick={clickSignUp}
+          height="40px"
+          width="140px"
         >회원가입 완료</Button>
       </Grid>
       <Grid margin="30px 0px 0px 0px">
