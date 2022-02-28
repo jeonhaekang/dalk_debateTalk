@@ -1,7 +1,11 @@
 import React from "react";
 
 const Main = (props) => {
-  return <></>;
+  return (
+  <>
+  <div>메인</div>
+  </>
+  )
 };
 
 Main.defaultProps = {};

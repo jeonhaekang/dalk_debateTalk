@@ -4,7 +4,12 @@ const Input = ({
   defaultValue,
   type,
   placeholder,
+  onKeyDown,
+
+  width,
+  boxSizing,
   padding = "5px 10px",
+
   ...props
 }) => {
   return (
@@ -14,7 +19,8 @@ const Input = ({
       defaultValue={defaultValue}
       type={type}
       placeholder={placeholder}
-      style={{ padding, ...props }}
+      onKeyDown={onKeyDown}
+      style={{ padding, boxSizing, width, ...props }}
     ></input>
   );
 };

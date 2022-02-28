@@ -1,6 +1,13 @@
 const Grid = ({
-  display = "flex",
-  flexDirection = "column",
+  children,
+  display,
+  justifyContent,
+  flexDirection,
+  margin,
+  padding,
+  alignItems,
+  width,
+  height,
 
   ...props
 }) => {
@@ -8,10 +15,19 @@ const Grid = ({
     <div
       style={{
         display,
+        justifyContent,
         flexDirection,
+        margin,
+        padding,
+        alignItems,
+        width,
+        height,
+
         ...props,
       }}
-    ></div>
+    >
+      {children}
+    </div>
   );
 };
 
