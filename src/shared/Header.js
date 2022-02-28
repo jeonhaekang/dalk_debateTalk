@@ -4,8 +4,7 @@ import Button from "../elements/Button";
 import Grid from "../elements/Grid";
 import { history } from "../redux/configStore";
 import TestLogo from "../image/testlogo.jpeg";
-import HamburgerModal from "../components/header/HamburgerModal";
-import ReactModal from "react-modal";
+import Modal from "../components/shared/Modal";
 
 const Header = (props) => {
   const { page } = props;
@@ -14,9 +13,12 @@ const Header = (props) => {
   return (
     <HeaderContainer>
       <Grid position="relative" width="100%">
-
         {/* 햄버거 모달 */}
-        <HamburgerModal modalState={modalState} setModalState={setModalState}>
+        <Modal
+          modalState={modalState}
+          setModalState={setModalState}
+          type="hamburger"
+        >
           <Grid
             position="absolute"
             left="50%"
@@ -40,7 +42,7 @@ const Header = (props) => {
             <Grid>마이페이지</Grid>
             <Grid>토론리스트</Grid>
           </Grid>
-        </HamburgerModal>
+        </Modal>
 
         {/* 페이지가 메인이면 햄버거 버튼 아니면 뒤로가기 버튼 */}
         <Grid position="absolute" left="0" top="0">

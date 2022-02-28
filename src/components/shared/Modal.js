@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const HamburgerModal = (props) => {
-  const { modalState, setModalState, children } = props;
+const Modal = (props) => {
+  const { modalState, setModalState, children, type } = props;
   const [aniState, setAniState] = React.useState(false);
 
   const modalRef = React.useRef();
@@ -26,9 +26,16 @@ const HamburgerModal = (props) => {
     };
   }, []);
 
+  if (type === "hamburger") {
+    return (
+      <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
+        <HambergerContents aniState={aniState}>{children}</HambergerContents>
+      </ModalLayout>
+    );
+  }
   return (
     <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
-      <ModalContents aniState={aniState}>{children}</ModalContents>
+      <CreateContents aniState={aniState}>{children}</CreateContents>
     </ModalLayout>
   );
 };
@@ -81,7 +88,7 @@ const slideOut = keyframes`
   }
 `;
 
-const ModalContents = styled.div`
+const HambergerContents = styled.div`
   position: absolute;
   width: 50%;
   height: 100%;
@@ -91,4 +98,15 @@ const ModalContents = styled.div`
   animation: ${(props) => (props.aniState ? slideOut : slideIn)} 0.4s;
 `;
 
-export default HamburgerModal;
+const CreateContents = styled.div`
+  position: absolute;
+  width: 80%;
+  height: 70%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: white;
+`;
+
+export default Modal;

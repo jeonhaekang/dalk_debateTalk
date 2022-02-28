@@ -30,4 +30,8 @@ body{
   
 }
 
+input[type=radio]{
+  vertical-align: -1px;
+}
+
 `;

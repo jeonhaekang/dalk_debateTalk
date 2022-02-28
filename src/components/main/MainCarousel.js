@@ -3,9 +3,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
 import TestLogo from "../../image/testlogo.jpeg";
+import Modal from "../shared/Modal";
 
 const MainCarousel = (props) => {
-  let { images } = props;
+  const { images } = props;
+  const [noticeModalState, setNoticeModalState] = React.useState(false);
 
   const style = {
     showArrows: true, // 화살표 표시
@@ -17,9 +19,16 @@ const MainCarousel = (props) => {
     <>
       <Carousel {...style}>
         {images.map((el, i) => {
-          return <Image src={el} key={i} />;
+          return (
+            <Image src={el} key={i} onClick={() => setNoticeModalState(true)} />
+          );
         })}
       </Carousel>
+
+      <Modal
+        modalState={noticeModalState}
+        setModalState={setNoticeModalState}
+      ></Modal>
     </>
   );
 };
