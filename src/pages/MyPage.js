@@ -1,12 +1,16 @@
 import React from "react";
+import CustiomizeMe from "../components/mypage/CustomizeMe";
 import EggpointList from "../components/mypage/EggpointList"; 
 import UserInfo from "../components/mypage/UserInfo";
+import Header from "../shared/Header"
 
 const MyPage = (props) => {
   return (
     <>
-    <UserInfo />
-    <EggpointList />
+      <Header />
+      <UserInfo />
+      <EggpointList />
+      <CustiomizeMe />
     </>
   )
 };
