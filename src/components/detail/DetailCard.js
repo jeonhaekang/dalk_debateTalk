@@ -10,6 +10,7 @@ const DetailCard = (props) => {
                 주제2
             </Grid>
         </Grid>
+            {/* 부모 승리 state 설정 : bollean 값에 따라 주제1 또는 주제 2 승리 위치변경  */}
             <Grid display="flex" justifyContent="center" margin="30px">
                 승리!!!!
             </Grid>

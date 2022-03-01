@@ -1,9 +1,14 @@
 import React from "react";
+import EggpointList from "../components/mypage/EggpointList"; 
+import UserInfo from "../components/mypage/UserInfo";
 
 const MyPage = (props) => {
-  return <></>;
+  return (
+    <>
+    <UserInfo />
+    <EggpointList />
+    </>
+  )
 };
-
-MyPage.defaultProps = {};
 
 export default MyPage;

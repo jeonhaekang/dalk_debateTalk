@@ -4,14 +4,14 @@ import apis from "../../shared/apis";
 import { setCookie, deleteCookie } from "../../shared/Cookie";
 
 //Action
-const LOGIN = 'LOGIN'
+// const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
 const SETUSER = 'SETUSER'
 
 //Action Creator
-const logIn = createAction(LOGIN, (user) => ({ user }));
+// const logIn = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, () => ({}));
-const setUser = createAction(SETUSER, (userInfo) => ({ userInfo }));
+const setUser = createAction(SETUSER, (user) => ({ user }));
 
 //initialState
 const initialState = {
@@ -77,14 +77,29 @@ const logInDB = (username, password) => {
     };
 };
 
+const logincheckDB = () => {
+    return function (dispatch, getState, { history }) {
+      apis
+        .check()
+        .then((res) => {
+          dispatch(setUser(res.data));
+        })
+        .catch((err) => {
+          alert("다시 로그인 해주세요!");
+          history.replace("/login");
+          console.log(err);
+        });
+    };
+  };
+
 
 //Reducer
 export default handleActions(
     {
-        [LOGIN]: (state, action) =>
-            produce(state, (draft) => {
-                draft.user = action.payload.user
-            }),
+        // [LOGIN]: (state, action) =>
+        // produce(state, (draft) => {
+        //         draft.user = action.payload.user
+        //     }),
         [LOGOUT]: (state, action) =>
             produce(state, (draft) => {
                 deleteCookie("authorization")
@@ -93,7 +108,7 @@ export default handleActions(
             }),
         [SETUSER] : (state, action) =>
             produce(state, (draft) => {
-                console.log("login")
+                draft.user = action.payload.user;
             })
     },
     initialState
@@ -102,10 +117,11 @@ export default handleActions(
 
 //Export Action Creator
 const actionCreators = {
-    logIn,
+    // logIn,
     logOut,
     signUpDB,
     logInDB,
+    logincheckDB,
 };
 
 export { actionCreators }
