@@ -3,6 +3,7 @@ import { history } from "../redux/configStore";
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Route } from "react-router-dom";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import {
   Admin,
@@ -18,6 +19,8 @@ import Button from "../elements/Button";
 import styled from "styled-components";
 import Input from "../elements/Input";
 import { GlobalStyle } from "../styles/globalStyle";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "./Cookie";
 
 function App() {
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -32,6 +35,16 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // loginCheck
+  const user = useSelector((state) => state.user.user);
+  const token = document.cookie;
+  const tokenCheck = token.split("=")[1];
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    if(tokenCheck && !user)
+    dispatch(userActions.logincheckDB());
+  }, [])
 
   return (
     <React.Fragment>
