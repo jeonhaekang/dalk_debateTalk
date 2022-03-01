@@ -1,6 +1,6 @@
 const Input = ({
   onChange,
-  ref,
+  _ref,
   defaultValue,
   type,
   placeholder,
@@ -15,7 +15,7 @@ const Input = ({
   return (
     <input
       onChange={onChange}
-      ref={ref}
+      ref={_ref}
       defaultValue={defaultValue}
       type={type}
       placeholder={placeholder}

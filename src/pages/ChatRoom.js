@@ -10,89 +10,53 @@ import * as StompJS from "@stomp/stompjs";
 import { getCookie } from "../shared/Cookie";
 
 const ChatRoom = (props) => {
-  // const webSocketUrl = `ws://13.124.244.126/ws/chat`;
-  // const [socketConnected, setSocketConnected] = React.useState(false);
-  // let ws = React.useRef(null);
-
-  // React.useEffect(() => {
-  //   if (!ws.current) {
-  //     ws.current = new WebSocket(webSocketUrl);
-  //     ws.current.onopen = () => {
-  //       console.log("connected to " + webSocketUrl);
-  //       setSocketConnected(true);
-  //     };
-  //     ws.current.onclose = (error) => {
-  //       console.log("disconnect from " + webSocketUrl);
-  //       console.log(error);
-  //     };
-  //     ws.current.onerror = (error) => {
-  //       console.log("connection error " + webSocketUrl);
-  //       console.log(error);
-  //     };
-  //   }
-  // });
-  //----------------------------------------
-  const token = getCookie("access-token");
+  const token = getCookie("authorization");
   let sockJS = SockJS("http://13.124.244.126:8080/chatting");
-  let ws = Stomp.over(sockJS);
+  let client = Stomp.over(sockJS);
+  // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
+  // over를 사용하여 webSocket의 유형을 sockjs로 변경해준다.
+  const roomId = 1;
+  const headers = {
+    token: token,
+  };
 
-  function wsConnectSubscribe() {
-    try {
-      ws.connect({ token: token }, () => {});
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const connectCallback = () => {
+    console.log("접속 성공");
+    // client.subscribe(
+    //   `/sub/api/chat/rooms/${roomId}`,
+    //   (data) => {
+    //     console.log(data);
+    //   },
+    //   headers
+    // );
+  };
+  // client("url", callback, headers)
 
-  function wsDisConnectUnsubscribe() {
-    try {
-      ws.disconnect(() => {
-        ws.unsubscribe("sub-0");
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const errorCallback = () => {
+    console.log("접속 실패");
+
+    client.debug = function (str) {
+      console.log(str);
+    };
+  };
+
+  const sendMessage = () => {
+    const data = {
+      //type: "TALK",
+      roomId: roomId,
+      sender: "닉네임",
+      message: "테스트",
+    };
+    client.send("pub/api/chat/message", headers, JSON.stringify(data));
+    // send(url(destination), headers, body)
+  };
 
   React.useEffect(() => {
-    wsConnectSubscribe();
+    client.connect(headers, connectCallback, errorCallback);
+    // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
 
-    return () => wsDisConnectUnsubscribe();
+    return () => client.disconnect();
   });
-  //----------------------------------------
-  // const client = new StompJS.Client({
-  //   brokerURL: "ws://13.124.244.126/ws-stomp",
-  //   debug: function (str) {
-  //     console.log("연결실패", str);
-  //   },
-  //   reconnectDelay: 30000,
-  //   heartbeatIncoming: 4000,
-  //   heartbeatOutgoing: 4000,
-  // });
-
-  // client.onConnect = function (frame) {
-  //   console.log("성공적으로 연결");
-  // };
-
-  // client.onStompError = function (frame) {
-  //   console.log("Broker reported error: " + frame.headers["message"]);
-  //   console.log("Additional details: " + frame.body);
-  // };
-
-  // const checkMessage = (data) => {
-  //   console.log(data);
-  // };
-
-  // React.useEffect(() => {
-  //   client.activate();
-  //   // const subscription = client.subscribe("/chat", (data) =>
-  //   //   checkMessage(data)
-  //   // );
-  //   return () => {
-  //     //subscription.unsubscribe();
-  //     client.deactivate();
-  //   };
-  // });
 
   return (
     <>
@@ -129,6 +93,7 @@ const ChatRoom = (props) => {
         justifyContent="center"
       >
         <Input padding="10px" height="40px" width="90%" />
+        <button onClick={() => sendMessage()}>송신</button>
       </Grid>
     </>
   );
