@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Grid from "../elements/Grid"
 import Header from '../shared/Header'
 import MainCard from '../components/main/MainCard'
-import Button from "../elements/Button";
 
 const Admin = (props) => {
   return (
