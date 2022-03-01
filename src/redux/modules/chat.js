@@ -12,8 +12,6 @@ import produce from "immer";
 //Reducer
 
 //Export Action Creator
-const actionCreators ={
+const actionCreators = {};
 
-};
-
-export {actionCreators}
+export { actionCreators };
