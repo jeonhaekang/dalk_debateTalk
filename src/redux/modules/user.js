@@ -82,7 +82,6 @@ const logincheckDB = () => {
       apis
         .check()
         .then((res) => {
-            console.log(res)
           dispatch(setUser(res.data));
         })
         .catch((err) => {
