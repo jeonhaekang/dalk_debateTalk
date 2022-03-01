@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "13.124.244.126:8080",
+  baseURL: "http://13.124.244.126:8080",
 });
 
 instance.interceptors.request.use(function (config) {
@@ -17,11 +17,12 @@ instance.interceptors.request.use(function (config) {
 
 const apis = {
   //유저 로그인 api
-  login: (username, password) => instance.post("/users/login", {
-    username: username,
-    password: password
-  }),
-  
+  login: (username, password) =>
+    instance.post("/users/login", {
+      username: username,
+      password: password,
+    }),
+
   //유저 회원가입 api
   signup: (user) => instance.post("/users/signup", user),
 };

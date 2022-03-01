@@ -13,6 +13,9 @@ const MainCarousel = (props) => {
     showArrows: true, // 화살표 표시
     showThumbs: false,
     showStatus: false, // 페이지 표시
+    interval: 5000, // 자동 슬라이드 시간
+    autoPlay: true, // 자동 넘김
+    infiniteLoop: true, // 무한 루프
   };
 
   return (

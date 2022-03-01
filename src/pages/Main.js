@@ -36,15 +36,7 @@ const Main = (props) => {
             <MainCard />
             <MainCard warnCnt="10" />
             <Grid>이런 주제로도 토론해요!!</Grid>
-            <CategoryBox>
-              <MainCategoryCard />
-              <MainCategoryCard />
-              <MainCategoryCard />
-              <MainCategoryCard />
-              <MainCategoryCard />
-              <MainCategoryCard />
-              <MainCategoryCard />
-            </CategoryBox>
+            <MainCategoryCard />
             <MainCard />
             <MainCard />
             <MainCard />
@@ -67,12 +59,5 @@ const Main = (props) => {
 };
 
 Main.defaultProps = {};
-
-const CategoryBox = styled.div`
-  display: flex;
-  flex-wrap: nowrap; // 넘쳐도 줄바꿈 X, white-space: no-wrap과 같은 효과
-  overflow-x: scroll; // x축 넘치면 스크롤 생성
-  gap: 10px;
-`;
 
 export default Main;
