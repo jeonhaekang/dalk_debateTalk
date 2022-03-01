@@ -1,18 +1,22 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { setCookie, deleteCookie } from "../../shared/Cookie";
 
 //Action
 const LOGIN = 'LOGIN'
 const LOGOUT = 'LOGOUT'
+const SETUSER = 'SETUSER'
 
 //Action Creator
-const logIn = createAction(LOGIN, (user) => ({ user }))
-const logOut = createAction(LOGOUT, () => ({}))
+const logIn = createAction(LOGIN, (user) => ({ user }));
+const logOut = createAction(LOGOUT, () => ({}));
+const setUser = createAction(SETUSER, (userInfo) => ({ userInfo }));
 
 //initialState
 const initialState = {
     user: null,
+    userInfo: {},
 }
 
 //MiddleWare
@@ -26,21 +30,18 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
             passwordCheck: passwordCheck,
             nickname: nickname,
         }
-        console.log(user)
         await apis.signup(user)
             .then(function (response) {
-                localStorage.setItem('username', response.data.username)
-                localStorage.setItem('nickname', response.data.nickname)
-                localStorage.setItem('token', response.headers.authorization)
-                localStorage.setItem('level', response.data.level);
-                localStorage.setItem('point', response.data.point);
-                dispatch(logIn({
-                    username: response.data.username,
-                    nickname: response.data.nickname,
-                    point: response.data.point,
-                    level: response.data.level,
-                }))
-                history.replace('/')
+                setCookie(response.headers.authorization, 7);
+
+                apis.check()
+                    .then((res) => {
+                        dispatch(setUser(res.data));
+                        history.replace("/");
+                    })
+                    .catch((err) => {
+                        console.log("err", err);
+                    });
             })
             .catch((err) => {
                 console.log(err)
@@ -55,22 +56,21 @@ const logInDB = (username, password) => {
             username: username,
             password: password
         }
-        await apis.login(user).then(function (response) {
-            console.log(response)
-            localStorage.setItem('username', response.data.username)
-            localStorage.setItem('nickname', response.data.nickname)
-            localStorage.setItem('token', response.headers.authorization)
-            localStorage.setItem('level', response.data.level);
-            localStorage.setItem('point', response.data.point);
-            dispatch(logIn({
-                username: response.data.username,
-                nickname: response.data.nickname,
-                point: response.data.point,
-                level: response.data.level,
-            }))
-            history.replace('/')
+        await apis.login(user)
+            .then(function (response) {
+                console.log(response)
+                setCookie(response.headers.authorization, 7);
 
-        })
+                apis.check()
+                    .then((res) => {
+                        console.log(res)
+                        dispatch(setUser(res.data));
+                        history.replace("/");
+                    })
+                    .catch((err) => {
+                        console.log("err", err);
+                    });
+            })
             .catch((err) => {
                 console.log(err)
             })
@@ -87,10 +87,14 @@ export default handleActions(
             }),
         [LOGOUT]: (state, action) =>
             produce(state, (draft) => {
-                localStorage.clear()
+                deleteCookie("authorization")
                 draft.user = ""
                 window.location.replace("/login")
             }),
+        [SETUSER] : (state, action) =>
+            produce(state, (draft) => {
+                console.log("login")
+            })
     },
     initialState
 )

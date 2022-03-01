@@ -50,7 +50,7 @@ const Login = (props) => {
       alert("아이디 또는 비밀번호를 채워주세요!")
     } else {
       //DB dispatch 하기
-      dispatch(userActions.logInDB(username,password))
+      dispatch(userActions.logInDB(username, password))
       alert("로그인 완료!")
     }
   };
