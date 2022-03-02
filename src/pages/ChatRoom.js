@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../shared/Header";
 import Input from "../elements/Input";
 import Grid from "../elements/Grid";
+import CountDownTimer from "../components/ChatRoom/CountDownTimer";
 
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -60,6 +61,9 @@ const ChatRoom = (props) => {
 
     return () => ws.disconnect();
   }, []);
+
+  const hoursMinSecs = {hours:1, minutes: 40, seconds: 0}
+
   return (
     <>
       <Header page="토론방" />
@@ -74,7 +78,9 @@ const ChatRoom = (props) => {
           <Grid>신고</Grid>
           <Grid>삭제</Grid>
         </Grid>
-        <Grid textAlign="center">08:00:00</Grid>
+        <Grid textAlign="center">
+          <CountDownTimer hoursMinSecs={hoursMinSecs} />
+        </Grid>
         <Grid display="flex" justifyContent="space-around">
           <Grid>짜장면</Grid>
           <Grid>vs</Grid>

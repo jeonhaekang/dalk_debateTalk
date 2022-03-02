@@ -5,8 +5,6 @@ import React from "react";
 import styled from "styled-components";
 import kakaoLogo from "../../image/kakao-logo.png";
 
-
-
 const KakaoShareButton = (props) => {
   const { size } = props;
   const styles = { size: size };
