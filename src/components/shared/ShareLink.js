@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import link from '../../image/link.png'
+
 //링크복사 기능쓰기 위해서 가져오는 라이브러리
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
@@ -41,14 +43,14 @@ const ShareLink = () => {
         {/* 여기서 부터 보기 */}
                 <Container>
                     <ShareBody>
-                        {/* <div className="each-share-container">
+                        <div className="each-share-container">
                             <CopyToClipboard onCopy={onCopy} text={debateDetailUrl}>
                                 <button className="link-copy-button">
-                                    <LinkCopyIcon />
+                                    <img src={link} width="40" />
                                 </button>
                             </CopyToClipboard>
                             <p className="each-share-container__text">링크복사</p>
-                        </div> */}
+                        </div>
                         {/* <div className="each-share-container">
                              <KakaoShareButton />
                             <p className="each-share-container__text">카카오톡</p>
@@ -84,7 +86,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 10001;
-  width: 80%;
+  padding: 0 50px;
+  width: 100%;
 `
 
 const ShareBody = styled.div`
@@ -103,10 +106,10 @@ const ShareBody = styled.div`
     }
   }
   .link-copy-button {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
     border-radius: 60px;
-    margin: 0 0 8px;
+    margin: 0 0 4px;
     display: flex;
     align-items: center;
     justify-content: center;
