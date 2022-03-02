@@ -13,6 +13,7 @@ const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 //initialState
 const initialState = {
   roomList: [],
+  messageList: [],
 };
 
 //MiddleWare
