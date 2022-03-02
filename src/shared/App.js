@@ -15,12 +15,9 @@ import {
   PostList,
   Signup,
 } from "../pages/Index";
-import Button from "../elements/Button";
 import styled from "styled-components";
-import Input from "../elements/Input";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "./Cookie";
 
 function App() {
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -40,11 +37,11 @@ function App() {
   const user = useSelector((state) => state.user.user);
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
+
   const dispatch = useDispatch();
   React.useEffect(() => {
-    if(tokenCheck && !user)
-    dispatch(userActions.logincheckDB());
-  }, [])
+    if (tokenCheck && !user) dispatch(userActions.logincheckDB());
+  }, []);
 
   return (
     <React.Fragment>
@@ -58,7 +55,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/mypage" exact component={MyPage} />
-            <Route path="/chatroom" exact component={ChatRoom} />
+            <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/detail" exact component={Detail} />
             <Route path="/postlist" exact component={PostList} />
           </Wrap>

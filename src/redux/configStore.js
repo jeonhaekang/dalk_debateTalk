@@ -4,12 +4,14 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 import user from "./modules/user";
+import chat from "./modules/chat";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   // 모듈 적어주세요.
   user: user,
+  chat: chat,
 
   router: connectRouter(history),
 });

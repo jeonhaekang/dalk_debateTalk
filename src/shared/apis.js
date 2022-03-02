@@ -18,12 +18,19 @@ instance.interceptors.request.use(function (config) {
 const apis = {
   //유저 로그인 api
   login: (user) => instance.post("/users/login", user),
-  
+
   //유저 회원가입 api
   signup: (user) => instance.post("/users/signup", user),
 
   //로그인 체크
-  check : () => instance.get("/loginCheck"),
+  check: () => instance.get("/loginCheck"),
+
+  // ---------토론방 관련------------
+  //토론방 생성
+  createRoom: (data) => instance.post("/rooms", data),
+
+  //토론방 리스트 전체보기
+  loadAllRoom: () => instance.get("/api/rooms"),
 };
 
 export default apis;
