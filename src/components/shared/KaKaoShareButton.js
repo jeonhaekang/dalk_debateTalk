@@ -9,6 +9,7 @@ const KakaoShareButton = (props) => {
   const { size } = props;
   const styles = { size: size };
 
+
   React.useEffect(() => {
     createKakaoButton();
   }, []);
