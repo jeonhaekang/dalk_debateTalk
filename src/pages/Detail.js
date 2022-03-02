@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CommentList from "../components/detail/CommentList";
 import CommentWrite from "../components/detail/CommentWrite";
 import DetailCard from "../components/detail/DetailCard";
+import ShareLink from "../components/shared/ShareLink";
 
 import Header from "../shared/Header"
 
@@ -12,6 +13,7 @@ const Detail = (props) => {
   <Header />
   <DetailCreatedAt>2022-03-01</DetailCreatedAt>
     <DetailCard />
+    <ShareLink />
     <CommentWrite />
     <CommentList />
   </>
