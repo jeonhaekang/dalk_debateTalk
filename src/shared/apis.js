@@ -31,6 +31,18 @@ const apis = {
 
   //토론방 리스트 전체보기
   loadAllRoom: () => instance.get("/api/rooms"),
+
+  // ---------댓글 코멘트 관련------------
+  // 댓글 조회
+  getComment: (boardId) => instance.get(`/api/comments/${boardId}`),
+  // 댓글 작성
+  addComment: (boardId, comment) => instance.post(`/comments/${boardId}`, { comment: comment }),
+  // 댓글 삭제
+  deleteComment: (commentId) => instance.delete(`/comments/${commentId}`),
+  // 댓글 좋아요
+  likeComment: (commentId) => instance.get(`/likes/${commentId}`),
+  // 댓글 신고
+  warningComment: (boardId) => instance.get(`/warnings/${boardId}`),
 };
 
 export default apis;
