@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { history } from '../../redux/configStore'
+import { actionCreators as commentActions } from '../../redux/modules/comment'
 
 import star from '../../image/star.png'
 

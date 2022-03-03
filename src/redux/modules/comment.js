@@ -18,7 +18,7 @@ const initialState = {
 
 //MiddleWare
 const addCommentDB = (boardId, comment) => {
-    return asnyc function (dispatch, getState, { history }) {
+    return async function (dispatch, getState, { history }) {
         if (!boardId) {
             return;
         }
