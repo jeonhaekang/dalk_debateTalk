@@ -3,6 +3,8 @@ const Input = React.forwardRef(
   (
     {
       onChange,
+      value,
+      name,
       defaultValue,
       type,
       placeholder,
@@ -19,6 +21,8 @@ const Input = React.forwardRef(
     return (
       <input
         onChange={onChange}
+        value={value}
+        name={name}
         ref={ref}
         defaultValue={defaultValue}
         type={type}

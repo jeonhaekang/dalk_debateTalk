@@ -7,14 +7,11 @@ import Blind from "../shared/Blind";
 const MainCard = (props) => {
   const { topicA, topicB, category, userInfo, createdAt, warnCnt } = props;
 
-  console.log("props:", props);
-  console.log("userInfo:", userInfo.nickname);
-
   return (
     <CardWrap
       warnCnt={warnCnt}
       onClick={() => {
-        history.push("/chatroom/" + props.chatRoomId);
+        history.push("/chatroom/" + props.roomId);
       }}
     >
       {warnCnt >= 10 && <Blind>블라인드 처리된 채팅방</Blind>}
@@ -25,8 +22,7 @@ const MainCard = (props) => {
       <Grid display="flex" gap="10px">
         <Grid>뱃지</Grid>
         <Grid>{userInfo.nickname}</Grid>
-        <Grid>{createdAt}</Grid>
-        <Grid>방번호 : {props.chatRoomId}</Grid>
+        <Grid>방번호 : {props.roomId}</Grid>
       </Grid>
     </CardWrap>
   );

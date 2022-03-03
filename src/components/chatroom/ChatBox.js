@@ -24,7 +24,9 @@ const ChatBox = (props) => {
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
+    console.log(newMassage);
     //dispatch(actionCreators.newMessage(newMassage));
+
     setMessageLog((log) => [...log, newMassage]);
   };
 
@@ -53,7 +55,6 @@ const ChatBox = (props) => {
 const ShowChat = styled.div`
   border: 1px solid red;
   height: 100%;
-  margin-bottom: 60px;
   overflow: scroll;
 
   display: flex;

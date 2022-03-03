@@ -3,11 +3,11 @@ import produce from "immer";
 import apis from "../../shared/apis";
 
 //Action
-const LOAD_ALL_ROOM = "LOAD_ALL_ROOM";
+const SET_ROOM = "SET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 
 //Action Creator
-const loadAllRoom = createAction(LOAD_ALL_ROOM, (rooms) => ({ rooms }));
+const setRoom = createAction(SET_ROOM, (rooms) => ({ rooms }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 
 //initialState
@@ -22,7 +22,8 @@ const loadAllRoomDB = () => {
     apis
       .loadAllRoom()
       .then((res) => {
-        dispatch(loadAllRoom(res.data));
+        console.log(res.data);
+        dispatch(setRoom(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +40,10 @@ const createRoomDB = (data) => {
       .then((res) => {
         const user = getState().user.user;
         console.log(res);
-        dispatch(createRoom({ ...data, ...res.data, userInfo: user }));
+        dispatch(
+          createRoom({ ...data, chatRoomId: res.data.roomId, userInfo: user })
+        );
+        history.replace("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
         console.log(err);
@@ -50,13 +54,13 @@ const createRoomDB = (data) => {
 //Reducer
 export default handleActions(
   {
-    [LOAD_ALL_ROOM]: (state, action) =>
+    [SET_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.roomList = action.payload.rooms;
       }),
     [CREATE_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.roomList.unshift(action.payload.room);
+        draft.roomList.push(action.payload.room);
       }),
   },
   initialState

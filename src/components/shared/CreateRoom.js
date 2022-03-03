@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
 import Button from "../../elements/Button";
@@ -8,11 +7,15 @@ import { useDispatch } from "react-redux";
 
 const CreateRoom = (props) => {
   const dispatch = useDispatch();
-  const [topicA, setTopicA] = React.useState("");
-  const [topicB, setTopicB] = React.useState("");
-  const [content, setContent] = React.useState("");
-  const [category, roomCategory] = React.useState("");
-  const [time, setTime] = React.useState(false);
+  const [roomInfo, setRoomInfo] = React.useState({
+    topicA: "",
+    topicB: "",
+    content: "",
+    category: "",
+    time: null,
+  });
+
+  const { topicA, topicB, content, category, time } = roomInfo;
 
   const categoryList = [
     { 카테고리1: "category1" },
@@ -20,61 +23,41 @@ const CreateRoom = (props) => {
     { 카테고리3: "category3" },
   ];
 
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    setRoomInfo({
+      ...roomInfo,
+      [name]: value,
+    });
+  };
+
   const createRoom = () => {
-    if (!topicA || !topicB) {
-      alert("주제를 입력해주세요.");
-      return;
+    for (const value in roomInfo) {
+      if (!roomInfo[value]) {
+        alert("모든 항목을 입력해주세요.");
+        return;
+      }
     }
-    if (!content) {
-      alert("내용을 입력해주세요.");
-      return;
-    }
-    if (!category) {
-      alert("카테고리를 선택해주세요.");
-      return;
-    }
-    const data = {
-      topicA: topicA,
-      topicB: topicB,
-      content: content,
-      category: category,
-      time: time,
-    };
-    dispatch(actionCreators.createRoomDB(data));
+    dispatch(actionCreators.createRoomDB(roomInfo));
   };
 
   return (
     <Grid padding="15px" display="flex" flexDirection="column" gap="30px">
       <Grid display="flex" flexDirection="column" gap="10px">
         토론 주제는 무엇인가요?
-        <Input
-          onChange={(e) => {
-            setTopicA(e.target.value);
-          }}
-        />
-        <Input
-          onChange={(e) => {
-            setTopicB(e.target.value);
-          }}
-        />
+        <Input name="topicA" value={topicA} onChange={onChange} />
+        <Input name="topicB" value={topicB} onChange={onChange} />
       </Grid>
 
       <Grid display="flex" flexDirection="column" gap="10px">
         간략한 토론 내용을 말해주세요.
-        <Input
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
+        <Input name="content" value={content} onChange={onChange} />
       </Grid>
 
       <Grid display="flex" flexDirection="column" gap="10px">
         카테고리를 선택해주세요.
-        <select
-          onChange={(e) => {
-            roomCategory(e.target.value);
-          }}
-        >
+        <select name="category" value={category} onChange={onChange}>
+          <option hidden>선택해주세요.</option>
           {categoryList.map((el, i) => {
             return (
               <option key={i} value={el[Object.keys(el)]}>
@@ -89,23 +72,11 @@ const CreateRoom = (props) => {
         토론 시간 제한
         <Grid display="flex" justifyContent="space-around">
           <Grid>
-            <input
-              name="time"
-              type="radio"
-              onChange={() => {
-                setTime(true);
-              }}
-            />
+            <Input name="time" type="radio" value={true} onChange={onChange} />
             짧은 토론 시간
           </Grid>
           <Grid>
-            <input
-              name="time"
-              type="radio"
-              onChange={() => {
-                setTime(false);
-              }}
-            />
+            <Input name="time" type="radio" value={false} onChange={onChange} />
             긴 토론 시간
           </Grid>
         </Grid>

@@ -1,16 +1,19 @@
 import React from "react";
+import styled from "styled-components";
 import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
 
 const ChatInput = (props) => {
   const message = React.useRef();
   const { client, roomId, headers } = props;
-
+  const [fontState, setFontState] = React.useState(false);
+  console.log(fontState);
   const sendMessage = () => {
     const data = {
       type: "TALK",
       roomId: roomId,
       message: message.current.value,
+      bigFont: fontState ? true : false,
     };
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
@@ -25,27 +28,34 @@ const ChatInput = (props) => {
     }
   };
 
+  const useBigFont = () => {
+    setFontState(true);
+    setTimeout(() => {
+      setFontState(false);
+    }, 10000);
+  };
+
   return (
-    <Grid
-      position="absolute"
-      bottom="0"
-      border="1px solid black"
-      width="100%"
-      height="60px"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Input
-        onKeyPress={MessageEnter}
-        padding="10px"
-        height="40px"
-        width="90%"
-        ref={message}
-      />
-      <button onClick={sendMessage}>송신</button>
-    </Grid>
+    <InputWrap>
+      <Grid border="1px solid orange">
+        <button onClick={useBigFont}>빅폰트</button>
+      </Grid>
+      <Grid>
+        <Input
+          onKeyPress={MessageEnter}
+          padding="10px"
+          height="40px"
+          width="90%"
+          ref={message}
+        />
+        <button onClick={sendMessage}>송신</button>
+      </Grid>
+    </InputWrap>
   );
 };
+
+const InputWrap = styled.div`
+  height: 100px;
+`;
 
 export default ChatInput;

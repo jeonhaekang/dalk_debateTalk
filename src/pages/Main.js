@@ -17,7 +17,6 @@ const Main = (props) => {
   const [createModalState, setCreateModalState] = React.useState(false);
 
   const roomList = useSelector((state) => state.chat.roomList);
-  console.log(roomList);
 
   React.useEffect(() => {
     dispatch(actionCreators.loadAllRoomDB());
@@ -41,8 +40,9 @@ const Main = (props) => {
             justifyContent="space-between"
             gap="10px"
           >
-            {roomList.map((el) => {
-              return <MainCard key={el.chatRoomId} {...el} />;
+            {roomList.map((el, key) => {
+              console.log(el);
+              return <MainCard key={el.roomId} {...el} />;
             })}
             {/* <MainCard warnCnt="10" /> */}
             <Grid>이런 주제로도 토론해요!!</Grid>

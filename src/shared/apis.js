@@ -36,7 +36,8 @@ const apis = {
   // 댓글 조회
   getComment: (boardId) => instance.get(`/api/comments/${boardId}`),
   // 댓글 작성
-  addComment: (boardId, comment) => instance.post(`/comments/${boardId}`, { comment: comment }),
+  addComment: (boardId, comment) =>
+    instance.post(`/comments/${boardId}`, { comment: comment }),
   // 댓글 삭제
   deleteComment: (commentId) => instance.delete(`/comments/${commentId}`),
   // 댓글 좋아요
