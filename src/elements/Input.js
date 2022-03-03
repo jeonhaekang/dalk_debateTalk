@@ -1,18 +1,21 @@
 import React from "react";
 const Input = React.forwardRef(
-  ({
-    onChange,
-    defaultValue,
-    type,
-    placeholder,
-    onKeyDown,
+  (
+    {
+      onChange,
+      defaultValue,
+      type,
+      placeholder,
+      onKeyDown,
+      onKeyPress,
+      width,
+      boxSizing,
+      padding = "5px 10px",
 
-    width,
-    boxSizing,
-    padding = "5px 10px",
-
-    ...props
-  },ref) => {
+      ...props
+    },
+    ref
+  ) => {
     return (
       <input
         onChange={onChange}
@@ -21,6 +24,7 @@ const Input = React.forwardRef(
         type={type}
         placeholder={placeholder}
         onKeyDown={onKeyDown}
+        onKeyPress={onKeyPress}
         style={{ padding, boxSizing, width, ...props }}
       ></input>
     );
