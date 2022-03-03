@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
-import CountDownTimer from "../components/ChatRoom/CountDownTimer";
+import CountDownTimer from "../components/chatroom/CountDownTimer";
 
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
