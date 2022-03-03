@@ -32,6 +32,9 @@ const apis = {
   //토론방 리스트 전체보기
   loadAllRoom: () => instance.get("/api/rooms"),
 
+  // ---------게시글 상세조회------------
+  getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
+
   // ---------댓글 코멘트 관련------------
   // 댓글 조회
   getComment: (boardId) => instance.get(`/api/comments/${boardId}`),

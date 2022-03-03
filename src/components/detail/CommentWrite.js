@@ -13,6 +13,7 @@ const CommentWrite = (props) => {
   }
 
   return (
+    
     <>
       <CommentWriteContainer>
         <ImgInput>
