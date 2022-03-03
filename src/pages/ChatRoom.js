@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
+import CountDownTimer from "../components/ChatRoom/CountDownTimer";
 
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -22,6 +23,8 @@ const ChatRoom = (props) => {
       Authorization: getCookie("authorization"),
     },
   };
+
+  const hoursMinSecs = {hours:1, minutes: 40, seconds: 0}
 
   return (
     <>
