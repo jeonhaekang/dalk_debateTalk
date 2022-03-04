@@ -5,9 +5,7 @@ import { actionCreators as commentActions } from '../../redux/modules/comment'
 
 import star from '../../image/star.png'
 
-const OneComment = ({commentList}) => {
-  const comment = commentList
-  console.log(comment)
+const OneComment = (props) => {
 
   const dispatch = useDispatch()
 

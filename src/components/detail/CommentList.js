@@ -5,44 +5,24 @@ import { actionCreators as commentActions } from '../../redux/modules/comment'
 import OneComment from './OneComment'
 
 import Button from '../../elements/Button'
-import apis from '../../shared/apis'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 const CommentList = ({ debate }) => {
   const boardId = debate.boardId;
+  console.log(boardId)
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(boardId){
-    getCommentDB()
-    setCommentList()
-    } else {
-      return;
-    }
-  }, [boardId])
+  // 상위컴포넌트에서는 useEffect 말고 useSelector
+  const commentList = useSelector((state) => state.comment.commentList);
+  console.log(commentList);
 
-  // const commentList = useSelector((state) => state.comment.commentList);
-  // console.log(commentList)
-
-  const [commentList, setCommentList] = useState();
   const [comment, setComment] = useState("");
 
   const onChangeComment = (e) => {
     setComment(e.target.value)
   };
-
-  const getCommentDB = async () => {
-    await apis
-      .getComment(boardId)
-      .then((res) => {
-        console.log(res)
-        setCommentList(res.data)
-      })
-      .catch((err) => {
-        console.log("댓글불러오기 에러", err)
-      })
-  }
 
   const token = document.cookie;
   const tokenCheck = token.split("=")[1]
@@ -52,7 +32,7 @@ const CommentList = ({ debate }) => {
       history.replace('/login');
     } else {
       dispatch(commentActions.addCommentDB(boardId, comment))
-      document.location.reload()
+      history.replace(`/detail/${boardId}`)
     }
   }
 
@@ -70,11 +50,9 @@ const CommentList = ({ debate }) => {
           <Button onClick={addComment}>아이콘</Button>
         </CommentWriteContainer>
 
-      {commentList
-        ? commentList.map((c, idx) => {
-          return <OneComment {...c} key={idx} commentList={commentList} />
-        })
-        : null}
+      {commentList.map((c, idx) => {
+          return <OneComment {...c} key={idx} />
+        })}
     </>
   )
 };
