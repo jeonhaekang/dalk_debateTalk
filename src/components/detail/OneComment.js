@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators as commentActions } from '../../redux/modules/comment'
 import { history } from '../../redux/configStore'
 
@@ -9,7 +9,8 @@ import apis from '../../shared/apis'
 
 const OneComment = (props) => {
   const commentId = props.commentId
-  console.log(commentId)
+  
+  const user = useSelector((state) => state.user.user)
 
   const dispatch = useDispatch()
 
@@ -58,7 +59,11 @@ const OneComment = (props) => {
 
   // 코멘트 삭제
   const deleteComment = () => {
-    dispatch(commentActions.delCommentDB(commentId));
+    if(window.confirm("정말 삭제하시겠어요?")){
+      dispatch(commentActions.delCommentDB(commentId));
+    } else {
+      return;
+    }
   }
 
   return (
@@ -81,7 +86,7 @@ const OneComment = (props) => {
             <Number className="disagree-count">반대 {props.likeCnt}</Number>
             <Number className="warning-count">신고</Number>
           </div>
-            <button onClick={deleteComment}>삭제</button>
+            { user.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null }
         </IconBox>
       </ContentWrap>
     </>
