@@ -59,7 +59,6 @@ function App() {
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
             <Route path="/detail/:boardId" exact component={Detail} />
-            <Footer />
           </Wrap>
         </Container>
       </ConnectedRouter>
