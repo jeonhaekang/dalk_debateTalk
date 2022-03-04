@@ -2,26 +2,25 @@ import React from "react";
 import styled from "styled-components";
 
 const Footer = (props) => {
-
-    return (
-        <FixedNav>
-            <Icon>
-                <div>홈</div>
-            </Icon>
-            <Icon>
-                <div>홈</div>
-            </Icon>
-            <Icon>
-                <div>홈</div>
-            </Icon>
-            <Icon>
-                <div>홈</div>
-            </Icon>
-            <Icon>
-                <div>홈</div>
-            </Icon>
-        </FixedNav>
-    );
+  return (
+    <FixedNav>
+      <Icon>
+        <div>홈</div>
+      </Icon>
+      <Icon>
+        <div>홈</div>
+      </Icon>
+      <Icon>
+        <div>홈</div>
+      </Icon>
+      <Icon>
+        <div>홈</div>
+      </Icon>
+      <Icon>
+        <div>홈</div>
+      </Icon>
+    </FixedNav>
+  );
 };
 
 const FixedNav = styled.div`
