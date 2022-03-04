@@ -1,135 +1,83 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { history } from '../../redux/configStore'
+import { actionCreators as commentActions } from '../../redux/modules/comment'
+import OneComment from './OneComment'
 
-import star from '../../image/star.png'
+import Button from '../../elements/Button'
 
-const CommentList = (props) => {
+import { useDispatch, useSelector } from 'react-redux'
+
+const CommentList = ({ debate }) => {
+  const boardId = debate.boardId;
+
+  const dispatch = useDispatch();
+
+  // 상위컴포넌트에서는 useEffect 말고 useSelector
+  const commentList = useSelector((state) => state.comment.commentList);
+
+  const [comment, setComment] = useState("");
+
+  const onChangeComment = (e) => {
+    setComment(e.target.value)
+  };
+
+  const token = document.cookie;
+  const tokenCheck = token.split("=")[1]
+  const addComment = () => {
+    if (!tokenCheck) {
+      alert("로그인 해주세요!")
+      history.replace('/login');
+    } else {
+      dispatch(commentActions.addCommentDB(boardId, comment))
+    }
+  }
 
   return (
     <>
-      <Wrap>
-        <FlexAlign>
-          <LevelImg src={star} />
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <UserName>차민재</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
-          </div>
-        </FlexAlign>
-      </Wrap>
-      <ContentWrap>
-        <Content>나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다</Content>
-        <IconBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">❤ 2</Number>
-          </div>
-        </IconBox>
-      </ContentWrap>
+        <CommentWriteContainer>
+          <ImgInput>
+            <input className='writebox'
+              placeholder="토론에 대한 댓글을 작성해주세요"
+              type="text"
+              value={comment}
+              onChange={onChangeComment}
+            ></input>
+          </ImgInput>
+          <Button onClick={addComment}>아이콘</Button>
+        </CommentWriteContainer>
 
-      <Wrap>
-        <FlexAlign>
-          <LevelImg src={star} />
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <UserName>차민재</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
-          </div>
-        </FlexAlign>
-      </Wrap>
-      <ContentWrap>
-        <Content>나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다</Content>
-        <IconBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">❤ 2</Number>
-          </div>
-        </IconBox>
-      </ContentWrap>
-
-      <Wrap>
-        <FlexAlign>
-          <LevelImg src={star} />
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <UserName>차민재</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
-          </div>
-        </FlexAlign>
-      </Wrap>
-      <ContentWrap>
-        <Content>나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다</Content>
-        <IconBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">❤ 2</Number>
-          </div>
-        </IconBox>
-      </ContentWrap>
-
-      <Wrap>
-        <FlexAlign>
-          <LevelImg src={star} />
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <UserName>차민재</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
-          </div>
-        </FlexAlign>
-      </Wrap>
-      <ContentWrap>
-        <Content>나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다</Content>
-        <IconBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">❤ 2</Number>
-          </div>
-        </IconBox>
-      </ContentWrap>
+      {commentList.map((c, idx) => {
+          return <OneComment {...c} key={idx} />
+        })}
     </>
   )
-}
+};
 
-const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid #e5e5e5;
-  border-top: 2px solid #e5e5e5;
-  padding: 10px 0px;
-`
-const FlexAlign = styled.div`
+const CommentWriteContainer = styled.div`
+  bottom: 0;
+  width: 100%;
+  padding: 8px;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
+  background: #fcfcfc;
 `
-const LevelImg = styled.img`
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-  margin:0 12px 0 20px ;
-`
-const UserName = styled.div`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
+const ImgInput = styled.div`
+  width: 100%;
   display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   align-items: center;
-`
-const CreatedAt = styled.div`
-  font-size: 8px;
-  font-weight: 300;
-`
-const ContentWrap = styled.div`
-  border-bottom: 10px solid #e5e5e5;
-  padding: 16px 20px;
-`
-const Content = styled.div`
-  font-size: 10px;
-  line-height: 16px;
-  display: flex;
-  align-items: center;
-  padding: 0 0 20px;
-`
-const IconBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-const Number = styled.p`
-  font-size: 10px;
-  font-weight: 300;
-  margin: 0 0 0 5px;
+  .writebox {
+    border: none;
+    font-size: 16px;
+    padding: 0 20px 0 0;
+    width: calc(100% - 50px);
+    &::placeholder {
+      color: gray
+    }
+  }
 `
 export default CommentList;

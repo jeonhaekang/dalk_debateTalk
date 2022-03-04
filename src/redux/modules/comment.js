@@ -8,17 +8,34 @@ const ADD_COMMENT = "ADD_COMMENT";
 const DEL_COMMENT = "DEL_COMMENT";
 
 //Action Creator
+const getComment = createAction(GET_COMMENTS, (data) => ({ data }))
 const addComment = createAction(ADD_COMMENT, (boardId, comment) => ({ boardId, comment }))
 const delComment = createAction(DEL_COMMENT, (boardId, commentId) => ({ boardId, commentId }))
 
 //initialState
 const initialState = {
-    comment_list: {},
+    //초기값 선언을 객체형이 아닌 배열로 선언해야함
+    commentList: [],
 }
 
 //MiddleWare
+const getCommentDB = (boardId) => {
+    return async function (dispatch, getState, { history }) {
+        await apis
+            .getComment(boardId)
+            .then((res) => {
+                console.log(res)
+                dispatch(getComment(res.data))
+            })
+            .catch((err) => {
+                console.log("댓글불러오기 에러", err)
+            })
+    }
+}
+
+
 const addCommentDB = (boardId, comment) => {
-    return asnyc function (dispatch, getState, { history }) {
+    return async function (dispatch, getState, { history }) {
         if (!boardId) {
             return;
         }
@@ -26,7 +43,7 @@ const addCommentDB = (boardId, comment) => {
             .addComment(boardId, comment)
             .then((res) => {
                 console.log(res);
-                history.replace(`/detail/${boardId}`)
+                // history.replace(`/detail/${boardId}`)
             })
             .catch((err) => {
                 console.log('댓글 작성 에러', err)
@@ -57,10 +74,12 @@ const delCommentDB = (boardId, commentId) => {
 export default handleActions(
     {
         [GET_COMMENTS]: (state, action) => produce(state, (draft) => {
-            draft.comment_list[action.payload.boardId] = action.payload.comment_list
+            // const boardId = action.payload.boardId;
+            // 게시글 안에서 코멘트를 불러오기 때문에 굳이 boardId ㄴㄴ
+            draft.commentList = action.payload.data;
         }),
         [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
-            draft.comment_list[action.payload.boardId].unshift(action.payload.comment)
+            draft.commentList[action.payload.boardId].unshift(action.payload.comment)
         }),
         [DEL_COMMENT]: (state, action) => produce(state, (draft) => {
             console.log(action)
@@ -73,6 +92,8 @@ export default handleActions(
 
 //Export Action Creator
 const actionCreators = {
+    getComment,
+    getCommentDB,
     addComment,
     addCommentDB,
     delComment,

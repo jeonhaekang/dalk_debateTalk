@@ -107,8 +107,8 @@ export default handleActions(
                 window.location.replace("/login")
             }),
         [SETUSER] : (state, action) =>
-            produce(state, (draft) => {
-                draft.user = action.payload.user;
+        produce(state, (draft) => {
+            draft.user = action.payload.user;
             })
     },
     initialState

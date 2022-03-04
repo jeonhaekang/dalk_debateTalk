@@ -16,7 +16,6 @@ const KakaoShareButton = (props) => {
   // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능
   const createKakaoButton = () => {
     if (window.Kakao) {
-      console.log("test");
       const kakao = window.Kakao;
       // 배포 URL 넣어야됨
       const debateTalkUrl = "http://localhost:3000";
