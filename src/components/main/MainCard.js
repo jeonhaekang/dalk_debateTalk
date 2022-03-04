@@ -5,7 +5,7 @@ import { history } from "../../redux/configStore";
 import Blind from "../shared/Blind";
 
 const MainCard = (props) => {
-  const { topicA, topicB, category, userInfo, createdAt, warnCnt } = props;
+  const { topicA, topicB, category, userInfo, warnCnt } = props;
 
   return (
     <CardWrap

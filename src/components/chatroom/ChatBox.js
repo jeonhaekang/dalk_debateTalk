@@ -1,5 +1,4 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import Chat from "./Chat";
@@ -7,7 +6,7 @@ import Chat from "./Chat";
 const ChatBox = (props) => {
   const { roomId, headers, client } = props;
   const scrollRef = React.useRef();
-  const [messageLog, setMessageLog] = React.useState([]);
+  const [messageLog, setMessageLog] = React.useState([]);  
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
@@ -24,10 +23,12 @@ const ChatBox = (props) => {
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
-    console.log(newMassage);
-    //dispatch(actionCreators.newMessage(newMassage));
-
-    setMessageLog((log) => [...log, newMassage]);
+    console.log("TYPE : ", newMassage.type);
+    if (newMassage.type === "item") {
+      console.log("item사용");
+    } else {
+      setMessageLog((log) => [...log, newMassage]);
+    }
   };
 
   React.useEffect(() => {

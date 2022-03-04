@@ -32,6 +32,9 @@ const apis = {
   //토론방 리스트 전체보기
   loadAllRoom: () => instance.get("/api/rooms"),
 
+  //토론방 정보 가져오기
+  getOneRoom: (roomId) => instance.get("/rooms/" + roomId),
+
   // ---------댓글 코멘트 관련------------
   // 댓글 조회
   getComment: (boardId) => instance.get(`/api/comments/${boardId}`),

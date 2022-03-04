@@ -32,7 +32,7 @@ const ChatRoom = (props) => {
         height="calc(100% - 50px)"
         border="1px solid blue"
       >
-        <RoomInfo />
+        <RoomInfo {...data} />
         <ChatBox {...data} />
         <Grid>아이템</Grid>
         <ChatInput {...data} />
