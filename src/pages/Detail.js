@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Grid from "../elements/Grid";
 import CommentList from "../components/detail/CommentList";
-import CommentWrite from "../components/detail/CommentWrite";
 import ShareLink from "../components/shared/ShareLink";
 
 import Header from "../shared/Header"
 import apis from "../shared/apis";
 
 const Detail = (props) => {
+  
   // 결과창 리스트에 있는 boardId 값 
-  const boardId = Number(props.match.params.boardId);
+  const boardId = props.match.params.boardId;
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState([]);
@@ -21,7 +21,6 @@ const Detail = (props) => {
     await apis
     .getOneDebate(boardId)
     .then((res) => {
-      console.log(res)
       setDebate(res.data);
       setCreatedAt(res.data.createdAt.split("T")[0])
     })
@@ -49,9 +48,12 @@ const Detail = (props) => {
             <Grid display="flex" justifyContent="center" margin="30px">
                 {debate.winner}
             </Grid>
+    {/* 공유하기 기능 */}
     <ShareLink />
-    <CommentWrite />
-    <CommentList />
+
+    {/* 댓글 전체 */}
+    {/* {debate.length > 0 && <CommentList debate={debate} /> } */}
+    {<CommentList debate={debate}  /> }
   </>
   )
 };

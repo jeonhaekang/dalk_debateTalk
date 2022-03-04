@@ -4,6 +4,20 @@ import Grid from "../../elements/Grid";
 import star from '../../image/star.png'
 
 const UserInfo = (props) => {
+
+  const object = {
+    a: 1,
+    b: 2
+  };
+  
+  const nextObject = {
+    ...object, // 객체를 스프레드문법을 이용해 분해하고 있다. 
+    b: 3
+  };
+
+  console.log(nextObject)
+
+
     return (
         <>
             <UserInfoCard>
