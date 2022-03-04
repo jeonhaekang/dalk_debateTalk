@@ -2,6 +2,9 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { setCookie, deleteCookie } from "../../shared/Cookie";
+import { replace } from "lodash";
+import axios from "axios";
+import { instance } from "../../shared/apis";
 
 //Action
 // const LOGIN = 'LOGIN'
@@ -32,19 +35,33 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
         }
         await apis.signup(user)
             .then(function (response) {
-                setCookie(response.headers.authorization, 7);
-
-                apis.check()
+                const _user = {
+                    username: user.username,
+                    password: user.password,
+                }
+                apis.login(_user)
                     .then((res) => {
-                        dispatch(setUser(res.data));
-                        history.replace("/");
+                        const token = res.headers.authorization;
+                        setCookie(res.headers.authorization, 7);
+                        // axios.get("http://54.180.8.233:8080/loginCheck",{headers:{
+                        //     authorization: token
+                        // }})
+                        instance.get("/loginCheck", {headers: {
+                            authorization: token
+                        }})
+                            .then((res) => {
+                                dispatch(setUser(res.data))
+                                history.replace('/');
+                            })
+                            .catch((err) => {
+                                console.log("로그인체크 에러", err)
+                        })
+                    }).catch((err) => {
+                        console.log("로그인 에러", err)
                     })
-                    .catch((err) => {
-                        console.log("err", err);
-                    });
             })
             .catch((err) => {
-                console.log(err)
+                console.log("회원가입 에러", err)
             })
     };
 };
