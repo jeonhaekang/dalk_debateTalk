@@ -1,8 +1,23 @@
 import React from "react";
 import Grid from "../../elements/Grid";
+import apis from "../../shared/apis";
 import CountDownTimer from "./CountDownTimer";
 
-const RoomInfo = () => {
+const RoomInfo = ({ roomId }) => {
+  const [roomData, setRoomData] = React.useState();
+
+  React.useEffect(() => {
+    apis
+      .getOneRoom(roomId)
+      .then((res) => {
+        console.log(res);
+        setRoomData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const restTime = 1200;
 
   return (

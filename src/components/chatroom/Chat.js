@@ -4,10 +4,17 @@ import Grid from "../../elements/Grid";
 import { useSelector } from "react-redux";
 
 const Chat = (props) => {
-  const { userInfo, message, bigFont } = props;
-  console.log("bigFont : ", bigFont);
+  const { userInfo, message, bigFont, type } = props;
 
   const user = useSelector((state) => state.user.user);
+  if (type === "ENTER") {
+    return <Alert>{message}</Alert>;
+  }
+
+  if (type === "ITEM") {
+    return <Alert style={{ backgroundColor: "pink" }}>{message}</Alert>;
+  }
+
   return (
     <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
       <Grid>{userInfo.nickname}</Grid>
@@ -15,6 +22,14 @@ const Chat = (props) => {
     </ChatBox>
   );
 };
+
+const Alert = styled.div`
+  align-self: center;
+  background-color: bisque;
+
+  padding: 5px 10px;
+  border-radius: 10px;
+`;
 
 const ChatBox = styled.div`
   ${(props) =>
