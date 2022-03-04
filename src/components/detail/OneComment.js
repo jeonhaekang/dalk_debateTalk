@@ -16,7 +16,7 @@ const OneComment = (props) => {
   //찬성 기능
   // const token = document.cookie;
   // const tokenCheck = token.split("=")[1]
-  // const handleClickLike = async (e) => {
+  // const handleClickAgree = async (e) => {
   //   e.preventDefault()
   //   e.stopPropagation()
   //   if (!tokenCheck) {
@@ -47,8 +47,14 @@ const OneComment = (props) => {
   // }
 
   //반대 기능
+  const handleClickDisagree = () => {
+
+  }
 
   //신고 기능
+  const handleClickWarning = () => {
+
+  }
 
   // 코멘트 삭제
   const delComment = () => {
@@ -71,8 +77,9 @@ const OneComment = (props) => {
         <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">찬성 {props.likeCnt}</Number>
-            <Number className="like-count">반대 {props.likeCnt}</Number>
+            <Number className="agree-count">찬성 {props.likeCnt}</Number>
+            <Number className="disagree-count">반대 {props.likeCnt}</Number>
+            <Number className="warning-count">신고</Number>
           </div>
             <button onClick={delComment}>삭제</button>
         </IconBox>
@@ -128,7 +135,7 @@ const IconBox = styled.div`
 const Number = styled.p`
   font-size: 10px;
   font-weight: 300;
-  margin: 0 0 0 5px;
+  margin: 0px 10px 0px 0px;
 `
 
 export default OneComment;

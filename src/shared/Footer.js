@@ -25,12 +25,13 @@ const Footer = (props) => {
 };
 
 const FixedNav = styled.div`
-  position: sticky;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
+  max-width: 420px;
   height: 60px;
-  padding: 25px 30px;
+  padding: 25px 28px;
   border-top: 2px solid #edeeef;
   background: #fff;
   display: flex;
