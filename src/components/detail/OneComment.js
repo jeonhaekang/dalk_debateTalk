@@ -8,11 +8,13 @@ import star from '../../image/star.png'
 import apis from '../../shared/apis'
 
 const OneComment = (props) => {
+  //삭제 기능을 위해
   const commentId = props.commentId
-  
   const user = useSelector((state) => state.user.user)
 
   const dispatch = useDispatch()
+
+  //찬성, 반대 기능을 위해
 
   //찬성 기능
   // const token = document.cookie;
