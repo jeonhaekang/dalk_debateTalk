@@ -17,14 +17,13 @@ const Detail = (props) => {
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
-  // const [createdAt, setCreatedAt] = useState("");
+  console.log(debate)
 
   // 상세 게시글의 Data 받아오기
   const getOneDebateDB = async () => {
     await apis
     .getOneDebate(boardId)
     .then((res) => {
-      console.log(res.data)
       setDebate(res.data);
       // setCreatedAt(res.data.createdAt.split("T")[0])
     })
@@ -37,7 +36,10 @@ const Detail = (props) => {
   useEffect(() => {
     //상세 게시글 DB불러오는 구문임
     getOneDebateDB()
-    //밑에 친구가 댓글 코멘트 불러오는 구문임
+  }, [])
+
+  useEffect(() => {
+    //댓글 코멘트 불러오는 구문임
     dispatch(commentActions.getCommentDB(boardId));
   }, [])
 

@@ -10,13 +10,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const CommentList = ({ debate }) => {
   const boardId = debate.boardId;
-  console.log(boardId)
 
   const dispatch = useDispatch();
 
   // 상위컴포넌트에서는 useEffect 말고 useSelector
   const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList);
 
   const [comment, setComment] = useState("");
 
@@ -32,7 +30,6 @@ const CommentList = ({ debate }) => {
       history.replace('/login');
     } else {
       dispatch(commentActions.addCommentDB(boardId, comment))
-      history.replace(`/detail/${boardId}`)
     }
   }
 

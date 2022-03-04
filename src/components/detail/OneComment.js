@@ -2,21 +2,58 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { actionCreators as commentActions } from '../../redux/modules/comment'
+import { history } from '../../redux/configStore'
 
 import star from '../../image/star.png'
+import apis from '../../shared/apis'
 
 const OneComment = (props) => {
+  const [isLiked, setIsLiked] = useState(props.isLike)
+  const [likeCnt, setLikeCnt] = useState(props.likeCnt)
 
   const dispatch = useDispatch()
 
-  //좋아요 기능
+  //찬성 기능
+  // const token = document.cookie;
+  // const tokenCheck = token.split("=")[1]
+  // const handleClickLike = async (e) => {
+  //   e.preventDefault()
+  //   e.stopPropagation()
+  //   if (!tokenCheck) {
+  //     alert("로그인을 해주세요!")
+  //     history.replace('/login')
+  //   }
+  //   if (isLiked) {
+  //     await apis
+  //       .likeComment(commentId)
+  //       .then((res) => {
+  //         setIsLiked(false)
+  //         setLikeCnt(likeCnt - 1)
+  //       })
+  //       .catch((err) => {
+  //         console.log('좋아요 취소 에러', err)
+  //       })
+  //   } else {
+  //     await apis
+  //       .likeComment(commentId)
+  //       .then((res) => {
+  //         setIsLiked(true)
+  //         setLikeCnt(likeCnt + 1)
+  //       })
+  //       .catch((err) => {
+  //         console.log('좋아요 에러', err)
+  //       })
+  //   }
+  // }
+
+  //반대 기능
 
   //신고 기능
 
-  //코멘트 삭제
-  // const delComment = () => {
-  //   dispatch(commentActions.delCommentDB(boardId, commentId))
-  // }
+  // 코멘트 삭제
+  const delComment = () => {
+    // dispatch(commentActions.delCommentDB(boardId, commentId))
+  }
 
   return (
 
@@ -25,17 +62,19 @@ const OneComment = (props) => {
         <FlexAlign>
           <LevelImg src={star} />
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <UserName>차민재</UserName>
+            <UserName>{props.userInfo.nickname}</UserName>
             <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
       </Wrap>
       <ContentWrap>
-        <Content>나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다 나는 댓글이다</Content>
+        <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="like-count">❤ 2</Number>
+            <Number className="like-count">찬성 {props.likeCnt}</Number>
+            <Number className="like-count">반대 {props.likeCnt}</Number>
           </div>
+            <button onClick={delComment}>삭제</button>
         </IconBox>
       </ContentWrap>
     </>
