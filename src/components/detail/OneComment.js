@@ -8,8 +8,8 @@ import star from '../../image/star.png'
 import apis from '../../shared/apis'
 
 const OneComment = (props) => {
-  const [isLiked, setIsLiked] = useState(props.isLike)
-  const [likeCnt, setLikeCnt] = useState(props.likeCnt)
+  const commentId = props.commentId
+  console.log(commentId)
 
   const dispatch = useDispatch()
 
@@ -57,8 +57,8 @@ const OneComment = (props) => {
   }
 
   // 코멘트 삭제
-  const delComment = () => {
-    // dispatch(commentActions.delCommentDB(boardId, commentId))
+  const deleteComment = () => {
+    dispatch(commentActions.delCommentDB(commentId));
   }
 
   return (
@@ -81,7 +81,7 @@ const OneComment = (props) => {
             <Number className="disagree-count">반대 {props.likeCnt}</Number>
             <Number className="warning-count">신고</Number>
           </div>
-            <button onClick={delComment}>삭제</button>
+            <button onClick={deleteComment}>삭제</button>
         </IconBox>
       </ContentWrap>
     </>

@@ -63,7 +63,6 @@ const logInDB = (username, password) => {
 
                 apis.check()
                     .then((res) => {
-                        console.log(res)
                         dispatch(setUser(res.data));
                         history.replace("/");
                     })
