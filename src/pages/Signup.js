@@ -80,10 +80,10 @@ const Signup = (props) => {
   //signDB redux에 자동으로 로그인되게 함
   const clickSignUp = () => {
     if (
-      username == "" ||
+      username === "" ||
       password === "" ||
       passwordCheck === "" ||
-      nickname == ""
+      nickname === ""
     ) {
       alert("빈칸을 다 채워주세요!");
       return;
@@ -98,8 +98,8 @@ const Signup = (props) => {
       <LogoImage>
         LOGO
       </LogoImage>
-      <Grid margin="0px 0px 40px 0px">
-        <Grid margin="40px 0px 0px 0px">
+      <Grid padding="0px 0px 40px 0px">
+        <Grid padding="40px 0px 0px 0px">
           <LoginInput
             defaultValue={username}
             onChange={onChangeUsername}
@@ -109,7 +109,7 @@ const Signup = (props) => {
             <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
           )}
         </Grid>
-        <Grid margin="10px 0px 0px 0px">
+        <Grid padding="10px 0px 0px 0px">
           <LoginInput
             defaultValue={nickname}
             onChange={onChangeNickname}
@@ -119,7 +119,7 @@ const Signup = (props) => {
             <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
           )}
         </Grid>
-        <Grid margin="30px 0px 0px 0px">
+        <Grid padding="30px 0px 0px 0px">
           <LoginInput
             type="password"
             defaultValue={password}
@@ -130,7 +130,7 @@ const Signup = (props) => {
             <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
           )}
         </Grid>
-        <Grid margin="10px 0px 0px 0px">
+        <Grid padding="10px 0px 0px 0px">
           <LoginInput
             type="password"
             defaultValue={passwordCheck}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Grid from "../elements/Grid";
+import Text from "../elements/Text";
 import CommentList from "../components/detail/CommentList";
 import ShareLink from "../components/shared/ShareLink";
 
-import Footer from "../shared/Footer";
 import Header from "../shared/Header";
 import apis from "../shared/apis";
 import { useDispatch } from "react-redux";
@@ -49,18 +49,19 @@ const Detail = (props) => {
       <Header />
       <Grid height="calc(100% - 110px)" overflow="scroll">
         <DetailCreatedAt>{debate.createdAt}</DetailCreatedAt>
-        <Grid display="flex" justifyContent="center" margin="30px">
-          <Grid display="flex" justifyContent="center" margin="30px">
+        <DebateWrap>
+          <DebateBox>
             {debate.topicA}
-          </Grid>
-          <Grid display="flex" justifyContent="center" margin="30px">
+            <text>11%</text>
+          </DebateBox>
+          <Versus>
+            VS
+          </Versus>
+          <DebateWinnerBox>
             {debate.topicB}
-          </Grid>
-        </Grid>
-        {/* 부모 승리 state 설정 : bollean 값에 따라 주제1 또는 주제 2 승리 위치변경  */}
-        <Grid display="flex" justifyContent="center" margin="30px">
-          {debate.winner}
-        </Grid>
+            <text>89%</text>
+          </DebateWinnerBox>
+        </DebateWrap>
         {/* 공유하기 기능 */}
         <ShareLink />
 
@@ -68,7 +69,6 @@ const Detail = (props) => {
         {/* {debate.length > 0 && <CommentList debate={debate} /> } */}
         {<CommentList debate={debate} />}
       </Grid>
-      <Footer />
     </>
   );
 };
@@ -76,9 +76,58 @@ const Detail = (props) => {
 const DetailCreatedAt = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: 10px;
+  margin: 10px 16px;
   font-size: 12px;
   color: gray;
 `;
+
+const DebateWrap = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+`
+
+const DebateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #E0E0E0;
+  font-size: 20px;
+  border: none;
+  border-radius: 15px;
+  width: 184px;
+  height: 232px;
+  margin: 0px 5px;
+`
+
+const Versus = styled.div`
+  position: absolute;
+  transform: translate(0px, 88px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #C4C4C4;
+  width: 55px;
+  height: 55px;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+`
+
+const DebateWinnerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #F6D629;
+  font-weight: bold;
+  font-size: 24px;
+  border: none;
+  border-radius: 15px;
+  width: 184px;
+  height: 232px;
+  margin: 0px 5px;
+`
 
 export default Detail;

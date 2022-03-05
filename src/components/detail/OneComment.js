@@ -61,7 +61,7 @@ const OneComment = (props) => {
 
   // 코멘트 삭제
   const deleteComment = () => {
-    if(window.confirm("정말 삭제하시겠어요?")){
+    if (window.confirm("정말 삭제하시겠어요?")) {
       dispatch(commentActions.delCommentDB(commentId));
     } else {
       return;
@@ -79,16 +79,18 @@ const OneComment = (props) => {
             <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
+          <AgreeBtn>
+            <Number className="agree-count">찬성 {props.likeCnt}</Number>
+            <Number className="disagree-count">반대 {props.likeCnt}</Number>
+          </AgreeBtn>
       </Wrap>
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="agree-count">찬성 {props.likeCnt}</Number>
-            <Number className="disagree-count">반대 {props.likeCnt}</Number>
             <Number className="warning-count">신고</Number>
           </div>
-            { user.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null }
+          {user.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null}
         </IconBox>
       </ContentWrap>
     </>
@@ -99,7 +101,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #e5e5e5;
-  border-top: 2px solid #e5e5e5;
+  border-top: 2px solid #fff;
   padding: 10px 0px;
 `
 const FlexAlign = styled.div`
@@ -124,11 +126,11 @@ const CreatedAt = styled.div`
   font-weight: 300;
 `
 const ContentWrap = styled.div`
-  border-bottom: 10px solid #e5e5e5;
+  border-bottom: 3px solid #fff;
   padding: 16px 20px;
 `
 const Content = styled.div`
-  font-size: 10px;
+  font-size: 12px;
   line-height: 16px;
   display: flex;
   align-items: center;
@@ -140,9 +142,16 @@ const IconBox = styled.div`
   justify-content: space-between;
 `
 const Number = styled.p`
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 300;
   margin: 0px 10px 0px 0px;
+`
+
+const AgreeBtn = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px 10px;
 `
 
 export default OneComment;

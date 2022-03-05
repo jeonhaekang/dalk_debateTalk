@@ -1,17 +1,16 @@
 import React from "react";
-import CustiomizeMe from "../components/mypage/CustomizeMe";
-import EggpointList from "../components/mypage/EggpointList"; 
+import ShopGachaAnnounce from "../components/mypage/ShopGachaAnnounce";
 import UserInfo from "../components/mypage/UserInfo";
-import ShareLink from "../components/shared/ShareLink";
 import Header from "../shared/Header"
+import Convenience from "../components/mypage/Convenience";
 
 const MyPage = (props) => {
   return (
     <>
       <Header />
       <UserInfo />
-      <EggpointList />
-      <CustiomizeMe />
+      <ShopGachaAnnounce />
+      <Convenience />
     </>
   )
 };
