@@ -48,6 +48,9 @@ const apis = {
   likeComment: (commentId) => instance.get(`/likes/${commentId}`),
   // 댓글 신고
   warningComment: (boardId) => instance.get(`/warnings/${boardId}`),
+
+  // ---------게시글 상세조회------------
+  getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
 };
 
 export default apis;
