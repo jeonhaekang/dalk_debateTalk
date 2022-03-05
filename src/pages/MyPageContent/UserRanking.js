@@ -1,9 +1,10 @@
 import React from "react";
+import Header from "../../shared/Header"
 
 const UserRanking = () => {
     return(
         <>
-        <div>랭킹</div>
+         <Header />
         </>
     )
 };
