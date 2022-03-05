@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
-import { actionCreators } from "../../redux/modules/chat";
+import { actionCreators } from "../../redux/modules/item";
 import Chat from "./Chat";
 
 const ChatBox = ({ roomId, headers, client }) => {
@@ -18,27 +17,41 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   const errorCallback = () => {
     // 연결 실패시 호출함수
-    alert("채팅방 연결에 실패하였습니다.");
-    history.replace("/");
+    // alert("채팅방 연결에 실패하였습니다.");
+    // history.replace("/");
   };
 
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
 
+    //메세지 추가
+    setMessageLog((log) => [...log, newMassage]);
+
+    if (newMassage.type === "ITEMTIMEOUT") {
+      // 아이템 시간 종료시
+      dispatch(actionCreators.clear());
+      return;
+    }
+
     if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
+      // 입장시, 아이템 사용시 사용자 지정
       const myName = newMassage.myName;
       const onlyMe = newMassage.onlyMe;
-      if (!myName && !onlyMe) {
-        // 아이템 사용자가 있으면 아이템 사용을 막음
-        dispatch(actionCreators.setItemState(true));
-      } else {
+
+      if (myName || onlyMe) {
+        // 아이템 종류에 따른 분기
+        dispatch(
+          actionCreators.setUser(
+            myName ? "myName" : "onlyMe",
+            myName ? myName : onlyMe
+          )
+        );
         dispatch(actionCreators.setItemState(false));
+        return;
       }
-    } else {
-    }
-    if (newMassage.type === "ENTER") {
-      setMessageLog((log) => [...log, newMassage]);
+      dispatch(actionCreators.clear());
+      return;
     }
   };
 
@@ -57,6 +70,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   return (
     <ShowChat>
       {messageLog.map((el, key) => {
+        console.log(el);
         return <Chat {...el} key={key} />;
       })}
       <div ref={scrollRef} />
@@ -65,8 +79,7 @@ const ChatBox = ({ roomId, headers, client }) => {
 };
 
 const ShowChat = styled.div`
-  border: 1px solid red;
-  height: 100%;
+  flex-grow: 1;
   overflow: scroll;
 
   display: flex;
@@ -74,6 +87,19 @@ const ShowChat = styled.div`
   gap: 15px;
 
   padding: 10px;
+
+  /* 스크롤바 표시 */
+  &::-webkit-scrollbar {
+    display: block;
+    width: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #c4c4c4;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    padding: 2px;
+  }
 `;
 
 ChatBox.defaultProps = {
