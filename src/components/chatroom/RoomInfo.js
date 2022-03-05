@@ -1,42 +1,30 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Grid from "../../elements/Grid";
-import { actionCreators } from "../../redux/modules/chat";
-import CountDownTimer from "./CountDownTimer";
+import ChatHeader from "./ChatHeader";
 
-const RoomInfo = ({ roomId }) => {
-  const dispatch = useDispatch();
+import GaugeTimer from "./GaugeTimer";
+
+const RoomInfo = ({ roomInfo }) => {
+  const [time, setTime] = React.useState(roomInfo.restTime);
+
+  // 시간 카운트 때 chatBox 와 chatInput의 렌더링을 막기위해 분리
+  const tick = () => {
+    if (time > 0) setTime(time - 1);
+  };
 
   React.useEffect(() => {
-    dispatch(actionCreators.getOneRoomDB(roomId));
-    // 방에 들어오면 데이터 업데이트
-    return () => {
-      dispatch(actionCreators.setCurrentRoom(null));
-      // 방에서 나갈 때 정보 초기화
-    };
-  }, []);
-
-  const roomInfo = useSelector((state) => state.chat.currentRoom);
+    if (time <= 0) {
+      return;
+    }
+    const timer = setInterval(() => tick(), 1000);
+    return () => clearInterval(timer);
+  });
 
   return (
-    <>
-      {roomInfo && (
-        <Grid>
-          <Grid display="flex" justifyContent="space-between">
-            <Grid>신고</Grid>
-            <Grid>삭제</Grid>
-          </Grid>
-          <Grid textAlign="center">
-            <CountDownTimer restTime={roomInfo.restTime} />
-          </Grid>
-          <Grid display="flex" justifyContent="space-around">
-            <Grid>{roomInfo.topicA}</Grid>
-            <Grid>vs</Grid>
-            <Grid>{roomInfo.topicB}</Grid>
-          </Grid>
-        </Grid>
-      )}
-    </>
+    <Grid flexShrink="0">
+      <GaugeTimer restTime={time} time={roomInfo.time} />
+      <ChatHeader {...roomInfo} restTime={time} />
+    </Grid>
   );
 };
 

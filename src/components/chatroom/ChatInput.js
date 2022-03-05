@@ -9,10 +9,19 @@ const ChatInput = (props) => {
   const { client, roomId, headers } = props;
   const [fontState, setFontState] = React.useState(false);
 
-  const itemState = useSelector((state) => state.chat.itemState);
-  console.log(itemState);
+  const itemState = useSelector((state) => state.item.itemState);
+  const onlyMe = useSelector((state) => state.item.onlyMe);
+  const user = useSelector((state) => state.user.user?.nickname);
+  console.log("nickname:", user);
+  console.log("itemState:", itemState);
+  console.log("onlyMe:", onlyMe);
+  
 
   const sendMessage = () => {
+    if (onlyMe && onlyMe !== user) {
+      console.log("나만 말하기 발동!!!");
+      return;
+    }
     if (!message.current.value) {
       return;
     }
@@ -38,6 +47,7 @@ const ChatInput = (props) => {
   const useItem = (e) => {
     if (!itemState) {
       alert("아이템을 사용할 수 없습니다.");
+      return;
     }
     const data = {
       type: "ITEM",
@@ -83,6 +93,7 @@ const ChatInput = (props) => {
 
 const InputWrap = styled.div`
   height: 100px;
+  flex-shrink: 0;
 `;
 
 export default ChatInput;

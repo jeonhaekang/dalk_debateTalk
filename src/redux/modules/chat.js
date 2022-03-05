@@ -1,4 +1,4 @@
-import { createAction, handleAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 
@@ -6,13 +6,11 @@ import apis from "../../shared/apis";
 const SET_ROOM = "SET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
-const SET_ITEM_STATE = "SET_ITEM_STATE";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (rooms) => ({ rooms }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
-const setItemState = createAction(SET_ITEM_STATE, (state) => ({ state }));
 
 //initialState
 const initialState = {
@@ -40,8 +38,6 @@ const loadAllRoomDB = () => {
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
-    console.log(data);
-
     apis
       .createRoom(data)
       .then((res) => {
@@ -88,11 +84,6 @@ export default handleActions(
         draft.currentRoom = action.payload.data;
         draft.itemState = false;
       }),
-    [SET_ITEM_STATE]: (state, action) =>
-      produce(state, (draft) => {
-        console.log("실행", action.payload.state);
-        draft.itemState = action.payload.state;
-      }),
   },
   initialState
 );
@@ -100,7 +91,6 @@ export default handleActions(
 //Export Action Creator
 const actionCreators = {
   setCurrentRoom,
-  setItemState,
   createRoomDB,
   loadAllRoomDB,
   getOneRoomDB,
