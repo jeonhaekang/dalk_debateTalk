@@ -1,39 +1,41 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Grid from "../../elements/Grid";
-import apis from "../../shared/apis";
+import { actionCreators } from "../../redux/modules/chat";
 import CountDownTimer from "./CountDownTimer";
 
 const RoomInfo = ({ roomId }) => {
-  const [roomData, setRoomData] = React.useState();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    apis
-      .getOneRoom(roomId)
-      .then((res) => {
-        console.log(res);
-        setRoomData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(actionCreators.getOneRoomDB(roomId));
+    // 방에 들어오면 데이터 업데이트
+    return () => {
+      dispatch(actionCreators.setCurrentRoom(null));
+      // 방에서 나갈 때 정보 초기화
+    };
   }, []);
 
-  const restTime = 1200;
+  const roomInfo = useSelector((state) => state.chat.currentRoom);
 
   return (
     <>
-      <Grid display="flex" justifyContent="space-between">
-        <Grid>신고</Grid>
-        <Grid>삭제</Grid>
-      </Grid>
-      <Grid textAlign="center">
-        <CountDownTimer restTime={restTime} />
-      </Grid>
-      <Grid display="flex" justifyContent="space-around">
-        <Grid>짜장면</Grid>
-        <Grid>vs</Grid>
-        <Grid>짬뽕</Grid>
-      </Grid>
+      {roomInfo && (
+        <Grid>
+          <Grid display="flex" justifyContent="space-between">
+            <Grid>신고</Grid>
+            <Grid>삭제</Grid>
+          </Grid>
+          <Grid textAlign="center">
+            <CountDownTimer restTime={roomInfo.restTime} />
+          </Grid>
+          <Grid display="flex" justifyContent="space-around">
+            <Grid>{roomInfo.topicA}</Grid>
+            <Grid>vs</Grid>
+            <Grid>{roomInfo.topicB}</Grid>
+          </Grid>
+        </Grid>
+      )}
     </>
   );
 };

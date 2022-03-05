@@ -8,7 +8,6 @@ import { getCookie } from "../shared/Cookie";
 import ChatBox from "../components/chatroom/ChatBox";
 import ChatInput from "../components/chatroom/ChatInput";
 import RoomInfo from "../components/chatroom/RoomInfo";
-import Footer from "../shared/Footer";
 
 const ChatRoom = (props) => {
   const sock = SockJS("http://13.124.244.126:8080/ws-stomp");
@@ -29,7 +28,7 @@ const ChatRoom = (props) => {
       <Grid
         display="flex"
         flexDirection="column"
-        height="calc(100% - 110px)"
+        height="calc(100% - 50px)"
         border="1px solid blue"
       >
         <RoomInfo {...data} />
@@ -37,7 +36,6 @@ const ChatRoom = (props) => {
         <Grid>아이템</Grid>
         <ChatInput {...data} />
       </Grid>
-      <Footer></Footer>
     </>
   );
 };

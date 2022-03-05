@@ -2,8 +2,8 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "http://54.180.8.233:8080",
-  //baseURL: "http://13.124.244.126:8080",
+  //baseURL: "http://54.180.8.233:8080",
+  baseURL: "http://13.124.244.126:8080",
 });
 
 instance.interceptors.request.use(function (config) {
