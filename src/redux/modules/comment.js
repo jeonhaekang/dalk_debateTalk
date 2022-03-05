@@ -10,7 +10,7 @@ const DEL_COMMENT = "DEL_COMMENT";
 //Action Creator
 const getComment = createAction(GET_COMMENTS, (data) => ({ data }))
 const addComment = createAction(ADD_COMMENT, (boardId, comment) => ({ boardId, comment }))
-const delComment = createAction(DEL_COMMENT, (boardId, commentId) => ({ boardId, commentId }))
+const delComment = createAction(DEL_COMMENT, (commentId) => ({ commentId }))
 
 //initialState
 const initialState = {
@@ -51,17 +51,14 @@ const addCommentDB = (boardId, comment) => {
     }
 }
 
-const delCommentDB = (boardId, commentId) => {
+const delCommentDB = (commentId) => {
     return async function (dispatch, getState, { history }) {
-        if (!boardId || commentId) {
-            return;
-        }
 
         await apis
             .deleteComment(commentId)
             .then((res) => {
-                dispatch(delComment(boardId, commentId));
-                history.replace(`/detail/${boardId}`);
+                console.log(res)
+                dispatch(delComment(commentId));
             })
             .catch((err) => {
                 console.log('댓글 삭제 에러', err)
@@ -82,7 +79,10 @@ export default handleActions(
             draft.commentList[action.payload.boardId].unshift(action.payload.comment)
         }),
         [DEL_COMMENT]: (state, action) => produce(state, (draft) => {
-            console.log(action)
+            const new_comment = draft.commentList.filter(
+                (c) => c.commentId !== action.payload.commentId
+              );
+              draft.commentList = new_comment;
         })
     },
     initialState

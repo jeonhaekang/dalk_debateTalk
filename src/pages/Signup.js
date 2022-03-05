@@ -95,83 +95,112 @@ const Signup = (props) => {
 
   return (
     <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
-      <Grid margin="30px 0px">
-        <Grid margin="30px 0px 0px 0px">
-          <Input
-            width="250px"
-            boxSizing="border-box"
+      <LogoImage>
+        LOGO
+      </LogoImage>
+      <Grid margin="0px 0px 40px 0px">
+        <Grid margin="40px 0px 0px 0px">
+          <LoginInput
             defaultValue={username}
             onChange={onChangeUsername}
-            placeholder={"아이디"}
-          ></Input>
+            placeholder={"아이디 입력"}
+          ></LoginInput>
           {username.length > 0 && !isUsername && (
             <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
           )}
         </Grid>
-        <Grid margin="30px 0px 0px 0px">
-          <Input
-            width="250px"
-            boxSizing="border-box"
+        <Grid margin="10px 0px 0px 0px">
+          <LoginInput
             defaultValue={nickname}
             onChange={onChangeNickname}
-            placeholder={"닉네임"}
-          ></Input>
+            placeholder={"닉네임 입력"}
+          ></LoginInput>
           {nickname.length > 0 && !isNickname && (
             <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
           )}
         </Grid>
         <Grid margin="30px 0px 0px 0px">
-          <Input
-            width="250px"
-            boxSizing="border-box"
+          <LoginInput
             type="password"
             defaultValue={password}
             onChange={onChangePassword}
-            placeholder={"비밀번호"}
-          ></Input>
+            placeholder={"패스워드 입력"}
+          ></LoginInput>
           {password.length > 0 && !isPassword && (
             <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
           )}
         </Grid>
-        <Grid margin="30px 0px 0px 0px">
-          <Input
-            width="250px"
-            boxSizing="border-box"
+        <Grid margin="10px 0px 0px 0px">
+          <LoginInput
             type="password"
             defaultValue={passwordCheck}
             onChange={onChangePasswordCheck}
-            placeholder={"비밀번호 확인"}
-          ></Input>
+            placeholder={"패스워드 확인"}
+          ></LoginInput>
           {passwordCheck.length > 0 && !isPasswordCheck && (
             <Validation>비밀번호가 다릅니다.</Validation>
           )}
         </Grid>
       </Grid>
       <Grid>
-        <Button
-          cursor="pointer"
-          onClick={clickSignUp}
-          height="40px"
-          width="140px"
-        >회원가입 완료</Button>
+        <Grid>
+          <Text>이미 계정이 있으신가요?</Text>
+          <Text color="#A64BF5" cursor="pointer"
+            onClick={() => {
+              history.push("/login");
+            }}
+          >
+            로그인
+          </Text>
+        </Grid>
       </Grid>
-      <Grid margin="30px 0px 0px 0px">
-        <Text>이미 계정이 있으신가요?</Text>
-        <Text color="#A64BF5" cursor="pointer"
-          onClick={() => {
-            history.push("/login");
-          }}
-        >
-          로그인
-        </Text>
-      </Grid>
+      <SignupBox onClick={clickSignUp}>회원가입</SignupBox>
     </Grid>
   );
 };
 
+const LogoImage = styled.div`
+  display: flex;
+  width: 196px;
+  height: 74px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 32px;
+  justify-content: center;
+  align-items: center;
+  background-color: #CFCFCF;
+`
+
+const LoginInput = styled.input`
+  width: 396px;
+  height: 60px;
+  boxSizing: border-box;
+  border: 1px solid #9E9E9E;
+  padding: 10px;
+  ::placeholder {
+    color: #CACACA;
+    font-size: 16px;
+  }
+`
+
 const Validation = styled.p`
-    margin-top: 5px;
-    font-size: 5px;
-`;
+  margin-top: 5px;
+  font-size: 5px;
+`
+const SignupBox = styled.div`
+  display: flex;
+  background-color: #CFCFCF;
+  width: 420px;
+  border: none;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 74px;
+  font-size: 24px;
+`
 
 export default Signup;

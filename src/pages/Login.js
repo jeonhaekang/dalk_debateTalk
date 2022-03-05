@@ -66,16 +66,17 @@ const Login = (props) => {
   return (
     <Grid>
       <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+        <LogoImage>
+          LOGO
+        </LogoImage>
         <Grid margin="30px 0px">
-          <Input
-          width="250px"
-            boxSizing="border-box"
+          <LoginInput
             type="text"
-            placeholder={"아이디를 입력하세요"}
+            placeholder={"아이디 입력"}
             onKeyDown={handleKeyDown}
             onChange={onChangeUsername}
           >
-          </Input>
+          </LoginInput>
           {username.length > 0 && !isUsername && (
             <Validation>
               올바른 아이디 형식을 입력해주세요.
@@ -83,15 +84,13 @@ const Login = (props) => {
           )}
         </Grid>
         <Grid margin="0px 0px 30px 0px">
-          <Input
-            width="250px"
-            boxSizing="border-box"
+          <LoginInput
             type="password"
-            placeholder={"비밀번호를 입력하세요"}
+            placeholder={"패스워드 입력"}
             onKeyDown={handleKeyDown}
             onChange={onChangePassword}
           >
-          </Input>
+          </LoginInput>
           {password.length > 0 && !isPassword && (
             <Validation>
               8자 이상의 영문/숫자 조합을 입력해주세요.
@@ -99,13 +98,10 @@ const Login = (props) => {
           )}
         </Grid>
 
-        <Button 
-          cursor="pointer"
+        <LoginBtn
           onClick={handleLogin}
-          height="40px"
-          width="140px"
-        >로그인하기
-        </Button>
+        >로그인
+        </LoginBtn>
 
         <Grid margin="30px 0px">
           <Text>DALK 회원이 아니신가요?</Text>
@@ -122,9 +118,44 @@ const Login = (props) => {
   )
 };
 
+const LogoImage = styled.div`
+  display: flex;
+  width: 196px;
+  height: 74px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 32px;
+  justify-content: center;
+  align-items: center;
+  background-color: #CFCFCF;
+`
+
+const LoginInput = styled.input`
+  width: 396px;
+  height: 60px;
+  boxSizing: border-box;
+  border: 1px solid #9E9E9E;
+  padding: 10px;
+  ::placeholder {
+    color: #CACACA;
+    font-size: 16px;
+  }
+`
+
 const Validation = styled.p`
     margin-top: 5px;
     font-size: 6px;
 `;
+
+const LoginBtn = styled.button`
+    background-color : #CFCFCF;
+    border: none;
+    color: #fff;
+    width: 396px;
+    height: 74px;
+    font-size: 24px;
+    cursor: pointer;
+`
 
 export default Login;
