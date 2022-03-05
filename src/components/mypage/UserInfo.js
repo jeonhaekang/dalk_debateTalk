@@ -5,19 +5,6 @@ import star from '../../image/star.png'
 
 const UserInfo = (props) => {
 
-  const object = {
-    a: 1,
-    b: 2
-  };
-  
-  const nextObject = {
-    ...object, // 객체를 스프레드문법을 이용해 분해하고 있다. 
-    b: 3
-  };
-
-  console.log(nextObject)
-
-
     return (
         <>
             <UserInfoCard>
@@ -30,14 +17,17 @@ const UserInfo = (props) => {
                     </Grade>
                 </MypageUser>
             </UserInfoCard>
-            <MyEggPoint> 보유 알포인트 2,564</MyEggPoint>
+            <MyEggPoint>
+              <div>보유 알포인트 2,564</div>
+              <div> > </div>
+            </MyEggPoint>
         </>
     )
 };
 
 const UserInfoCard = styled.div`
   display: flex;
-  padding: 20px 0px 0px 0px;
+  padding: 30px 0px 0px 0px;
 `
 
 const LevelImg = styled.img`
@@ -74,7 +64,6 @@ const GradeInfo = styled.div`
   padding-top: 8px;
   padding-right: 12px;
   color: #CFCFCF;
-
 `
 
 const MyLevel = styled.div`
@@ -87,6 +76,7 @@ const MyEggPoint = styled.div`
   font-size: 20px;
   color: #686868;
   display: flex;
+  justify-content: space-between;
   margin: 20px 0px;
   padding: 18px 20px;
   border-top: 1px solid #C4C4C4;

@@ -5,52 +5,52 @@ import Grid from "../../elements/Grid";
 
 const ShopGachaAnnounce = (props) => {
     return (
-        <Grid margin="20px">
-            <ChangeEggPoint>나의 알포인트 변동여부</ChangeEggPoint>
+        <Wrap>
+            <Content>
+                <ContentImage></ContentImage>
+                <ContentTitle>알포인트 상점</ContentTitle>
+            </Content>
 
-            <UserEggpoint>
-                <div>날짜</div>
-                <div>알포인트 변동</div>
-                <div style={{ margin: "0px 0px 0px 20px" }}>내역</div>
-            </UserEggpoint>
+            <Content>
+                <ContentImage></ContentImage>
+                <ContentTitle>행운뽑기</ContentTitle>
+            </Content>
 
-            <CheckEggpoint>
-                <div style={{ margin: "0px 0px 0px 25px" }}>2022-03-01</div>
-                <div style={{ margin: "0px 0px 0px 50px" }}>+ 200</div>
-                <div style={{ margin: "0px 0px 0px 84px" }}>토론 승리</div>
-            </CheckEggpoint>
-
-            <CheckEggpoint>
-                <div style={{ margin: "0px 0px 0px 25px" }}>2022-03-01</div>
-                <div style={{ margin: "0px 0px 0px 50px" }}>+ 200</div>
-                <div style={{ margin: "0px 0px 0px 84px" }}>댓글 작성</div>
-            </CheckEggpoint>
-
-        </Grid>
+            <Content>
+                <ContentImage></ContentImage>
+                <ContentTitle>공지사항</ContentTitle>
+            </Content>
+        </Wrap>
     )
 };
 
-const ChangeEggPoint = styled.div`
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    padding: 10px;
-`
-
-const UserEggpoint = styled.div`
+const Wrap = styled.div`
     display: flex;
     justify-content: space-evenly;
-    border-bottom: 1px solid #d7a6b7;
-    border-top: 1px solid #d7a6b7;
-    padding: 10px 0px;
+    padding: 30px 20px;
 `
 
-const CheckEggpoint = styled.div`
+const Content = styled.div`
     display: flex;
-    padding: 10px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 `
+
+const ContentImage = styled.div`
+    width: 90px;
+    height: 90px;
+    background-color: #CFCFCF;
+    border: none;
+    border-radius: 100%;
+`
+
+const ContentTitle = styled.div`
+    padding-top: 10px;
+    color : #686868;
+`
+
 
 
 export default ShopGachaAnnounce;
