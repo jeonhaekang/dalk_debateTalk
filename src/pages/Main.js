@@ -41,7 +41,6 @@ const Main = (props) => {
             gap="10px"
           >
             {roomList.map((el, key) => {
-              console.log(el);
               return <MainCard key={el.roomId} {...el} />;
             })}
             {/* <MainCard warnCnt="10" /> */}

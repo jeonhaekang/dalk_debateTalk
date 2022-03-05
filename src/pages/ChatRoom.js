@@ -28,7 +28,6 @@ const ChatRoom = (props) => {
       <Grid
         display="flex"
         flexDirection="column"
-        gap="20px"
         height="calc(100% - 50px)"
         border="1px solid blue"
       >

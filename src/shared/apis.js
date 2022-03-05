@@ -2,7 +2,8 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "http://54.180.8.233:8080",
+  //baseURL: "http://54.180.8.233:8080",
+  baseURL: "http://13.124.244.126:8080",
 });
 
 instance.interceptors.request.use(function (config) {
@@ -34,9 +35,6 @@ const apis = {
 
   //토론방 정보 가져오기
   getOneRoom: (roomId) => instance.get("/rooms/" + roomId),
-
-  // ---------게시글 상세조회------------
-  getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회

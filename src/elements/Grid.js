@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 const Grid = ({
   children,
   display,
@@ -8,6 +10,7 @@ const Grid = ({
   alignItems,
   width,
   height,
+  type,
   ...props
 }) => {
   return (

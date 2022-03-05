@@ -1,13 +1,14 @@
-
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import { actionCreators } from "../../redux/modules/chat";
 import Chat from "./Chat";
 
-const ChatBox = (props) => {
-  const { roomId, headers, client } = props;
+const ChatBox = ({ roomId, headers, client }) => {
+  const dispatch = useDispatch();
   const scrollRef = React.useRef();
-  const [messageLog, setMessageLog] = React.useState([]);  
+  const [messageLog, setMessageLog] = React.useState([]);
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
@@ -24,10 +25,19 @@ const ChatBox = (props) => {
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
-    console.log("TYPE : ", newMassage.type);
-    if (newMassage.type === "item") {
-      console.log("item사용");
+
+    if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
+      const myName = newMassage.myName;
+      const onlyMe = newMassage.onlyMe;
+      if (!myName && !onlyMe) {
+        // 아이템 사용자가 있으면 아이템 사용을 막음
+        dispatch(actionCreators.setItemState(true));
+      } else {
+        dispatch(actionCreators.setItemState(false));
+      }
     } else {
+    }
+    if (newMassage.type === "ENTER") {
       setMessageLog((log) => [...log, newMassage]);
     }
   };
