@@ -1,9 +1,11 @@
 import React from "react";
+import Header from "../../shared/Header";
 
 const Announcement = () => {
     return(
         <>
-        <div>공지사항</div>
+            <Header />
+            
         </>
     )
 };

@@ -62,7 +62,7 @@ function App() {
             <Route path="/mypage" exact component={MyPage} />
             <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
             <Route path="/mypage/grade" exact component={MyGrade} />
-            <Route path="/annoncement" exact component={Announcement} />
+            <Route path="/announcement" exact component={Announcement} />
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
