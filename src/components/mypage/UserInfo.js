@@ -23,51 +23,74 @@ const UserInfo = (props) => {
             <UserInfoCard>
                 <LevelImg src={star} />
                 <MypageUser>
-                    <MyUserName>cmjj0824</MyUserName>
-                    <MyLevel>LV 1</MyLevel>
+                    <MyUserName>닉네임</MyUserName>
+                    <Grade>
+                      <MyLevel>브론즈 1</MyLevel>
+                      <GradeInfo>등급 더보기</GradeInfo>
+                    </Grade>
                 </MypageUser>
             </UserInfoCard>
-            <MyEggPoint> 보유 알포인트 0 ©</MyEggPoint>
+            <MyEggPoint> 보유 알포인트 2,564</MyEggPoint>
         </>
     )
 };
 
 const UserInfoCard = styled.div`
   display: flex;
-  margin: 30px 0px 30px 70px;
+  padding: 20px 0px 0px 0px;
 `
 
 const LevelImg = styled.img`
   width: 100px;
   height: 100px;
   object-fit: cover;
-  margin:0 12px 0 20px ;
+  margin:0px 12px 0px 20px ;
 `
 
 const MypageUser = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px;
+  width: 300px;
 
 `
 
 const MyUserName = styled.div`
   font-size: 24px;
   font-weight: bold;
+  padding-bottom: 6px;
+  border-bottom: 3px solid #C4C4C4;
+  color: #CFCFCF;
+  
 ` 
 
+const Grade = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const GradeInfo = styled.div`
+  font-size: 16px;
+  padding-top: 8px;
+  padding-right: 12px;
+  color: #CFCFCF;
+
+`
+
 const MyLevel = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 5px;
+  color: #CFCFCF;
+  font-size: 20px;
+  padding-top: 5px;
 `
 
 const MyEggPoint = styled.div`
   font-size: 20px;
-  font-weight: bold;
+  color: #686868;
   display: flex;
-  justify-content: center;
+  margin: 20px 0px;
+  padding: 18px 20px;
+  border-top: 1px solid #C4C4C4;
+  border-bottom: 1px solid #C4C4C4;
   
 `
 
