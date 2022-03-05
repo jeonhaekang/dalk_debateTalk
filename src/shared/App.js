@@ -15,6 +15,10 @@ import {
   PostList,
   Signup,
 } from "../pages/Index";
+import Announcement from "../pages/MyPageContent/Announcement";
+import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
+import MyGrade from "../pages/MyPageContent/MyGrade";
+import UserRanking from "../pages/MyPageContent/UserRanking";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,6 +60,10 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/mypage" exact component={MyPage} />
+            <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
+            <Route path="/mypage/grade" exact component={MyGrade} />
+            <Route path="/annoncement" exact component={Announcement} />
+            <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
             <Route path="/detail/:boardId" exact component={Detail} />

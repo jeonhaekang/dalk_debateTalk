@@ -75,7 +75,7 @@ const ImgInput = styled.div`
     border: none;
     font-size: 16px;
     padding: 0 20px 0 0;
-    width: calc(100% - 50px);
+    width: calc(100% - 30px);
     &::placeholder {
       color: gray
     }

@@ -12,7 +12,6 @@ const MyPage = (props) => {
       <UserInfo />
       <ShopGachaAnnounce />
       <Convenience />
-      <Footer />
     </>
   )
 };
