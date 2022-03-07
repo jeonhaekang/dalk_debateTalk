@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { history } from '../../redux/configStore'
 import styled from "styled-components";
 import star from '../../image/star.png'
 
@@ -17,13 +18,13 @@ const UserInfo = (props) => {
                     <MyUserName>{user?.nickname}</MyUserName>
                     <Grade>
                       <MyLevel>브론즈</MyLevel>
-                      <GradeInfo>등급 더보기</GradeInfo>
+                      <GradeInfo onClick={() => {history.push('/mypage/grade')}}>등급 더보기</GradeInfo>
                     </Grade>
                 </MypageUser>
             </UserInfoCard>
             <MyEggPoint>
               <div>보유 알포인트 {user?.point}</div>
-              <div> > </div>
+              <div onClick={() => {history.push('/mypage/eggpoint')}}> > </div>
             </MyEggPoint>
         </>
     )
@@ -31,7 +32,7 @@ const UserInfo = (props) => {
 
 const UserInfoCard = styled.div`
   display: flex;
-  padding: 30px 0px 0px 0px;
+  padding-top: 20px;
 `
 
 const LevelImg = styled.img`
@@ -68,6 +69,7 @@ const GradeInfo = styled.div`
   padding-top: 8px;
   padding-right: 12px;
   color: #CFCFCF;
+  cursor: pointer;
 `
 
 const MyLevel = styled.div`
@@ -85,7 +87,7 @@ const MyEggPoint = styled.div`
   padding: 18px 20px;
   border-top: 1px solid #C4C4C4;
   border-bottom: 1px solid #C4C4C4;
-  
+  cursor: pointer;
 `
 
 export default UserInfo;

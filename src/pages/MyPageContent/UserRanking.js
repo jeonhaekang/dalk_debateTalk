@@ -107,7 +107,7 @@ const TopThree = styled.div`
     display: flex;
     border-bottom: 1px solid #C4C4C4;
     justify-content: center;
-    padding-top: 50px;
+    // padding-top: 50px;
 `
 
 const First = styled.div`

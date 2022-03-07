@@ -6,11 +6,13 @@ import Grid from "../../elements/Grid";
 import Header from "../../shared/Header";
 
 const MyEggPoint = () => {
+
+    
     return (
         <>
             <Header />
             <CurrentEggPoint>현재 알포인트는 <br />
-                총 2,855 입니다</CurrentEggPoint>
+                총 <span className="Mypoint">2,855</span> RP 입니다</CurrentEggPoint>
 
             <Grid padding="0px 0px 0px 10px">
                 <UserEggpoint>
@@ -49,12 +51,15 @@ const MyEggPoint = () => {
 };
 
 const CurrentEggPoint = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     text-align: center;
-    margin: 80px;
     font-size: 24px;
+    padding: 70px;
+    .Mypoint{
+        color: #E9C718;
+    }
 `
 
 
