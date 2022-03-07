@@ -13,8 +13,8 @@ const CommentList = ({ debate }) => {
 
   const dispatch = useDispatch();
 
-  // 상위컴포넌트에서는 useEffect 말고 useSelector
   const commentList = useSelector((state) => state.comment.commentList);
+  console.log(commentList)
 
   const [comment, setComment] = useState("");
 

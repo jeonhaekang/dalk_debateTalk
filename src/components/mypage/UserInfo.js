@@ -1,24 +1,28 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Grid from "../../elements/Grid";
 import star from '../../image/star.png'
 
 const UserInfo = (props) => {
+    const dispatch = useDispatch()
+
+    const user = useSelector(state => state.user.user)
+    console.log(user)
 
     return (
         <>
             <UserInfoCard>
                 <LevelImg src={star} />
                 <MypageUser>
-                    <MyUserName>닉네임</MyUserName>
+                    <MyUserName>{user?.nickname}</MyUserName>
                     <Grade>
-                      <MyLevel>브론즈 1</MyLevel>
+                      <MyLevel>브론즈</MyLevel>
                       <GradeInfo>등급 더보기</GradeInfo>
                     </Grade>
                 </MypageUser>
             </UserInfoCard>
             <MyEggPoint>
-              <div>보유 알포인트 2,564</div>
+              <div>보유 알포인트 {user?.point}</div>
               <div> > </div>
             </MyEggPoint>
         </>

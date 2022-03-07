@@ -43,7 +43,9 @@ const addCommentDB = (boardId, comment) => {
             .addComment(boardId, comment)
             .then((res) => {
                 console.log(res);
-                // history.replace(`/detail/${boardId}`)
+                dispatch(getCommentDB(boardId))
+                .then(console.log("댓글 로딩 완료"))
+                .catch(console.log("댓글 로딩 실패"))
             })
             .catch((err) => {
                 console.log('댓글 작성 에러', err)
