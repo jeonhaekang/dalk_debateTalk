@@ -13,7 +13,7 @@ const PointShop = () => {
 
     const onlyme = {
         name : "나만 말하기",
-        rp: 500,
+        rp: 1000,
         content: "나만 말하는 아이템 입니다. 진짜 나만 말해요."
     }
 
@@ -64,7 +64,7 @@ const PointShop = () => {
         <>
             <Header />
             <MyEggPoint>
-                <div>보유 알포인트 {user?.point}</div>
+                <div>보유 알포인트 {user?.point} RP</div>
             </MyEggPoint>
 
             <ItemWrap>
@@ -143,6 +143,10 @@ const PurchaseBtn = styled.button`
     background-color: #CFCFCF;
     font-size: 16px;
     color: #686868;
+    cursor: pointer;
+    :hover {
+        color: #fff;
+    }
 `
 
 const ItemExplain = styled.div`
@@ -166,6 +170,9 @@ const SelectImage = styled.div`
     border-radius: 30px;
     cursor: pointer;
     box-shadow: 2px 4px 0 rgb(0,0,0,0.5);
+    :hover {
+        background-color: #C4C4C4;
+    }
     :active {
         box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
         position: relative;

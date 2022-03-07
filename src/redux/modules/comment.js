@@ -45,7 +45,6 @@ const addCommentDB = (boardId, comment) => {
                 console.log(res);
                 dispatch(getCommentDB(boardId))
                 .then(console.log("댓글 로딩 완료"))
-                .catch(console.log("댓글 로딩 실패"))
             })
             .catch((err) => {
                 console.log('댓글 작성 에러', err)

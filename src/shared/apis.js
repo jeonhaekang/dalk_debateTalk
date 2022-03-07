@@ -2,8 +2,8 @@ import axios from "axios";
 import { getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "http://3.35.175.99:8080",
-  // baseURL: "http://13.124.244.126:8080",
+  // baseURL: "http://3.35.175.99:8080",
+  baseURL: "http://13.124.244.126:8080",
 });
 
 instance.interceptors.request.use(function (config) {
@@ -49,10 +49,13 @@ const apis = {
   // 댓글 반대
   disagreeComment: (commentId) => instance.get(`/disagree/${commentId}`),
   // 댓글 신고
-  warningComment: (commentId) => instance.get(`/warnings/${commentId}`),
+  warningComment: (commentId) => instance.get(`/warnings/comments/${commentId}`),
 
   // ---------게시글 상세조회------------
   getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
+
+  // ---------게시글 결과조회------------
+  getDebate: () => instance.get(`/api/boards`),
 };
 
 export default apis;
