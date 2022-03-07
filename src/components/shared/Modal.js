@@ -14,7 +14,7 @@ const Modal = (props) => {
       setTimeout(() => {
         setAniState(false);
         setModalState(false);
-      }, 400);
+      }, 200);
     }
   };
 
@@ -66,7 +66,7 @@ const ModalLayout = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.4s;
+  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
   z-index: 999;
 `;
 
@@ -101,12 +101,13 @@ const HambergerContents = styled.div`
 const CreateContents = styled.div`
   position: absolute;
   width: 80%;
-  height: 70%;
+
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 
-  background-color: white;
+  border-radius: 15px;
+  background-color: #f1f1f1;
 `;
 
 export default Modal;

@@ -54,9 +54,11 @@ const Header = (props) => {
           alignItems="center"
           height="100%"
         >
-          <div>
-            <IoChevronBackOutline />
-          </div>
+          {page !== "메인" && (
+            <div>
+              <IoChevronBackOutline />
+            </div>
+          )}
           {report && (
             <div>
               <AiFillAlert />
@@ -80,9 +82,6 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {};
-const BackButton = styled.div`
-  font-size: 26px;
-`;
 
 const HeaderContainer = styled.div`
   width: 100%;

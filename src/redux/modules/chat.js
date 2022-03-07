@@ -26,7 +26,6 @@ const loadAllRoomDB = () => {
     apis
       .loadAllRoom()
       .then((res) => {
-        console.log(res.data);
         dispatch(setRoom(res.data));
       })
       .catch((err) => {
@@ -39,7 +38,7 @@ const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
     apis
-      .createRoom(data)
+      .createRoom({ ...data, content: "", category: "test" })
       .then((res) => {
         const user = getState().user.user;
         console.log(res);

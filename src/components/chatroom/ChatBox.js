@@ -1,8 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators } from "../../redux/modules/item";
 import Chat from "./Chat";
+import { history } from "../../redux/configStore";
 
 const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
@@ -11,20 +12,19 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
-    client.subscribe(`/sub/chat/rooms/${roomId}`, subCallback, headers);
+    client.subscribe(`/sub/api/chat/rooms/${roomId}`, subCallback, headers);
   };
   // subscribe("url", callback, headers)
 
   const errorCallback = () => {
     // 연결 실패시 호출함수
-    // alert("채팅방 연결에 실패하였습니다.");
-    // history.replace("/");
+    alert("채팅방 연결에 실패하였습니다.");
+    history.replace("/");
   };
 
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
-
     //메세지 추가
     setMessageLog((log) => [...log, newMassage]);
 
@@ -35,13 +35,11 @@ const ChatBox = ({ roomId, headers, client }) => {
     }
 
     if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
-      console.log(newMassage.type);
       // 입장시, 아이템 사용시 사용자 지정
       const myName = newMassage.myName;
       const onlyMe = newMassage.onlyMe;
 
       if (myName || onlyMe) {
-        console.log("진입");
         // 아이템 종류에 따른 분기
         dispatch(
           actionCreators.setUser(
