@@ -12,10 +12,6 @@ const ChatInput = (props) => {
   const itemState = useSelector((state) => state.item.itemState);
   const onlyMe = useSelector((state) => state.item.onlyMe);
   const user = useSelector((state) => state.user.user?.nickname);
-  console.log("nickname:", user);
-  console.log("itemState:", itemState);
-  console.log("onlyMe:", onlyMe);
-  
 
   const sendMessage = () => {
     if (onlyMe && onlyMe !== user) {
