@@ -35,26 +35,27 @@ const CommentList = ({ debate }) => {
 
   return (
     <>
-        <CommentWriteContainer>
-          <ImgInput>
-            <input className='writebox'
-              placeholder="토론에 대한 댓글을 작성해주세요"
-              type="text"
-              value={comment}
-              onChange={onChangeComment}
-            ></input>
-          </ImgInput>
-          <Button onClick={addComment}>아이콘</Button>
-        </CommentWriteContainer>
-
       {commentList.map((c, idx) => {
-          return <OneComment {...c} key={idx} boardId={boardId}/>
-        })}
+        return <OneComment {...c} key={idx} boardId={boardId} />
+      })}
+
+      <CommentWriteContainer>
+        <ImgInput>
+          <input className='writebox'
+            placeholder="이 토론에 대한 의견을 작성해주세요"
+            type="text"
+            value={comment}
+            onChange={onChangeComment}
+          ></input>
+        </ImgInput>
+        <Button onClick={addComment}>아이콘</Button>
+      </CommentWriteContainer>
     </>
   )
 };
 
 const CommentWriteContainer = styled.div`
+  position: absolute;
   bottom: 0;
   width: 100%;
   padding: 8px;
@@ -74,7 +75,7 @@ const ImgInput = styled.div`
     border: none;
     font-size: 16px;
     padding: 0 20px 0 0;
-    width: calc(100% - 50px);
+    width: calc(100% - 30px);
     &::placeholder {
       color: gray
     }

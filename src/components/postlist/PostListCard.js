@@ -7,7 +7,7 @@ const PostListCard = () => {
 
   return (
     <>
-      <Container onClick={() => history.push('/detail')}>
+      <Container onClick={() => history.push('/detail/${boardId}')}>
         <DebateTitle>토론 주제</DebateTitle>
         <DebateSummary>토론 결과</DebateSummary>
         <Grid height="fit-content">
@@ -22,35 +22,6 @@ const PostListCard = () => {
         </Grid>
       </Container>
 
-      <Container onClick={() => history.push('/detail')}>
-        <DebateTitle>토론 주제</DebateTitle>
-        <DebateSummary>토론 결과</DebateSummary>
-        <Grid height="fit-content">
-          <Grid>
-            <DebateFirstWriter>토론 연 사람</DebateFirstWriter>
-            <DebateCreateAt>토론날짜</DebateCreateAt>
-          </Grid>
-          <Grid display="flex" margin="5px 0px">
-            <DebateWarning>신고수 : 0</DebateWarning>
-            <DebateComment>덧글수 : 0</DebateComment>
-          </Grid>
-        </Grid>
-      </Container>
-
-      <Container onClick={() => history.push('/detail')}>
-        <DebateTitle>토론 주제</DebateTitle>
-        <DebateSummary>토론 결과</DebateSummary>
-        <Grid height="fit-content">
-          <Grid>
-            <DebateFirstWriter>토론 연 사람</DebateFirstWriter>
-            <DebateCreateAt>토론날짜</DebateCreateAt>
-          </Grid>
-          <Grid display="flex" margin="5px 0px">
-            <DebateWarning>신고수 : 0</DebateWarning>
-            <DebateComment>덧글수 : 0</DebateComment>
-          </Grid>
-        </Grid>
-      </Container>
     </>
   )
 }

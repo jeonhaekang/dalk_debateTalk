@@ -69,7 +69,7 @@ const Login = (props) => {
         <LogoImage>
           LOGO
         </LogoImage>
-        <Grid margin="30px 0px">
+        <Grid padding="30px 0px">
           <LoginInput
             type="text"
             placeholder={"아이디 입력"}
@@ -83,7 +83,7 @@ const Login = (props) => {
             </Validation>
           )}
         </Grid>
-        <Grid margin="0px 0px 30px 0px">
+        <Grid padding="0px 0px 30px 0px">
           <LoginInput
             type="password"
             placeholder={"패스워드 입력"}
@@ -103,7 +103,7 @@ const Login = (props) => {
         >로그인
         </LoginBtn>
 
-        <Grid margin="30px 0px">
+        <Grid padding="30px 0px">
           <Text>DALK 회원이 아니신가요?</Text>
           <Text color="#A64BF5" cursor="pointer"
             onClick={() => {

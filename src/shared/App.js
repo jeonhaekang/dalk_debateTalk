@@ -15,10 +15,14 @@ import {
   PostList,
   Signup,
 } from "../pages/Index";
+import Announcement from "../pages/MyPageContent/Announcement";
+import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
+import MyGrade from "../pages/MyPageContent/MyGrade";
+import UserRanking from "../pages/MyPageContent/UserRanking";
+import PointShop from "../pages/MyPageContent/PointShop";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "./Footer";
 
 function App() {
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -56,6 +60,11 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
             <Route path="/mypage" exact component={MyPage} />
+            <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
+            <Route path="/mypage/grade" exact component={MyGrade} />
+            <Route path="/mypage/pointshop" exact component={PointShop} />
+            <Route path="/announcement" exact component={Announcement} />
+            <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
             <Route path="/detail/:boardId" exact component={Detail} />
