@@ -10,25 +10,43 @@ import testlogo from "../image/testlogo.jpeg";
 
 const Onboarding = () => {
   const imageList = [onboarding1, onboarding2, onboarding3, onboarding4];
-  const [page, setPage] = React.useState(0);
+  // 이미지 url리스트
+  const [page, setPage] = React.useState(0); // 현재 페이지를 나타내는 state
 
   const nextPage = () => {
-    imageList.length - 1 > page ? setPage(page + 1) : setPage(0);
+    setPage(page < imageList.length - 1 ? page + 1 : 0);
   };
+
+  React.useEffect(() => {
+    const time = setInterval(nextPage, 5000);
+
+    return () => {
+      clearInterval(time);
+    };
+  });
 
   const start = () => {
     localStorage.setItem("onboarding", true);
+    // 시작하기 버튼 클릭시 로컬스토리지에 기록 남김
   };
-
   if (localStorage.getItem("onboarding")) {
     return null;
+    // 로컬 스토리지에 기록 없을때만 온보딩 표시
   }
   return (
     <OnboardingWrap center is_column gap="30px">
-      <IMG src={imageList[page]} />
+      {/* 이미지를 표시해줄 영역 */}
+      <Frame>
+        {imageList.map((el) => {
+          return <IMG page={page} src={el} key={el} />;
+        })}
+      </Frame>
       <FlexGrid center>
         {imageList.map((el, i) => {
-          return <CircleBtn key={el} onClick={() => setPage(i)} />;
+          // 페이지 수만큼 동그라미 버튼 생성
+          return (
+            <CircleBtn key={el} onClick={() => setPage(i)} state={i === page} />
+          );
         })}
       </FlexGrid>
       <FlexGrid is_column gap="0">
@@ -42,6 +60,28 @@ const Onboarding = () => {
     </OnboardingWrap>
   );
 };
+const Frame = styled.div`
+  width: 200px;
+  height: 200px;
+  gap: 0;
+
+  overflow: hidden;
+  display: flex;
+  border-radius: 15px;
+`;
+const IMG = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  background-image: url(${(props) => props.src});
+  background-color: black;
+  background-size: cover;
+
+  flex: 0 0 auto;
+  transition: 0.3s;
+  --page: ${(props) => props.page * -100}%;
+  transform: translateX(var(--page));
+`;
+
 const Button = styled.button`
   width: 100%;
   padding: 10px;
@@ -53,7 +93,7 @@ const CircleBtn = styled.button`
   height: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #cfcfcf;
+  background-color: ${(props) => (props.state ? "black" : "#cfcfcf")};
 `;
 
 const OnboardingWrap = styled(FlexGrid)`
@@ -62,15 +102,6 @@ const OnboardingWrap = styled(FlexGrid)`
   z-index: 999;
   position: absolute;
   top: 0;
-`;
-
-const IMG = styled.div`
-  width: 60%;
-  padding-top: 75%;
-  background-image: url(${(props) => props.src});
-  background-color: black;
-  background-size: cover;
-  border-radius: 15px;
 `;
 
 export default Onboarding;
