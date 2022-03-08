@@ -26,6 +26,9 @@ const apis = {
   //로그인 체크
   check: () => instance.get("/loginCheck"),
 
+  //랭킹
+  rank: () => instance.get("/api/ranks"),
+
   // ---------토론방 관련------------
   //토론방 생성
   createRoom: (data) => instance.post("/rooms", data),
@@ -33,8 +36,20 @@ const apis = {
   //토론방 리스트 전체보기
   loadAllRoom: () => instance.get("/api/rooms"),
 
+  //토론방 메인 리스트 가져오기
+  loadMainRoom: () => instance.get("api/main/rooms"),
+
+  //토론방 카테고리별로 가져오기
+  loadCategoryRoom: (category) => instance.get("/api/main/" + category),
+
+  //카테고리별 베스트 토론방
+  loadBestRoom: (category) => instance.get("/api/category/best/" + category),
+
   //토론방 정보 가져오기
   getOneRoom: (roomId) => instance.get("/rooms/" + roomId),
+
+  //투표자 명단 가져오기
+  getVoteUser: (roomId) => instance.get("/vote/users/" + roomId),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회

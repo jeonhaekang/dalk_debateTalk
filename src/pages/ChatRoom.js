@@ -45,7 +45,7 @@ const ChatRoom = (props) => {
           <Grid
             display="flex"
             flexDirection="column"
-            height="calc(100% - 80px)"
+            height="calc(100% - 60px)"
           >
             <RoomInfo roomInfo={roomInfo} />
             <ChatBox {...data} />

@@ -55,7 +55,7 @@ const Header = (props) => {
           height="100%"
         >
           {page !== "메인" && (
-            <div>
+            <div onClick={() => history.goBack()}>
               <IoChevronBackOutline />
             </div>
           )}
@@ -87,9 +87,9 @@ const HeaderContainer = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
-  height: 80px;
+  height: 60px;
   display: flex;
-  z-index: 999;
+  z-index: 990;
 `;
 
 const Logo = styled.img`

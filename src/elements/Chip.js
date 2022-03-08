@@ -2,32 +2,30 @@ import React from "react";
 import styled from "styled-components";
 
 const Chip = ({ children, value, _onClick }) => {
-  const [state, setState] = React.useState(false);
-
-  const Click = () => {
-    setState(!state);
-    _onClick();
-  };
-
   return (
-    <ChipBox state={state} onClick={_onClick} value={value}>
+    <ChipBox onClick={_onClick} value={value}>
       {children}
     </ChipBox>
   );
 };
 
-const ChipBox = styled.button`
+const ChipBox = styled.div`
   background-color: #c4c4c4;
-  height: 25px;
+  height: 20px;
   border-radius: 10px;
-  width: calc(100% / 3 - 10px);
+  width: 50px;
 
-  border: ${(props) => (props.state ? "2px solid black" : "none")};
+  font-size: 14px;
+
   box-sizing: border-box;
+
+  border: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex: 0 0 auto;
 `;
 
 export default Chip;

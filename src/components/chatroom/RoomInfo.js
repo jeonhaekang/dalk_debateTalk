@@ -3,8 +3,12 @@ import Grid from "../../elements/Grid";
 import ChatHeader from "./ChatHeader";
 
 import GaugeTimer from "./GaugeTimer";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../redux/modules/chat";
+import { history } from "../../redux/configStore";
 
 const RoomInfo = ({ roomInfo }) => {
+  const dispatch = useDispatch();
   const [time, setTime] = React.useState(roomInfo.restTime);
 
   // 시간 카운트 때 chatBox 와 chatInput의 렌더링을 막기위해 분리
@@ -14,6 +18,8 @@ const RoomInfo = ({ roomInfo }) => {
 
   React.useEffect(() => {
     if (time <= 0) {
+      dispatch(actionCreators.deleteRoom(roomInfo.roomId));
+      history.replace("/");
       return;
     }
     const timer = setInterval(() => tick(), 1000);

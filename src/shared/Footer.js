@@ -1,14 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import Modal from "../components/shared/Modal";
+import CreateRoom from "../components/shared/CreateRoom";
+import { history } from "../redux/configStore";
 
-const Footer = ({ setCreateModalState }) => {
+const Footer = () => {
+  const [createModalState, setCreateModalState] = React.useState(false);
   return (
     <FixedNav>
-      <Icon>홈</Icon>
-      <Icon>검색</Icon>
+      <Icon onClick={() => history.push("/")}>홈</Icon>
+      <Icon onClick={() => history.push("/more")}>검색</Icon>
       <Icon onClick={() => setCreateModalState(true)}>생성</Icon>
-      <Icon>결과</Icon>
-      <Icon>마이</Icon>
+      <Icon onClick={() => history.push("/postlist")}>결과</Icon>
+      <Icon onClick={() => history.push("/mypage")}>마이</Icon>
+      <Modal modalState={createModalState} setModalState={setCreateModalState}>
+        <CreateRoom />
+      </Modal>
     </FixedNav>
   );
 };
@@ -20,7 +27,7 @@ const FixedNav = styled.div`
   height: 60px;
   border-top: 1px solid #c4c4c4;
   background-color: #f0f0f0;
-  z-index: 998;
+  z-index: 990;
 
   display: flex;
   align-items: center;

@@ -12,7 +12,7 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
-    client.subscribe(`/sub/api/chat/rooms/${roomId}`, subCallback, headers);
+    client.subscribe(`/sub/chat/rooms/${roomId}`, subCallback, headers);
   };
   // subscribe("url", callback, headers)
 
