@@ -6,16 +6,26 @@ import apis from "../../shared/apis";
 const GET_COMMENTS = "GET_COMMENTS";
 const ADD_COMMENT = "ADD_COMMENT";
 const DEL_COMMENT = "DEL_COMMENT";
+const GET_AGREE = "GET_AGREE";
+const GET_DISAGREE = "GET_DISAGREE";
+const PUSH_AGREE = "PUSH_AGREE";
+const PUSH_DISAGREE = "PUSH_DISAGREE";
 
 //Action Creator
 const getComment = createAction(GET_COMMENTS, (data) => ({ data }))
 const addComment = createAction(ADD_COMMENT, (boardId, comment) => ({ boardId, comment }))
 const delComment = createAction(DEL_COMMENT, (commentId) => ({ commentId }))
+const getAgree = createAction(GET_AGREE, (agreeUserList) => ({agreeUserList}))
+const getDisAgree = createAction(GET_DISAGREE, (disagreeUserList) => ({disagreeUserList}))
+const pushAgree = createAction(PUSH_AGREE, (userId, index) => ({userId, index}))
+const pushDisAgree = createAction(PUSH_DISAGREE, (userId, index) => ({userId, index}))
 
 //initialState
 const initialState = {
     //초기값 선언을 객체형이 아닌 배열로 선언해야함
     commentList: [],
+    agreeUserList:[],
+    disagreeUserList: [],
 }
 
 //MiddleWare
@@ -67,6 +77,40 @@ const delCommentDB = (commentId) => {
     }
 }
 
+const pushAgreeDB = (commentId, index) => {
+    return async function (dispatch, getState, { history }) {
+        const userId = getState().user.user.id
+
+        await apis
+            .agreeComment(commentId)
+            .then((res) => {
+                console.log("찬성 DB 받기 성공", res)
+                dispatch(pushAgree(userId, index));
+                dispatch(getAgree(userId, index));
+            })
+            .catch((err) => {
+                console.log("찬성 DB 받기 실패", err)
+            })
+    }
+}
+
+const pushDisAgreeDB = (commentId, index) => {
+    return async function (dispatch, getState, { history }) {
+        const userId = getState().user.user.id
+
+        await apis
+            .disagreeComment(commentId)
+            .then((res) => {
+                console.log("반대 DB 받기 성공", res)
+                dispatch(pushDisAgree(userId, index));
+                dispatch(getDisAgree(userId, index));
+            })
+            .catch((err) => {
+                console.log("반대 DB 받기 실패", err)
+            })
+    }
+}
+
 
 //Reducer
 export default handleActions(
@@ -84,7 +128,44 @@ export default handleActions(
                 (c) => c.commentId !== action.payload.commentId
               );
               draft.commentList = new_comment;
-        })
+        }),
+        [GET_AGREE]: (state, action) => produce(state, (draft) => {
+            draft.agreeUserList = action.payload.agreeUserList;
+        }),
+        [GET_DISAGREE]: (state, action) => produce(state, (draft) => {
+            draft.disagreeUserList = action.payload.disagreeUserList;
+        }),
+        [PUSH_AGREE]: (state, action) => produce(state, (draft) => {
+            const userId = action.payload.userId
+            let agreeUserList = draft.comment[action.payload.index].agreeUserList;
+            let disagreeUserList = draft.comment[action.payload.index].disagreeUserList;
+            if(disagreeUserList.includes(userId)){
+                disagreeUserList = disagreeUserList.filter((_userId,i) => {return _userId !== userId})
+                agreeUserList = [...agreeUserList, userId]
+                return;
+            }
+            if(agreeUserList.includes(userId)){
+                agreeUserList = agreeUserList.filter((_userId,i) => {return _userId !== userId})
+            }else{
+                agreeUserList = [...agreeUserList, userId]
+            }
+        }),
+        [PUSH_DISAGREE]: (state, action) => produce(state, (draft) => {
+            const userId = action.payload.userId
+            let agreeUserList = draft.comment[action.payload.index].agreeUserList;
+            let disagreeUserList = draft.comment[action.payload.index].disagreeUserList;
+            if(agreeUserList.includes(userId)){
+                agreeUserList = agreeUserList.filter((_userId,i) => {return _userId !== userId})
+                disagreeUserList = [...disagreeUserList, userId]
+                return;
+            }
+            if(disagreeUserList.includes(userId)){
+                disagreeUserList = disagreeUserList.filter((_userId,i) => {return _userId !== userId})   
+            }else{
+                disagreeUserList = [...disagreeUserList, userId]
+            }
+        }),
+
     },
     initialState
 )
@@ -99,6 +180,12 @@ const actionCreators = {
     addCommentDB,
     delComment,
     delCommentDB,
-};
+    getAgree,
+    getDisAgree,
+    pushAgree,
+    pushAgreeDB,
+    pushDisAgree,
+    pushDisAgreeDB,
+};  
 
 export { actionCreators }

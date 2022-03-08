@@ -7,9 +7,9 @@ import Header from "../../shared/Header";
 const PointShop = () => {
     const user = useSelector(state => state.user.user);
 
-    const [itemName, setItemName] = useState("");
-    const [itemRP, setItemRP] = useState();
-    const [itemContent, setItemContent] = useState("");
+    const [itemName, setItemName] = useState("나만 말하기");
+    const [itemRP, setItemRP] = useState(1000);
+    const [itemContent, setItemContent] = useState("나만 말하는 아이템 입니다. 진짜 나만 말해요.");
 
     const onlyme = {
         name : "나만 말하기",

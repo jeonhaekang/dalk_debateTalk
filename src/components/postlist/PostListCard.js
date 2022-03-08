@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
-import apis from '../../shared/apis'
 
 const PostListCard = (props) => {
   const boardId = props.boardId;

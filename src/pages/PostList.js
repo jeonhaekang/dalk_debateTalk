@@ -13,7 +13,6 @@ import Grid from "../elements/Grid";
 
 const PostList = () => {
   const [debateList, setDebateList] = useState([]);
-  console.log(debateList)
 
   useEffect (() => {
     getDebate()
@@ -22,7 +21,6 @@ const PostList = () => {
   const getDebate = async () => {
     await apis.getDebate()
                .then((res) => {
-                console.log(res)
                 setDebateList(res.data)
               })
               .catch((err) => {

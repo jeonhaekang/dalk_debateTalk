@@ -36,7 +36,7 @@ const CommentList = ({ debate }) => {
   return (
     <>
       {commentList.map((c, idx) => {
-        return <OneComment {...c} key={idx} boardId={boardId} />
+        return <OneComment index={idx} {...c} key={idx} boardId={boardId} />
       })}
 
       <CommentWriteContainer>
