@@ -101,7 +101,9 @@ const OneComment = (props) => {
         <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="warning-count" onClick={handleClickWarning} style={{ cursor: "pointer" }}>신고</Number>
+            <Number className="warning-count" 
+            onClick={handleClickWarning}
+            style={{ cursor: "pointer" }} >{(props.warnUserList?.includes(user.id)) ? "신고햇음" : "신고"}</Number>
           </div>
 
           {user?.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null}
@@ -156,6 +158,11 @@ const IconBox = styled.div`
   justify-content: space-between;
 `
 const Number = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0px 10px 0px 0px;
+`
+const NumberDisabled = styled.p`
   font-size: 12px;
   font-weight: 300;
   margin: 0px 10px 0px 0px;

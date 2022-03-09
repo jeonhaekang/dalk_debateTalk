@@ -56,6 +56,9 @@ const apis = {
 
   // ---------게시글 결과조회------------
   getDebate: () => instance.get(`/api/boards`),
+
+  // ---------게시글 검색------------
+  getDebateKeyword : (keyword) => instance.get(`/api/keywords/${keyword}`),
 };
 
 export default apis;
