@@ -6,5 +6,18 @@ import Main from "./Main";
 import MyPage from "./MyPage";
 import PostList from "./PostList";
 import Signup from "./Signup";
+import More from "./More";
+import Category from "./Category";
 
-export { Admin, ChatRoom, Detail, Login, Main, MyPage, PostList, Signup };
+export {
+  Admin,
+  ChatRoom,
+  Detail,
+  Login,
+  Main,
+  MyPage,
+  PostList,
+  Signup,
+  More,
+  Category,
+};

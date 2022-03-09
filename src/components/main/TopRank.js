@@ -4,15 +4,16 @@ import Grid from "../../elements/Grid";
 
 const TopRank = (props) => {
   const { userRankList } = props;
-  const [userInfo, setUserInfo] = React.useState(`1위 ${userRankList[0]}`);
-
+  const [userInfo, setUserInfo] = React.useState(
+    `1위 ${userRankList[0].nickname}`
+  );
   React.useEffect(() => {
     let count = 1;
 
     // setInterval : 일정한 간격으로 콜백함수 호출
     const test = setInterval(() => {
-      setUserInfo(`${count + 1}위 ${userRankList[count]}`);
-      if (userRankList.length - 1 > count) count++;
+      setUserInfo(`${count + 1}위 ${userRankList[count].nickname}`);
+      if (2 > count) count++;
       else count = 0;
     }, 3000);
 

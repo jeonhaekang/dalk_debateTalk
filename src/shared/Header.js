@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../elements/Button";
 import Grid from "../elements/Grid";
 import { history } from "../redux/configStore";
 import TestLogo from "../image/testlogo.jpeg";
@@ -54,9 +53,11 @@ const Header = (props) => {
           alignItems="center"
           height="100%"
         >
-          <div>
-            <IoChevronBackOutline />
-          </div>
+          {page !== "메인" && (
+            <div onClick={() => history.goBack()}>
+              <IoChevronBackOutline />
+            </div>
+          )}
           {report && (
             <div>
               <AiFillAlert />
@@ -80,17 +81,14 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {};
-const BackButton = styled.div`
-  font-size: 26px;
-`;
 
 const HeaderContainer = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
-  height: 80px;
+  height: 60px;
   display: flex;
-  z-index: 999;
+  z-index: 990;
 `;
 
 const Logo = styled.img`

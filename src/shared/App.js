@@ -14,6 +14,8 @@ import {
   MyPage,
   PostList,
   Signup,
+  More,
+  Category,
 } from "../pages/Index";
 import Announcement from "../pages/MyPageContent/Announcement";
 import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
@@ -23,8 +25,12 @@ import PointShop from "../pages/MyPageContent/PointShop";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "./Spinner";
+import Onboarding from "./Onboarding";
 
 function App() {
+  const is_loaded = useSelector((state) => state.chat.is_loaded);
+
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
   const handleResize = () => {
     const vh = window.innerHeight * 0.01;
@@ -68,6 +74,10 @@ function App() {
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
             <Route path="/detail/:boardId" exact component={Detail} />
+            <Route path="/more" exact component={More} />
+            <Route path="/more/:category" exact component={Category} />
+            <Onboarding />
+            {is_loaded && <Spinner />}
           </Wrap>
         </Container>
       </ConnectedRouter>

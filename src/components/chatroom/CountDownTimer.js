@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 

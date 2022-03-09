@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const Modal = (props) => {
-  const { modalState, setModalState, children, type } = props;
+  const { modalState, setModalState, children, type,  } = props;
   const [aniState, setAniState] = React.useState(false);
 
   const modalRef = React.useRef();
@@ -14,7 +14,7 @@ const Modal = (props) => {
       setTimeout(() => {
         setAniState(false);
         setModalState(false);
-      }, 400);
+      }, 200);
     }
   };
 
@@ -26,6 +26,7 @@ const Modal = (props) => {
     };
   }, []);
 
+  // 햄버거 만들었는데 디자이너님이 지웠어요..ㅠㅠㅠ
   if (type === "hamburger") {
     return (
       <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
@@ -62,11 +63,11 @@ const ModalLayout = styled.div`
   display: ${(props) => (props.modalState ? "block" : "none")};
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.4s;
+  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
   z-index: 999;
 `;
 
@@ -101,12 +102,13 @@ const HambergerContents = styled.div`
 const CreateContents = styled.div`
   position: absolute;
   width: 80%;
-  height: 70%;
+
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 
-  background-color: white;
+  border-radius: 15px;
+  background-color: #f1f1f1;
 `;
 
 export default Modal;

@@ -8,14 +8,11 @@ const ChatInput = (props) => {
   const message = React.useRef();
   const { client, roomId, headers } = props;
   const [fontState, setFontState] = React.useState(false);
+  const [state, setState] = React.useState(false);
 
   const itemState = useSelector((state) => state.item.itemState);
   const onlyMe = useSelector((state) => state.item.onlyMe);
   const user = useSelector((state) => state.user.user?.nickname);
-  console.log("nickname:", user);
-  console.log("itemState:", itemState);
-  console.log("onlyMe:", onlyMe);
-  
 
   const sendMessage = () => {
     if (onlyMe && onlyMe !== user) {
@@ -67,32 +64,63 @@ const ChatInput = (props) => {
   };
 
   return (
-    <InputWrap>
-      <Grid border="1px solid orange">
-        <button onClick={useBigFont}>빅폰트</button>
-        <button id="onlyMe" onClick={useItem}>
-          나만 말하기
-        </button>
-        <button id="myName" onClick={useItem}>
-          이름 바꾸기
-        </button>
-      </Grid>
-      <Grid>
+    <Wrap>
+      <InputWrap>
+        <button onClick={() => setState(!state)}>아이템</button>
         <Input
+          flexGrow="1"
           onKeyPress={MessageEnter}
           padding="10px"
           height="40px"
-          width="90%"
           ref={message}
         />
         <button onClick={sendMessage}>송신</button>
-      </Grid>
-    </InputWrap>
+      </InputWrap>
+
+      <ItemWrap state={state}>
+        <ItemButton onClick={useBigFont}>빅폰트</ItemButton>
+        <ItemButton id="onlyMe" onClick={useItem}>
+          나만 말하기
+        </ItemButton>
+        <ItemButton id="myName" onClick={useItem}>
+          이름 바꾸기
+        </ItemButton>
+        <ItemButton id="myName" onClick={useItem}>
+          아이템 구매하기
+        </ItemButton>
+      </ItemWrap>
+    </Wrap>
   );
 };
+const Wrap = styled.div`
+  /* transition: 0.3s;
+  &:hover {
+    transform: translate(0, 50%);
+  }
+  overflow: hidden; */
+`;
 
 const InputWrap = styled.div`
-  height: 100px;
+  display: flex;
+`;
+
+const ItemWrap = styled.div`
+  transition: 0.2s;
+  padding: 0 15px;
+  height: ${(props) => (props.state ? "120px" : "0px")};
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+
+  overflow: scroll;
+`;
+
+const ItemButton = styled.button`
+  width: 90px;
+  height: 90px;
+
   flex-shrink: 0;
 `;
 
