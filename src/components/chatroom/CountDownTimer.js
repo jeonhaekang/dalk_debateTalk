@@ -5,7 +5,8 @@ import { history } from "../../redux/configStore";
 const CountDownTimer = ({ restTime }) => {
   const minutes = Math.floor(restTime / 60);
   const seconds = restTime % 60;
-
+  console.log(restTime);
+  
   return (
     <Timer>
       <Minutes>{minutes.toString().padStart(2, "0")}</Minutes> :

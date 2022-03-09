@@ -51,6 +51,9 @@ const apis = {
   //투표자 명단 가져오기
   getVoteUser: (roomId) => instance.get("/vote/users/" + roomId),
 
+  //투표하기
+  vote: (roomId, data)=>instance.post("/vote/"+roomId, data),
+
   // ---------댓글 코멘트 관련------------
   // 댓글 조회
   getComment: (boardId) => instance.get(`/api/comments/${boardId}`),

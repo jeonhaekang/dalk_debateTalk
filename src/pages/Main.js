@@ -21,6 +21,7 @@ const Main = (props) => {
   const [userRankList, setUserRankList] = React.useState();
   const roomList = useSelector((state) => state.chat.roomList);
 
+  console.log(roomList);
   const dispatch = useDispatch();
 
   React.useEffect(() => {

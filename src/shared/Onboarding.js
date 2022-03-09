@@ -6,12 +6,14 @@ import onboarding1 from "../image/onboarding/onboarding1.png";
 import onboarding2 from "../image/onboarding/onboarding2.png";
 import onboarding3 from "../image/onboarding/onboarding3.png";
 import onboarding4 from "../image/onboarding/onboarding4.png";
-import testlogo from "../image/testlogo.jpeg";
 
 const Onboarding = () => {
   const imageList = [onboarding1, onboarding2, onboarding3, onboarding4];
   // 이미지 url리스트
   const [page, setPage] = React.useState(0); // 현재 페이지를 나타내는 state
+  const [storage, setStorage] = React.useState(
+    localStorage.getItem("onboarding")
+  );
 
   const nextPage = () => {
     setPage(page < imageList.length - 1 ? page + 1 : 0);
@@ -28,8 +30,9 @@ const Onboarding = () => {
   const start = () => {
     localStorage.setItem("onboarding", true);
     // 시작하기 버튼 클릭시 로컬스토리지에 기록 남김
+    setStorage(localStorage.getItem("onboarding"));
   };
-  if (localStorage.getItem("onboarding")) {
+  if (storage) {
     return null;
     // 로컬 스토리지에 기록 없을때만 온보딩 표시
   }
