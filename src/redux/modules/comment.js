@@ -163,7 +163,6 @@ export default handleActions(
             console.log("진입")
             const userId = action.payload.userId
             let agreeUserList = draft.commentList[action.payload.index].agreeUserList;
-            // let agreeUserList = _agreeUserList
             console.log(draft.commentList[action.payload.index])
             let disagreeUserList = draft.commentList[action.payload.index].disagreeUserList;
             console.log(userId, agreeUserList, disagreeUserList)
