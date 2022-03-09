@@ -22,6 +22,7 @@ const Inner = styled.div`
   padding-top: 100%;
   background-image: url(${(props) => props.src});
   background-size: cover;
+  border: ${(props) => (props.active ? "4px solid black" : "none")};
 `;
 
 export default Image;
