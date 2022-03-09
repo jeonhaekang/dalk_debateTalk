@@ -43,7 +43,7 @@ const PostListCategory = ({debateList}) => {
     };
   };
 
-  const delay = 100;
+  const delay = 30;
   const onThrottleDragMove = throttle(onDragMove, delay); 
 
 

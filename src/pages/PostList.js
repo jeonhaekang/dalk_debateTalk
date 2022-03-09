@@ -8,6 +8,7 @@ import PostListCard from "../components/postlist/PostListCard";
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
+import { includes } from "lodash";
 
 const PostList = () => {
   const [debateList, setDebateList] = useState([]);
@@ -73,10 +74,14 @@ const PostList = () => {
             <PostListCategory debateList={debateList} />
           </Grid>
           <Grid margin="20px 0px" justifyContent="center">
-            {debateList.map((d, idx) => {
+            {!searchDebateList.length == 0 ?
+            searchDebateList.map((d, idx) => {
               return <PostListCard {...d} key={idx} debateList={debateList} />
-            })}
-
+            }) :
+            debateList.map((d, idx) => {
+              return <PostListCard {...d} key={idx} debateList={debateList} />
+            })
+          }
             <button onClick={handleTop}>TOP</button>
           </Grid>
         </Grid>

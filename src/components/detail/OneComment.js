@@ -17,7 +17,6 @@ const OneComment = (props) => {
   const agreeList = useSelector(
     (state) => state.comment.commentList[index].agreeUserList
   );
-  const test = useSelector((state) => state.comment.test);
   const disagreeList = useSelector(
     (state) => state.comment.commentList[index].disagreeUserList
   );
@@ -34,7 +33,6 @@ const OneComment = (props) => {
       alert("로그인을 해주세요!");
       history.replace("/login");
     }
-    // dispatch(commentActions.pushAgreeDB(commentId))
     dispatch(commentActions.pushAgreeDB(commentId, index));
   };
 
@@ -43,7 +41,6 @@ const OneComment = (props) => {
       alert("로그인을 해주세요!");
       history.replace("/login");
     }
-    // dispatch(commentActions.pushDisAgreeDB(commentId))
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
   };
 
