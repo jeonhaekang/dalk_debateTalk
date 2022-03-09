@@ -28,6 +28,9 @@ const apis = {
   //랭킹
   rank: () => instance.get("/api/ranks"),
 
+  //아이템 구매
+  buyItem: (item) => instance.get("/mypage/" + item),
+
   // ---------토론방 관련------------
   //토론방 생성
   createRoom: (data) => instance.post("/rooms", data),
@@ -51,7 +54,7 @@ const apis = {
   getVoteUser: (roomId) => instance.get("/vote/users/" + roomId),
 
   //투표하기
-  vote: (roomId, data)=>instance.post("/vote/"+roomId, data),
+  vote: (roomId, data) => instance.post("/vote/" + roomId, data),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회
@@ -66,7 +69,8 @@ const apis = {
   // 댓글 반대
   disagreeComment: (commentId) => instance.get(`/disagree/${commentId}`),
   // 댓글 신고
-  warningComment: (commentId) => instance.get(`/warnings/comments/${commentId}`),
+  warningComment: (commentId) =>
+    instance.get(`/warnings/comments/${commentId}`),
 
   // ---------게시글 상세조회------------
   getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
@@ -75,7 +79,7 @@ const apis = {
   getDebate: () => instance.get(`/api/boards`),
 
   // ---------게시글 검색------------
-  getDebateKeyword : (keyword) => instance.get(`/api/keywords/${keyword}`),
+  getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
 };
 
 export default apis;

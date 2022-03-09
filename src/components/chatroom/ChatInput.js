@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
+import itemData from "../../data/itemData";
 
 const ChatInput = (props) => {
   const message = React.useRef();
@@ -12,10 +13,10 @@ const ChatInput = (props) => {
 
   const itemState = useSelector((state) => state.item.itemState);
   const onlyMe = useSelector((state) => state.item.onlyMe);
-  const user = useSelector((state) => state.user.user?.nickname);
-
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
   const sendMessage = () => {
-    if (onlyMe && onlyMe !== user) {
+    if (onlyMe && onlyMe !== user.nickname) {
       console.log("나만 말하기 발동!!!");
       return;
     }
@@ -40,8 +41,7 @@ const ChatInput = (props) => {
       sendMessage();
     }
   };
-
-  const useItem = (e) => {
+  const itemUse = () => {
     if (!itemState) {
       alert("아이템을 사용할 수 없습니다.");
       return;
@@ -49,7 +49,7 @@ const ChatInput = (props) => {
     const data = {
       type: "ITEM",
       roomId: roomId,
-      item: e.target.id,
+      item: "onlyMe",
     };
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
@@ -78,16 +78,18 @@ const ChatInput = (props) => {
       </InputWrap>
 
       <ItemWrap state={state}>
-        <ItemButton onClick={useBigFont}>빅폰트</ItemButton>
-        <ItemButton id="onlyMe" onClick={useItem}>
-          나만 말하기
-        </ItemButton>
-        <ItemButton id="myName" onClick={useItem}>
-          이름 바꾸기
-        </ItemButton>
-        <ItemButton id="myName" onClick={useItem}>
-          아이템 구매하기
-        </ItemButton>
+        {itemData.map((el) => {
+          return (
+            <ItemButton
+              onClick={() => {
+                itemUse();
+              }}
+            >
+              {el.name}
+              {user.item[el.itemCode]}
+            </ItemButton>
+          );
+        })}
       </ItemWrap>
     </Wrap>
   );

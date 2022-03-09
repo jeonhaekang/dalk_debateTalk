@@ -46,6 +46,8 @@ function App() {
 
   // loginCheck
   const user = useSelector((state) => state.user.user);
+  console.log(user);
+
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
 
@@ -53,7 +55,7 @@ function App() {
   React.useEffect(() => {
     if (tokenCheck && !user) dispatch(userActions.logincheckDB());
   }, []);
-  
+
   return (
     <React.Fragment>
       <GlobalStyle />

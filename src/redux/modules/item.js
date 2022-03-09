@@ -5,6 +5,7 @@ import produce from "immer";
 const SET_ITEM_STATE = "SET_ITEM_STATE";
 const SET_USER = "SET_USER";
 const CLEAR = "CREAR";
+const BUY_ITEM = "BUY_ITEM";
 
 //Action Creator
 const setItemState = createAction(SET_ITEM_STATE, (state) => ({ state }));
