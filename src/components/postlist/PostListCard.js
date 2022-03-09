@@ -4,14 +4,18 @@ import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
 const PostListCard = (props) => {
+  console.log(props)
   const boardId = props.boardId;
-  const createdAt = props.createdAt.split("-")[0] + "년 " 
-                  + props.createdAt.split("-")[1] + "월 " 
+  const createdAt = props.createdAt.split("-")[0] + "년 "
+                  + props.createdAt.split("-")[1] + "월 "
                   + props.createdAt.split("-")[2] + "일";
 
   return (
     <>
       <Container onClick={() => history.push(`/detail/${boardId}`)}>
+        <CategoryList>
+          {props.category.map((c,i) => <CategoryBtn {...c} key={i}/>)}
+        </CategoryList>
         <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
         <DebateSummary>{props.winner}</DebateSummary>
         <Grid height="fit-content">
@@ -59,6 +63,20 @@ const DebateSummary = styled.div`
   font-size: 14px;
   padding: 10px 0 20px;
   word-break: keep-all;
+`
+const CategoryList = styled.div`
+  display: flex;
+`
+
+
+const CategoryBtn = styled.div`
+  background-color: #C4C4C4;
+  padding: 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 `
 
 const DebateFirstWriter = styled.div`

@@ -14,6 +14,9 @@ const OneComment = (props) => {
   const index = props.index;
   const commentId = props.commentId;
   const user = useSelector((state) => state.user.user);
+  const agreeList = useSelector((state) => state.comment.commentList[index].agreeUserList);
+  const test = useSelector((state) => state.comment.test)
+  const disagreeList = useSelector((state) => state.comment.commentList[index].disagreeUserList);
 
   const dispatch = useDispatch();
 
@@ -26,7 +29,8 @@ const OneComment = (props) => {
       alert("로그인을 해주세요!")
       history.replace("/login")
     }
-    dispatch(commentActions.pushAgreeDB(commentId))
+    // dispatch(commentActions.pushAgreeDB(commentId))
+    dispatch(commentActions.pushAgree(user.id, index))
   }
 
   const handleClickDisagree = () => {
@@ -34,7 +38,8 @@ const OneComment = (props) => {
       alert("로그인을 해주세요!")
       history.replace("/login")
     }
-    dispatch(commentActions.pushDisAgreeDB(commentId))
+    // dispatch(commentActions.pushDisAgreeDB(commentId))
+    dispatch(commentActions.pushDisAgree(user.id, index))
   }
 
   //신고 기능
@@ -51,9 +56,14 @@ const OneComment = (props) => {
       await apis
         .warningComment(commentId)
         .then((res) => {
+          if(window.confirm("정말 신고하시겠어요?")){
           console.log('댓글 신고하기 성공', res)
           setIsWarn(true);
-          alert("신고가 접수되었습니다")
+          alert("신고처리가 완료되었습니다")
+          }
+          else{
+            return;
+          }
         })
         .catch((err) => {
           console.log('댓글 신고하기 에러', err)
@@ -89,11 +99,11 @@ const OneComment = (props) => {
         <AgreeBtn>
           {/* <Number className="agree-count" onClick={handleClickAgree}>{(agreeAction === false) ? "찬성" : "찬성취소"} {agreeCnt}</Number> */}
           <Number className="agree-count" onClick={handleClickAgree}>
-            {(props.agreeUserList?.includes(user.id)) ? "찬성취소" : "찬성"} {props.agreeUserList?.length}
+            {(agreeList.includes(user?.id)) ? "찬성취소" : "찬성"} {agreeList.length}
           </Number>
           {/* <Number className="disagree-count" onClick={handleClickDisagree}>{(disagreeAction === false) ? "반대" : "반대취소"} {disagreeCnt}</Number> */}
           <Number className="disagree-count" onClick={handleClickDisagree}>
-            {(props.disagreeUserList?.includes(user.id)) ? "반대취소" : "반대"} {props.disagreeUserList?.length}
+            {(disagreeList.includes(user?.id)) ? "반대취소" : "반대"} {disagreeList.length}
           </Number>
         </AgreeBtn>
       </Wrap>
@@ -103,7 +113,7 @@ const OneComment = (props) => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Number className="warning-count" 
             onClick={handleClickWarning}
-            style={{ cursor: "pointer" }} >{(props.warnUserList?.includes(user.id)) ? "신고햇음" : "신고"}</Number>
+            style={{ cursor: "pointer" }} >{(props.warnUserList.includes(user?.id)) ? null : "신고"}</Number>
           </div>
 
           {user?.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null}

@@ -14,7 +14,6 @@ const CommentList = ({ debate }) => {
   const dispatch = useDispatch();
 
   const commentList = useSelector((state) => state.comment.commentList);
-  console.log(commentList)
 
   const [comment, setComment] = useState("");
 
