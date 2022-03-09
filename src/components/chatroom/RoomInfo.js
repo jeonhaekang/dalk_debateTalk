@@ -10,7 +10,7 @@ import { history } from "../../redux/configStore";
 const RoomInfo = ({ roomInfo }) => {
   const dispatch = useDispatch();
   const [time, setTime] = React.useState(roomInfo.restTime);
-
+  console.log("남은시간:",time);
   // 시간 카운트 때 chatBox 와 chatInput의 렌더링을 막기위해 분리
   const tick = () => {
     if (time > 0) setTime(time - 1);
