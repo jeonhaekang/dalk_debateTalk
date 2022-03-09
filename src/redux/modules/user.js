@@ -19,6 +19,19 @@ const setUser = createAction(SETUSER, (user) => ({ user }));
 //initialState
 const initialState = {
     user: null,
+    // {
+    //     userId : 1,
+    //     username : 'username',
+    //     nickname : 'nickname',
+    //     point : 0,
+    //     ex : 0,
+    //     role : 'role',
+    //      item :{
+    //                'bigFont' : 1,
+    //                'onlyMe' : 2,
+    //               'myName' :1,
+    //                      }
+    //                     },
     userInfo: {},
 }
 

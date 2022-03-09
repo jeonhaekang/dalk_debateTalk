@@ -23,9 +23,34 @@ const pushDisAgree = createAction(PUSH_DISAGREE, (userId, index) => ({userId, in
 //initialState
 const initialState = {
     //초기값 선언을 객체형이 아닌 배열로 선언해야함
-    commentList: [],
-    agreeUserList:[],
-    disagreeUserList: [],
+    commentList: [
+        {
+            userInfo : {
+               userId : 1,
+               username : 'username',
+               nickname : 'nickname',
+               point : 0,
+               ex : 0,
+               role : 'role',
+                   'item' :{
+                    'bigFont' : 1,
+                    'onlyMe' : 2,
+                   'myName' :1,
+                    }
+                },
+         commentId : 1,
+         comment : 'comment',
+         agreeCnt : 2,
+         agreeUserList: [],
+         disagreeCnt : 3,
+         disagreeUserList: [],
+         warnCnt : 1,
+         warnUserList : [],
+         isLike : false,
+         createdAt : "2022-03-01-20:00",
+        },
+
+    ],
 }
 
 //MiddleWare
@@ -78,15 +103,15 @@ const delCommentDB = (commentId) => {
 }
 
 const pushAgreeDB = (commentId, index) => {
-    return async function (dispatch, getState, { history }) {
+    return function (dispatch, getState, { history }) {
         const userId = getState().user.user.id
 
-        await apis
+            apis
             .agreeComment(commentId)
             .then((res) => {
                 console.log("찬성 DB 받기 성공", res)
                 dispatch(pushAgree(userId, index));
-                dispatch(getAgree(userId, index));
+                console.log("요청감")
             })
             .catch((err) => {
                 console.log("찬성 DB 받기 실패", err)
@@ -95,15 +120,14 @@ const pushAgreeDB = (commentId, index) => {
 }
 
 const pushDisAgreeDB = (commentId, index) => {
-    return async function (dispatch, getState, { history }) {
+    return function (dispatch, getState, { history }) {
         const userId = getState().user.user.id
 
-        await apis
+            apis
             .disagreeComment(commentId)
             .then((res) => {
                 console.log("반대 DB 받기 성공", res)
                 dispatch(pushDisAgree(userId, index));
-                dispatch(getDisAgree(userId, index));
             })
             .catch((err) => {
                 console.log("반대 DB 받기 실패", err)
@@ -136,32 +160,45 @@ export default handleActions(
             draft.disagreeUserList = action.payload.disagreeUserList;
         }),
         [PUSH_AGREE]: (state, action) => produce(state, (draft) => {
+            console.log("진입")
             const userId = action.payload.userId
-            let agreeUserList = draft.comment[action.payload.index].agreeUserList;
-            let disagreeUserList = draft.comment[action.payload.index].disagreeUserList;
+            let agreeUserList = draft.commentList[action.payload.index].agreeUserList;
+            console.log(draft.commentList[action.payload.index])
+            let disagreeUserList = draft.commentList[action.payload.index].disagreeUserList;
+            console.log(userId, agreeUserList, disagreeUserList)
+
             if(disagreeUserList.includes(userId)){
-                disagreeUserList = disagreeUserList.filter((_userId,i) => {return _userId !== userId})
+                console.log("1")
+                disagreeUserList = disagreeUserList.filter((_userId) => {return _userId !== userId})
                 agreeUserList = [...agreeUserList, userId]
                 return;
             }
+
             if(agreeUserList.includes(userId)){
-                agreeUserList = agreeUserList.filter((_userId,i) => {return _userId !== userId})
+                console.log("2")
+                agreeUserList = agreeUserList.filter((_userId) => {return _userId !== userId})
             }else{
+                console.log("3")
                 agreeUserList = [...agreeUserList, userId]
             }
         }),
         [PUSH_DISAGREE]: (state, action) => produce(state, (draft) => {
             const userId = action.payload.userId
-            let agreeUserList = draft.comment[action.payload.index].agreeUserList;
-            let disagreeUserList = draft.comment[action.payload.index].disagreeUserList;
+            let agreeUserList = draft.commentList[action.payload.index].agreeUserList;
+            let disagreeUserList = draft.commentList[action.payload.index].disagreeUserList;
+
             if(agreeUserList.includes(userId)){
+                console.log("1")
                 agreeUserList = agreeUserList.filter((_userId,i) => {return _userId !== userId})
                 disagreeUserList = [...disagreeUserList, userId]
                 return;
             }
+
             if(disagreeUserList.includes(userId)){
+                console.log("2")
                 disagreeUserList = disagreeUserList.filter((_userId,i) => {return _userId !== userId})   
             }else{
+                console.log("3")
                 disagreeUserList = [...disagreeUserList, userId]
             }
         }),
