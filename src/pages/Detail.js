@@ -18,7 +18,6 @@ const Detail = (props) => {
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
-  console.log(debate);
   const [comment, setComment] =useState();
 
   // 상세 게시글의 Data 받아오기

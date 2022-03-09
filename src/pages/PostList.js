@@ -42,16 +42,20 @@ const PostList = () => {
     setKeyword(e.target.value)
   }
 
+  const [searchDebateList, setSearchDebateList] = useState([]);
   // 검색결과
   const searchDebate = () => {
-    apis.getDebateKeyword()
+    apis.getDebateKeyword(keyword)
         .then((res) => {
-          console.log("검색 성공" ,res)
+          console.log("검색 성공" ,res.data)
+          setSearchDebateList(res.data)
         })
         .catch((err) => {
           console.log("검색 실패" ,err)
         })
   }
+
+  console.log(searchDebateList)
 
   return (
     <>
