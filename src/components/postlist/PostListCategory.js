@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Button from "../../elements/Button";
 import Grid from "../../elements/Grid";
 
-const PostListCategory = (props) => {
+const PostListCategory = ({debateList}) => {
+
   //ref로 스크롤 querySelector함
   const scrollRef = React.useRef(null);
 
@@ -45,6 +46,7 @@ const PostListCategory = (props) => {
   const delay = 100;
   const onThrottleDragMove = throttle(onDragMove, delay); 
 
+
   return (
     <CategoryScroll
       onMouseDown={onDragStart}
@@ -52,14 +54,16 @@ const PostListCategory = (props) => {
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}>
-      <Button width="60px">전체</Button>
-      <Button width="60px">#생활</Button>
-      <Button width="60px">#연애</Button>
-      <Button width="60px">#게임</Button>
-      <Button width="60px">#정치</Button>
-      <Button width="60px">#건강</Button>
-      <Button width="60px">#사회</Button>
-      <Button width="60px">#유머</Button>
+      <CategoryBtn>전체보기</CategoryBtn>
+      <CategoryBtn>#음식</CategoryBtn>
+      <CategoryBtn>#연애</CategoryBtn>
+      <CategoryBtn>#게임</CategoryBtn>
+      <CategoryBtn>#정치</CategoryBtn>
+      <CategoryBtn>#유머</CategoryBtn>
+      <CategoryBtn>#헬프</CategoryBtn>
+      <CategoryBtn>#망상</CategoryBtn>
+      <CategoryBtn>#운동</CategoryBtn>
+      <CategoryBtn>#기타</CategoryBtn>
     </CategoryScroll>
   )
 };
@@ -69,5 +73,12 @@ display:flex;
 white-space: nowrap;
 overflow-x: scroll;
 `
+const CategoryBtn = styled.button`
+padding: 8px;
+margin-right: 5px;
+border: none;
+border-radius: 10px;
+`
+
 
 export default PostListCategory;

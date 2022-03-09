@@ -7,7 +7,7 @@ import ShareLink from "../components/shared/ShareLink";
 
 import Header from "../shared/Header";
 import apis from "../shared/apis";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const Detail = (props) => {
@@ -19,6 +19,7 @@ const Detail = (props) => {
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
   console.log(debate);
+  const [comment, setComment] =useState();
 
   // 상세 게시글의 Data 받아오기
   const getOneDebateDB = async () => {
@@ -47,19 +48,19 @@ const Detail = (props) => {
   return (
     <>
       <Header />
-      <Grid height="calc(100% - 110px)" overflow="scroll">
+      <Grid height="calc(100% - 130px)" overflow="scroll">
         <DetailCreatedAt>{debate.createdAt}</DetailCreatedAt>
         <DebateWrap>
           <DebateBox>
             {debate.topicA}
-            <text>11%</text>
+            <p>11%</p>
           </DebateBox>
           <Versus>
             VS
           </Versus>
           <DebateWinnerBox>
             {debate.topicB}
-            <text>89%</text>
+            <p>89%</p>
           </DebateWinnerBox>
         </DebateWrap>
         {/* 공유하기 기능 */}

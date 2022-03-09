@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { history } from '../../redux/configStore'
 
 const Convenience = () => {
 
@@ -7,7 +8,7 @@ const Convenience = () => {
         <>
             <Title>토론 속 편의기능</Title>
             <Wrap>
-                <ContentTop>
+                <ContentTop onClick={() => {history.push('/ranking')}}>
                     <div>유저랭킹</div>
                     <div> > </div>
                 </ContentTop>
@@ -15,7 +16,7 @@ const Convenience = () => {
                     <div>토론리스트</div>
                     <div> > </div>
                 </Content>
-                <Content>
+                <Content onClick={() => {history.push('/postlist')}}>
                     <div>토론결과방</div>
                     <div> > </div>
                 </Content>
@@ -47,6 +48,7 @@ const ContentTop = styled.div`
     padding: 18px 20px;
     border-top: 1px solid #C4C4C4;
     border-bottom: 1px solid #C4C4C4;
+    cursor: pointer;
 `
 
 const Content = styled.div`
@@ -56,6 +58,7 @@ const Content = styled.div`
   justify-content: space-between;
   padding: 18px 20px;
   border-bottom: 1px solid #C4C4C4;
+  cursor: pointer;
 `
 
 export default Convenience;

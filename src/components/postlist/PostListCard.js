@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
-const PostListCard = () => {
+const PostListCard = (props) => {
+  const boardId = props.boardId;
+  const createdAt = props.createdAt.split("-")[0] + "년 " 
+                  + props.createdAt.split("-")[1] + "월 " 
+                  + props.createdAt.split("-")[2] + "일";
 
   return (
     <>
-      <Container onClick={() => history.push('/detail/${boardId}')}>
-        <DebateTitle>토론 주제</DebateTitle>
-        <DebateSummary>토론 결과</DebateSummary>
+      <Container onClick={() => history.push(`/detail/${boardId}`)}>
+        <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
+        <DebateSummary>{props.winner}</DebateSummary>
         <Grid height="fit-content">
           <Grid>
-            <DebateFirstWriter>토론 연 사람</DebateFirstWriter>
-            <DebateCreateAt>토론날짜</DebateCreateAt>
+            <DebateFirstWriter>{props.userInfo.nickname}</DebateFirstWriter>
+            <DebateCreateAt>{createdAt}</DebateCreateAt>
           </Grid>
           <Grid display="flex" margin="5px 0px">
-            <DebateWarning>신고수 : 0</DebateWarning>
-            <DebateComment>덧글수 : 0</DebateComment>
+            <DebateWarning>신고수 : {props.warnCnt}</DebateWarning>
+            <DebateComment>덧글수 : {props.commentCnt}</DebateComment>
           </Grid>
         </Grid>
       </Container>
@@ -69,6 +73,7 @@ const DebateCreateAt = styled.div`
   font-size: 10px;
   width: fit-content;
   color: gray;
+  margin-top: 5px;
 `
 
 const DebateWarning = styled.div`
@@ -81,6 +86,7 @@ const DebateComment = styled.div`
   font-size: 10px;
   width: fit-content;
   color: gray;
+  margin-left: 5px;
 `
 
 const DebateCategory = styled.div`

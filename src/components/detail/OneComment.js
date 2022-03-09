@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators as commentActions } from '../../redux/modules/comment'
@@ -9,55 +10,60 @@ import apis from '../../shared/apis'
 
 const OneComment = (props) => {
   //삭제 기능을 위해
-  const commentId = props.commentId
-  const user = useSelector((state) => state.user.user)
+  const boardId = props.boardId;
+  const index = props.index;
+  const commentId = props.commentId;
+  const user = useSelector((state) => state.user.user);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //찬성, 반대 기능을 위해
+  const token = document.cookie;
+  const tokenCheck = token.split("=")[1];
 
-  //찬성 기능
-  // const token = document.cookie;
-  // const tokenCheck = token.split("=")[1]
-  // const handleClickAgree = async (e) => {
-  //   e.preventDefault()
-  //   e.stopPropagation()
-  //   if (!tokenCheck) {
-  //     alert("로그인을 해주세요!")
-  //     history.replace('/login')
-  //   }
-  //   if (isLiked) {
-  //     await apis
-  //       .likeComment(commentId)
-  //       .then((res) => {
-  //         setIsLiked(false)
-  //         setLikeCnt(likeCnt - 1)
-  //       })
-  //       .catch((err) => {
-  //         console.log('좋아요 취소 에러', err)
-  //       })
-  //   } else {
-  //     await apis
-  //       .likeComment(commentId)
-  //       .then((res) => {
-  //         setIsLiked(true)
-  //         setLikeCnt(likeCnt + 1)
-  //       })
-  //       .catch((err) => {
-  //         console.log('좋아요 에러', err)
-  //       })
-  //   }
-  // }
+  const handleClickAgree = () => {
+    if(!tokenCheck){
+      alert("로그인을 해주세요!")
+      history.replace("/login")
+    }
+    dispatch(commentActions.pushAgreeDB(commentId))
+  }
 
-  //반대 기능
   const handleClickDisagree = () => {
-
+    if(!tokenCheck){
+      alert("로그인을 해주세요!")
+      history.replace("/login")
+    }
+    dispatch(commentActions.pushDisAgreeDB(commentId))
   }
 
   //신고 기능
-  const handleClickWarning = () => {
+  const [isWarn, setIsWarn] = useState(false);
 
+  const handleClickWarning = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!tokenCheck) {
+      alert("로그인을 해주세요!")
+      history.replace('/login')
+    }
+    if (isWarn === false) {
+      await apis
+        .warningComment(commentId)
+        .then((res) => {
+          console.log('댓글 신고하기 성공', res)
+          setIsWarn(true);
+          alert("신고가 접수되었습니다")
+        })
+        .catch((err) => {
+          console.log('댓글 신고하기 에러', err)
+        })
+    }else{
+      alert("이미 신고를 하셨습니다")
+      return;
+    }
   }
+
 
   // 코멘트 삭제
   const deleteComment = () => {
@@ -67,6 +73,7 @@ const OneComment = (props) => {
       return;
     }
   }
+
 
   return (
 
@@ -79,18 +86,27 @@ const OneComment = (props) => {
             <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
-          <AgreeBtn>
-            <Number className="agree-count">찬성 {props.likeCnt}</Number>
-            <Number className="disagree-count">반대 {props.likeCnt}</Number>
-          </AgreeBtn>
+        <AgreeBtn>
+          {/* <Number className="agree-count" onClick={handleClickAgree}>{(agreeAction === false) ? "찬성" : "찬성취소"} {agreeCnt}</Number> */}
+          <Number className="agree-count" onClick={handleClickAgree}>
+            {(props.agreeUserList?.includes(user.id)) ? "찬성취소" : "찬성"} {props.agreeUserList?.length}
+          </Number>
+          {/* <Number className="disagree-count" onClick={handleClickDisagree}>{(disagreeAction === false) ? "반대" : "반대취소"} {disagreeCnt}</Number> */}
+          <Number className="disagree-count" onClick={handleClickDisagree}>
+            {(props.disagreeUserList?.includes(user.id)) ? "반대취소" : "반대"} {props.disagreeUserList?.length}
+          </Number>
+        </AgreeBtn>
       </Wrap>
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Number className="warning-count">신고</Number>
+            <Number className="warning-count" 
+            onClick={handleClickWarning}
+            style={{ cursor: "pointer" }} >{(props.warnUserList?.includes(user.id)) ? "신고햇음" : "신고"}</Number>
           </div>
-          {user.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null}
+
+          {user?.username === props.userInfo.username ? <button onClick={deleteComment}>삭제</button> : null}
         </IconBox>
       </ContentWrap>
     </>
@@ -142,6 +158,11 @@ const IconBox = styled.div`
   justify-content: space-between;
 `
 const Number = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0px 10px 0px 0px;
+`
+const NumberDisabled = styled.p`
   font-size: 12px;
   font-weight: 300;
   margin: 0px 10px 0px 0px;

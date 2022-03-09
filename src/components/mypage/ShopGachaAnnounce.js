@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-
-import Grid from "../../elements/Grid";
+import { history } from '../../redux/configStore'
 
 const ShopGachaAnnounce = (props) => {
     return (
         <Wrap>
             <Content>
-                <ContentImage></ContentImage>
+                <ContentImage onClick={() => {history.push('/mypage/pointshop')}}></ContentImage>
                 <ContentTitle>알포인트 상점</ContentTitle>
             </Content>
 
@@ -17,7 +16,7 @@ const ShopGachaAnnounce = (props) => {
             </Content>
 
             <Content>
-                <ContentImage></ContentImage>
+                <ContentImage onClick={() => {history.push('/announcement')}}></ContentImage>
                 <ContentTitle>공지사항</ContentTitle>
             </Content>
         </Wrap>
@@ -44,6 +43,7 @@ const ContentImage = styled.div`
     background-color: #CFCFCF;
     border: none;
     border-radius: 100%;
+    cursor: pointer;
 `
 
 const ContentTitle = styled.div`
