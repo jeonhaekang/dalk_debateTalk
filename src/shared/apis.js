@@ -85,6 +85,16 @@ const apis = {
   userOut : () => instance.delete(`/signout`),
   // 포인트 내역 조회
   pointcheck : () => instance.get(`/mypage/points`),
+
+  // ---------관리자 페이지------------
+  getblindboard: () => instance.get(`admin/boards`),
+  delblindboard: (boardId) => instance.delete(`admin/boards/${boardId}`),
+  getblindroom: () => instance.get(`admin/rooms`),
+  delblindroom: (roomId) => instance.delete(`admin/rooms/${roomId}`),
+  getWarnUser: () => instance.get(`admin/users`),
+  delWarnUser: (userId) => instance.delete(`admin/users/${userId}`),
+  getBannerList: () => instance.get(`admin/carousels`),
+  delBannerList: (carouselId) => instance.delete(`admin/carousels/${carouselId}`),
 };
 
 export default apis;

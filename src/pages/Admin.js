@@ -1,61 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Grid from "../elements/Grid"
-import Header from '../shared/Header'
 import MainCard from '../components/main/MainCard'
+import WarnUser from "../components/admin/WarnUser";
+import BlindRoom from "../components/admin/BlindRoom";
+import BlindBoard from "../components/admin/BlindBoard";
 
-const Admin = (props) => {
+const Admin = () => {
+    const [BlindBoardList, setBlindBoardList] = useState([]);
+    const [BlindRoomList, setBlindRoomList] = useState([]);
+    const [WarnUserList, setWarnUserList] = useState([]);
+    const [BannerList, setBannerList] = useState([]);
+
+
+
+
   return (
     <>
-      <Header />
       <Grid margin="30px 10px">
         {/* 신고 카운트가 기준치 넘으면 블라인드 목록으로 오게끔 */}
         <div>블라인드 게시글</div>
         <AdminMargin>
-          <MainCard />
+          <BlindBoard />
         </AdminMargin>
 
-        <br />
-        {/* 너무많다면? 페이지 수로 넘겨야할듯 */}
+
         <div>토론방 목록</div>
         <AdminMargin>
-          <MainCard />
-        </AdminMargin>
-        <AdminMargin>
-          <MainCard />
+          <BlindRoom />
         </AdminMargin>
 
 
-        <br />
-        {/* 이것도 많으면 페이지 수로 넘겨야할듯 */}
-        <Grid>
-          불량 유저 목록
+          <div>불량 유저 목록</div>
           <AdminList>
-            <div>아이디</div>
-            <div>신고수</div>
-            <div>제제여부</div>
+              <WarnUser />
           </AdminList>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-        </Grid>
 
 
-
-        <br />
-        {/* 등록하면 formdata 형식으로 DB에 보내야되나? */}
+        {/* 등록하면 formdata 형식으로 DB에 보내기 */}
         <Grid>
           메인 배너 리스트
           <Grid margin="10px">
