@@ -18,7 +18,7 @@ const UserInfo = (props) => {
           <MypageUser>
             <MyUserName>{user?.nickname}</MyUserName>
             <Grade>
-              <MyLevel>브론즈{user.ex}</MyLevel>
+              <MyLevel>브론즈</MyLevel>
               <GradeInfo
                 onClick={() => {
                   history.push("/mypage/grade");
