@@ -80,6 +80,9 @@ const apis = {
 
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
+
+  // 회원 탈퇴
+  userOut : () => instance.delete(`/signout`),
 };
 
 export default apis;
