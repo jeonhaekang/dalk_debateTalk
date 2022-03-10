@@ -14,7 +14,9 @@ const ChatInput = (props) => {
 
   const itemState = useSelector((state) => state.item.itemState);
   const onlyMe = useSelector((state) => state.item.onlyMe);
+  const papago = useSelector((state) => state.item.papago);
   const user = useSelector((state) => state.user.user);
+  console.log(papago);
   console.log(user);
   const sendMessage = () => {
     if (onlyMe && onlyMe !== user.nickname) {
@@ -29,6 +31,7 @@ const ChatInput = (props) => {
       roomId: roomId,
       message: message.current.value,
       bigFont: fontState ? true : false,
+      papago: papago,
     };
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));

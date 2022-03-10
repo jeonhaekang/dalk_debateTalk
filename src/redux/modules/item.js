@@ -16,6 +16,8 @@ const initialState = {
   itemState: false, // 아이템 사용 가능한지 상태
   onlyMe: null, // onlyMe아이템을 발동시킨 유저
   myName: null, // myName아이템을 발동시킨 유저
+  papago: null, // papago아이템을 발동시킨 유저
+  reverse: null, // reverse아이템을 발동시킨 유저
 };
 
 //MiddleWare
@@ -23,7 +25,6 @@ export default handleActions(
   {
     [SET_ITEM_STATE]: (state, action) =>
       produce(state, (draft) => {
-        console.log("실행", action.payload.state);
         draft.itemState = action.payload.state;
       }),
     [SET_USER]: (state, action) =>
@@ -34,6 +35,8 @@ export default handleActions(
       produce(state, (draft) => {
         draft.onlyMe = null;
         draft.myName = null;
+        draft.papago = null;
+        draft.reverse = null;
         draft.itemState = true;
       }),
   },

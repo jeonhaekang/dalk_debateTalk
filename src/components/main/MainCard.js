@@ -9,8 +9,10 @@ import GaugeTimer from "../chatroom/GaugeTimer";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../redux/modules/chat";
 import Center from "../../elements/Center";
+import Image from "../../elements/Image";
 
 const MainCard = (props) => {
+  // console.log(props.filePath);
   const dispatch = useDispatch();
   const [time, setTime] = React.useState(props.restTime);
 
@@ -48,12 +50,13 @@ const MainCard = (props) => {
       </FlexGrid>
       <FlexGrid is_flex alignItems="flex-start" between>
         <FlexGrid is_column center width="45%">
-          {props.page && <Img />}
+          {props.page && <Image src={props.filePath} />}
+
           <Topic>{props.topicA}</Topic>
         </FlexGrid>
         <Center>VS</Center>
         <FlexGrid is_column center width="45%">
-          {props.page && <Img />}
+          {props.page && <Image src={props.filePath} />}
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
@@ -71,12 +74,6 @@ const Topic = styled.div`
   text-align: center;
 `;
 
-const Img = styled.div`
-  --size: 58px;
-  width: var(--size);
-  height: var(--size);
-  border-radius: var(--size);
-  background-color: #c4c4c4;
-`;
+const Img = styled.div``;
 
 export default MainCard;

@@ -26,6 +26,7 @@ const ChatBox = ({ roomId, headers, client }) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
     //메세지 추가
+    console.log(newMassage);
     setMessageLog((log) => [...log, newMassage]);
 
     if (newMassage.type === "ITEMTIMEOUT") {
@@ -35,14 +36,20 @@ const ChatBox = ({ roomId, headers, client }) => {
     }
 
     if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
+      console.log(newMassage);
       // 입장시, 누군가 아이템 사용시 사용중인 사용자 지정
       const myName = newMassage.myName; // myName을 사용중인 유저
       const onlyMe = newMassage.onlyMe; // onlyMe를 사용중인 유저
-      console.log(onlyMe || myName);
-      if (myName || onlyMe) {
+      const papago = newMassage.papago; // onlyMe를 사용중인 유저
+      const reverse = newMassage.reverse; // onlyMe를 사용중인 유저
+
+      if (myName || onlyMe || papago || reverse) {
+        console.log("입장");
         // 사용중인 유저가 있을시 유저를 셋팅하고 아이템 사용을 막음
         myName && dispatch(actionCreators.setUser("myName", myName));
         onlyMe && dispatch(actionCreators.setUser("onlyMe", onlyMe));
+        papago && dispatch(actionCreators.setUser("papago", papago));
+        reverse && dispatch(actionCreators.setUser("reverse", reverse));
         dispatch(actionCreators.setItemState(false));
         return;
       }

@@ -2,6 +2,8 @@ import onlyMeIMG from "../image/itemImage/onlyMe.png";
 import bigFontIMG from "../image/itemImage/bigFont.png";
 import myNameIMG from "../image/itemImage/myName.png";
 import exBuyIMG from "../image/itemImage/exBuy.png";
+import reverseIMG from "../image/itemImage/reverse.png";
+import papagoIMG from "../image/itemImage/papago.png";
 
 const itemData = [
   {
@@ -27,6 +29,22 @@ const itemData = [
     itemCode: "myName",
     price: 100,
     content: "누가 누군지? 모두 내 이름으로 바뀌어요.",
+  },
+  {
+    img: papagoIMG,
+    state: "back",
+    name: "파파고",
+    itemCode: "papago",
+    price: 100,
+    content: "상대방이 외국어로 말해요.",
+  },
+  {
+    img: reverseIMG,
+    state: "back",
+    name: "거꾸로말해요",
+    itemCode: "reverse",
+    price: 100,
+    content: "상대방이 거꾸로 말해요.",
   },
   {
     img: exBuyIMG,
