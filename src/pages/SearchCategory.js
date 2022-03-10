@@ -46,7 +46,7 @@ function SearchCategory(props) {
   }
 
   const [searchDebateList, setSearchDebateList] = useState([]);
-  // 검색결과
+  //검색결과
   const searchDebate = () => {
     apis.getDebateKeyword(keyword)
         .then((res) => {

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
-import apis from "../../shared/apis";
 
 const PostListCategory = () => {
-
   //ref로 스크롤 querySelector함
   const scrollRef = React.useRef(null);
 
@@ -47,7 +45,6 @@ const PostListCategory = () => {
   const onThrottleDragMove = throttle(onDragMove, delay); 
 
   const CategoryList = [
-    "전체보기",
     "연애",
     "정치",
     "게임",
@@ -66,7 +63,11 @@ const PostListCategory = () => {
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}>
-      {CategoryList.map((c, idx) => {return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>#{c}</CategoryBtn>})}
+      <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
+      {CategoryList.map((c, idx) => {
+        return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>
+          #{c}
+          </CategoryBtn>})}
     </CategoryScroll>
   )
 };
@@ -82,6 +83,5 @@ margin-right: 5px;
 border: none;
 border-radius: 10px;
 `
-
 
 export default PostListCategory;
