@@ -9,14 +9,17 @@ import { instance } from "../../shared/apis";
 const LOGOUT = "LOGOUT";
 const SETUSER = "SETUSER";
 const BUY_ITEM = "BUY_ITEM";
+const ITEM_USE = "ITEM_USE";
 const BUY_EXP = "BUY_EXP";
-
+const SET_POINT = "SET_POINT";
 //Action Creator
 // const logIn = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, () => ({}));
 const setUser = createAction(SETUSER, (user) => ({ user }));
 const buyItem = createAction(BUY_ITEM, (item) => ({ item }));
+const ItemUse = createAction(ITEM_USE, (item) => ({ item }));
 const buyExp = createAction(BUY_EXP, (item) => ({ item }));
+const setPoint = createAction(SET_POINT, (point) => ({ point }));
 
 //initialState
 const initialState = {
@@ -131,6 +134,21 @@ const buyItemDB = (item) => {
   };
 };
 
+const useItemDB = (item) => {
+  return function (dispatch, getState, { history }) {
+    console.log(item);
+    apis
+      .ItemUse(item)
+      .then((res) => {
+        console.log(res);
+        dispatch(ItemUse(item));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -153,10 +171,18 @@ export default handleActions(
         draft.user.point -= action.payload.item.price;
         draft.user.item[action.payload.item.itemCode] += 1;
       }),
+    [ITEM_USE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.item[action.payload.item] -= 1;
+      }),
     [BUY_EXP]: (state, action) =>
       produce(state, (draft) => {
         draft.user.point -= action.payload.item.price;
         draft.user.ex += 100;
+      }),
+    [SET_POINT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.point += action.payload.point;
       }),
   },
   initialState
@@ -170,6 +196,8 @@ const actionCreators = {
   logInDB,
   logincheckDB,
   buyItemDB,
+  useItemDB,
+  setPoint,
 };
 
 export { actionCreators };

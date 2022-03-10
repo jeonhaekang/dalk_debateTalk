@@ -6,6 +6,7 @@ import exBuyIMG from "../image/itemImage/exBuy.png";
 const itemData = [
   {
     img: onlyMeIMG,
+    state: "back",
     name: "나만 말하기",
     itemCode: "onlyMe",
     price: 100,
@@ -13,6 +14,7 @@ const itemData = [
   },
   {
     img: bigFontIMG,
+    state: "front",
     name: "빅폰트",
     itemCode: "bigFont",
     price: 100,
@@ -20,6 +22,7 @@ const itemData = [
   },
   {
     img: myNameIMG,
+    state: "back",
     name: "전부 내이름",
     itemCode: "myName",
     price: 100,
@@ -27,6 +30,7 @@ const itemData = [
   },
   {
     img: exBuyIMG,
+    state: "back",
     name: "경험치 구매",
     itemCode: "exBuy",
     price: 100,

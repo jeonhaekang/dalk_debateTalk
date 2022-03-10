@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
 import TestLogo from "../../image/testlogo.jpeg";
 import Modal from "../shared/Modal";
+import apis from "../../shared/apis";
 
 const MainCarousel = (props) => {
-  const { images } = props;
+  const [imageList, setImageList] = useState([TestLogo, TestLogo, TestLogo]);
   const [noticeModalState, setNoticeModalState] = React.useState(false);
 
   const style = {
@@ -18,10 +19,21 @@ const MainCarousel = (props) => {
     infiniteLoop: true, // 무한 루프
   };
 
+  // useEffect(() => {
+  //   apis
+  //     .carousels()
+  //     .then((res) => {
+  //       setImageList(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //     });
+  // }, []);
+
   return (
     <>
       <Carousel {...style}>
-        {images.map((el, i) => {
+        {imageList.map((el, i) => {
           return (
             <Image src={el} key={i} onClick={() => setNoticeModalState(true)} />
           );
@@ -34,10 +46,6 @@ const MainCarousel = (props) => {
       ></Modal>
     </>
   );
-};
-
-MainCarousel.defaultProps = {
-  images: [TestLogo, TestLogo, TestLogo],
 };
 
 const Image = styled.div`

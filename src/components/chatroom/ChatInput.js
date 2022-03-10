@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
 import itemData from "../../data/itemData";
+import { actionCreators } from "../../redux/modules/user";
 
 const ChatInput = (props) => {
+  const dispatch = useDispatch();
   const message = React.useRef();
   const { client, roomId, headers } = props;
   const [fontState, setFontState] = React.useState(false);
@@ -41,30 +42,37 @@ const ChatInput = (props) => {
       sendMessage();
     }
   };
-  const itemUse = () => {
-    if (!itemState) {
-      alert("아이템을 사용할 수 없습니다.");
+  const itemUse = (item) => {
+    // 빅폰트사용
+    if (user.item[item] > 0 && item === "bigFont") {
+      console.log("bigFont");
+      setFontState(true);
+
+      setTimeout(() => {
+        setFontState(false);
+      }, 10000);
+
+      dispatch(actionCreators.useItemDB(item));
       return;
     }
+    // 그 외 아이템 사용
+    if (user.item[item] <= 0 || !itemState) {
+      console.log("아이템을 사용할 수 없습니다.");
+      return;
+    }
+    dispatch(actionCreators.useItemDB(item));
+
     const data = {
       type: "ITEM",
       roomId: roomId,
-      item: "onlyMe",
+      item: item,
     };
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
   };
 
-  const useBigFont = () => {
-    setFontState(true);
-
-    setTimeout(() => {
-      setFontState(false);
-    }, 10000);
-  };
-
   return (
-    <Wrap>
+    <div>
       <InputWrap>
         <button onClick={() => setState(!state)}>아이템</button>
         <Input
@@ -79,28 +87,24 @@ const ChatInput = (props) => {
 
       <ItemWrap state={state}>
         {itemData.map((el) => {
-          return (
-            <ItemButton
-              onClick={() => {
-                itemUse();
-              }}
-            >
-              {el.name}
-              {user.item[el.itemCode]}
-            </ItemButton>
-          );
+          if (el.itemCode !== "exBuy") {
+            return (
+              <ItemButton
+                key={el.itemCode}
+                onClick={() => {
+                  itemUse(el.itemCode);
+                }}
+              >
+                {el.name}
+                {user.item[el.itemCode]}
+              </ItemButton>
+            );
+          }
         })}
       </ItemWrap>
-    </Wrap>
+    </div>
   );
 };
-const Wrap = styled.div`
-  /* transition: 0.3s;
-  &:hover {
-    transform: translate(0, 50%);
-  }
-  overflow: hidden; */
-`;
 
 const InputWrap = styled.div`
   display: flex;
