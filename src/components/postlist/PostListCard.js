@@ -14,21 +14,20 @@ const PostListCard = (props) => {
     <>
       <Container onClick={() => history.push(`/detail/${boardId}`)}>
         <CategoryList>
-          {props.category.map((c,i) => <CategoryBtn {...c} key={i}/>)}
+          {props.category.map((c,i) => <CategoryBtn key={i}>#{c}</CategoryBtn>)}
         </CategoryList>
         <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
-        <DebateSummary>{props.winner}</DebateSummary>
+        <DebateSummary>{props.winner} WIN</DebateSummary>
         <Grid height="fit-content">
           <Grid>
             <DebateFirstWriter>{props.userInfo.nickname}</DebateFirstWriter>
             <DebateCreateAt>{createdAt}</DebateCreateAt>
           </Grid>
           <Grid display="flex" margin="5px 0px">
-            <DebateComment>덧글수 : {props.commentCnt}</DebateComment>
+            <DebateComment>댓글 : {props.commentCnt}</DebateComment>
           </Grid>
         </Grid>
       </Container>
-
     </>
   )
 }

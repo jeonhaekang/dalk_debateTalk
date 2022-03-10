@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "../../elements/Button";
-import Grid from "../../elements/Grid";
+import { history } from "../../redux/configStore";
+import apis from "../../shared/apis";
 
-const PostListCategory = ({debateList}) => {
+const PostListCategory = () => {
 
   //ref로 스크롤 querySelector함
   const scrollRef = React.useRef(null);
@@ -46,6 +46,18 @@ const PostListCategory = ({debateList}) => {
   const delay = 30;
   const onThrottleDragMove = throttle(onDragMove, delay); 
 
+  const CategoryList = [
+    "전체보기",
+    "연애",
+    "정치",
+    "게임",
+    "음식",
+    "유머",
+    "헬프",
+    "망상",
+    "운동",
+    "기타",
+  ];
 
   return (
     <CategoryScroll
@@ -54,16 +66,7 @@ const PostListCategory = ({debateList}) => {
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}>
-      <CategoryBtn>전체보기</CategoryBtn>
-      <CategoryBtn>#음식</CategoryBtn>
-      <CategoryBtn>#연애</CategoryBtn>
-      <CategoryBtn>#게임</CategoryBtn>
-      <CategoryBtn>#정치</CategoryBtn>
-      <CategoryBtn>#유머</CategoryBtn>
-      <CategoryBtn>#헬프</CategoryBtn>
-      <CategoryBtn>#망상</CategoryBtn>
-      <CategoryBtn>#운동</CategoryBtn>
-      <CategoryBtn>#기타</CategoryBtn>
+      {CategoryList.map((c, idx) => {return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>#{c}</CategoryBtn>})}
     </CategoryScroll>
   )
 };
