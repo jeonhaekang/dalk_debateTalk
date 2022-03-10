@@ -83,6 +83,8 @@ const apis = {
 
   // 회원 탈퇴
   userOut : () => instance.delete(`/signout`),
+  // 포인트 내역 조회
+  pointcheck : () => instance.get(`/mypage/points`),
 };
 
 export default apis;

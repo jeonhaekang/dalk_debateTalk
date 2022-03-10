@@ -1,59 +1,94 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import apis from "../../shared/apis";
 
 import styled from "styled-components";
 import Grid from "../../elements/Grid";
 
 import Header from "../../shared/Header";
+import FlexGrid from "../../elements/FlexGrid";
 
 const MyEggPoint = () => {
+    const user = useSelector(state => state.user.user);
 
-    
+    const [pointCheck, setPointCheck] = useState([]);
+
+    // const pointCreatedAt = pointCheck.createdAt.split("-")[0] + "년 "
+    //                      + pointCheck.createdAt.split("-")[1] + "월 "
+    //                      + pointCheck.createdAt.split("-")[2] + "일";
+
+    useEffect(() => {
+        apis.pointcheck()
+            .then((res) => {
+                console.log("포인트 내역 조회 완료", res.data)
+                setPointCheck(res.data)
+            })
+            .catch((err) => {
+                console.log("포인트 내역 조회 실패", err)
+            })
+    }, [])
+
+
     return (
         <>
             <Header />
             <CurrentEggPoint>현재 알포인트는 <br />
-                총 <span className="Mypoint">2,855</span> RP 입니다</CurrentEggPoint>
+                총 <span className="Mypoint">{user?.point}</span> RP 입니다</CurrentEggPoint>
 
-            <Grid padding="0px 0px 0px 10px">
-                <UserEggpoint>
-                    <div>날짜</div>
-                    <div>내역</div>
-                    <div>알포인트 변동</div>
-                </UserEggpoint>
-                <CheckEggpoint>
-                    <PointCreatedAt>2022-03-01</PointCreatedAt>
-                    <PointLog>토론 승리</PointLog>
-                    <PointPlusMinus>+ 200</PointPlusMinus>
-                </CheckEggpoint>
-                <CheckEggpoint>
-                    <PointCreatedAt>2022-03-01</PointCreatedAt>
-                    <PointLog>토론 승리</PointLog>
-                    <PointPlusMinus>+ 200</PointPlusMinus>
-                </CheckEggpoint>
-                <CheckEggpoint>
-                    <PointCreatedAt>2022-03-01</PointCreatedAt>
-                    <PointLog>토론 승리</PointLog>
-                    <PointPlusMinus>+ 200</PointPlusMinus>
-                </CheckEggpoint>
-                <CheckEggpoint>
-                    <PointCreatedAt>2022-03-01</PointCreatedAt>
-                    <PointLog>토론 승리</PointLog>
-                    <PointPlusMinus>+ 200</PointPlusMinus>
-                </CheckEggpoint>
-                <CheckEggpoint>
-                    <PointCreatedAt>2022-03-01</PointCreatedAt>
-                    <PointLog>토론 승리</PointLog>
-                    <PointPlusMinus>+ 200</PointPlusMinus>
-                </CheckEggpoint>
-            </Grid>
+            <Wrap>
+                <ColumnList>
+                    <UserEggpoint>
+                        <div>날짜</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
+                        return <CheckEggpoint key={idx}>
+                            <PointCreatedAt>
+                                {p.createdAt.split("-")[0] + "년 "
+                                    + p.createdAt.split("-")[1] + "월 "
+                                    + p.createdAt.split("-")[2] + "일"}
+                            </PointCreatedAt>
+                        </CheckEggpoint>
+                    })
+                    }
+                </ColumnList>
+
+                <ColumnList>
+                    <UserEggpoint>
+                        <div>내역</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
+                        return <CheckEggpoint key={idx}>
+                            <PointLog>{p.content}</PointLog>
+                        </CheckEggpoint>
+                    })
+                    }
+                </ColumnList>
+
+                <ColumnList>
+                    <UserEggpoint>
+                        <div>변동</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
+                        return <CheckEggpoint key={idx}>
+                            <PointPlusMinus>{p.changePoint}</PointPlusMinus>
+                        </CheckEggpoint>
+                    })
+                    }
+                </ColumnList>
+            </Wrap>
         </>
     )
 };
 
+const Wrap = styled.div`
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding-right: 10px;
+`
+
 const CurrentEggPoint = styled.div`
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
     text-align: center;
     font-size: 24px;
     padding: 70px;
@@ -61,29 +96,29 @@ const CurrentEggPoint = styled.div`
         color: #E9C718;
     }
 `
-
+const ColumnList = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 const UserEggpoint = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
+    margin-bottom: 5px;
 `
 
 const CheckEggpoint = styled.div`
-    display: flex;
-    padding: 10px 0px;
+    margin-bottom: 5px;
 `
 
 const PointCreatedAt = styled.div`
-    padding: 0px 0px 0px 16px;
+    font-size: 12px;
 `
 
 const PointLog = styled.div`
-    padding: 0px 0px 0px 40px;
+    font-size: 12px;
 `
 
 const PointPlusMinus = styled.div`
-    padding: 0px 0px 0px 88px;
+    font-size: 12px;
 `
 
 export default MyEggPoint;

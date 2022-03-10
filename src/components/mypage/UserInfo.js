@@ -30,15 +30,11 @@ const UserInfo = (props) => {
           </MypageUser>
         </UserInfoCard>
       )}
-      <MyEggPoint>
-        <div>보유 알포인트 {user?.point}</div>
-        <div
-          onClick={() => {
+      <MyEggPoint onClick={() => {
             history.push("/mypage/eggpoint");
-          }}
-        >
-          {" "}
-        </div>
+          }}>
+        <div>보유 알포인트 {user?.point}</div>
+        <div> > </div>
       </MyEggPoint>
     </>
   );
