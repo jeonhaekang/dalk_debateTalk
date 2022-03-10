@@ -37,6 +37,10 @@ const apis = {
   //행운뽑기
   Gacha: () => instance.get("/lotto"),
 
+  //유저신고하기
+  reportUser: (userId, message) =>
+    instance.post("/warnings/" + userId, message),
+
   // ---------캐러셀 관련------------
   carousels: () => instance.get("/api/carousels"),
 

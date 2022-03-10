@@ -95,14 +95,15 @@ const getOneRoomDB = (roomId) => {
     apis
       .getOneRoom(roomId)
       .then((res) => {
-        apis
-          .getVoteUser(roomId)
-          .then((res) => {
-            // console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // apis
+        //   .getVoteUser(roomId)
+        //   .then((res) => {
+        //     // console.log(res);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
+        console.log(res.data);
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {

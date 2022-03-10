@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { FcSpeaker } from "react-icons/fc";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import apis from "../../shared/apis";
 
 const Chat = (props) => {
   const { userInfo, message, bigFont, type, createdAt } = props;
 
   const [state, setState] = React.useState(false);
-  console.log(bigFont);
+
   const time = moment(createdAt).format("HH:mm");
 
   const user = useSelector((state) => state.user.user);
@@ -17,20 +18,19 @@ const Chat = (props) => {
   const reportRef = React.useRef();
 
   const report = (e) => {
-    if (reportRef.current === e.target) {
-      setState(true);
-    } else {
-      setState(false);
+    if (userInfo.id === user.id) {
+      console.log("자기 자신은 신고할 수 없습니다.")
+      return;
     }
+    apis
+      .reportUser(userInfo.id, message)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-  React.useEffect(() => {
-    window.addEventListener("click", report);
-
-    return () => {
-      window.removeEventListener("click", report);
-    };
-  });
 
   if (type !== "TALK") {
     return (
@@ -44,7 +44,7 @@ const Chat = (props) => {
   return (
     <>
       <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
-        <div onClick={report} className="nickname" ref={reportRef}>
+        <div onClick={() => report()} className="nickname" ref={reportRef}>
           {myName ? myName : userInfo.nickname}
         </div>
         <div className="messageBox">

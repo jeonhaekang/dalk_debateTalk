@@ -13,9 +13,9 @@ const clear = createAction(CLEAR, () => ({}));
 
 //initialState
 const initialState = {
-  itemState: false,
-  onlyMe: null,
-  myName: null,
+  itemState: false, // 아이템 사용 가능한지 상태
+  onlyMe: null, // onlyMe아이템을 발동시킨 유저
+  myName: null, // myName아이템을 발동시킨 유저
 };
 
 //MiddleWare
