@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{ useState } from 'react'
 
 function WarnUser() {
-  return (
-    <div>WarnUser</div>
-  )
+    const [WarnUserList, setWarnUserList] = useState([]);
+    return (
+        <div>WarnUser</div>
+    )
 }
 
 export default WarnUser

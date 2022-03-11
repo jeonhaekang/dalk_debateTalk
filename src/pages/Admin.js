@@ -1,73 +1,74 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Grid from "../elements/Grid"
-import MainCard from '../components/main/MainCard'
 import WarnUser from "../components/admin/WarnUser";
 import BlindRoom from "../components/admin/BlindRoom";
 import BlindBoard from "../components/admin/BlindBoard";
+import { actionCreators as bannerActions } from "../redux/modules/banner";
+import { useEffect } from "react";
 
 const Admin = () => {
-    const [BlindBoardList, setBlindBoardList] = useState([]);
-    const [BlindRoomList, setBlindRoomList] = useState([]);
-    const [WarnUserList, setWarnUserList] = useState([]);
-    const [BannerList, setBannerList] = useState([]);
+  const BannerList = useSelector(state => state.banner?.BannerList)
+  const carouselId = BannerList?.carouselId;
 
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(bannerActions.getBannerDB())
+  }, [])
 
+  const [selectedFile, setSelectedFile] = useState();
+  console.log(selectedFile)
+
+  const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0]);
+  }
+
+  const handleAddBanner = () => {
+    const image = new FormData();
+    image.append('image', selectedFile);
+    console.log(image)
+    dispatch(bannerActions.addBannerDB(image));
+  }
+
+  const handleDelBanner = () => {
+    dispatch(bannerActions.delBannerDB(carouselId))
+  }
 
   return (
     <>
       <Grid margin="30px 10px">
-        {/* 신고 카운트가 기준치 넘으면 블라인드 목록으로 오게끔 */}
-        <div>블라인드 게시글</div>
-        <AdminMargin>
-          <BlindBoard />
-        </AdminMargin>
+        <div>현재 블라인드 게시글</div>
+        <BlindBoard />
 
+        <div>현재 블라인드 토론방</div>
+        <BlindRoom />
 
-        <div>토론방 목록</div>
-        <AdminMargin>
-          <BlindRoom />
-        </AdminMargin>
+        <div>불량 유저 목록</div>
+        <WarnUser />
 
-
-          <div>불량 유저 목록</div>
-          <AdminList>
-              <WarnUser />
-          </AdminList>
-
-
-        {/* 등록하면 formdata 형식으로 DB에 보내기 */}
         <Grid>
           메인 배너 리스트
           <Grid margin="10px">
             <AdminList>
               <div>배너 파일</div>
-              <input type="file"></input>
-              <div style={{color:"#0000ff", fontWeight: "bold", cursor: "pointer"}}>등록</div>
+              <input type="file" onChange={handleFileInput}></input>
+              <div onClick={handleAddBanner}>등록</div>
             </AdminList>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
+            {BannerList?.map((b, idx) => {
+              return <Log key={idx}>
+                <div>jpg이름</div>
+                <OutBtn onClick={handleDelBanner}>삭제</OutBtn>
+              </Log>
+            })
+            }
           </Grid>
         </Grid>
       </Grid>
     </>
   )
 };
-
-const AdminMargin = styled.div`
-  margin: 10px 0px;
-`
 
 const AdminList = styled.div`
   display: flex;
