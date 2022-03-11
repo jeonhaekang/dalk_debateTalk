@@ -30,6 +30,7 @@ function BlindRoom() {
 
     return (
         <>
+        <Title>현재 블라인드 토론방</Title>
             {BlindRoomList.map((r, idx) => {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
@@ -40,6 +41,14 @@ function BlindRoom() {
         </>
     )
 }
+
+const Title = styled.div`
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+`
 
 const List = styled.div`
     display: flex;

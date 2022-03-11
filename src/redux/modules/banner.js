@@ -24,8 +24,7 @@ const getBannerDB = () => {
   return function (dispatch, getState, {history}) {
     apis.getBannerList()
         .then((res) => {
-          console.log("배너 목록 가져오기 성공!", res.data);
-          // dispatch(getBanner(res.data));
+          dispatch(getBanner(res.data));
         })
         .catch((err) => {
           console.log("배너 목록 가져오기 실패!", err);
@@ -39,7 +38,8 @@ const addBannerDB = (image) => {
     apis.addBanner(image)
         .then((res) => {
           console.log("배너 추가하기 완료", res)
-          // dispatch(addBanner(image))
+          dispatch(addBanner(image))
+          dispatch(getBannerDB())
         })
         .catch((err) => {
           console.log("배너 추가하기 실패", err)
@@ -47,13 +47,14 @@ const addBannerDB = (image) => {
   };
 };
 
-const delBannerDB = (bannerId) => {
+const delBannerDB = (carouselId) => {
   //배너 삭제하기
   return function (dispatch, getState, { history }) {
-    apis.delBannerList(bannerId)
+    apis.delBannerList(carouselId)
         .then((res) => {
           console.log("배너 삭제하기 성공", res);
-          dispatch(delBanner(bannerId));
+          dispatch(delBanner(carouselId));
+          dispatch(getBannerDB())
         })
         .catch((err) => {
           console.log("배너 삭제 에러", err);

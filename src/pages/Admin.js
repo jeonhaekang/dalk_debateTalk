@@ -9,8 +9,9 @@ import { actionCreators as bannerActions } from "../redux/modules/banner";
 import { useEffect } from "react";
 
 const Admin = () => {
-  const BannerList = useSelector(state => state.banner?.BannerList)
-  const carouselId = BannerList?.carouselId;
+  const BannerList = useSelector(state => state.banner.BannerList)
+  const carouselId = BannerList.map((b, idx) => b.carouselId);
+  // const carouselId = BannerList[0].carouselId
 
   const dispatch = useDispatch();
 
@@ -19,7 +20,6 @@ const Admin = () => {
   }, [])
 
   const [selectedFile, setSelectedFile] = useState();
-  console.log(selectedFile)
 
   const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -28,8 +28,8 @@ const Admin = () => {
   const handleAddBanner = () => {
     const image = new FormData();
     image.append('image', selectedFile);
-    console.log(image)
     dispatch(bannerActions.addBannerDB(image));
+    selectedFile();
   }
 
   const handleDelBanner = () => {
@@ -38,28 +38,26 @@ const Admin = () => {
 
   return (
     <>
-      <Grid margin="30px 10px">
-        <div>현재 블라인드 게시글</div>
+      <Grid margin="30px 10px" height="100%" overflow="scroll">
         <BlindBoard />
-
-        <div>현재 블라인드 토론방</div>
         <BlindRoom />
-
-        <div>불량 유저 목록</div>
         <WarnUser />
 
         <Grid>
-          메인 배너 리스트
-          <Grid margin="10px">
+          <Title>메인 배너 리스트</Title>
+          <Grid margin="10px" display="flex" flexDirection="column">
             <AdminList>
               <div>배너 파일</div>
               <input type="file" onChange={handleFileInput}></input>
-              <div onClick={handleAddBanner}>등록</div>
+              <AddBannerBtn onClick={handleAddBanner}>등록</AddBannerBtn>
             </AdminList>
-            {BannerList?.map((b, idx) => {
+            {BannerList.map((b, idx) => {
               return <Log key={idx}>
-                <div>jpg이름</div>
-                <OutBtn onClick={handleDelBanner}>삭제</OutBtn>
+                <img src={b.image}></img>
+                <Grid display="flex" gap="10px" justifyContent="center" padding="5px">
+                  {idx + 1}번 캐러셀 이미지
+                  <OutBtn onClick={handleDelBanner}>삭제</OutBtn>
+                </Grid>
               </Log>
             })
             }
@@ -75,13 +73,27 @@ const AdminList = styled.div`
   justify-content: space-between;
   margin: 10px;
 `
-
+const AddBannerBtn = styled.button`
+  background-color: #ccc;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 35px;
+  font-size: 12px;
+  text-align: center;
+`
+const Title = styled.div`
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+`
 const Log = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 10px;
 `
-
 const OutBtn = styled.div`
   color: #ff0000;
   font-weight: bold;

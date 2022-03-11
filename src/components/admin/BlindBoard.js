@@ -30,6 +30,7 @@ function BlindBoard() {
 
     return (
         <>
+        <Title>현재 블라인드 게시글</Title>
             {BlindBoardList.map((r, idx) => {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
@@ -40,6 +41,14 @@ function BlindBoard() {
         </>
     )
 }
+
+const Title = styled.div`
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+`
 
 const List = styled.div`
     display: flex;
