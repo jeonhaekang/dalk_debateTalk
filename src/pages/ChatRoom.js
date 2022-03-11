@@ -38,7 +38,12 @@ const ChatRoom = (props) => {
   return (
     <>
       <Header page="토론방" report />
-      <Grid display="flex" flexDirection="column" height="calc(100% - 60px)">
+      <Grid
+        display="flex"
+        flexDirection="column"
+        height="calc(100% - 60px)"
+        border="2px solid red"
+      >
         <ChatHeader />
         <ChatBox {...data} />
         <ChatInput {...data} />

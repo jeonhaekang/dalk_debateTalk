@@ -20,7 +20,7 @@ const MainCard = (props) => {
       gap="30px"
       _onClick={() => history.push("/chatroom/" + props.roomId)}
     >
-      {/* {warnCnt >= 10 && <Blind>블라인드 처리된 채팅방</Blind>} */}
+      {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex>
           {props.category.map((el, i) => {

@@ -23,7 +23,7 @@ const ChatHeader = (props) => {
   };
 
   return (
-    <>
+    <div>
       {roomInfo && <GaugeTimer {...roomInfo} />}
       {roomInfo && (
         <InfoWrap state={state}>
@@ -54,7 +54,7 @@ const ChatHeader = (props) => {
       <Modal modalState={modalState} setModalState={setModalState}>
         <Vote {...data} setModalState={setModalState} />
       </Modal>
-    </>
+    </div>
   );
 };
 

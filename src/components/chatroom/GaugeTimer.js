@@ -64,7 +64,7 @@ const GaugeInner = styled.div.attrs((props) => ({
   transition: 0.3s;
   ${(props) =>
     props.page
-      ? "border-radius:0px 0px 0px 10px; position:absolute; left:0; bottom:0;"
+      ? "border-radius:0px 0px 10px 10px; position:absolute; left:0; bottom:0;"
       : ""}
 `;
 
