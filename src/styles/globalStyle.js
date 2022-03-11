@@ -28,7 +28,8 @@ a {
 body{
   height: 100vh;
   position: relative;
-  
+  font-size: 16px;
+  font-weight: 300;
 }
 
 input[type=radio]{
