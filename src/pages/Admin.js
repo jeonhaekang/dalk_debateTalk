@@ -10,9 +10,6 @@ import { useEffect } from "react";
 
 const Admin = () => {
   const BannerList = useSelector(state => state.banner.BannerList)
-  // console.log(BannerList)
-  // const carouselId = BannerList.map((b, idx) => b.carouselId);
-  // const carouselId = BannerList[0].carouselId
 
   const dispatch = useDispatch();
 
