@@ -31,6 +31,19 @@ const apis = {
   //아이템 구매
   buyItem: (item) => instance.get("/mypage/" + item),
 
+  //아이템 사용
+  ItemUse: (item) => instance.get("/chat/rooms/" + item),
+
+  //행운뽑기
+  Gacha: () => instance.get("/lotto"),
+
+  //유저신고하기
+  reportUser: (userId, message) =>
+    instance.post("/warnings/" + userId, message),
+
+  // ---------캐러셀 관련------------
+  carousels: () => instance.get("/api/carousels"),
+
   // ---------토론방 관련------------
   //토론방 생성
   createRoom: (data) => instance.post("/rooms", data),

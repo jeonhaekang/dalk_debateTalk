@@ -3,6 +3,7 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/chat";
+
 import ContentContainer from "../elements/Container";
 
 import FlexGrid from "../elements/FlexGrid";
@@ -15,27 +16,18 @@ import MainCategoryCard from "../components/main/MainCategoryCard";
 import MainCard from "../components/main/MainCard";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import apis from "../shared/apis";
 
 const Main = (props) => {
-  const [userRankList, setUserRankList] = React.useState();
-  const roomList = useSelector((state) => state.chat.roomList);
-
-  console.log(roomList);
   const dispatch = useDispatch();
 
+  const roomList = useSelector((state) => state.chat.mainRoomList);
+  // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
-    dispatch(actionCreators.loadMainRoomDB());
-
-    apis
-      .rank()
-      .then((res) => {
-        setUserRankList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (roomList.length === 0) {
+      dispatch(actionCreators.loadMainRoomDB());
+    }
   }, []);
+  console.log(roomList);
 
   return (
     <>
@@ -43,9 +35,10 @@ const Main = (props) => {
       <ContentContainer>
         <FlexGrid is_column>
           <MainCarousel />
-          {userRankList && <TopRank userRankList={userRankList} />}
+          <TopRank />
           <FlexGrid is_column padding="16px">
             {roomList.map((el, i) => {
+              console.log(el);
               return <MainCard key={i} {...el} page="메인" />;
             })}
           </FlexGrid>

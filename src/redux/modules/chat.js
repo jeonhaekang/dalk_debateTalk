@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as imageAction } from "./image";
+import { actionCreators as userAction } from "./user";
 
 //Action
 const IS_LOADED = "IS_LOADED";
@@ -8,31 +10,37 @@ const SET_ROOM = "SET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
+const VOTE = "VOTE";
 
 //Action Creator
-const is_loaded = createAction(IS_LOADED, (rooms) => ({ rooms }));
-const setRoom = createAction(SET_ROOM, (rooms) => ({ rooms }));
+const setRoom = createAction(SET_ROOM, (list, rooms) => ({ list, rooms }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
+const vote = createAction(VOTE, (topic, point) => ({ topic, point }));
 
 //initialState
 const initialState = {
   is_loaded: false,
+  mainRoomList: [],
   roomList: [],
   currentRoom: null,
   itemState: false,
+};
+
+const roomInitialState = {
+  warnCnt: 0,
+  warnUserList: null,
 };
 
 //MiddleWare
 const loadMainRoomDB = () => {
   // 메인 방 목록 가져오기
   return function (dispatch, getState, { history }) {
-    dispatch(is_loaded());
     apis
       .loadMainRoom()
       .then((res) => {
-        dispatch(setRoom(res.data));
+        dispatch(setRoom("mainRoomList", res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -42,7 +50,6 @@ const loadMainRoomDB = () => {
 const loadAllRoomDB = () => {
   // 모든 방 목록 가져오기
   return function (dispatch, getState, { history }) {
-    dispatch(is_loaded());
     apis
       .loadAllRoom()
       .then((res) => {
@@ -57,7 +64,6 @@ const loadAllRoomDB = () => {
 const loadCategoryRoomDB = (category) => {
   // 모든 방 목록 가져오기
   return function (dispatch, getState, { history }) {
-    dispatch(is_loaded());
     apis
       .loadCategoryRoom(category)
       .then((res) => {
@@ -69,21 +75,54 @@ const loadCategoryRoomDB = (category) => {
   };
 };
 
+const voteDB = (roomId, topic, point) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .vote(roomId, { topic: topic, point: point })
+      .then((res) => {
+        dispatch(userAction.setPoint(-1 * point));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
+  };
+};
+
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
+    console.log("data:", data);
+    const image = getState().image.image;
+    console.log(image);
+    const formdata = new FormData();
+
+    image.file && formdata.append("image", image.file);
+    formdata.append(
+      "debate",
+      new Blob([JSON.stringify(data)], { type: "application/json" })
+    );
+    console.log("진입");
+
     apis
-      .createRoom({ ...data })
+      .createRoom(formdata)
       .then((res) => {
         const user = getState().user.user;
-        console.log(res);
-        dispatch(
-          createRoom({ ...data, chatRoomId: res.data.roomId, userInfo: user })
-        );
-        history.replace("/chatroom/" + res.data.roomId);
+        const setData = {
+          ...roomInitialState,
+          ...data,
+          roomId: res.data.roomId,
+          userInfo: user,
+          filePath: image.preview,
+          restTime: data.time ? 1200 : 3600,
+        };
+
+        dispatch(createRoom(setData));
+        dispatch(imageAction.clear());
+        history.push("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 };
@@ -91,18 +130,10 @@ const createRoomDB = (data) => {
 const getOneRoomDB = (roomId) => {
   // 방 상세정보 가져오기
   return function (dispatch) {
-    dispatch(is_loaded());
     apis
       .getOneRoom(roomId)
       .then((res) => {
-        apis
-          .getVoteUser(roomId)
-          .then((res) => {
-            // console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        console.log(res.data);
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
@@ -114,18 +145,14 @@ const getOneRoomDB = (roomId) => {
 //Reducer
 export default handleActions(
   {
-    [IS_LOADED]: (state, action) =>
-      produce(state, (draft) => {
-        draft.is_loaded = true;
-      }),
     [SET_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.roomList = action.payload.rooms;
-        draft.is_loaded = false;
+        draft[action.payload.list] = action.payload.rooms;
       }),
     [CREATE_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.roomList.push(action.payload.room);
+        draft.roomList.unshift(action.payload.room);
+        draft.mainRoomList.unshift(action.payload.room);
       }),
     [DELETE_ROOM]: (state, action) =>
       produce(state, (draft) => {
@@ -139,7 +166,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.currentRoom = action.payload.data;
         draft.itemState = false;
-        draft.is_loaded = false;
       }),
   },
   initialState
@@ -154,6 +180,7 @@ const actionCreators = {
   deleteRoom,
   loadMainRoomDB,
   loadCategoryRoomDB,
+  voteDB,
 };
 
 export { actionCreators };

@@ -7,16 +7,18 @@ import { history } from "../redux/configStore";
 const Footer = () => {
   const [createModalState, setCreateModalState] = React.useState(false);
   return (
-    <FixedNav>
-      <Icon onClick={() => history.push("/")}>홈</Icon>
-      <Icon onClick={() => history.push("/more")}>검색</Icon>
-      <Icon onClick={() => setCreateModalState(true)}>생성</Icon>
-      <Icon onClick={() => history.push("/postlist")}>결과</Icon>
-      <Icon onClick={() => history.push("/mypage")}>마이</Icon>
+    <>
+      <FixedNav>
+        <Icon onClick={() => history.push("/")}>홈</Icon>
+        <Icon onClick={() => history.push("/more")}>검색</Icon>
+        <Icon onClick={() => setCreateModalState(true)}>생성</Icon>
+        <Icon onClick={() => history.push("/postlist")}>결과</Icon>
+        <Icon onClick={() => history.push("/mypage")}>마이</Icon>
+      </FixedNav>
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
         <CreateRoom />
       </Modal>
-    </FixedNav>
+    </>
   );
 };
 

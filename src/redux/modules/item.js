@@ -5,7 +5,6 @@ import produce from "immer";
 const SET_ITEM_STATE = "SET_ITEM_STATE";
 const SET_USER = "SET_USER";
 const CLEAR = "CREAR";
-const BUY_ITEM = "BUY_ITEM";
 
 //Action Creator
 const setItemState = createAction(SET_ITEM_STATE, (state) => ({ state }));
@@ -14,9 +13,13 @@ const clear = createAction(CLEAR, () => ({}));
 
 //initialState
 const initialState = {
-  itemState: false,
-  onlyMe: null,
-  myName: null,
+  itemState: false, // 아이템 사용 가능한지 상태
+  itemList: {
+    onlyMe: null, // onlyMe아이템을 발동시킨 유저
+    myName: null, // myName아이템을 발동시킨 유저
+    papago: null, // papago아이템을 발동시킨 유저
+    reverse: null, // reverse아이템을 발동시킨 유저
+  },
 };
 
 //MiddleWare
@@ -24,17 +27,18 @@ export default handleActions(
   {
     [SET_ITEM_STATE]: (state, action) =>
       produce(state, (draft) => {
-        console.log("실행", action.payload.state);
         draft.itemState = action.payload.state;
       }),
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft[action.payload.item] = action.payload.user;
+        draft.itemList[action.payload.item] = action.payload.user;
       }),
     [CLEAR]: (state) =>
       produce(state, (draft) => {
-        draft.onlyMe = null;
-        draft.myName = null;
+        draft.itemList.onlyMe = null;
+        draft.itemList.myName = null;
+        draft.itemList.papago = null;
+        draft.itemList.reverse = null;
         draft.itemState = true;
       }),
   },

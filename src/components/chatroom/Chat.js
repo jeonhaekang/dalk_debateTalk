@@ -3,34 +3,38 @@ import styled from "styled-components";
 import { FcSpeaker } from "react-icons/fc";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import apis from "../../shared/apis";
+import Badge from "../../elements/Badge";
+import FlexGrid from "../../elements/FlexGrid";
+import { rank, discriminant } from "../../data/rank";
 
 const Chat = (props) => {
   const { userInfo, message, bigFont, type, createdAt } = props;
 
   const [state, setState] = React.useState(false);
-  console.log(bigFont);
+
   const time = moment(createdAt).format("HH:mm");
 
   const user = useSelector((state) => state.user.user);
-  const myName = useSelector((state) => state.item.myName);
+  const myName = useSelector((state) => state.item.itemList.myName);
 
   const reportRef = React.useRef();
+  console.log(userInfo);
 
   const report = (e) => {
-    if (reportRef.current === e.target) {
-      setState(true);
-    } else {
-      setState(false);
+    if (userInfo.id === user.id) {
+      console.log("자기 자신은 신고할 수 없습니다.");
+      return;
     }
+    apis
+      .reportUser(userInfo.id, message)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-  React.useEffect(() => {
-    window.addEventListener("click", report);
-
-    return () => {
-      window.removeEventListener("click", report);
-    };
-  });
 
   if (type !== "TALK") {
     return (
@@ -41,10 +45,14 @@ const Chat = (props) => {
     );
   }
 
+  const userRank = rank[discriminant(userInfo.ex)];
+  console.log(userRank);
+
   return (
     <>
       <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
-        <div onClick={report} className="nickname" ref={reportRef}>
+        <div onClick={() => report()} className="nickname" ref={reportRef}>
+          <Badge src={userRank.img}></Badge>
           {myName ? myName : userInfo.nickname}
         </div>
         <div className="messageBox">

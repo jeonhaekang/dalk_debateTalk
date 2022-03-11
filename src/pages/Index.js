@@ -8,6 +8,7 @@ import PostList from "./PostList";
 import Signup from "./Signup";
 import More from "./More";
 import Category from "./Category";
+import Gacha from "./Gacha";
 
 export {
   Admin,
@@ -20,4 +21,5 @@ export {
   Signup,
   More,
   Category,
+  Gacha,
 };

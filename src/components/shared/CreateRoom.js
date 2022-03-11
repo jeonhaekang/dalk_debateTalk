@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
 import { actionCreators } from "../../redux/modules/chat";
 import { useDispatch } from "react-redux";
-// import Chip from "../../elements/Chip";
 import styled from "styled-components";
+import Upload from "./Upload";
 
 const CreateRoom = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const CreateRoom = (props) => {
     time: null,
   });
 
-  const { topicA, topicB, content, time } = roomInfo;
+  const { topicA, topicB } = roomInfo;
 
   const [cateCount, setCateCount] = React.useState(0);
   const [category, setCategory] = React.useState({
@@ -74,6 +74,8 @@ const CreateRoom = (props) => {
         gap="30px"
         marginBottom="50px"
       >
+        <Grid>사진을 첨부해주세요</Grid>
+        <Upload />
         <Grid display="flex" flexDirection="column" gap="10px">
           토론 주제는 무엇인가요?
           <Input name="topicA" value={topicA} onChange={onChange} />

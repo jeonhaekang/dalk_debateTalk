@@ -6,8 +6,8 @@ const Image = ({ _onClick, src, active, ...props }) => {
     active,
   };
   return (
-    <Outer onClick={_onClick}>
-      <Inner {...style} style={{ ...props }}></Inner>
+    <Outer onClick={_onClick} style={{ ...props }}>
+      <Inner {...style}></Inner>
     </Outer>
   );
 };
