@@ -1,19 +1,15 @@
-const calcRem = (size) => `${size / 16}rem`;
-
 const fontSizes = {
-  small: calcRem(14),
-  base: calcRem(16),
-  lg: calcRem(18),
-  xl: calcRem(20),
-  xxl: calcRem(22),
-  xxxl: calcRem(24),
-  titleSize: calcRem(50),
+  headline: 32,
+  subtitle: 24,
+  bigBody: 16,
+  smallBody: 14,
 };
 
 const fontWeight = {
-  extraBold: 800,
   semiBold: 600,
+  medium: 500,
   regular: 400,
+  light: 300,
 };
 
 const color = {};
@@ -22,7 +18,6 @@ const theme = {
   fontSizes,
   fontWeight,
   color,
-  calcRem,
 };
 
 export default theme;

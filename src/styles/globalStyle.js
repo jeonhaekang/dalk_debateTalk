@@ -3,11 +3,10 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 *{
-  font-size: 14px;
   margin:0;
   padding:0;
   box-sizing:border-box;
-  //font-family: 'Pretendard', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 
   &:focus,&:hover,&:active{
   outline:none 
@@ -29,6 +28,7 @@ a {
 body{
   height: 100vh;
   position: relative;
+  
 }
 
 input[type=radio]{
