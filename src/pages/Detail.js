@@ -49,8 +49,13 @@ const Detail = (props) => {
     dispatch(commentActions.getCommentDB(boardId));
   }, []);
 
-  const winnerRate = Math.round((Number(debate.winnerResponse?.cnt) / (Number(debate.winnerResponse?.cnt) + Number(debate.loserResponse?.cnt))) * 100);
-  const loserRate = Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt) + Number(debate.loserResponse?.cnt))) * 100);
+  const winnerRate =
+  Math.round((Number(debate.winnerResponse?.cnt) / (Number(debate.winnerResponse?.cnt) 
+  + Number(debate.loserResponse?.cnt))) * 100);
+  
+  const loserRate =
+  Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
+  + Number(debate.loserResponse?.cnt))) * 100);
 
   return (
     <>
@@ -65,24 +70,26 @@ const Detail = (props) => {
                   {debate.winnerResponse?.topic}
                   <p>{winnerRate}%</p>
                 </WinnerTitleBox>
-                <DetailBox>
-                  <ImageBox>
-                    <img src={detail1} width="12" height="12" style={{ marginRight: "5px" }} />
+                <DetailBox1>
+                  <Box>
+                    <DetailImg src={detail1} />
                     <div>총 {debate.winnerResponse?.totalPoint} RP</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail2} width="12" height="12" style={{ marginRight: "5px" }} />
-                    <div>{debate.winnerResponse?.cnt}명 선택</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail3} width="12" height="12" style={{ marginRight: "5px" }} />
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail3} />
                     <div>최고 {debate.winnerResponse?.topPoint} RP</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail4} width="12" height="12" style={{ marginRight: "5px" }} />
-                    <div>배당률 : {debate.winnerResponse?.rate}</div>
-                  </ImageBox>
-                </DetailBox>
+                  </Box>
+                </DetailBox1>
+                <DetailBox2>
+                  <Box>
+                    <DetailImg src={detail2} />
+                    <div>{debate.winnerResponse?.cnt}명 선택</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail4} />
+                    <div>배당 : {debate.winnerResponse?.rate}</div>
+                  </Box>
+                </DetailBox2>
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateLoserBox>
@@ -90,24 +97,26 @@ const Detail = (props) => {
                   {debate.loserResponse?.topic}
                   <p>{loserRate}%</p>
                 </LoserTitleBox>
-                <DetailBox>
-                  <ImageBox>
-                    <img src={detail1} width="12" height="12" style={{ marginRight: "5px" }} />
-                    <div>총 {debate.loserResponse?.totalPoint}RP</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail2} width="12" height="12" style={{ marginRight: "5px" }} />
+                <DetailBox1>
+                  <Box>
+                    <DetailImg src={detail1} />
+                    <div>총 {debate.loserResponse?.totalPoint} RP</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail3} />
+                    <div>최고 {debate.loserResponse?.topPoint} RP</div>
+                  </Box>
+                </DetailBox1>
+                <DetailBox2>
+                  <Box>
+                    <DetailImg src={detail2} />
                     <div>{debate.loserResponse?.cnt}명 선택</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail3} width="12" height="12" style={{ marginRight: "5px" }} />
-                    <div>최고 {debate.loserResponse?.topPoint}RP</div>
-                  </ImageBox>
-                  <ImageBox>
-                    <img src={detail4} width="12" height="12" style={{ marginRight: "5px" }} />
-                    <div>배당률 : {debate.loserResponse?.rate}</div>
-                  </ImageBox>
-                </DetailBox>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail4} />
+                    <div>배당 : {debate.loserResponse?.rate}</div>
+                  </Box>
+                </DetailBox2>
               </DebateLoserBox>
             </>
             :
@@ -117,25 +126,58 @@ const Detail = (props) => {
                   {debate.winnerResponse?.topic}
                   <p>{winnerRate}%</p>
                 </WinnerTitleBox>
-                <DetailBox>
-                  <div>총 {debate.winnerResponse?.totalPoint} RP</div>
-                  <div>{debate.winnerResponse?.cnt}명 선택</div>
-                  <div>최고 {debate.winnerResponse?.topPoint} RP</div>
-                  <div>배당률 : {debate.winnerResponse?.rate}</div>
-                </DetailBox>
+                <DetailBox1>
+                  <Box>
+                    <DetailImg src={detail1} />
+                    <div>총 {debate.winnerResponse?.totalPoint} RP</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail3} />
+                    <div>최고 {debate.winnerResponse?.topPoint} RP</div>
+                  </Box>
+                </DetailBox1>
+                <DetailBox2>
+                  <Box>
+                    <DetailImg src={detail2} />
+                    <div>{debate.winnerResponse?.cnt}명 선택</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail4} />
+                    <div>배당 : {debate.winnerResponse?.rate}</div>
+                  </Box>
+                </DetailBox2>
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateWinnerBox>
-                {debate.loserResponse?.topic}
-                <p>{loserRate}%</p>
-                <div>총 {debate.loserResponse?.totalPoint}RP</div>
-                <div>{debate.loserResponse?.cnt}명 선택</div>
-                <div>최고 {debate.loserResponse?.topPoint}RP</div>
-                <div>배당률 : {debate.loserResponse?.rate}</div>
+                <WinnerTitleBox>
+                  {debate.loserResponse?.topic}
+                  <p>{loserRate}%</p>
+                </WinnerTitleBox>
+                <DetailBox1>
+                  <Box>
+                    <DetailImg src={detail1} />
+                    <div>총 {debate.loserResponse?.totalPoint}RP</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail3} />
+                    <div>최고 {debate.loserResponse?.topPoint}RP</div>
+                  </Box>
+                </DetailBox1>
+                <DetailBox2>
+                  <Box>
+                    <DetailImg src={detail2} />
+                    <div>{debate.loserResponse?.cnt}명 선택</div>
+                  </Box>
+                  <Box>
+                    <DetailImg src={detail4} />
+                    <div>배당 : {debate.loserResponse?.rate}</div>
+                  </Box>
+                </DetailBox2>
               </DebateWinnerBox>
             </>
           }
         </DebateWrap>
+
         {/* 공유하기 기능 */}
         <ShareLink />
 
@@ -197,19 +239,34 @@ const DebateWinnerBox = styled.div`
   margin: 0px 5px;
 `
 const WinnerTitleBox = styled.div`
-  font-size: 32px;
+  font-size: 28px;
+  padding-bottom: 40px;
+  text-align: center;
 `
 const LoserTitleBox = styled.div`
   font-size: 24px;
+  padding-bottom: 40px;
+  text-align: center;
 `
-const DetailBox = styled.div`
-  display: flex;
-  flex-direction: column;
+const DetailBox1 = styled.div`
+  position: absolute;
+  transform: translate(-14px, 70px);
   font-size: 12px;
 `
-const ImageBox = styled.div`
+const DetailBox2 = styled.div`
+  position: absolute;
+  transform: translate(88px, 70px);
+  font-size: 12px;
+`
+const Box = styled.div`
+  width: 150px;
   display: flex;
   align-items: center;
+`
+const DetailImg = styled.img`  
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
 `
 
 export default Detail;
