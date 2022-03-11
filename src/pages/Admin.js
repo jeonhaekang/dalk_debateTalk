@@ -1,81 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Grid from "../elements/Grid"
-import Header from '../shared/Header'
-import MainCard from '../components/main/MainCard'
+import WarnUser from "../components/admin/WarnUser";
+import BlindRoom from "../components/admin/BlindRoom";
+import BlindBoard from "../components/admin/BlindBoard";
+import { actionCreators as bannerActions } from "../redux/modules/banner";
+import { useEffect } from "react";
 
-const Admin = (props) => {
+const Admin = () => {
+  const BannerList = useSelector(state => state.banner.BannerList)
+  const carouselId = BannerList.map((b, idx) => b.carouselId);
+  // const carouselId = BannerList[0].carouselId
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(bannerActions.getBannerDB())
+  }, [])
+
+  const [selectedFile, setSelectedFile] = useState();
+
+  const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0]);
+  }
+
+  const handleAddBanner = () => {
+    const image = new FormData();
+    image.append('image', selectedFile);
+    dispatch(bannerActions.addBannerDB(image));
+    selectedFile();
+  }
+
+  const handleDelBanner = () => {
+    dispatch(bannerActions.delBannerDB(carouselId))
+  }
+
   return (
     <>
-      <Header />
-      <Grid margin="30px 10px">
-        {/* 신고 카운트가 기준치 넘으면 블라인드 목록으로 오게끔 */}
-        <div>블라인드 게시글</div>
-        <AdminMargin>
-          <MainCard />
-        </AdminMargin>
+      <Grid margin="30px 10px" height="100%" overflow="scroll">
+        <BlindBoard />
+        <BlindRoom />
+        <WarnUser />
 
-        <br />
-        {/* 너무많다면? 페이지 수로 넘겨야할듯 */}
-        <div>토론방 목록</div>
-        <AdminMargin>
-          <MainCard />
-        </AdminMargin>
-        <AdminMargin>
-          <MainCard />
-        </AdminMargin>
-
-
-        <br />
-        {/* 이것도 많으면 페이지 수로 넘겨야할듯 */}
         <Grid>
-          불량 유저 목록
-          <AdminList>
-            <div>아이디</div>
-            <div>신고수</div>
-            <div>제제여부</div>
-          </AdminList>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-          <Log>
-            <div>cmjj0824</div>
-            <div>5 번</div>
-            <OutBtn>추방하기</OutBtn>
-          </Log>
-        </Grid>
-
-
-
-        <br />
-        {/* 등록하면 formdata 형식으로 DB에 보내야되나? */}
-        <Grid>
-          메인 배너 리스트
-          <Grid margin="10px">
+          <Title>메인 배너 리스트</Title>
+          <Grid margin="10px" display="flex" flexDirection="column">
             <AdminList>
               <div>배너 파일</div>
-              <input type="file"></input>
-              <div style={{color:"#0000ff", fontWeight: "bold", cursor: "pointer"}}>등록</div>
+              <input type="file" onChange={handleFileInput}></input>
+              <AddBannerBtn onClick={handleAddBanner}>등록</AddBannerBtn>
             </AdminList>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
-            <Log>
-              <div>OOO.jpg</div>
-              <OutBtn>삭제</OutBtn>
-            </Log>
+            {BannerList.map((b, idx) => {
+              return <Log key={idx}>
+                <img src={b.image}></img>
+                <Grid display="flex" gap="10px" justifyContent="center" padding="5px">
+                  {idx + 1}번 캐러셀 이미지
+                  <OutBtn onClick={handleDelBanner}>삭제</OutBtn>
+                </Grid>
+              </Log>
+            })
+            }
           </Grid>
         </Grid>
       </Grid>
@@ -83,22 +68,32 @@ const Admin = (props) => {
   )
 };
 
-const AdminMargin = styled.div`
-  margin: 10px 0px;
-`
-
 const AdminList = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px;
 `
-
+const AddBannerBtn = styled.button`
+  background-color: #ccc;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 35px;
+  font-size: 12px;
+  text-align: center;
+`
+const Title = styled.div`
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+`
 const Log = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 10px;
 `
-
 const OutBtn = styled.div`
   color: #ff0000;
   font-weight: bold;

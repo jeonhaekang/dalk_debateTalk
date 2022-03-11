@@ -4,7 +4,6 @@ import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
 const PostListCard = (props) => {
-  console.log(props)
   const boardId = props.boardId;
   const createdAt = props.createdAt.split("-")[0] + "년 "
                   + props.createdAt.split("-")[1] + "월 "
@@ -14,22 +13,20 @@ const PostListCard = (props) => {
     <>
       <Container onClick={() => history.push(`/detail/${boardId}`)}>
         <CategoryList>
-          {props.category.map((c,i) => <CategoryBtn {...c} key={i}/>)}
+          {props.category.map((c,i) => <CategoryBtn key={i}>#{c}</CategoryBtn>)}
         </CategoryList>
         <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
-        <DebateSummary>{props.winner}</DebateSummary>
+        <DebateSummary>{props.winner} WIN</DebateSummary>
         <Grid height="fit-content">
           <Grid>
             <DebateFirstWriter>{props.userInfo.nickname}</DebateFirstWriter>
             <DebateCreateAt>{createdAt}</DebateCreateAt>
           </Grid>
           <Grid display="flex" margin="5px 0px">
-            <DebateWarning>신고수 : {props.warnCnt}</DebateWarning>
-            <DebateComment>덧글수 : {props.commentCnt}</DebateComment>
+            <DebateComment>댓글 : {props.commentCnt}</DebateComment>
           </Grid>
         </Grid>
       </Container>
-
     </>
   )
 }
@@ -94,24 +91,10 @@ const DebateCreateAt = styled.div`
   margin-top: 5px;
 `
 
-const DebateWarning = styled.div`
-  font-size: 10px;
-  width: fit-content;
-  color: gray;
-`
-
 const DebateComment = styled.div`
   font-size: 10px;
   width: fit-content;
   color: gray;
-  margin-left: 5px;
-`
-
-const DebateCategory = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  right : 100px;
-  font-size: 14px;
 `
 
 export default PostListCard;

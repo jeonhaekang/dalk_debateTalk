@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from '../../redux/configStore'
+import Modal from "../shared/Modal";
+import UserOut from "./UserOut";
 
 const Convenience = () => {
+    const [createModalState, setCreateModalState] = useState(false);
 
     return (
         <>
             <Title>토론 속 편의기능</Title>
             <Wrap>
-                <ContentTop onClick={() => {history.push('/ranking')}}>
+                <ContentTop onClick={() => { history.push('/ranking') }}>
                     <div>유저랭킹</div>
                     <div> > </div>
                 </ContentTop>
-                <Content>
+                <Content onClick={() => { history.push('/more') }}>
                     <div>토론리스트</div>
-                    <div> > </div>
-                </Content>
-                <Content onClick={() => {history.push('/postlist')}}>
-                    <div>토론결과방</div>
                     <div> > </div>
                 </Content>
                 <Content>
                     <div>토론 즐기는 방법</div>
                     <div> > </div>
                 </Content>
+                <Content onClick={() => setCreateModalState(true)}>
+                    <div>회원탈퇴</div>
+                    <div> > </div>
+                </Content>
+                <Modal modalState={createModalState} setModalState={setCreateModalState}>
+                    <UserOut createModalState={createModalState} setCreateModalState={setCreateModalState}/>
+                </Modal>
             </Wrap>
         </>
     )

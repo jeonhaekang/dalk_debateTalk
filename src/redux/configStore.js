@@ -7,6 +7,7 @@ import user from "./modules/user";
 import chat from "./modules/chat";
 import item from "./modules/item";
 import comment from "./modules/comment";
+import banner from "./modules/banner";
 import image from "./modules/image";
 
 export const history = createBrowserHistory();
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user: user,
   chat: chat,
   comment: comment,
+  banner: banner,
   image: image,
 
   router: connectRouter(history),

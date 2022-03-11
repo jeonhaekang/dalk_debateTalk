@@ -93,6 +93,26 @@ const apis = {
 
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
+
+  // 회원 탈퇴
+  userOut : () => instance.delete(`/signout`),
+  // 포인트 내역 조회
+  pointcheck : () => instance.get(`/mypage/points`),
+
+  // ---------관리자 페이지------------
+  //블라인드 게시물
+  getblindboard: () => instance.get(`admin/boards`),
+  delblindboard: (boardId) => instance.delete(`admin/boards/${boardId}`),
+  //블라인드 채팅방
+  getblindroom: () => instance.get(`admin/rooms`),
+  delblindroom: (roomId) => instance.delete(`admin/rooms/${roomId}`),
+  //불량 유저
+  getWarnUser: () => instance.get(`admin/users`),
+  delWarnUser: (userId) => instance.delete(`admin/users/${userId}`),
+  //배너
+  getBannerList: () => instance.get(`admin/carousels`),
+  addBanner: (image) => instance.post(`admin/carousels`, image),
+  delBannerList: (carouselId) => instance.delete(`admin/carousels/${carouselId}`),
 };
 
 export default apis;

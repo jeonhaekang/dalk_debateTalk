@@ -37,6 +37,13 @@ const PostList = () => {
     });
   }
 
+  //엔터 키다운 이벤트
+  const onKeyDown = (e) => {
+    if(e.keyCode === 13){
+      searchDebate();
+    }
+  }
+
   //검색 밸류
   const handleKeyword = (e) => {
     setKeyword(e.target.value)
@@ -55,28 +62,29 @@ const PostList = () => {
         })
   }
 
-  console.log(searchDebateList)
-
   return (
     <>
-
       <Grid height="100%" overflow="scroll">
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
             <InputContainer id="SearchBar">
-              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} />
+              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown}/>
               <button onClick={searchDebate}>검색</button>
             </InputContainer>
           </Container>
           <Grid padding="20px 20px 20px">
-            <PostListCategory debateList={debateList} />
+            <PostListCategory debateList={debateList} searchDebateList={searchDebateList} />
           </Grid>
           <Grid margin="20px 0px" justifyContent="center">
-            {debateList.map((d, idx) => {
+            {!searchDebateList.length == 0 ?
+            searchDebateList.map((d, idx) => {
               return <PostListCard {...d} key={idx} debateList={debateList} />
-            })}
-
+            }) :
+            debateList.map((d, idx) => {
+              return <PostListCard {...d} key={idx} debateList={debateList} />
+            })
+          }
             <button onClick={handleTop}>TOP</button>
           </Grid>
         </Grid>

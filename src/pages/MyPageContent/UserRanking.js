@@ -1,100 +1,75 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../shared/Header"
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
+import apis from "../../shared/apis";
+import { useSelector } from "react-redux";
+import star from "../../image/star.png"
+import user from "../../redux/modules/user";
 
 const UserRanking = () => {
+    const user = useSelector(state => state.user.user);
+    const [RankingList, setRankingList] = useState([]);
+
+    useEffect(() => {
+        apis.rank()
+            .then((res) => {
+                console.log("랭킹 조회 완료", res.data)
+                setRankingList(res.data);
+            })
+            .catch((err) => {
+                console.log("랭킹 조회 실패", err)
+            })
+    }, []);
+
+    const _myrank = (nickname) => nickname == user.nickname;
+    const myrank = RankingList.map((r)=> r.nickname).findIndex(_myrank);
+
     return (
         <>
-            <Header />
+            <Header height="100%" overflow="scroll" />
             <TopThree>
                 <Second>
                     <div>2등</div>
-                    <div>뱃지</div>
-                    <div style={{margin:"10px 0px 0px 0px"}}>닉네임</div>
+                    <LevelImg src={star} ></LevelImg>
+                    <div style={{ margin: "10px 0px 0px 0px" }}>{RankingList[1]?.nickname}</div>
                     <SecondBar></SecondBar>
                 </Second>
                 <First>
                     <div>1등</div>
-                    <div>뱃지</div>
-                    <div style={{margin:"10px 0px 0px 0px"}}>닉네임</div>
+                    <LevelImg src={star} ></LevelImg>
+                    <div style={{ margin: "10px 0px 0px 0px" }}>{RankingList[0]?.nickname}</div>
                     <FirstBar></FirstBar>
                 </First>
                 <Third>
                     <div>3등</div>
-                    <div>뱃지</div>
-                    <div style={{margin:"10px 0px 0px 0px"}}>닉네임</div>
+                    <LevelImg src={star} ></LevelImg>
+                    <div style={{ margin: "10px 0px 0px 0px" }}>{RankingList[2]?.nickname}</div>
                     <ThirdBar></ThirdBar>
                 </Third>
             </TopThree>
 
 
             <GradeInfo>
-                <GradeLevel>
-                    <div>4</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>3000</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>5</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>2300</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>6</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>2250</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>7</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>2200</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>8</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>2150</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>9</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>2000</div>
-                </GradeLevel>
-                <GradeLevel>
-                    <div>10</div>
-                    <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>닉네임</div>
-                    </RankingUserInfo>
-                    <div>1900</div>
-                </GradeLevel>
+                {RankingList.map((r, idx) => {
+                    return <GradeLevel key={idx}>
+                        <div>{idx + 1}</div>
+                        <RankingUserInfo>
+                            <LevelImgList src={star}></LevelImgList>
+                            <div>{r.nickname}</div>
+                        </RankingUserInfo>
+                        <div>{r.ex}</div>
+                    </GradeLevel>
+                })}
             </GradeInfo>
 
             <Me>
                 <GradeLevel>
-                    <div>권외</div>
+                    <div>{ myrank + 1 }</div>
                     <RankingUserInfo>
-                        <div>뱃지</div>
-                        <div>나</div>
+                        <LevelImgList src={star}></LevelImgList>
+                        <div>{user?.nickname}</div>
                     </RankingUserInfo>
-                    <div>1900</div>
+                    <div>{user?.ex}</div>
                 </GradeLevel>
             </Me>
 
@@ -183,6 +158,20 @@ const Me = styled.div`
     position: sticky;
     padding: 5px 20px;
     background-color: #F0F0F0;
+`
+
+const LevelImg = styled.img`
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+`;
+
+const LevelImgList = styled.img`
+    position: relative;
+    width: 30px;
+    height: 30px;
+    bottom: 3px;
+    
 `
 
 export default UserRanking;
