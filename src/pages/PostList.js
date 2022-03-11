@@ -22,6 +22,7 @@ const PostList = () => {
   const getDebate = async () => {
     await apis.getDebate()
       .then((res) => {
+        console.log(res.data)
         setDebateList(res.data)
       })
       .catch((err) => {

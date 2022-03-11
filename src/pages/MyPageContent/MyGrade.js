@@ -6,10 +6,10 @@ import { discriminant } from "../../data/rank";
 import { useSelector } from "react-redux";
 
 const MyGrade = () => {
-    const user = useSelector(state => state.user.user)
-    const userRank = rank[discriminant(user?.ex)]
+    const user = useSelector(state => state.user.user);
+    const userRank = rank[discriminant(user?.ex)];
 
-    const nowExp = user?.ex
+    const nowExp = user?.ex;
     const nextScore = () => {
         if(nowExp < 1000){
             return 1000 - nowExp
@@ -20,7 +20,7 @@ const MyGrade = () => {
         }else if(3000 <= nowExp && nowExp < 4000){
             return 4000 - nowExp
         }else return 0
-    }
+    };
     const announceScore = nextScore();
 
     return (

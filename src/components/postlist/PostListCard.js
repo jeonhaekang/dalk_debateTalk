@@ -16,7 +16,7 @@ const PostListCard = (props) => {
           {props.category.map((c,i) => <CategoryBtn key={i}>#{c}</CategoryBtn>)}
         </CategoryList>
         <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
-        <DebateSummary>{props.winner} WIN</DebateSummary>
+        <DebateSummary>{props.winner} 👍</DebateSummary>
         <Grid height="fit-content">
           <Grid>
             <DebateFirstWriter>{props.userInfo.nickname}</DebateFirstWriter>

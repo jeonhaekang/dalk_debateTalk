@@ -20,7 +20,6 @@ const OneComment = (props) => {
   const disagreeList = useSelector(
     (state) => state.comment.commentList[index].disagreeUserList
   );
-  console.log("agreeList:", agreeList, "disagreeList:", disagreeList);
   const dispatch = useDispatch();
 
   //찬성, 반대 기능을 위해
@@ -31,7 +30,7 @@ const OneComment = (props) => {
     console.log("찬성클릭");
     if (!tokenCheck) {
       alert("로그인을 해주세요!");
-      history.replace("/login");
+      history.push("/login");
     }
     dispatch(commentActions.pushAgreeDB(commentId, index));
   };
@@ -39,7 +38,7 @@ const OneComment = (props) => {
   const handleClickDisagree = () => {
     if (!tokenCheck) {
       alert("로그인을 해주세요!");
-      history.replace("/login");
+      history.push("/login");
     }
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
   };
