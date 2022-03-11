@@ -115,6 +115,7 @@ const createRoomDB = (data) => {
           roomId: res.data.roomId,
           userInfo: user,
           filePath: image.preview,
+          createdAt: new Date(),
           restTime: data.time ? 1200 : 3600,
         };
 
@@ -157,11 +158,13 @@ export default handleActions(
       }),
     [DELETE_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.roomList = draft.roomList.filter((el) => {
-          if (el.roomId === action.payload.roomId) {
-            return false;
-          } else return true;
-        });
+        console.log(action.payload.roomId);
+        draft.roomList = draft.roomList.filter(
+          (el) => el.roomId !== action.payload.roomId
+        );
+        draft.mainRoomList = draft.mainRoomList.filter(
+          (el) => el.roomId !== action.payload.roomId
+        );
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {

@@ -6,12 +6,11 @@ import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
 import GaugeTimer from "../chatroom/GaugeTimer";
-import { useDispatch } from "react-redux";
-import { actionCreators } from "../../redux/modules/chat";
 import Center from "../../elements/Center";
 import Image from "../../elements/Image";
 
 const MainCard = (props) => {
+  console.log(props);
   return (
     <FlexGrid
       is_column

@@ -18,11 +18,10 @@ const ChatHeader = (props) => {
   console.log(roomInfo);
 
   const vote = (topic) => {
-    alert()
-    // setData({ topic: topic });
-    // setModalState(true);
+    setData({ topic: topic });
+    setModalState(true);
   };
-  
+
   return (
     <>
       {roomInfo && <GaugeTimer {...roomInfo} />}
