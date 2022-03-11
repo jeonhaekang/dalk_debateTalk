@@ -27,7 +27,6 @@ const Admin = () => {
     const image = new FormData();
     image.append('image', selectedFile);
     dispatch(bannerActions.addBannerDB(image));
-    selectedFile();
   }
 
   const handleDelBanner = (carouselId) => {

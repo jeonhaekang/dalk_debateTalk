@@ -27,7 +27,6 @@ const Main = (props) => {
       dispatch(actionCreators.loadMainRoomDB());
     }
   }, []);
-  console.log(roomList);
 
   return (
     <>

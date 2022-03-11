@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import apis from '../../shared/apis';
 
@@ -17,8 +18,8 @@ function BlindBoard() {
             })
     }, [])
 
-    const delBlindBoard = () => {
-        apis.delblindboard()
+    const delBlindBoard = (boardId) => {
+        apis.delblindboard(boardId)
             .then((res) => {
                 console.log("블라인드 게시물 삭제완료", res)
                 alert("삭제 완료")
@@ -35,7 +36,7 @@ function BlindBoard() {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
                     <div> 신고수 : {r.warnCnt} </div>
-                    <button onClick={delBlindBoard}> 삭제 </button>
+                    <button onClick={()=>delBlindBoard(r.boardId)}> 삭제 </button>
                 </List>
             })}
         </>
