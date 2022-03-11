@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
+import UploadDefault from "../../image/UploadDefault.png";
 
 // Action
 const SET_PREVIEW = "SET_PREVIEW";
@@ -14,7 +15,7 @@ const clear = createAction(CLEAR, () => ({}));
 // initialState
 const initialState = {
   image: {
-    preview: null,
+    preview: UploadDefault,
     file: null,
   },
 };

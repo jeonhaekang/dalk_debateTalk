@@ -13,13 +13,11 @@ const ChatInput = (props) => {
   const [state, setState] = React.useState(false);
 
   const itemState = useSelector((state) => state.item.itemState);
-  const onlyMe = useSelector((state) => state.item.onlyMe);
-  const papago = useSelector((state) => state.item.papago);
+  const itemList = useSelector((state) => state.item.itemList);
   const user = useSelector((state) => state.user.user);
-  console.log(papago);
-  console.log(user);
+
   const sendMessage = () => {
-    if (onlyMe && onlyMe !== user.nickname) {
+    if (itemList.onlyMe && itemList.onlyMe !== user.nickname) {
       console.log("나만 말하기 발동!!!");
       return;
     }
@@ -31,7 +29,8 @@ const ChatInput = (props) => {
       roomId: roomId,
       message: message.current.value,
       bigFont: fontState ? true : false,
-      papago: papago,
+      papago: itemList.papago,
+      reverse: itemList.reverse,
     };
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));

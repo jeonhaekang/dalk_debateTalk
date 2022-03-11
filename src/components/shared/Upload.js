@@ -44,6 +44,7 @@ const File = styled.input`
     display: none;
   }
   font-size: 0;
+  border: 2px solid black;
 `;
 
 export default Upload;

@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
+import { actionCreators as userAction } from "./user";
 
 //Action
 const IS_LOADED = "IS_LOADED";
@@ -9,12 +10,14 @@ const SET_ROOM = "SET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
+const VOTE = "VOTE";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list, rooms) => ({ list, rooms }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
+const vote = createAction(VOTE, (topic, point) => ({ topic, point }));
 
 //initialState
 const initialState = {
@@ -72,17 +75,34 @@ const loadCategoryRoomDB = (category) => {
   };
 };
 
+const voteDB = (roomId, topic, point) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .vote(roomId, { topic: topic, point: point })
+      .then((res) => {
+        dispatch(userAction.setPoint(-1 * point));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
+  };
+};
+
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
     console.log("data:", data);
     const image = getState().image.image;
+    console.log(image);
     const formdata = new FormData();
-    formdata.append("image", image.file);
+
+    image.file && formdata.append("image", image.file);
     formdata.append(
       "debate",
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
+    console.log("진입");
 
     apis
       .createRoom(formdata)
@@ -102,7 +122,7 @@ const createRoomDB = (data) => {
         history.push("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 };
@@ -160,6 +180,7 @@ const actionCreators = {
   deleteRoom,
   loadMainRoomDB,
   loadCategoryRoomDB,
+  voteDB,
 };
 
 export { actionCreators };

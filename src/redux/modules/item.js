@@ -14,10 +14,12 @@ const clear = createAction(CLEAR, () => ({}));
 //initialState
 const initialState = {
   itemState: false, // 아이템 사용 가능한지 상태
-  onlyMe: null, // onlyMe아이템을 발동시킨 유저
-  myName: null, // myName아이템을 발동시킨 유저
-  papago: null, // papago아이템을 발동시킨 유저
-  reverse: null, // reverse아이템을 발동시킨 유저
+  itemList: {
+    onlyMe: null, // onlyMe아이템을 발동시킨 유저
+    myName: null, // myName아이템을 발동시킨 유저
+    papago: null, // papago아이템을 발동시킨 유저
+    reverse: null, // reverse아이템을 발동시킨 유저
+  },
 };
 
 //MiddleWare
@@ -29,14 +31,14 @@ export default handleActions(
       }),
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft[action.payload.item] = action.payload.user;
+        draft.itemList[action.payload.item] = action.payload.user;
       }),
     [CLEAR]: (state) =>
       produce(state, (draft) => {
-        draft.onlyMe = null;
-        draft.myName = null;
-        draft.papago = null;
-        draft.reverse = null;
+        draft.itemList.onlyMe = null;
+        draft.itemList.myName = null;
+        draft.itemList.papago = null;
+        draft.itemList.reverse = null;
         draft.itemState = true;
       }),
   },

@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const Modal = (props) => {
-  const { modalState, setModalState, children, type,  } = props;
+  const { modalState, setModalState, children, type, top } = props;
   const [aniState, setAniState] = React.useState(false);
 
   const modalRef = React.useRef();
@@ -29,7 +29,12 @@ const Modal = (props) => {
   // 햄버거 만들었는데 디자이너님이 지웠어요..ㅠㅠㅠ
   if (type === "hamburger") {
     return (
-      <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
+      <ModalLayout
+        ref={modalRef}
+        modalState={modalState}
+        aniState={aniState}
+        top={top}
+      >
         <HambergerContents aniState={aniState}>{children}</HambergerContents>
       </ModalLayout>
     );
@@ -63,7 +68,7 @@ const ModalLayout = styled.div`
   display: ${(props) => (props.modalState ? "block" : "none")};
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
@@ -108,7 +113,7 @@ const CreateContents = styled.div`
   transform: translate(-50%, -50%);
 
   border-radius: 15px;
-  background-color: #f1f1f1;
+  background-color: white;
 `;
 
 export default Modal;
