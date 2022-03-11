@@ -10,7 +10,8 @@ import { useEffect } from "react";
 
 const Admin = () => {
   const BannerList = useSelector(state => state.banner.BannerList)
-  const carouselId = BannerList.map((b, idx) => b.carouselId);
+  // console.log(BannerList)
+  // const carouselId = BannerList.map((b, idx) => b.carouselId);
   // const carouselId = BannerList[0].carouselId
 
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Admin = () => {
     selectedFile();
   }
 
-  const handleDelBanner = () => {
+  const handleDelBanner = (carouselId) => {
     dispatch(bannerActions.delBannerDB(carouselId))
   }
 
@@ -56,7 +57,7 @@ const Admin = () => {
                 <img src={b.image}></img>
                 <Grid display="flex" gap="10px" justifyContent="center" padding="5px">
                   {idx + 1}번 캐러셀 이미지
-                  <OutBtn onClick={handleDelBanner}>삭제</OutBtn>
+                  <OutBtn onClick={()=>handleDelBanner(b.carouselId)}>삭제</OutBtn>
                 </Grid>
               </Log>
             })
