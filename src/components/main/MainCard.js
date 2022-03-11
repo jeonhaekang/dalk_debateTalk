@@ -12,24 +12,6 @@ import Center from "../../elements/Center";
 import Image from "../../elements/Image";
 
 const MainCard = (props) => {
-  // console.log(props.filePath);
-  const dispatch = useDispatch();
-  const [time, setTime] = React.useState(props.restTime);
-
-  // 시간이 종료되면 채팅방 삭제
-  const tick = () => {
-    if (time > 0) setTime(time - 1);
-  };
-
-  React.useEffect(() => {
-    if (time <= 0) {
-      dispatch(actionCreators.deleteRoom(props.roomId));
-      return;
-    }
-    const timer = setInterval(() => tick(), 1000);
-    return () => clearInterval(timer);
-  });
-
   return (
     <FlexGrid
       is_column
@@ -60,7 +42,7 @@ const MainCard = (props) => {
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
-      <GaugeTimer restTime={time} time={props.time} page />
+      <GaugeTimer {...props} page />
     </FlexGrid>
   );
 };

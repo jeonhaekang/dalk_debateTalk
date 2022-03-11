@@ -7,43 +7,51 @@ import Grid from "../../elements/Grid";
 import CountDownTimer from "./CountDownTimer";
 import Modal from "../shared/Modal";
 import Vote from "./Vote";
+import GaugeTimer from "./GaugeTimer";
 
-const ChatHeader = ({ topicA, topicB, restTime }, props) => {
+const ChatHeader = (props) => {
   const [state, setState] = React.useState(false);
   const [modalState, setModalState] = React.useState(false);
   const [data, setData] = React.useState();
 
-  const vote = (topic) => {
-    setData({ topic: topic });
-    setModalState(true);
-  };
+  const roomInfo = useSelector((state) => state.chat.currentRoom);
+  console.log(roomInfo);
 
+  const vote = (topic) => {
+    alert()
+    // setData({ topic: topic });
+    // setModalState(true);
+  };
+  
   return (
     <>
-      <InfoWrap state={state}>
-        {!state ? (
-          <FlexGrid>
-            <DefaultTopic>{topicA}</DefaultTopic>
-            <Center>VS</Center>
-            <DefaultTopic>{topicB}</DefaultTopic>
-          </FlexGrid>
-        ) : (
-          <FlexGrid is_column center>
-            <CountDownTimer restTime={restTime} />
+      {roomInfo && <GaugeTimer {...roomInfo} />}
+      {roomInfo && (
+        <InfoWrap state={state}>
+          {!state ? (
             <FlexGrid>
-              <Topic onClick={() => vote(true)}>{topicA}</Topic>
+              <DefaultTopic>{roomInfo.topicA}</DefaultTopic>
               <Center>VS</Center>
-              <Topic onClick={() => vote(false)}>{topicB}</Topic>
+              <DefaultTopic>{roomInfo.topicB}</DefaultTopic>
             </FlexGrid>
-          </FlexGrid>
-        )}
+          ) : (
+            <FlexGrid is_column center>
+              <CountDownTimer {...roomInfo} />
+              <FlexGrid>
+                <Topic onClick={() => vote(true)}>{roomInfo.topicA}</Topic>
+                <Center>VS</Center>
+                <Topic onClick={() => vote(false)}>{roomInfo.topicB}</Topic>
+              </FlexGrid>
+            </FlexGrid>
+          )}
 
-        <Grid position="absolute" right="5px" bottom="5px">
-          <button onClick={() => setState(!state)}>
-            {state ? "닫기" : "열기"}
-          </button>
-        </Grid>
-      </InfoWrap>
+          <Grid position="absolute" right="5px" bottom="5px">
+            <button onClick={() => setState(!state)}>
+              {state ? "닫기" : "열기"}
+            </button>
+          </Grid>
+        </InfoWrap>
+      )}
       <Modal modalState={modalState} setModalState={setModalState}>
         <Vote {...data} setModalState={setModalState} />
       </Modal>

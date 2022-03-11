@@ -38,7 +38,6 @@ const Main = (props) => {
           <TopRank />
           <FlexGrid is_column padding="16px">
             {roomList.map((el, i) => {
-              console.log(el);
               return <MainCard key={i} {...el} page="메인" />;
             })}
           </FlexGrid>

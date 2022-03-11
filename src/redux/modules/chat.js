@@ -40,6 +40,7 @@ const loadMainRoomDB = () => {
     apis
       .loadMainRoom()
       .then((res) => {
+        console.log(res.data);
         dispatch(setRoom("mainRoomList", res.data));
       })
       .catch((err) => {
@@ -137,7 +138,7 @@ const getOneRoomDB = (roomId) => {
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 };

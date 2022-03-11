@@ -11,7 +11,7 @@ const Vote = ({ topic, setModalState }) => {
   const dispatch = useDispatch();
   const user = useSelector((props) => props.user.user);
   const [point, setPoint] = React.useState(0);
-  const room = useSelector((props) => props.chat.currentRoom);
+  const roomInfo = useSelector((props) => props.chat.currentRoom);
 
   const vote = () => {
     console.log(point, user.point);
@@ -23,33 +23,35 @@ const Vote = ({ topic, setModalState }) => {
       console.log("0원 배팅 못함");
       return;
     }
-    dispatch(chatAction.voteDB(room.roomId, topic, point));
+    dispatch(chatAction.voteDB(roomInfo.roomId, topic, point));
     setModalState(false);
   };
-
+  
   return (
     <>
-      <FlexGrid is_column center padding="20px">
-        <Image src={test} width="100px" heigh="100px" />
-        <FlexGrid center textAlign="center">
-          {topic ? room.topicA : room.topicB}
-          <br />을 선택했어요!
-        </FlexGrid>
-        <FlexGrid center is_column gap="0">
-          <FlexGrid>보유 알포인트</FlexGrid>
-          <FlexGrid>{user.point.toLocaleString()}</FlexGrid>
-        </FlexGrid>
-        <FlexGrid center is_column gap="0">
-          <FlexGrid>알포인트 걸기</FlexGrid>
-          <FlexGrid>
-            <Input
-              width="100%"
-              onChange={(e) => setPoint(parseInt(e.target.value))}
-              type="number"
-            />
+      {roomInfo && (
+        <FlexGrid is_column center padding="20px">
+          <Image src={test} width="100px" heigh="100px" />
+          <FlexGrid center textAlign="center">
+            {topic ? roomInfo.topicA : roomInfo.topicB}
+            <br />을 선택했어요!
+          </FlexGrid>
+          <FlexGrid center is_column gap="0">
+            <FlexGrid>보유 알포인트</FlexGrid>
+            <FlexGrid>{user.point.toLocaleString()}</FlexGrid>
+          </FlexGrid>
+          <FlexGrid center is_column gap="0">
+            <FlexGrid>알포인트 걸기</FlexGrid>
+            <FlexGrid>
+              <Input
+                width="100%"
+                onChange={(e) => setPoint(parseInt(e.target.value))}
+                type="number"
+              />
+            </FlexGrid>
           </FlexGrid>
         </FlexGrid>
-      </FlexGrid>
+      )}
       <Button onClick={vote}>배팅</Button>
     </>
   );

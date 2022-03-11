@@ -93,12 +93,9 @@ const ChatInput = (props) => {
             return (
               <ItemButton
                 key={el.itemCode}
-                onClick={() => {
-                  itemUse(el.itemCode);
-                }}
+                onClick={() => itemUse(el.itemCode)}
               >
                 {el.name}
-                {user.item[el.itemCode]}
               </ItemButton>
             );
           }
