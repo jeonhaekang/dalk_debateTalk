@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import apis from '../../shared/apis';
 
@@ -22,7 +21,6 @@ function BlindBoard() {
         apis.delblindboard(boardId)
             .then((res) => {
                 console.log("블라인드 게시물 삭제완료", res)
-                alert("삭제 완료")
             })
             .catch((err) => {
                 console.log("블라인드 게시물 삭제 실패", err)
@@ -50,7 +48,6 @@ const Title = styled.div`
     font-weight: bold;
     font-size: 20px;
 `
-
 const List = styled.div`
     display: flex;
     justify-content: center;

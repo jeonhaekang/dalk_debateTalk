@@ -26,17 +26,20 @@ function UserOut(props) {
 
     return (
         <>
-            <Grid>
-                <div>정말 회원 탈퇴하시겠어요?</div>
+            <OutMessage>
+                <div>정말 탈퇴하시겠어요?</div>
                 <div>탈퇴를 하시면 작성된 게시물과 댓글은 복구할 수 없습니다</div>
-            </Grid>
-            <FlexGrid center>
+            </OutMessage>
+            <FlexGrid center padding="10px">
                 <OutBtn onClick={HandleUserOut}>네</OutBtn>
                 <OutBtn onClick={NotUserOut}>아니오</OutBtn>
             </FlexGrid>
         </>
     )
 }
+const OutMessage = styled.div`
+    padding: 30px;
+`
 const OutBtn = styled.button`
     padding: 10px;
     border: none;
