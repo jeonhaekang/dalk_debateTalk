@@ -60,7 +60,7 @@ function SearchCategory(props) {
 
   return (
     <>
-      <Grid height="100%" overflow="scroll">
+      <Grid height="calc(100%-130px)" overflow="scroll">
         <Header page="메인" />
         <Grid margin="30px">
           <Container>

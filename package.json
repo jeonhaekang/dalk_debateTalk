@@ -17,6 +17,7 @@
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-intersection-observer": "^8.33.1",
     "react-modal": "^3.14.4",
     "react-redux": "^7.2.6",
     "react-responsive-carousel": "^3.2.22",
@@ -36,7 +37,6 @@
     "swiper": "^6.8.4",
     "web-vitals": "^1.0.1"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

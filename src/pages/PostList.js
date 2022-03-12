@@ -9,9 +9,10 @@ import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 
-const PostList = () => {
+const PostList = (props) => {
   const [debateList, setDebateList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const path = window.location.href
 
   // 결과창 리스트 불러오기
   useEffect(() => {
@@ -75,7 +76,7 @@ const PostList = () => {
             </InputContainer>
           </Container>
           <Grid padding="20px 20px 20px">
-            <PostListCategory debateList={debateList} searchDebateList={searchDebateList} />
+            <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
           <Grid margin="20px 0px" justifyContent="center">
             {!searchDebateList.length == 0 ?
