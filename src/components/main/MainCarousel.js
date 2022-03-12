@@ -19,23 +19,23 @@ const MainCarousel = (props) => {
     infiniteLoop: true, // 무한 루프
   };
 
-  // useEffect(() => {
-  //   apis
-  //     .carousels()
-  //     .then((res) => {
-  //       setImageList(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response);
-  //     });
-  // }, []);
+  useEffect(() => {
+    apis
+      .carousels()
+      .then((res) => {
+        setImageList(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
 
   return (
     <>
       <Carousel {...style}>
         {imageList.map((el, i) => {
           return (
-            <Image src={el} key={i} onClick={() => setNoticeModalState(true)} />
+            <Image src={el.image} key={i} onClick={() => setNoticeModalState(true)} />
           );
         })}
       </Carousel>

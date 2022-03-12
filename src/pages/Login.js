@@ -128,7 +128,7 @@ const LogoImage = styled.div`
 const LoginInput = styled.input`
   width: 396px;
   height: 60px;
-  boxsizing: border-box;
+  box-sizing: border-box;
   border: 1px solid #9e9e9e;
   padding: 10px;
   ::placeholder {
