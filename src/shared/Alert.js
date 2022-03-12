@@ -1,0 +1,44 @@
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import FlexGrid from "../elements/FlexGrid";
+import { actionCreators } from "../redux/modules/alert";
+
+const Alert = () => {
+  const dispatch = useDispatch();
+  const alert = useSelector((props) => props.alert);
+  const close = () => {
+    dispatch(actionCreators.close());
+  };
+  if (alert.openState) {
+    return (
+      <Background>
+        <Content is_column>
+          <FlexGrid>{alert.message}</FlexGrid>
+          <button onClick={close}>확인</button>
+        </Content>
+      </Background>
+    );
+  }
+  return null;
+};
+
+const Background = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Content = styled(FlexGrid)`
+  padding: 15px;
+  width: auto;
+  background-color: white;
+`;
+
+export default Alert;

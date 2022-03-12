@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "./Spinner";
 import Onboarding from "./Onboarding";
 import SearchCategory from "../pages/SearchCategory";
+import Alert from "./Alert";
 
 function App() {
   const is_loaded = useSelector((state) => state.chat.is_loaded);
@@ -63,8 +64,9 @@ function App() {
       <GlobalStyle />
 
       <ConnectedRouter history={history}>
-        <Container>
-          <Wrap>
+        <Container className="con">
+          <Wrap className="wrap">
+            <Alert />
             <Route path="/" exact component={Main} />
             <Route path="/admin" exact component={Admin} />
             <Route path="/login" exact component={Login} />
@@ -78,7 +80,11 @@ function App() {
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
-            <Route path="/postlist/:category" exact component={SearchCategory} />
+            <Route
+              path="/postlist/:category"
+              exact
+              component={SearchCategory}
+            />
             <Route path="/detail/:boardId" exact component={Detail} />
             <Route path="/more" exact component={More} />
             <Route path="/more/:category" exact component={Category} />

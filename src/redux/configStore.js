@@ -9,6 +9,7 @@ import item from "./modules/item";
 import comment from "./modules/comment";
 import banner from "./modules/banner";
 import image from "./modules/image";
+import alert from "./modules/alert";
 
 export const history = createBrowserHistory();
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   comment: comment,
   banner: banner,
   image: image,
+  alert: alert,
 
   router: connectRouter(history),
 });

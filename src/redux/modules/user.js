@@ -3,7 +3,7 @@ import produce from "immer";
 import apis from "../../shared/apis";
 import { setCookie, deleteCookie } from "../../shared/Cookie";
 import { instance } from "../../shared/apis";
-
+import { actionCreators as alertAction } from "./alert";
 //Action
 // const LOGIN = 'LOGIN'
 const LOGOUT = "LOGOUT";
@@ -165,6 +165,20 @@ const setRankListDB = (item) => {
   };
 };
 
+const reportUserDB = (userId, message) => {
+  return function (dispatch, getState, { history }) {
+    apis
+      .reportUser(userId, message)
+      .then((res) => {
+        dispatch(alertAction.open("유저를 신고하였습니다."));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(alertAction.open("이미 신고한 유저입니다."));
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -219,6 +233,7 @@ const actionCreators = {
   useItemDB,
   setPoint,
   setRankListDB,
+  reportUserDB,
 };
 
 export { actionCreators };

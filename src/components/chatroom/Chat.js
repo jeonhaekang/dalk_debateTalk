@@ -1,36 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import { FcSpeaker } from "react-icons/fc";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import apis from "../../shared/apis";
 import Badge from "../../elements/Badge";
 import FlexGrid from "../../elements/FlexGrid";
 import { rank, discriminant } from "../../data/rank";
+import { actionCreators as userAction } from "../../redux/modules/user";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const Chat = (props) => {
+  const dispatch = useDispatch();
   const { userInfo, message, bigFont, type, createdAt } = props;
 
-  const [state, setState] = React.useState(false);
+  const [togleState, setTogleState] = React.useState(false);
 
   const time = moment(createdAt).format("HH:mm");
 
   const user = useSelector((state) => state.user.user);
   const myName = useSelector((state) => state.item.itemList.myName);
 
-  const report = (e) => {
+  const togleShow = () => {
+    if (userInfo.id !== user.id) setTogleState(!togleState);
+  };
+
+  const reportUser = (e) => {
+    console.log("report");
+
     if (userInfo.id === user.id) {
-      console.log("자기 자신은 신고할 수 없습니다.");
+      dispatch(alertAction.open("자기 자신은 신고할 수 없습니다."));
       return;
     }
-    apis
-      .reportUser(userInfo.id, message)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(userAction.reportUserDB(userInfo.id, message));
   };
 
   if (type !== "TALK") {
@@ -47,7 +49,7 @@ const Chat = (props) => {
   return (
     <>
       <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
-        <FlexGrid gap="3px" width="auto" center onClick={() => report()}>
+        <FlexGrid gap="3px" width="auto" center _onClick={togleShow}>
           <Badge src={userRank.img}></Badge>
           {myName ? myName : userInfo.nickname}
         </FlexGrid>
@@ -55,7 +57,7 @@ const Chat = (props) => {
           <div className="message">{message}</div>
           <div>{time}</div>
         </div>
-        {state && <Report onClick={() => console.log("신고")}>신고</Report>}
+        {togleState && <Report onClick={reportUser}>신고</Report>}
       </ChatBox>
     </>
   );
@@ -71,7 +73,6 @@ const Report = styled.div`
   border-radius: 15px;
 
   position: absolute;
-  left: 20px;
   top: 20px;
 `;
 
@@ -92,6 +93,8 @@ const ChatBox = styled.div`
   flex-direction: column;
   align-items: ${(props) => (props.user ? "flex-end" : "flex-start")};
   gap: 5px;
+
+  position: relative;
 
   .messageBox {
     display: flex;
