@@ -6,7 +6,9 @@ import { actionCreators } from "../redux/modules/alert";
 
 const Alert = () => {
   const dispatch = useDispatch();
-  const alert = useSelector((props) => props.alert);
+  const alert = useSelector((props) => props.alert.data);
+
+  console.log(alert);
 
   const close = () => {
     alert.history();

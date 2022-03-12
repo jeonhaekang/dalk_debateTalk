@@ -31,14 +31,13 @@ const Chat = (props) => {
       return;
     }
     dispatch(
-      alertAction.open(
-        "confirm",
-        "정말로 신고하시겠습니까?",
-        () => {},
-        () => {
+      alertAction.open({
+        type: "confirm",
+        message: "정말로 신고하시겠습니까?",
+        action: () => {
           dispatch(userAction.reportUserDB(userInfo.id, message));
-        }
-      )
+        },
+      })
     );
     // dispatch(userAction.reportUserDB(userInfo.id, message));
   };
