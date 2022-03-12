@@ -47,7 +47,6 @@ const OneComment = (props) => {
   const [isWarn, setIsWarn] = useState(false);
 
   const handleClickWarning = async (e) => {
-    console.log("반대클릭");
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {

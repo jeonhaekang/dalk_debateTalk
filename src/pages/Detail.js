@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Grid from "../elements/Grid";
-import FlexGrid from "../elements/FlexGrid";
 import CommentList from "../components/detail/CommentList";
 import ShareLink from "../components/shared/ShareLink";
+import { history } from "../redux/configStore";
+
 import detail1 from "../image/detailElement/allRP.png"
 import detail2 from "../image/detailElement/pickPeople.png"
 import detail3 from "../image/detailElement/rate.png"
@@ -16,13 +17,15 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
+  const token = document.cookie;
+  const tokenCheck = token.split("=")[1];
+  const user = useSelector(state => state.user.user)
 
   // 결과창 리스트에 있는 boardId 값
   const boardId = props.match.params.boardId;
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
-  const [comment, setComment] = useState();
 
   // 상세 게시글의 Data 받아오기
   const getOneDebateDB = async () => {
@@ -31,7 +34,6 @@ const Detail = (props) => {
       .then((res) => {
         console.log(res.data);
         setDebate(res.data);
-        // setCreatedAt(res.data.createdAt.split("T")[0])
       })
       .catch((err) => {
         console.log("게시글 상세정보 에러", err);
@@ -40,28 +42,64 @@ const Detail = (props) => {
 
   // 렌더링때 게시글 + 댓글DB 불러오기
   useEffect(() => {
-    //상세 게시글 DB불러오는 구문임
     getOneDebateDB();
-  }, []);
-
-  useEffect(() => {
-    //댓글 코멘트 불러오는 구문임
     dispatch(commentActions.getCommentDB(boardId));
   }, []);
 
+  //승률 구하기
   const winnerRate =
-  Math.round((Number(debate.winnerResponse?.cnt) / (Number(debate.winnerResponse?.cnt) 
-  + Number(debate.loserResponse?.cnt))) * 100);
-  
+    Math.round((Number(debate.winnerResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
+      + Number(debate.loserResponse?.cnt))) * 100);
+
   const loserRate =
-  Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
-  + Number(debate.loserResponse?.cnt))) * 100);
+    Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
+      + Number(debate.loserResponse?.cnt))) * 100);
+
+  //신고 기능
+  const [isWarn, setIsWarn] = useState(false);
+
+  const handleClickWarning = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!tokenCheck) {
+      alert("로그인을 해주세요!");
+      history.replace("/login");
+    }
+    if (isWarn === false) {
+      await apis
+        .warningDebate(boardId)
+        .then((res) => {
+          if (window.confirm("정말 신고하시겠어요?")) {
+            console.log("상세페이지 신고 성공", res);
+            setIsWarn(true);
+            alert("신고처리가 완료되었습니다");
+          } else {
+            return;
+          }
+        })
+        .catch((err) => {
+          console.log("상세페이지 신고하기 에러", err);
+        });
+    } else {
+      alert("이미 신고를 하셨습니다");
+      return;
+    }
+  };
 
   return (
     <>
       <Header />
       <Grid height="calc(100% - 130px)" overflow="scroll">
-        <DetailCreatedAt>{debate.createdAt}</DetailCreatedAt>
+        <DetailCreatedAt>
+          {debate.createdAt}
+          <WarnShareBox>
+            <div style={{marginRight:"5px", cursor:"pointer"}}
+            onClick={handleClickWarning}>
+              {debate.warnUserList?.includes(user?.id) ? null : "신고"}
+              </div>
+            <div>공유</div>
+          </WarnShareBox>
+        </DetailCreatedAt>
         <DebateWrap>
           {(winnerRate !== loserRate) ?
             <>
@@ -189,8 +227,9 @@ const Detail = (props) => {
 };
 const DetailCreatedAt = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin: 10px 16px;
+  padding: 0px 10px;
   font-size: 12px;
   color: gray;
 `;
@@ -267,6 +306,9 @@ const DetailImg = styled.img`
   width: 12px;
   height: 12px;
   margin-right: 4px;
+`
+const WarnShareBox = styled.div`
+  display: flex;
 `
 
 export default Detail;

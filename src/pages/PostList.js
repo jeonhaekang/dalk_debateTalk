@@ -8,19 +8,24 @@ import Grid from "../elements/Grid";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/post";
+import InfinityScroll from "../shared/InfinityScroll";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  
+
   //검색 State
   const [keyword, setKeyword] = useState("");
 
-  const debateList = useSelector(state => state.post.postList);
+  const debateList = useSelector(state => state.post);
+
+  const getDebateList = () => {
+    dispatch(actionCreators.getPostDB(debateList.page))
+  }
 
   // 결과창 리스트 불러오기
   useEffect(() => {
-    dispatch(actionCreators.getPostDB())
-  }, []);
+    dispatch(actionCreators.getPostDB(0))
+  }, [dispatch]);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
   const handleTop = () => {
@@ -71,14 +76,16 @@ const PostList = (props) => {
             <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
           <Grid margin="20px 0px" justifyContent="center" >
+            <InfinityScroll callNext={getDebateList} paging={{ next : debateList.has_next }}>
             {!searchDebateList.length == 0 ?
             searchDebateList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
+              return <PostListCard {...d} key={idx} debateList={debateList.postList} />
             }) :
-            debateList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
+            debateList.postList.map((d, idx) => {
+              return <PostListCard {...d} key={idx} debateList={debateList.postList} />
             })
           }
+          </InfinityScroll>
             <button onClick={handleTop}>TOP</button>
           </Grid>
         </Grid>

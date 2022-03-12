@@ -94,6 +94,9 @@ const apis = {
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
 
+  // ---------게시글 신고------------
+  warningDebate : (boardId) => instance.get(`/warnings/boards/${boardId}`),
+
   // 회원 탈퇴
   userOut : () => instance.delete(`/signout`),
   // 포인트 내역 조회
