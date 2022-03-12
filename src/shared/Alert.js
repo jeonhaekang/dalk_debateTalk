@@ -7,15 +7,31 @@ import { actionCreators } from "../redux/modules/alert";
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert);
+
   const close = () => {
+    alert.history();
     dispatch(actionCreators.close());
   };
+
+  const action = () => {
+    console.log(alert.action());
+    alert.action();
+    dispatch(actionCreators.close());
+  };
+
   if (alert.openState) {
     return (
       <Background>
         <Content is_column>
           <FlexGrid>{alert.message}</FlexGrid>
-          <button onClick={close}>확인</button>
+
+          {alert.type === "alert" && <button onClick={close}>확인</button>}
+          {alert.type === "confirm" && (
+            <FlexGrid center justifyContent="space-around">
+              <button onClick={action}>확인</button>
+              <button onClick={close}>취소</button>
+            </FlexGrid>
+          )}
         </Content>
       </Background>
     );

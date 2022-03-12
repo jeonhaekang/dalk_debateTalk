@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FcSpeaker } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import apis from "../../shared/apis";
 import Badge from "../../elements/Badge";
 import FlexGrid from "../../elements/FlexGrid";
 import { rank, discriminant } from "../../data/rank";
@@ -29,10 +28,19 @@ const Chat = (props) => {
     console.log("report");
 
     if (userInfo.id === user.id) {
-      dispatch(alertAction.open("자기 자신은 신고할 수 없습니다."));
       return;
     }
-    dispatch(userAction.reportUserDB(userInfo.id, message));
+    dispatch(
+      alertAction.open(
+        "confirm",
+        "정말로 신고하시겠습니까?",
+        () => {},
+        () => {
+          dispatch(userAction.reportUserDB(userInfo.id, message));
+        }
+      )
+    );
+    // dispatch(userAction.reportUserDB(userInfo.id, message));
   };
 
   if (type !== "TALK") {

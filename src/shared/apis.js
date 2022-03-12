@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getCookie } from "./Cookie";
+import { history } from "../redux/configStore";
+import { deleteCookie, getCookie } from "./Cookie";
 
 export const instance = axios.create({
   baseURL: "http://13.124.244.126:8080",
@@ -7,7 +8,11 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(function (config) {
   const token = getCookie("authorization");
-
+  if (!config.url.includes("api") && !token) {
+    deleteCookie("authorization");
+    history.replace("/login");
+    throw new axios.Cancel();
+  }
   config.headers["Content-Type"] =
     "application/json;charset=UTF-8; charset=UTF-8";
 

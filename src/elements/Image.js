@@ -24,6 +24,7 @@ const Inner = styled.div`
   background-image: url(${(props) => props.src});
   background-size: cover;
   box-shadow: ${(props) => (props.active ? "inset 0 0 0 4px black" : "none")};
+  /* border를 쓰면 크기에 영향이 생겨서 box-shadow로 테두리를 만듬 */
 `;
 
 export default Image;
