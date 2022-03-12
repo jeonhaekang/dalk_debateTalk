@@ -20,9 +20,10 @@ const Inner = styled.div`
   border-radius: 30px;
   width: 100%;
   padding-top: 100%;
+
   background-image: url(${(props) => props.src});
   background-size: cover;
-  border: ${(props) => (props.active ? "4px solid black" : "none")};
+  box-shadow: ${(props) => (props.active ? "inset 0 0 0 4px black" : "none")};
 `;
 
 export default Image;

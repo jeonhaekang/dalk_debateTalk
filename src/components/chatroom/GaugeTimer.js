@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useDispatch } from "react-redux";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { history } from "../../redux/configStore";
 
 const GaugeTimer = (props) => {
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ const GaugeTimer = (props) => {
 
   React.useEffect(() => {
     if (restTime <= 0) {
+      if (props.page === "chatRoom") {
+        dispatch(
+          alertAction.open("토론이 종료되었습니다", () => history.replace("/"))
+        );
+      }
       dispatch(chatAction.deleteRoom(props.roomId));
       return;
     }
@@ -47,10 +54,8 @@ const GaugeTimer = (props) => {
 
 const GaugeOuter = styled.div`
   ${(props) =>
-    props.page
-      ? "border-radius:0px 0px 10px 10px; position:absolute; left:0; bottom:0;"
-      : ""}
-  height: 6px;
+    props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
+  height: 3px;
   width: 100%;
   background-color: #c4c4c4;
 `;
@@ -64,9 +69,7 @@ const GaugeInner = styled.div.attrs((props) => ({
   background-color: #ff4550;
   transition: 0.3s;
   ${(props) =>
-    props.page
-      ? "border-radius:0px 0px 10px 10px; position:absolute; left:0; bottom:0;"
-      : ""}
+    props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
 `;
 
 export default GaugeTimer;

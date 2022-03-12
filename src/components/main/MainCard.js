@@ -10,14 +10,14 @@ import Center from "../../elements/Center";
 import Image from "../../elements/Image";
 
 const MainCard = (props) => {
-
   return (
     <FlexGrid
       is_column
       padding="15px 15px"
-      borderRadius="10px"
+      borderRadius="15px"
       backgroundColor="#eee"
       gap="30px"
+      overflow="hidden"
       _onClick={() => history.push("/chatroom/" + props.roomId)}
     >
       {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}

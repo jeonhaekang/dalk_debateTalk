@@ -23,7 +23,7 @@ const ChatHeader = (props) => {
 
   return (
     <div>
-      {roomInfo && <GaugeTimer {...roomInfo} />}
+      {roomInfo && <GaugeTimer {...roomInfo} page="chatRoom" />}
       {roomInfo && (
         <InfoWrap state={state}>
           {!state ? (

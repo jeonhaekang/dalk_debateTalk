@@ -14,7 +14,7 @@ const PointShop = () => {
   const user = useSelector((state) => state.user.user);
 
   const [item, setItem] = useState(itemData[0]);
-  console.log(item);
+  
   const buyItem = () => {
     dispatch(actionCreators.buyItemDB(item));
   };
