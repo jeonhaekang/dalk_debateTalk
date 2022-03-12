@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
-const PostListCategory = () => {
+const PostListCategory = (props) => {
   //ref로 스크롤 querySelector함
   const scrollRef = React.useRef(null);
 
@@ -56,6 +56,8 @@ const PostListCategory = () => {
     "기타",
   ];
 
+  const listPath = window.location.href
+
   return (
     <CategoryScroll
       onMouseDown={onDragStart}
@@ -63,7 +65,10 @@ const PostListCategory = () => {
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}>
-      <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
+        {props.path == listPath ?
+        <CategoryBtn onClick={() => document.location.reload()}>전체보기</CategoryBtn> :
+        <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
+        }
       {CategoryList.map((c, idx) => {
         return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>
           #{c}

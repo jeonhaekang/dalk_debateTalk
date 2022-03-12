@@ -20,7 +20,6 @@ const OneComment = (props) => {
   const disagreeList = useSelector(
     (state) => state.comment.commentList[index].disagreeUserList
   );
-  console.log("agreeList:", agreeList, "disagreeList:", disagreeList);
   const dispatch = useDispatch();
 
   //찬성, 반대 기능을 위해
@@ -31,7 +30,7 @@ const OneComment = (props) => {
     console.log("찬성클릭");
     if (!tokenCheck) {
       alert("로그인을 해주세요!");
-      history.replace("/login");
+      history.push("/login");
     }
     dispatch(commentActions.pushAgreeDB(commentId, index));
   };
@@ -39,7 +38,7 @@ const OneComment = (props) => {
   const handleClickDisagree = () => {
     if (!tokenCheck) {
       alert("로그인을 해주세요!");
-      history.replace("/login");
+      history.push("/login");
     }
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
   };
@@ -48,7 +47,6 @@ const OneComment = (props) => {
   const [isWarn, setIsWarn] = useState(false);
 
   const handleClickWarning = async (e) => {
-    console.log("반대클릭");
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
@@ -140,7 +138,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #e5e5e5;
-  border-top: 2px solid #fff;
+  border-top: 3px solid #fff;
   padding: 10px 0px;
 `;
 const FlexAlign = styled.div`

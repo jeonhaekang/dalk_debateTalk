@@ -47,6 +47,7 @@ const ShareLink = () => {
   return (
     <>
       <Container>
+          <Title>게시물 공유하고 <br/> 결과에 대해 토론해보세요!</Title>
         <ShareBody>
           <div className="each-share-container">
             <CopyToClipboard onCopy={onCopy} text={debateDetailUrl}>
@@ -90,13 +91,17 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 10001;
-  padding: 0 50px;
+  padding: 30px 15px;
   width: 100%;
 `
-
+const Title = styled.div`
+  padding-bottom: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+`
 const ShareBody = styled.div`
   width: 100%;
-  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,6 +112,8 @@ const ShareBody = styled.div`
     justify-content: center;
     .each-share-container__text {
       font-size: 12px;
+      width : 50px;
+      text-align : center;
     }
   }
   .link-copy-button {
@@ -118,6 +125,7 @@ const ShareBody = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: none;
   }
 `
 

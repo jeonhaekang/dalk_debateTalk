@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import apis from "../shared/apis";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
@@ -8,34 +6,34 @@ import PostListCard from "../components/postlist/PostListCard";
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators } from "../redux/modules/post";
+import InfinityScroll from "../shared/InfinityScroll";
 
-const PostList = () => {
-  const [debateList, setDebateList] = useState([]);
+const PostList = (props) => {
+  const dispatch = useDispatch();
+
+  //검색 State
   const [keyword, setKeyword] = useState("");
 
-  // 결과창 리스트 불러오기
-  useEffect(() => {
-    getDebate()
-  }, []);
+  const debateList = useSelector(state => state.post);
 
-  // 결과창 리스트 api
-  const getDebate = async () => {
-    await apis.getDebate()
-      .then((res) => {
-        setDebateList(res.data)
-      })
-      .catch((err) => {
-        console.log("토론 결과 리스트 에러", err)
-      })
+  const getDebateList = () => {
+    dispatch(actionCreators.getPostDB(debateList.page))
   }
+
+  // 페이지 0번부터 결과창 리스트 불러오기
+  useEffect(() => {
+    dispatch(actionCreators.getPostDB(0))
+  }, [dispatch]);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  const handleTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
+  // const handleTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth"
+  //   });
+  // }
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
@@ -50,6 +48,7 @@ const PostList = () => {
   }
 
   const [searchDebateList, setSearchDebateList] = useState([]);
+  const path = window.location.href
   // 검색결과
   const searchDebate = () => {
     apis.getDebateKeyword(keyword)
@@ -64,7 +63,7 @@ const PostList = () => {
 
   return (
     <>
-      <Grid height="100%" overflow="scroll">
+      <Grid height="100vh" overflow="scroll">
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
@@ -74,18 +73,20 @@ const PostList = () => {
             </InputContainer>
           </Container>
           <Grid padding="20px 20px 20px">
-            <PostListCategory debateList={debateList} searchDebateList={searchDebateList} />
+            <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
-          <Grid margin="20px 0px" justifyContent="center">
+          <Grid margin="20px 0px" justifyContent="center" >
+            <InfinityScroll callNext={getDebateList} paging={{ next : debateList.has_next }}>
             {!searchDebateList.length == 0 ?
             searchDebateList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
+              return <PostListCard {...d} key={idx} debateList={debateList.postList} />
             }) :
-            debateList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
+            debateList.postList.map((d, idx) => {
+              return <PostListCard {...d} key={idx} debateList={debateList.postList} />
             })
           }
-            <button onClick={handleTop}>TOP</button>
+          </InfinityScroll>
+            {/* <button onClick={handleTop}>TOP</button> */}
           </Grid>
         </Grid>
       </Grid>

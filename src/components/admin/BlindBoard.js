@@ -17,11 +17,10 @@ function BlindBoard() {
             })
     }, [])
 
-    const delBlindBoard = () => {
-        apis.delblindboard()
+    const delBlindBoard = (boardId) => {
+        apis.delblindboard(boardId)
             .then((res) => {
                 console.log("블라인드 게시물 삭제완료", res)
-                alert("삭제 완료")
             })
             .catch((err) => {
                 console.log("블라인드 게시물 삭제 실패", err)
@@ -35,7 +34,7 @@ function BlindBoard() {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
                     <div> 신고수 : {r.warnCnt} </div>
-                    <button onClick={delBlindBoard}> 삭제 </button>
+                    <button onClick={()=>delBlindBoard(r.boardId)}> 삭제 </button>
                 </List>
             })}
         </>
@@ -49,7 +48,6 @@ const Title = styled.div`
     font-weight: bold;
     font-size: 20px;
 `
-
 const List = styled.div`
     display: flex;
     justify-content: center;

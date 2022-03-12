@@ -90,15 +90,17 @@ const apis = {
   warningComment: (commentId) =>
     instance.get(`/warnings/comments/${commentId}`),
 
-  // ---------게시글 상세조회------------
+  // ---------게시글 관련------------
+  // 게시글 상세조회
   getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
-
-  // ---------게시글 결과조회------------
+  // 게시글 결과조회
   getDebate: () => instance.get(`/api/boards`),
-
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
+  // ---------게시글 신고------------
+  warningDebate : (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
+  // ---------마이페이지------------
   // 회원 탈퇴
   userOut: () => instance.delete(`/signout`),
   // 포인트 내역 조회

@@ -26,7 +26,7 @@ const Vote = ({ topic, setModalState }) => {
     dispatch(chatAction.voteDB(roomInfo.roomId, topic, point));
     setModalState(false);
   };
-  
+
   return (
     <>
       {roomInfo && (
