@@ -18,8 +18,6 @@ const Chat = (props) => {
   const user = useSelector((state) => state.user.user);
   const myName = useSelector((state) => state.item.itemList.myName);
 
-  const reportRef = React.useRef();
-
   const report = (e) => {
     if (userInfo.id === user.id) {
       console.log("자기 자신은 신고할 수 없습니다.");
@@ -49,10 +47,10 @@ const Chat = (props) => {
   return (
     <>
       <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
-        <div onClick={() => report()} className="nickname" ref={reportRef}>
+        <FlexGrid gap="3px" width="auto" center onClick={() => report()}>
           <Badge src={userRank.img}></Badge>
           {myName ? myName : userInfo.nickname}
-        </div>
+        </FlexGrid>
         <div className="messageBox">
           <div className="message">{message}</div>
           <div>{time}</div>
@@ -94,8 +92,6 @@ const ChatBox = styled.div`
   flex-direction: column;
   align-items: ${(props) => (props.user ? "flex-end" : "flex-start")};
   gap: 5px;
-
-  position: relative;
 
   .messageBox {
     display: flex;
