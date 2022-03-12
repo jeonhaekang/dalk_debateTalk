@@ -27,12 +27,12 @@ function SearchCategory(props) {
   const [keyword, setKeyword] = useState("");
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  const handleTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
+  // const handleTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth"
+  //   });
+  // }
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
@@ -61,7 +61,7 @@ function SearchCategory(props) {
 
   return (
     <>
-      <Grid height="calc(100%-130px)" overflow="scroll">
+      <Grid height="calc(100vh-60px)" overflow='scroll'>
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
@@ -82,7 +82,7 @@ function SearchCategory(props) {
               return <PostListCard {...d} key={idx} debateList={debateList} />
             })
           }
-            <button onClick={handleTop}>TOP</button>
+            {/* <button onClick={handleTop}>＾</button> */}
           </Grid>
         </Grid>
       </Grid>
@@ -111,6 +111,20 @@ const Input = styled.input`
   border: none;
   border-radius: 8px;
   padding: 13px 16px;
+`
+const TopBtn = styled.button`
+  // position: fixed; 
+  // bottom: 40px; 
+  // right: 40px; 
+  // width: 50px; 
+  // height: 50px;
+  // border-radius: 100%;
+  // border: 0 none;
+  // background: lightpink;
+  // color: blueviolet;
+  // letter-spacing: -0.06em;
+  // box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.3);
+  // cursor: pointer;
 `
 
 export default SearchCategory

@@ -138,7 +138,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #e5e5e5;
-  border-top: 2px solid #fff;
+  border-top: 3px solid #fff;
   padding: 10px 0px;
 `;
 const FlexAlign = styled.div`

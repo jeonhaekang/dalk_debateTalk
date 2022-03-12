@@ -22,18 +22,18 @@ const PostList = (props) => {
     dispatch(actionCreators.getPostDB(debateList.page))
   }
 
-  // 결과창 리스트 불러오기
+  // 페이지 0번부터 결과창 리스트 불러오기
   useEffect(() => {
     dispatch(actionCreators.getPostDB(0))
   }, [dispatch]);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  const handleTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
+  // const handleTop = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth"
+  //   });
+  // }
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
@@ -63,7 +63,7 @@ const PostList = (props) => {
 
   return (
     <>
-      <Grid height="100%" overflow="scroll">
+      <Grid height="100vh" overflow="scroll">
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
@@ -86,7 +86,7 @@ const PostList = (props) => {
             })
           }
           </InfinityScroll>
-            <button onClick={handleTop}>TOP</button>
+            {/* <button onClick={handleTop}>TOP</button> */}
           </Grid>
         </Grid>
       </Grid>

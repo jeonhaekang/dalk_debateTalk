@@ -12,11 +12,13 @@ import detail4 from "../image/detailElement/topPoint.png"
 
 import Header from "../shared/Header";
 import apis from "../shared/apis";
+import Modal from "../components/shared/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
+  //유저, 토큰 정보
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
   const user = useSelector(state => state.user.user)
@@ -86,6 +88,9 @@ const Detail = (props) => {
     }
   };
 
+  //모달
+  const [createModalState, setCreateModalState] = useState(false);
+
   return (
     <>
       <Header />
@@ -93,11 +98,17 @@ const Detail = (props) => {
         <DetailCreatedAt>
           {debate.createdAt}
           <WarnShareBox>
-            <div style={{marginRight:"5px", cursor:"pointer"}}
-            onClick={handleClickWarning}>
+            <div style={{ marginRight: "5px", cursor: "pointer" }}
+              onClick={handleClickWarning}>
               {debate.warnUserList?.includes(user?.id) ? null : "신고"}
-              </div>
-            <div>공유</div>
+            </div>
+            <div onClick={() => setCreateModalState(true)} style={{cursor:"pointer"}}>
+              공유
+            </div>
+            <Modal modalState={createModalState} setModalState={setCreateModalState}>
+              {/* 공유하기 기능 */}
+              <ShareLink createModalState={createModalState} setCreateModalState={setCreateModalState} />
+            </Modal>
           </WarnShareBox>
         </DetailCreatedAt>
         <DebateWrap>
@@ -215,9 +226,6 @@ const Detail = (props) => {
             </>
           }
         </DebateWrap>
-
-        {/* 공유하기 기능 */}
-        <ShareLink />
 
         {/* 댓글 전체 */}
         {<CommentList debate={debate} />}
