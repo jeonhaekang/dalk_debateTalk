@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { history } from '../../redux/configStore'
 import { actionCreators as commentActions } from '../../redux/modules/comment'
@@ -14,7 +14,6 @@ const CommentList = ({ debate }) => {
   const dispatch = useDispatch();
 
   const commentList = useSelector((state) => state.comment.commentList);
-
   const [comment, setComment] = useState("");
 
   const onChangeComment = (e) => {
@@ -58,8 +57,6 @@ const CommentWriteContainer = styled.div`
   bottom: 0;
   width: 100%;
   padding: 8px;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   align-items: center;
   background: #fcfcfc;
@@ -67,8 +64,6 @@ const CommentWriteContainer = styled.div`
 const ImgInput = styled.div`
   width: 100%;
   display: flex;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   align-items: center;
   .writebox {
     border: none;

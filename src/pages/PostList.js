@@ -10,9 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/post";
 
 const PostList = (props) => {
-  const [keyword, setKeyword] = useState("");
-  const debateList = useSelector(state => state.post.postList);
   const dispatch = useDispatch();
+  
+  //검색 State
+  const [keyword, setKeyword] = useState("");
+
+  const debateList = useSelector(state => state.post.postList);
 
   // 결과창 리스트 불러오기
   useEffect(() => {
