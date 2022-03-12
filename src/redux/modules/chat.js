@@ -13,7 +13,7 @@ const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
 const VOTE = "VOTE";
 
 //Action Creator
-const setRoom = createAction(SET_ROOM, (list, rooms) => ({ list, rooms }));
+const setRoom = createAction(SET_ROOM, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
@@ -22,7 +22,6 @@ const vote = createAction(VOTE, (topic, point) => ({ topic, point }));
 //initialState
 const initialState = {
   is_loaded: false,
-  mainRoomList: [],
   roomList: [],
   currentRoom: null,
   itemState: false,
@@ -40,8 +39,7 @@ const loadMainRoomDB = () => {
     apis
       .loadMainRoom()
       .then((res) => {
-        console.log(res.data);
-        dispatch(setRoom("mainRoomList", res.data));
+        dispatch(setRoom(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -148,20 +146,16 @@ export default handleActions(
   {
     [SET_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft[action.payload.list] = action.payload.rooms;
+        draft.roomList = action.payload.list;
       }),
     [CREATE_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.roomList.unshift(action.payload.room);
-        draft.mainRoomList.unshift(action.payload.room);
       }),
     [DELETE_ROOM]: (state, action) =>
       produce(state, (draft) => {
         console.log(action.payload.roomId);
         draft.roomList = draft.roomList.filter(
-          (el) => el.roomId !== action.payload.roomId
-        );
-        draft.mainRoomList = draft.mainRoomList.filter(
           (el) => el.roomId !== action.payload.roomId
         );
       }),

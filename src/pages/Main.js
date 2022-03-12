@@ -20,14 +20,11 @@ import { history } from "../redux/configStore";
 const Main = (props) => {
   const dispatch = useDispatch();
 
-  const roomList = useSelector((state) => state.chat.mainRoomList);
+  const roomList = useSelector((state) => state.chat.roomList);
   // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
-    if (roomList.length === 0) {
-      dispatch(actionCreators.loadMainRoomDB());
-    }
+    dispatch(actionCreators.loadMainRoomDB());
   }, []);
-  console.log(roomList);
 
   return (
     <>
