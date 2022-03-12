@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import apis from "../shared/apis";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
@@ -8,28 +6,18 @@ import PostListCard from "../components/postlist/PostListCard";
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators } from "../redux/modules/post";
 
 const PostList = (props) => {
-  const [debateList, setDebateList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const path = window.location.href
+  const debateList = useSelector(state => state.post.postList);
+  const dispatch = useDispatch();
 
   // 결과창 리스트 불러오기
   useEffect(() => {
-    getDebate()
+    dispatch(actionCreators.getPostDB())
   }, []);
-
-  // 결과창 리스트 api
-  const getDebate = async () => {
-    await apis.getDebate()
-      .then((res) => {
-        console.log(res.data)
-        setDebateList(res.data)
-      })
-      .catch((err) => {
-        console.log("토론 결과 리스트 에러", err)
-      })
-  }
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
   const handleTop = () => {
@@ -52,6 +40,7 @@ const PostList = (props) => {
   }
 
   const [searchDebateList, setSearchDebateList] = useState([]);
+  const path = window.location.href
   // 검색결과
   const searchDebate = () => {
     apis.getDebateKeyword(keyword)
@@ -78,7 +67,7 @@ const PostList = (props) => {
           <Grid padding="20px 20px 20px">
             <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
-          <Grid margin="20px 0px" justifyContent="center">
+          <Grid margin="20px 0px" justifyContent="center" >
             {!searchDebateList.length == 0 ?
             searchDebateList.map((d, idx) => {
               return <PostListCard {...d} key={idx} debateList={debateList} />

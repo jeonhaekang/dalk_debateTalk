@@ -5,9 +5,11 @@ import Header from '../shared/Header';
 import Grid from '../elements/Grid';
 import PostListCategory from '../components/postlist/PostListCategory';
 import PostListCard from '../components/postlist/PostListCard';
+import { useSelector } from 'react-redux';
 
 function SearchCategory(props) {
   const page = props.match.params.category;
+  const debateList = useSelector(state => state.post.postList);
 
   const [searchCategoryList, setSearchCategoryList] = useState([]);
 
@@ -22,7 +24,6 @@ function SearchCategory(props) {
         })
   },[page])
 
-  const [debateList, setDebateList] = useState([]);
   const [keyword, setKeyword] = useState("");
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
