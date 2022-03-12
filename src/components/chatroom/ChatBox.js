@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actionCreators } from "../../redux/modules/item";
 import Chat from "./Chat";
 import { history } from "../../redux/configStore";
+import _ from "lodash";
 
 const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
+  const boxRef = React.useRef(null);
+
   const [messageLog, setMessageLog] = React.useState([]);
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
     client.subscribe(`/sub/chat/rooms/${roomId}`, subCallback, headers);
+    // subscribe("url", callback, headers)
   };
-  // subscribe("url", callback, headers)
 
   const errorCallback = () => {
     // 연결 실패시 호출함수
@@ -26,7 +29,6 @@ const ChatBox = ({ roomId, headers, client }) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
     //메세지 추가
-    console.log(newMassage);
     setMessageLog((log) => [...log, newMassage]);
 
     if (newMassage.type === "ITEMTIMEOUT") {
@@ -36,7 +38,6 @@ const ChatBox = ({ roomId, headers, client }) => {
     }
 
     if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
-      console.log(newMassage);
       // 입장시, 누군가 아이템 사용시 사용중인 사용자 지정
       const myName = newMassage.myName; // myName을 사용중인 유저
       const onlyMe = newMassage.onlyMe; // onlyMe를 사용중인 유저
@@ -58,9 +59,28 @@ const ChatBox = ({ roomId, headers, client }) => {
     }
   };
 
+  const [scrollState, setScrollState] = useState(true);
+
+  const scrollEvent = _.debounce(() => {
+    console.log("scroll");
+    const scrollTop = boxRef.current.scrollTop; // 스크롤 위치
+    const clientHeight = boxRef.current.clientHeight; // 요소의 높이
+    const scrollHeight = boxRef.current.scrollHeight; // 스크롤의 높이
+
+    // 스크롤이 맨 아래에 있을때
+    if (scrollTop + clientHeight === scrollHeight) {
+      setScrollState(true);
+    } else {
+      setScrollState(false);
+    }
+  }, 100);
+  const scroll = React.useCallback(scrollEvent, []);
+
   React.useEffect(() => {
-    scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    // scrollRef의 element위치로 스크롤 이동 behavior는 전환 에니메이션의 정의
+    if (scrollState) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      // scrollRef의 element위치로 스크롤 이동 behavior는 전환 에니메이션의 정의
+    }
   }, [messageLog]);
 
   React.useEffect(() => {
@@ -70,10 +90,14 @@ const ChatBox = ({ roomId, headers, client }) => {
     return () => client.disconnect(() => client.unsubscribe("sub-0"));
   }, []);
 
+  React.useEffect(() => {
+    boxRef.current.addEventListener("scroll", scroll);
+  });
+
   return (
-    <ShowChat>
-      {messageLog.map((el, key) => {
-        return <Chat {...el} key={key} />;
+    <ShowChat ref={boxRef}>
+      {messageLog.map((el, i) => {
+        return <Chat {...el} key={i} />;
       })}
       <div ref={scrollRef} />
     </ShowChat>
@@ -81,6 +105,7 @@ const ChatBox = ({ roomId, headers, client }) => {
 };
 
 const ShowChat = styled.div`
+  position: relative;
   flex-grow: 1;
   overflow: scroll;
 

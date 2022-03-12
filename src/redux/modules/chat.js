@@ -135,7 +135,6 @@ const getOneRoomDB = (roomId) => {
     apis
       .getOneRoom(roomId)
       .then((res) => {
-        console.log(res.data);
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {

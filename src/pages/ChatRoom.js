@@ -25,8 +25,9 @@ const ChatRoom = (props) => {
     },
   };
 
+  const roomInfo = useSelector((props) => props.chat.currentRoom);
+
   React.useEffect(() => {
-    console.log("실행");
     dispatch(actionCreators.getOneRoomDB(data.roomId));
     // 방에 들어오면 데이터 업데이트
     return () => {
@@ -38,16 +39,13 @@ const ChatRoom = (props) => {
   return (
     <>
       <Header page="토론방" report />
-      <Grid
-        display="flex"
-        flexDirection="column"
-        height="calc(100% - 60px)"
-        border="2px solid red"
-      >
-        <ChatHeader />
-        <ChatBox {...data} />
-        <ChatInput {...data} />
-      </Grid>
+      {roomInfo && (
+        <Grid display="flex" flexDirection="column" height="calc(100% - 60px)">
+          <ChatHeader />
+          <ChatBox {...data} />
+          <ChatInput {...data} />
+        </Grid>
+      )}
     </>
   );
 };

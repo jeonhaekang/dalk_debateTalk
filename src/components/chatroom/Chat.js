@@ -19,7 +19,6 @@ const Chat = (props) => {
   const myName = useSelector((state) => state.item.itemList.myName);
 
   const reportRef = React.useRef();
-  console.log(userInfo);
 
   const report = (e) => {
     if (userInfo.id === user.id) {
@@ -46,7 +45,6 @@ const Chat = (props) => {
   }
 
   const userRank = rank[discriminant(userInfo.ex)];
-  console.log(userRank);
 
   return (
     <>
