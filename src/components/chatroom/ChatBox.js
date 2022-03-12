@@ -59,7 +59,8 @@ const ChatBox = ({ roomId, headers, client }) => {
     }
   };
 
-  const [scrollState, setScrollState] = useState(true);
+  const [scrollState, setScrollState] = useState(true); // 자동 스크롤 여부
+  console.log(scrollState);
 
   const scrollEvent = _.debounce(() => {
     console.log("scroll");
@@ -68,11 +69,9 @@ const ChatBox = ({ roomId, headers, client }) => {
     const scrollHeight = boxRef.current.scrollHeight; // 스크롤의 높이
 
     // 스크롤이 맨 아래에 있을때
-    if (scrollTop + clientHeight === scrollHeight) {
-      setScrollState(true);
-    } else {
-      setScrollState(false);
-    }
+    setScrollState(
+      scrollTop + clientHeight >= scrollHeight - 100 ? true : false
+    );
   }, 100);
   const scroll = React.useCallback(scrollEvent, []);
 
@@ -80,6 +79,7 @@ const ChatBox = ({ roomId, headers, client }) => {
     if (scrollState) {
       scrollRef.current.scrollIntoView({ behavior: "smooth" });
       // scrollRef의 element위치로 스크롤 이동 behavior는 전환 에니메이션의 정의
+      // boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
   }, [messageLog]);
 
