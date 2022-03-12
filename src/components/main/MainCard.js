@@ -10,7 +10,7 @@ import Center from "../../elements/Center";
 import Image from "../../elements/Image";
 
 const MainCard = (props) => {
-  console.log(props);
+
   return (
     <FlexGrid
       is_column

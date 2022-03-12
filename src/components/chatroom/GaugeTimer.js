@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 
 const GaugeTimer = (props) => {
   const dispatch = useDispatch();
-  const end = new Date(props.createdAt); // 해당 채팅방 종료 시간
+
+  const end = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
   // 긴방인지 짧은방인지 판단 후 종료시간에 더함

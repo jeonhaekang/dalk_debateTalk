@@ -3,6 +3,7 @@ import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
 import { actionCreators as userAction } from "./user";
+import moment from "moment";
 
 //Action
 const IS_LOADED = "IS_LOADED";
@@ -91,9 +92,8 @@ const voteDB = (roomId, topic, point) => {
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
-    console.log("data:", data);
     const image = getState().image.image;
-    console.log(image);
+
     const formdata = new FormData();
 
     image.file && formdata.append("image", image.file);
@@ -101,7 +101,6 @@ const createRoomDB = (data) => {
       "debate",
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
-    console.log("진입");
 
     apis
       .createRoom(formdata)
@@ -113,7 +112,7 @@ const createRoomDB = (data) => {
           roomId: res.data.roomId,
           userInfo: user,
           filePath: image.preview,
-          createdAt: new Date(),
+          createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
           restTime: data.time ? 1200 : 3600,
         };
 
