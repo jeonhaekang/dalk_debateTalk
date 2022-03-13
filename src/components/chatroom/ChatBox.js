@@ -5,6 +5,7 @@ import { actionCreators } from "../../redux/modules/item";
 import Chat from "./Chat";
 import { history } from "../../redux/configStore";
 import _ from "lodash";
+import FlexGrid from "../../elements/FlexGrid";
 
 const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   };
 
   const [scrollState, setScrollState] = useState(true); // 자동 스크롤 여부
-  console.log(scrollState);
+  const [endState, setEndState] = React.useState(false);
 
   const scrollEvent = _.debounce(() => {
     console.log("scroll");
@@ -69,11 +70,20 @@ const ChatBox = ({ roomId, headers, client }) => {
     const scrollHeight = boxRef.current.scrollHeight; // 스크롤의 높이
 
     // 스크롤이 맨 아래에 있을때
-    setScrollState(
-      scrollTop + clientHeight >= scrollHeight - 100 ? true : false
+    setEndState(
+      scrollTop + clientHeight >= scrollHeight - clientHeight / 3 ? false : true
     );
-  }, 100);
+
+    setScrollState(
+      scrollTop + clientHeight >= scrollHeight - clientHeight / 5 ? true : false
+    );
+  }, 10);
   const scroll = React.useCallback(scrollEvent, []);
+
+  const endScroll = () => {
+    // setEndState(false);
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   React.useEffect(() => {
     if (scrollState) {
@@ -95,14 +105,30 @@ const ChatBox = ({ roomId, headers, client }) => {
   });
 
   return (
-    <ShowChat ref={boxRef}>
-      {messageLog.map((el, i) => {
-        return <Chat {...el} key={i} boxRef={boxRef} />;
-      })}
-      <div ref={scrollRef} />
-    </ShowChat>
+    <>
+      <ShowChat ref={boxRef}>
+        {messageLog.map((el, i) => {
+          return <Chat {...el} key={i} boxRef={boxRef} />;
+        })}
+        {/* <div style={{ marginBottom: "5000px" }} /> */}
+        <div ref={scrollRef} />
+        {endState && (
+          <FlexGrid center position="sticky" bottom="0">
+            <EndScroll onClick={endScroll}>아래로</EndScroll>
+          </FlexGrid>
+        )}
+      </ShowChat>
+    </>
   );
 };
+
+const EndScroll = styled.div`
+  padding: 3px 10px;
+  color: white;
+  font-weight: bold;
+  background-color: orange;
+  border-radius: 20px;
+`;
 
 const ShowChat = styled.div`
   position: relative;
@@ -114,7 +140,7 @@ const ShowChat = styled.div`
   gap: 15px;
 
   padding: 10px;
-
+  padding-bottom: 0;
   /* 스크롤바 표시 */
   &::-webkit-scrollbar {
     display: block;
