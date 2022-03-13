@@ -97,7 +97,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   return (
     <ShowChat ref={boxRef}>
       {messageLog.map((el, i) => {
-        return <Chat {...el} key={i} />;
+        return <Chat {...el} key={i} boxRef={boxRef} />;
       })}
       <div ref={scrollRef} />
     </ShowChat>
