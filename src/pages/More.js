@@ -2,13 +2,14 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../redux/modules/chat";
+import { actionCreators as chatAction } from "../redux/modules/chat";
 import MainCard from "../components/main/MainCard";
 import XScrollDrag from "../components/shared/XScrollDrag";
 import Chip from "../elements/Chip";
 import Grid from "../elements/Grid";
 import FlexGrid from "../elements/FlexGrid";
 import ContentContainer from "../elements/Container";
+import InfinityScroll from "../shared/InfinityScroll";
 
 const More = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,15 @@ const More = () => {
   ];
 
   React.useEffect(() => {
-    dispatch(actionCreators.loadAllRoomDB());
-  }, []);
+    dispatch(chatAction.loadAllRoomDB(0));
+  }, [dispatch]);
 
-  const roomList = useSelector((state) => state.chat.roomList);
+  const roomList = useSelector((state) => state.chat);
+
+  const getRoomList = () => {
+    dispatch(chatAction.loadAllRoomDB(roomList.page));
+  };
+  console.log(roomList.roomList.length);
 
   return (
     <>
@@ -46,10 +52,14 @@ const More = () => {
               return <Chip key={i}>{el}</Chip>;
             })}
           </XScrollDrag>
-          {roomList &&
-            roomList.map((el, i) => {
+          <InfinityScroll
+            callNext={getRoomList}
+            paging={{ next: roomList.has_next }}
+          >
+            {roomList.roomList.map((el, i) => {
               return <MainCard key={i} {...el} />;
             })}
+          </InfinityScroll>
         </FlexGrid>
       </ContentContainer>
       <Footer />

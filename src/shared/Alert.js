@@ -8,8 +8,6 @@ const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert.data);
 
-  console.log(alert);
-
   const close = () => {
     alert.history();
     dispatch(actionCreators.close());

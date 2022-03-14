@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
@@ -8,31 +7,16 @@ import GaugeTimer from "../chatroom/GaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
-import LoginCheck from "../../shared/LoginCheck";
-import { useDispatch } from "react-redux";
-import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { loginCheck } from "../../modules/loginCheck";
 
 const MainCard = (props) => {
-  const dispatch = useDispatch();
   const userRank = rank[discriminant(props.userInfo.ex)];
 
-  const loginCheck = () => {
-    console.log(LoginCheck());
-    if (LoginCheck()) {
-      history.push("/chatroom/" + props.roomId);
-    } else {
-      dispatch(
-        alertAction.open({
-          type: "confirm",
-          message: "로그인이 필요합니다",
-          action: () => history.push("/login"),
-        })
-      );
-    }
-  };
-
   return (
-    <CardBox is_column _onClick={loginCheck}>
+    <CardBox
+      is_column
+      _onClick={() => loginCheck("push", "/chatroom/" + props.roomId)}
+    >
       {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
@@ -88,4 +72,4 @@ const Topic = styled.div`
   font-weight: ${(props) => props.theme.fontWeight.semiBold};
 `;
 
-export default MainCard;
+export default React.memo(MainCard);

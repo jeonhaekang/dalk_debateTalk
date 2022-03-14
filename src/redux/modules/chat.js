@@ -9,19 +9,19 @@ import axios from "axios";
 import { history } from "../configStore";
 
 //Action
-const IS_LOADED = "IS_LOADED";
 const SET_ROOM = "SET_ROOM";
+const GET_ROOM = "GET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
-const VOTE = "VOTE";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list) => ({ list }));
+const getRoom = createAction(GET_ROOM, (data) => ({ data }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
-const vote = createAction(VOTE, (topic, point) => ({ topic, point }));
+const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 
 //initialState
 const initialState = {
@@ -29,6 +29,10 @@ const initialState = {
   roomList: [],
   currentRoom: null,
   itemState: false,
+
+  page: 0, // 무한스크롤을 위한 페이지네이션 번호입니다
+  has_next: false, // 다음 페이지로 넘어갈건지에 대한 boolean값입니다.
+  is_loading: false, // 로딩이 중첩되어 똑같은 값이 넘어오지 않기위한 boolean값입니다.
 };
 
 const roomInitialState = {
@@ -50,13 +54,28 @@ const loadMainRoomDB = () => {
       });
   };
 };
-const loadAllRoomDB = () => {
+const loadAllRoomDB = (page) => {
   // 모든 방 목록 가져오기
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
+    const size = 5;
+    console.log(size, page);
     apis
-      .loadAllRoom()
+      .loadAllRoom(size, page)
       .then((res) => {
-        dispatch(setRoom(res.data));
+        let is_next = null;
+        if (res.data.length < size) {
+          is_next = false;
+        } else {
+          is_next = true;
+        }
+        const data = {
+          roomList: res.data,
+          page: page + 1,
+          next: is_next,
+        };
+        console.log(res);
+        dispatch(getRoom(data));
       })
       .catch((err) => {
         console.log(err);
@@ -140,17 +159,6 @@ const getOneRoomDB = (roomId) => {
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
-        // console.log(err.message);
-        if (axios.isCancel(err) && err.message === 400) {
-          dispatch(
-            alertAction.open({
-              message: "로그인이 필요합니다",
-              history: () => history.replace("/login"),
-            })
-          );
-          // console.log(err.message);
-          // console.log(axios.isCancel(err));
-        }
         console.log(err.response);
       });
   };
@@ -177,6 +185,13 @@ export default handleActions(
       produce(state, (draft) => {
         draft.currentRoom = action.payload.data;
         draft.itemState = false;
+      }),
+    [GET_ROOM]: (state, action) =>
+      produce(state, (draft) => {
+        draft.roomList.push(...action.payload.data.roomList);
+        draft.page = action.payload.data.page;
+        draft.has_next = action.payload.data.next;
+        draft.is_loading = false;
       }),
   },
   initialState

@@ -7,8 +7,9 @@ export const instance = axios.create({
   // baseURL: "http://44.201.245.76:8080", //지훈님 주소
 });
 
-instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use((config) => {
   const token = getCookie("authorization");
+
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
     throw new axios.Cancel(400);
@@ -19,6 +20,19 @@ instance.interceptors.request.use(function (config) {
   config.headers.common["authorization"] = `${token}`;
   return config;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (axios.isCancel(error) && error.message === 400) {
+      history.goBack();
+      console.log("로그인 해라");
+    }
+    return Promise.reject(error);
+  }
+);
 
 const apis = {
   //유저 로그인 api
@@ -43,8 +57,7 @@ const apis = {
   Gacha: () => instance.get("/lotto"),
 
   //유저신고하기
-  reportUser: (userId, message) =>
-    instance.post("/warnings/" + userId, message),
+  reportUser: (userId, message) => instance.get("/warnings/" + userId, message),
 
   // ---------캐러셀 관련------------
   carousels: () => instance.get("/api/carousels"),
@@ -54,7 +67,10 @@ const apis = {
   createRoom: (data) => instance.post("/rooms", data),
 
   //토론방 리스트 전체보기
-  loadAllRoom: () => instance.get("/api/rooms"),
+  loadAllRoom: (size, page) => {
+    console.log(size, page);
+    return instance.get(`/api/rooms?size=${size}&page=${page}`);
+  },
 
   //토론방 메인 리스트 가져오기
   loadMainRoom: () => instance.get("api/main/rooms"),

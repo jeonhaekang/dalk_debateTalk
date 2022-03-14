@@ -5,6 +5,7 @@ import CreateRoom from "../components/shared/CreateRoom";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
 import create from "../image/shared/create.png";
+import { loginCheck, loginAction } from "../modules/loginCheck";
 
 const Footer = () => {
   const [createModalState, setCreateModalState] = React.useState(false);
@@ -44,7 +45,7 @@ const Footer = () => {
           <Text>결과방</Text>
         </Icon>
 
-        <Icon onClick={() => history.push("/mypage")}>
+        <Icon onClick={() => loginCheck("push", "/mypage")}>
           <svg width="38" height="38" viewBox="0 0 38 38">
             <path
               d="M18.6667 19C22.1658 19 25 16.1658 25 12.6667C25 9.16749 22.1658 6.33333 18.6667 6.33333C15.1675 6.33333 12.3333 9.16749 12.3333 12.6667C12.3333 16.1658 15.1675 19 18.6667 19ZM18.6667 9.49999C20.4083 9.49999 21.8333 10.925 21.8333 12.6667C21.8333 14.4083 20.4083 15.8333 18.6667 15.8333C16.925 15.8333 15.5 14.4083 15.5 12.6667C15.5 10.925 16.925 9.49999 18.6667 9.49999ZM18.6667 20.5833C14.4392 20.5833 6 22.705 6 26.9167V30.0833C6 30.9542 6.7125 31.6667 7.58333 31.6667H29.75C30.6208 31.6667 31.3333 30.9542 31.3333 30.0833V26.9167C31.3333 22.705 22.8942 20.5833 18.6667 20.5833ZM28.1667 28.5H9.16667V26.9325C9.48333 25.7925 14.3917 23.75 18.6667 23.75C22.9417 23.75 27.85 25.7925 28.1667 26.9167V28.5Z"
@@ -54,7 +55,8 @@ const Footer = () => {
           <Text>마이페이지</Text>
         </Icon>
 
-        <Icon onClick={() => setCreateModalState(true)}>
+        {/* <Icon onClick={() => setCreateModalState(true)}> */}
+        <Icon onClick={() => loginAction(() => setCreateModalState(true))}>
           <CreateBtn src={create} />
         </Icon>
       </FixedNav>
