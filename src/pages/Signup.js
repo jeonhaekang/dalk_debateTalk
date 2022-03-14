@@ -85,6 +85,14 @@ const Signup = (props) => {
     ) {
       alert("빈칸을 다 채워주세요!");
       return;
+    } else if (
+      isUsername === false || 
+      isNickname === false || 
+      isPassword === false || 
+      isPasswordCheck === false
+    ) {
+      alert("올바르게 가입했는지 다시 한번 확인해주세요");
+      return;
     } else {
       alert("회원가입 완료! 바로 메인창으로 이동합니다")
       dispatch(userAcions.signUpDB(username, password, nickname, passwordCheck))
