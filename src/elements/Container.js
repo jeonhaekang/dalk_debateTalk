@@ -1,11 +1,12 @@
+import React from "react";
 import styled from "styled-components";
 
-const ContentContainer = ({ children, Xfooter, ...props }) => {
+const ContentContainer = React.forwardRef(({ children, Xfooter, ...props }, ref) => {
   if (Xfooter) {
-    return <XContainer style={{ ...props }}>{children}</XContainer>;
+    return <XContainer ref={ref} style={{ ...props }}>{children}</XContainer>;
   }
-  return <Container style={{ ...props }}>{children}</Container>;
-};
+  return <Container ref={ref} style={{ ...props }}>{children}</Container>;
+});
 
 const XContainer = styled.div`
   height: calc(100% - 60px);

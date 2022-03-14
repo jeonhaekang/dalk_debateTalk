@@ -125,8 +125,8 @@ const Wrap = styled.div`
 
   @media screen and (min-width: 1024px) {
     left: 11%;
-    top: 0%;
-    overflow: auto;
+    top: 0;
+    // overflow: scroll;
   }
 `;
 export default App;

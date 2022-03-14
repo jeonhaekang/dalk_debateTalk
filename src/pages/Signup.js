@@ -100,12 +100,10 @@ const Signup = (props) => {
   };
 
   return (
-    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
-      <LogoImage>
-        LOGO
-      </LogoImage>
-      <Grid padding="0px 0px 40px 0px">
-        <Grid padding="40px 0px 0px 0px">
+    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center" overflow="scroll">
+      <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
+      <Grid padding="0px 0px 20px 0px">
+        <Grid padding="20px 0px 0px 0px">
           <LoginInput
             defaultValue={username}
             onChange={onChangeUsername}
@@ -165,10 +163,10 @@ const Signup = (props) => {
   );
 };
 
-const LogoImage = styled.div`
+const LogoImage = styled.img`
   display: flex;
-  width: 196px;
-  height: 74px;
+  width: 150px;
+  height: 150px;
   border: none;
   border-radius: 15px;
   color: #fff;
