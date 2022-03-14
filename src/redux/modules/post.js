@@ -23,18 +23,22 @@ const initialState = {
 const getPostDB = (page) => {
     return function (dispatch, getstate, {history}){
         dispatch(loading(true));
-        const size = 3
+        const size = 5 // 한 페이지에 몇개의 포스트를 불러올지 정합니다.
+        // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
         apis.getDebate(page, size)
             .then((res) => {
                 console.log("api에서 온 res.data값",res.data)
                 let is_next = null
+                // 마지막 끝단에서 데이터가 없을 때 페이지를 멈추는 if문입니다.
                 if(res.data.length < size) {
-                    is_next = false
+                    is_next = false 
                 } else {
                     is_next = true
                 }
+                // res.data 값을 새로운 배열로 지정해주기 위한 객체입니다.
                 const Data = {
                     postList: res.data,
+                    // is_next가 true가 되면 page가 +1 됩니다.
                     page: page + 1,
                     next : is_next,
                 }
@@ -52,6 +56,7 @@ export default handleActions(
     {
       [GET_POST] : (state, action) =>
         produce(state, (draft) => {
+            // Data값을 push 해주어 page수를 +1 할 때마다 push가 됩니다.
             draft.postList.push(...action.payload.Data.postList)
             draft.page = action.payload.Data.page
             draft.has_next = action.payload.Data.next

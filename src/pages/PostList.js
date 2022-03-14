@@ -18,11 +18,14 @@ const PostList = (props) => {
 
   const debateList = useSelector(state => state.post);
 
+  // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
+  // InfinityScroll.js의 handleobserver와 연결
   const getDebateList = () => {
     dispatch(actionCreators.getPostDB(debateList.page))
   }
 
   // 페이지 0번부터 결과창 리스트 불러오기
+  // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
     dispatch(actionCreators.getPostDB(0))
   }, [dispatch]);
@@ -76,6 +79,7 @@ const PostList = (props) => {
             <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
           <Grid margin="20px 0px" justifyContent="center" >
+            {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
             <InfinityScroll callNext={getDebateList} paging={{ next : debateList.has_next }}>
             {!searchDebateList.length == 0 ?
             searchDebateList.map((d, idx) => {
