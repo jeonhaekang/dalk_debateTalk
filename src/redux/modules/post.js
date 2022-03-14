@@ -7,29 +7,30 @@ const GET_POST = "GET_POST";
 const LOADING = "LOADING";
 
 //Action Creator
-const getPost = createAction("GET_POST", (data) => ({ data }));
+const getPost = createAction("GET_POST", (Data) => ({ Data }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 
 //initialState
 const initialState = {
     postList : [],
-    page: 0,
-    has_next: false,
-    is_loading: false,
+    // 무한스크롤 관련 초기값
+    page: 0, // 무한스크롤을 위한 페이지네이션 번호입니다
+    has_next: false, // 다음 페이지로 넘어갈건지에 대한 boolean값입니다.
+    is_loading: false, // 로딩이 중첩되어 똑같은 값이 넘어오지 않기위한 boolean값입니다.
 }
 
 //MiddleWare
 const getPostDB = (page) => {
     return function (dispatch, getstate, {history}){
         dispatch(loading(true));
-        const size = 10
+        const size = 3
         apis.getDebate(page, size)
             .then((res) => {
+                console.log("api에서 온 res.data값",res.data)
                 let is_next = null
                 if(res.data.length < size) {
                     is_next = false
                 } else {
-                    res.data.pop()
                     is_next = true
                 }
                 const Data = {

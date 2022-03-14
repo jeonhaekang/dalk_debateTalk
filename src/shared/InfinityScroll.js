@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import Spinner from './Spinner'
+import styled from 'styled-components'
 
 const InfinityScroll = ({ children, callNext, paging, type }) => {
   //스피너 Ref
@@ -29,7 +29,14 @@ const InfinityScroll = ({ children, callNext, paging, type }) => {
     <>
       {children}
       {paging.next && (
-        <Spinner ref={spinnerRef} />
+        <LoadingSpinner ref={spinnerRef}>
+          LOADING...
+          LOADING...
+          LOADING...
+          LOADING...
+          LOADING...
+          LOADING...
+          </LoadingSpinner>
       )}
     </>
   )
@@ -39,5 +46,10 @@ InfinityScroll.defaultProps = {
   children: null,
   callNext: () => {},
 }
+
+const LoadingSpinner = styled.div`
+  width: 100%;
+  text-align: center;
+`
 
 export default InfinityScroll
