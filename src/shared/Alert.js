@@ -7,16 +7,16 @@ import { actionCreators } from "../redux/modules/alert";
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert.data);
-
+  console.log(alert);
   const close = () => {
     alert.history();
     dispatch(actionCreators.close());
   };
 
   const action = () => {
-    console.log(alert.action());
     alert.action();
-    dispatch(actionCreators.close());
+    console.log(alert.action);
+    // dispatch(actionCreators.close());
   };
 
   if (alert.openState) {
@@ -28,7 +28,7 @@ const Alert = () => {
           {alert.type === "alert" && <button onClick={close}>확인</button>}
           {alert.type === "confirm" && (
             <FlexGrid center justifyContent="space-around">
-              <button onClick={action}>확인</button>
+              <button onClick={() => action()}>확인</button>
               <button onClick={close}>취소</button>
             </FlexGrid>
           )}

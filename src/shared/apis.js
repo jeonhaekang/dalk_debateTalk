@@ -10,8 +10,7 @@ instance.interceptors.request.use(function (config) {
   const token = getCookie("authorization");
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
-    history.replace("/login");
-    throw new axios.Cancel();
+    throw new axios.Cancel(400);
   }
   config.headers["Content-Type"] =
     "application/json;charset=UTF-8; charset=UTF-8";

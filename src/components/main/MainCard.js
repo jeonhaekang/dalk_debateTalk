@@ -8,15 +8,31 @@ import GaugeTimer from "../chatroom/GaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
+import LoginCheck from "../../shared/LoginCheck";
+import { useDispatch } from "react-redux";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const MainCard = (props) => {
+  const dispatch = useDispatch();
   const userRank = rank[discriminant(props.userInfo.ex)];
 
+  const loginCheck = () => {
+    console.log(LoginCheck());
+    if (LoginCheck()) {
+      history.push("/chatroom/" + props.roomId);
+    } else {
+      dispatch(
+        alertAction.open({
+          type: "confirm",
+          message: "로그인이 필요합니다",
+          action: () => history.push("/login"),
+        })
+      );
+    }
+  };
+
   return (
-    <CardBox
-      is_column
-      _onClick={() => history.push("/chatroom/" + props.roomId)}
-    >
+    <CardBox is_column _onClick={loginCheck}>
       {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">

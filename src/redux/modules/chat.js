@@ -3,7 +3,10 @@ import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
 import { actionCreators as userAction } from "./user";
+import { actionCreators as alertAction } from "./alert";
 import moment from "moment";
+import axios from "axios";
+import { history } from "../configStore";
 
 //Action
 const IS_LOADED = "IS_LOADED";
@@ -95,7 +98,6 @@ const createRoomDB = (data) => {
     const image = getState().image.image;
 
     const formdata = new FormData();
-    console.log(moment(new Date()).format("YYYY/MM/DD HH:mm:ss"));
     image.file && formdata.append("image", image.file);
     formdata.append(
       "debate",
@@ -121,6 +123,9 @@ const createRoomDB = (data) => {
         history.push("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
+        if (axios.isCancel(err)) {
+          console.log(err.message);
+        }
         console.log(err.response);
       });
   };
@@ -135,6 +140,17 @@ const getOneRoomDB = (roomId) => {
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
+        // console.log(err.message);
+        if (axios.isCancel(err) && err.message === 400) {
+          dispatch(
+            alertAction.open({
+              message: "로그인이 필요합니다",
+              history: () => history.replace("/login"),
+            })
+          );
+          // console.log(err.message);
+          // console.log(axios.isCancel(err));
+        }
         console.log(err.response);
       });
   };

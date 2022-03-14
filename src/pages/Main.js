@@ -10,7 +10,6 @@ import FlexGrid from "../elements/FlexGrid";
 import MainCarousel from "../components/main/MainCarousel";
 import TopRank from "../components/main/TopRank";
 import MainEmpty from "../components/main/MainEmpty";
-import Grid from "../elements/Grid";
 import XScrollDrag from "../components/shared/XScrollDrag";
 import MainCategoryCard from "../components/main/MainCategoryCard";
 import MainCard from "../components/main/MainCard";
@@ -18,7 +17,6 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
 import fireDalk from "../image/shared/fireDalk.png";
-import Image from "../elements/Image";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -28,8 +26,6 @@ const Main = (props) => {
   React.useEffect(() => {
     dispatch(actionCreators.loadMainRoomDB());
   }, []);
-
-  console.log(roomList);
 
   return (
     <>
@@ -47,26 +43,30 @@ const Main = (props) => {
             </FlexGrid>
             <FireDalk src={fireDalk} />
             {roomList.map((el, i) => {
-              return <MainCard key={i} {...el} page="메인" />;
+              if (i < 3) return <MainCard key={i} {...el} page="메인" />;
+            })}
+
+            <CategoryTap is_column>
+              <FlexGrid is_column padding="0 24px">
+                <Text>일상토론 찾아보기</Text>
+                <Text fontSize="23px" fontWeight="600">
+                  다양한 주제로 토론에 참여해보세요!
+                </Text>
+              </FlexGrid>
+              <XScrollDrag gap="16px" padding="0 24px">
+                <MainCategoryCard />
+              </XScrollDrag>
+            </CategoryTap>
+
+            {roomList.map((el, i) => {
+              if (i >= 3) return <MainCard key={i} {...el} page="메인" />;
             })}
           </FlexGrid>
-          {/* <MainCard warnCnt="10" /> */}
           {roomList.length === 0 ? (
             // 채팅방이 없을때 표시 화면
             <MainEmpty />
           ) : (
             <>
-              <CategoryTap is_column>
-                <FlexGrid is_column padding="0 24px">
-                  <Text>일상토론 찾아보기</Text>
-                  <Text fontSize="23px" fontWeight="600">
-                    다양한 주제로 토론에 참여해보세요!
-                  </Text>
-                </FlexGrid>
-                <XScrollDrag gap="16px" padding="0 24px">
-                  <MainCategoryCard />
-                </XScrollDrag>
-              </CategoryTap>
               <FlexGrid is_flex center>
                 <MoreButton onClick={() => history.push("/more")}>
                   더 많은 토론보기 &gt;
@@ -84,8 +84,10 @@ const Main = (props) => {
 Main.defaultProps = {};
 
 const CategoryTap = styled(FlexGrid)`
+  width: calc(100% + 48px);
   background-color: #faede1;
   padding: 24px 0 0 0;
+  margin: 0 -24px;
 `;
 
 const MoreButton = styled.div`

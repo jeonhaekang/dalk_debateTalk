@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "../../elements/Grid";
 import Input from "../../elements/Input";
 import { actionCreators } from "../../redux/modules/chat";
@@ -51,6 +51,8 @@ const CreateRoom = (props) => {
     });
   };
 
+  const [btnState, setBtnState] = useState(true);
+  // 생성버튼 중복 클릭 방지
   const createRoom = () => {
     for (const value in roomInfo) {
       if (!roomInfo[value] || cateCount === 0) {
@@ -62,6 +64,7 @@ const CreateRoom = (props) => {
     for (const [key, value] of Object.entries(category)) {
       value && cate.push(key);
     } // 선택한 카테고리만 배열로 만들어서 넘겨줌
+    // setBtnState(false);
     dispatch(actionCreators.createRoomDB({ ...roomInfo, category: cate }));
   };
 
@@ -129,7 +132,11 @@ const CreateRoom = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        <CreateButton width="100%" onClick={createRoom}>
+        <CreateButton
+          width="100%"
+          onClick={createRoom}
+          disabled={!btnState ? true : false}
+        >
           토론방 생성하기
         </CreateButton>
       </Grid>
