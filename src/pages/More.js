@@ -8,6 +8,7 @@ import XScrollDrag from "../components/shared/XScrollDrag";
 import Chip from "../elements/Chip";
 import Grid from "../elements/Grid";
 import FlexGrid from "../elements/FlexGrid";
+import ContentContainer from "../elements/Container";
 
 const More = () => {
   const dispatch = useDispatch();
@@ -33,22 +34,24 @@ const More = () => {
   return (
     <>
       <Header page="토론리스트" />
-      <FlexGrid is_column gap="15px" padding="15px">
-        <Grid fontSize="24px" fontWeight="bold">
-          실시간 HOT한 토론에
-          <br />
-          참여해보세요
-        </Grid>
-        <XScrollDrag>
-          {CategoryList.map((el, i) => {
-            return <Chip key={i}>{el}</Chip>;
-          })}
-        </XScrollDrag>
-        {roomList &&
-          roomList.map((el, i) => {
-            return <MainCard key={i} {...el} />;
-          })}
-      </FlexGrid>
+      <ContentContainer>
+        <FlexGrid is_column gap="15px" padding="15px">
+          <Grid fontSize="24px" fontWeight="bold">
+            실시간 HOT한 토론에
+            <br />
+            참여해보세요
+          </Grid>
+          <XScrollDrag>
+            {CategoryList.map((el, i) => {
+              return <Chip key={i}>{el}</Chip>;
+            })}
+          </XScrollDrag>
+          {roomList &&
+            roomList.map((el, i) => {
+              return <MainCard key={i} {...el} />;
+            })}
+        </FlexGrid>
+      </ContentContainer>
       <Footer />
     </>
   );

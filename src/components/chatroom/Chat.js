@@ -11,7 +11,7 @@ import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const Chat = (props) => {
   const dispatch = useDispatch();
-  const { userInfo, message, bigFont, type, createdAt } = props;
+  const { userInfo, message, bigFont, type, createdAt, boxRef } = props;
 
   const [togleState, setTogleState] = React.useState(false);
 
@@ -20,8 +20,11 @@ const Chat = (props) => {
   const user = useSelector((state) => state.user.user);
   const myName = useSelector((state) => state.item.itemList.myName);
 
-  const togleShow = () => {
+  const togleShow = (e) => {
     if (userInfo.id !== user.id) setTogleState(!togleState);
+    setTimeout(() => {
+      setTogleState(false);
+    }, 3000);
   };
 
   const reportUser = (e) => {
@@ -39,7 +42,6 @@ const Chat = (props) => {
         },
       })
     );
-    // dispatch(userAction.reportUserDB(userInfo.id, message));
   };
 
   if (type !== "TALK") {
@@ -56,10 +58,10 @@ const Chat = (props) => {
   return (
     <>
       <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
-        <FlexGrid gap="3px" width="auto" center _onClick={togleShow}>
+        <NickName gap="3px" width="auto" center onClick={togleShow}>
           <Badge src={userRank.img}></Badge>
           {myName ? myName : userInfo.nickname}
-        </FlexGrid>
+        </NickName>
         <div className="messageBox">
           <div className="message">{message}</div>
           <div>{time}</div>
@@ -69,6 +71,11 @@ const Chat = (props) => {
     </>
   );
 };
+const NickName = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`;
 
 const Report = styled.div`
   background-color: pink;

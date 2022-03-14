@@ -21,7 +21,6 @@ const CountDownTimer = (props) => {
   const tick = () => {
     if (restTime > 0) setTime(time + 1);
   };
-  console.log(restTime);
 
   useEffect(() => {
     if (restTime <= 0) {

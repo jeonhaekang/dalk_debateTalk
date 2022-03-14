@@ -9,6 +9,7 @@ const BadgeBox = styled.div`
   width: 15px;
   height: 15px;
   background-image: url("${(props) => props.src}");
+  background-size: cover;
 `;
 
 export default Badge;

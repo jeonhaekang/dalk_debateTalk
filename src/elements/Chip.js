@@ -10,10 +10,10 @@ const Chip = ({ children, value, _onClick }) => {
 };
 
 const ChipBox = styled.div`
-  background-color: #c4c4c4;
-  height: 20px;
-  border-radius: 10px;
-  width: 50px;
+  background-color: #e7e7e7;
+
+  border-radius: 20px;
+  padding: 3px 10px;
 
   font-size: 14px;
 

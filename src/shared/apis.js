@@ -11,8 +11,7 @@ instance.interceptors.request.use(function (config) {
   const token = getCookie("authorization");
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
-    history.replace("/login");
-    throw new axios.Cancel();
+    throw new axios.Cancel(400);
   }
   config.headers["Content-Type"] =
     "application/json;charset=UTF-8; charset=UTF-8";
@@ -95,11 +94,12 @@ const apis = {
   // 게시글 상세조회
   getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
   // 게시글 결과조회
-  getDebate: (page,size) => instance.get(`/api/boards?size=${size}&page=${page}`),
+  getDebate: (page, size) =>
+    instance.get(`/api/boards?size=${size}&page=${page}`),
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
   // ---------게시글 신고------------
-  warningDebate : (boardId) => instance.get(`/warnings/boards/${boardId}`),
+  warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
   // ---------마이페이지------------
   // 회원 탈퇴

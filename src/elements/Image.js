@@ -14,10 +14,11 @@ const Image = ({ _onClick, src, active, ...props }) => {
 
 const Outer = styled.div`
   width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const Inner = styled.div`
-  border-radius: 30px;
   width: 100%;
   padding-top: 100%;
 
