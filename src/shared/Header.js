@@ -6,6 +6,7 @@ import TestLogo from "../image/testlogo.jpeg";
 import Modal from "../components/shared/Modal";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { AiFillAlert } from "react-icons/ai";
+import Center from "../elements/Center";
 
 const Header = (props) => {
   const { page, report } = props;
@@ -66,15 +67,7 @@ const Header = (props) => {
         </Grid>
 
         {/* 페이지가 메인이면 로고 이미지 출력 아니면 텍스트 출력 */}
-        <Grid
-          position="absolute"
-          left="50%"
-          top="50%"
-          transform="translate(-50%, -50%)"
-          fontSize="26px"
-        >
-          {page === "메인" ? <Logo src={TestLogo} /> : page}
-        </Grid>
+        <Logo>{page === "메인" ? "DALKING" : page}</Logo>
       </Grid>
     </HeaderContainer>
   );
@@ -86,14 +79,20 @@ const HeaderContainer = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
-  height: 60px;
+  height: 70px;
   display: flex;
   z-index: 990;
+  background-color: white;
 `;
 
-const Logo = styled.img`
-  width: 50px;
-  height: 50px;
+const Logo = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 26px;
+  color: #f19121;
+  font-weight: 900;
 `;
 
 export default Header;

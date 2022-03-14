@@ -8,13 +8,18 @@ const ContentContainer = ({ children, Xfooter, ...props }) => {
 };
 
 const XContainer = styled.div`
-  height: calc(100% - 60px);
-  overflow: scroll;
+  height: calc(100% - 70px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  background-color: white;
 `;
 
 const Container = styled.div`
-  height: calc(100% - 120px);
-  overflow: scroll;
+  height: calc(100% - 146px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: white;
 `;
 
 export default ContentContainer;

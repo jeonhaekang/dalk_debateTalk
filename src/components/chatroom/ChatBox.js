@@ -61,7 +61,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   };
 
   const [scrollState, setScrollState] = useState(true); // 자동 스크롤 여부
-  const [endState, setEndState] = React.useState(false);
+  const [endState, setEndState] = React.useState(false); // 아래로 버튼 등장 여부
 
   const scrollEvent = _.debounce(() => {
     console.log("scroll");
@@ -97,7 +97,7 @@ const ChatBox = ({ roomId, headers, client }) => {
     client.connect(headers, connectCallback, errorCallback);
     // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
 
-    return () => client.disconnect(() => client.unsubscribe("sub-0"));
+    return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
   }, []);
 
   React.useEffect(() => {

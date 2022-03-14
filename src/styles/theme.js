@@ -12,7 +12,9 @@ const fontWeight = {
   light: 300,
 };
 
-const color = {};
+const color = {
+  
+};
 
 const theme = {
   fontSizes,

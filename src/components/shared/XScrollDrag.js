@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const XScrollDrag = ({ children }) => {
+const XScrollDrag = ({ children, ...props }) => {
   const [isDrag, setIsDrag] = React.useState(false);
   const [startX, setStartX] = React.useState();
 
@@ -48,6 +48,7 @@ const XScrollDrag = ({ children }) => {
       onMouseUp={onDragEnd}
       onMouseMove={isDrag ? onThrottleDragMove : null}
       onMouseLeave={onDragEnd}
+      style={{ ...props }}
     >
       {children}
     </CategoryBox>

@@ -3,12 +3,12 @@ import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "http://13.124.244.126:8080",
+  baseURL: "http://3.34.199.42:8080",
 });
 
 instance.interceptors.request.use(function (config) {
   const token = getCookie("authorization");
-  if (!config.url.includes("api") && !token) {
+  if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
     history.replace("/login");
     throw new axios.Cancel();
@@ -98,7 +98,7 @@ const apis = {
   // ---------게시글 검색------------
   getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
   // ---------게시글 신고------------
-  warningDebate : (boardId) => instance.get(`/warnings/boards/${boardId}`),
+  warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
   // ---------마이페이지------------
   // 회원 탈퇴

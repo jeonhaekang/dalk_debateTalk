@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   padding:0;
   box-sizing:border-box;
   font-family: 'Noto Sans KR', sans-serif;
+  color: #222222;
 
   &:focus,&:hover,&:active{
   outline:none 
@@ -28,8 +29,9 @@ a {
 body{
   height: 100vh;
   position: relative;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
+  
 }
 
 input[type=radio]{

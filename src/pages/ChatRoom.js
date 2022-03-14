@@ -13,7 +13,7 @@ import { actionCreators } from "../redux/modules/chat";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
-  const sock = SockJS("http://13.124.244.126:8080/ws-stomp");
+  const sock = SockJS("http://3.34.199.42:8080/ws-stomp");
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
   const data = {
@@ -40,7 +40,7 @@ const ChatRoom = (props) => {
     <>
       <Header page="토론방" report />
       {roomInfo && (
-        <Grid display="flex" flexDirection="column" height="calc(100% - 60px)">
+        <Grid display="flex" flexDirection="column" height="calc(100% - 70px)">
           <ChatHeader />
           <ChatBox {...data} />
           <ChatInput {...data} />

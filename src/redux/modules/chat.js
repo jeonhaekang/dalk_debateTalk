@@ -95,7 +95,7 @@ const createRoomDB = (data) => {
     const image = getState().image.image;
 
     const formdata = new FormData();
-
+    console.log(moment(new Date()).format("YYYY/MM/DD HH:mm:ss"));
     image.file && formdata.append("image", image.file);
     formdata.append(
       "debate",
@@ -153,7 +153,6 @@ export default handleActions(
       }),
     [DELETE_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.roomId);
         draft.roomList = draft.roomList.filter(
           (el) => el.roomId !== action.payload.roomId
         );

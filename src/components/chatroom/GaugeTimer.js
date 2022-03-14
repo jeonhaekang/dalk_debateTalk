@@ -55,7 +55,7 @@ const GaugeTimer = (props) => {
 const GaugeOuter = styled.div`
   ${(props) =>
     props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
-  height: 3px;
+  height: 4px;
   width: 100%;
   background-color: #c4c4c4;
 `;
@@ -66,7 +66,7 @@ const GaugeInner = styled.div.attrs((props) => ({
   },
 }))`
   height: 100%;
-  background-color: #ff4550;
+  background-color: #f19121;
   transition: 0.3s;
   ${(props) =>
     props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
