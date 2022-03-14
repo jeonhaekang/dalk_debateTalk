@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/post";
 import InfinityScroll from "../shared/InfinityScroll";
+import ContentContainer from "../elements/Container";
+import { useRef } from "react";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -18,22 +20,22 @@ const PostList = (props) => {
 
   const debateList = useSelector(state => state.post);
 
+  // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
+  // InfinityScroll.js의 handleobserver와 연결
   const getDebateList = () => {
     dispatch(actionCreators.getPostDB(debateList.page))
   }
 
   // 페이지 0번부터 결과창 리스트 불러오기
+  // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
     dispatch(actionCreators.getPostDB(0))
   }, [dispatch]);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  // const handleTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth"
-  //   });
-  // }
+  
+  //div자체에 걸려잇음
+  //div 자체에 top0으로 이동시켜준다
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
@@ -60,10 +62,18 @@ const PostList = (props) => {
           console.log("검색 실패" ,err)
         })
   }
+  const boxref = useRef();
+  const handleTop = () => {
+    boxref.current.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+  console.log(boxref.current)
 
   return (
     <>
-      <Grid height="100vh" overflow="scroll">
+      <ContentContainer Xfooter ref={boxref}>
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
@@ -75,7 +85,8 @@ const PostList = (props) => {
           <Grid padding="20px 20px 20px">
             <PostListCategory debateList={debateList} searchDebateList={searchDebateList} path={path}/>
           </Grid>
-          <Grid margin="20px 0px" justifyContent="center" >
+          <Grid margin="20px 0px" justifyContent="center">
+            {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
             <InfinityScroll callNext={getDebateList} paging={{ next : debateList.has_next }}>
             {!searchDebateList.length == 0 ?
             searchDebateList.map((d, idx) => {
@@ -86,10 +97,10 @@ const PostList = (props) => {
             })
           }
           </InfinityScroll>
-            {/* <button onClick={handleTop}>TOP</button> */}
+            <TopBtn onClick={handleTop}>TOP</TopBtn>
           </Grid>
         </Grid>
-      </Grid>
+      </ContentContainer>
     </>
   )
 };
@@ -97,7 +108,7 @@ const PostList = (props) => {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: fit-content;
+  // height: fit-content;
 `
 const InputContainer = styled.div`
   position: relative;
@@ -105,7 +116,6 @@ const InputContainer = styled.div`
   justify-content: center;
   align-self: center;
 `
-
 const Input = styled.input`
   width: 100%;
   height: 44px;
@@ -116,5 +126,8 @@ const Input = styled.input`
   border-radius: 8px;
   padding: 13px 16px;
 `
-
+const TopBtn = styled.button`
+  position: fixed;
+  bottom: 0;
+`
 export default PostList;

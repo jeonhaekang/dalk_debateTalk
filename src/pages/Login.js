@@ -18,11 +18,11 @@ const Login = (props) => {
   const [isUsername, setIsUsername] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
+  //로그인 onchange
   const onChangeUsername = (e) => {
     let userNameReg = /^[A-za-z0-9]{5,15}/g;
     const currentUsername = e.target.value;
     setUsername(currentUsername);
-
     if (!userNameReg.test(currentUsername)) {
       setIsUsername(false);
     } else {
@@ -30,11 +30,11 @@ const Login = (props) => {
     }
   };
 
+  //패스워드 onchange
   const onChangePassword = (e) => {
     let pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const currentPassword = e.target.value;
     setPassword(currentPassword);
-
     if (!pwReg.test(currentPassword)) {
       setIsPassword(false);
     } else {
@@ -42,7 +42,7 @@ const Login = (props) => {
     }
   };
 
-  //로그인 버튼
+  //로그인 버튼 onClick
   const handleLogin = () => {
     if (username === "" || password === "") {
       alert("아이디 또는 비밀번호를 채워주세요!");
@@ -53,7 +53,7 @@ const Login = (props) => {
     }
   };
 
-  //엔터버튼 동작
+  //엔터버튼 동작 Keydown
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleLogin();
@@ -61,15 +61,10 @@ const Login = (props) => {
   };
 
   return (
-    <Grid>
-      <Grid
-        height="100vh"
-        display="flex"
-        justifyContent="center"
-        flexDirection="column"
-        alignItems="center"
-      >
-        <LogoImage>LOGO</LogoImage>
+    <>
+      <Wrap>
+        <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
+
         <Grid padding="30px 0px">
           <LoginInput
             type="text"
@@ -107,26 +102,30 @@ const Login = (props) => {
             회원가입
           </Text>
         </Grid>
-      </Grid>
-    </Grid>
+      </Wrap>
+    </>
   );
 };
-
-const LogoImage = styled.div`
+const Wrap = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`
+const LogoImage = styled.img`
   display: flex;
   width: 196px;
-  height: 74px;
+  height: 196px;
   border: none;
   border-radius: 15px;
   color: #fff;
   font-size: 32px;
   justify-content: center;
   align-items: center;
-  background-color: #cfcfcf;
 `;
-
 const LoginInput = styled.input`
-  width: 396px;
+  width: 375px;
   height: 60px;
   box-sizing: border-box;
   border: 1px solid #9e9e9e;
@@ -136,17 +135,16 @@ const LoginInput = styled.input`
     font-size: 16px;
   }
 `;
-
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 6px;
 `;
-
 const LoginBtn = styled.button`
   background-color: #cfcfcf;
   border: none;
   color: #fff;
-  width: 396px;
+  width: 375px;
+  padding: 16px;
   height: 74px;
   font-size: 24px;
   cursor: pointer;

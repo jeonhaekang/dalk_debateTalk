@@ -7,11 +7,9 @@ import { actionCreators as userAcions } from "../redux/modules/user";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
-import Input from "../elements/Input";
-import Button from "../elements/Button";
 
 const Signup = (props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //아이디, 닉네임, 비밀번호 상태관리
   const [username, setUsername] = useState("");
@@ -87,6 +85,14 @@ const Signup = (props) => {
     ) {
       alert("빈칸을 다 채워주세요!");
       return;
+    } else if (
+      isUsername === false || 
+      isNickname === false || 
+      isPassword === false || 
+      isPasswordCheck === false
+    ) {
+      alert("올바르게 가입했는지 다시 한번 확인해주세요");
+      return;
     } else {
       alert("회원가입 완료! 바로 메인창으로 이동합니다")
       dispatch(userAcions.signUpDB(username, password, nickname, passwordCheck))
@@ -94,12 +100,10 @@ const Signup = (props) => {
   };
 
   return (
-    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
-      <LogoImage>
-        LOGO
-      </LogoImage>
-      <Grid padding="0px 0px 40px 0px">
-        <Grid padding="40px 0px 0px 0px">
+    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center" overflow="scroll">
+      <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
+      <Grid padding="0px 0px 20px 0px">
+        <Grid padding="20px 0px 0px 0px">
           <LoginInput
             defaultValue={username}
             onChange={onChangeUsername}
@@ -159,10 +163,10 @@ const Signup = (props) => {
   );
 };
 
-const LogoImage = styled.div`
+const LogoImage = styled.img`
   display: flex;
-  width: 196px;
-  height: 74px;
+  width: 150px;
+  height: 150px;
   border: none;
   border-radius: 15px;
   color: #fff;
@@ -171,19 +175,16 @@ const LogoImage = styled.div`
   align-items: center;
   background-color: #CFCFCF;
 `
-
 const LoginInput = styled.input`
-  width: 396px;
+  width: 375px;
   height: 60px;
-  boxSizing: border-box;
+  box-sizing: border-box;
   border: 1px solid #9E9E9E;
-  padding: 10px;
   ::placeholder {
     color: #CACACA;
     font-size: 16px;
   }
 `
-
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 5px;
@@ -191,7 +192,7 @@ const Validation = styled.p`
 const SignupBox = styled.div`
   display: flex;
   background-color: #CFCFCF;
-  width: 420px;
+  width: 100%;
   border: none;
   color: #fff;
   justify-content: center;
@@ -201,6 +202,7 @@ const SignupBox = styled.div`
   left: 0;
   height: 74px;
   font-size: 24px;
+  cursor: pointer;
 `
 
 export default Signup;
