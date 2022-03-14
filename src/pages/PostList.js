@@ -32,11 +32,6 @@ const PostList = (props) => {
     dispatch(actionCreators.getPostDB(0))
   }, [dispatch]);
 
-  // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  
-  //div자체에 걸려잇음
-  //div 자체에 top0으로 이동시켜준다
-
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
     if(e.keyCode === 13){
@@ -62,6 +57,8 @@ const PostList = (props) => {
           console.log("검색 실패" ,err)
         })
   }
+
+   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러
   const boxref = useRef();
   const handleTop = () => {
     boxref.current.scrollTo({
