@@ -61,15 +61,10 @@ const Login = (props) => {
   };
 
   return (
-    <Grid>
-      <Grid
-        height="100vh"
-        display="flex"
-        justifyContent="center"
-        flexDirection="column"
-        alignItems="center"
-      >
+    <>
+      <Wrap>
         <LogoImage>LOGO</LogoImage>
+
         <Grid padding="30px 0px">
           <LoginInput
             type="text"
@@ -107,11 +102,17 @@ const Login = (props) => {
             회원가입
           </Text>
         </Grid>
-      </Grid>
-    </Grid>
+      </Wrap>
+    </>
   );
 };
-
+const Wrap = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`
 const LogoImage = styled.div`
   display: flex;
   width: 196px;
@@ -124,9 +125,8 @@ const LogoImage = styled.div`
   align-items: center;
   background-color: #cfcfcf;
 `;
-
 const LoginInput = styled.input`
-  width: 396px;
+  width: 375px;
   height: 60px;
   box-sizing: border-box;
   border: 1px solid #9e9e9e;
@@ -136,17 +136,16 @@ const LoginInput = styled.input`
     font-size: 16px;
   }
 `;
-
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 6px;
 `;
-
 const LoginBtn = styled.button`
   background-color: #cfcfcf;
   border: none;
   color: #fff;
-  width: 396px;
+  width: 375px;
+  padding: 16px;
   height: 74px;
   font-size: 24px;
   cursor: pointer;

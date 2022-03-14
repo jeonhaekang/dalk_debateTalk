@@ -7,11 +7,9 @@ import { actionCreators as userAcions } from "../redux/modules/user";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
-import Input from "../elements/Input";
-import Button from "../elements/Button";
 
 const Signup = (props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //아이디, 닉네임, 비밀번호 상태관리
   const [username, setUsername] = useState("");
@@ -171,19 +169,16 @@ const LogoImage = styled.div`
   align-items: center;
   background-color: #CFCFCF;
 `
-
 const LoginInput = styled.input`
-  width: 396px;
+  width: 375px;
   height: 60px;
-  boxSizing: border-box;
+  box-sizing: border-box;
   border: 1px solid #9E9E9E;
-  padding: 10px;
   ::placeholder {
     color: #CACACA;
     font-size: 16px;
   }
 `
-
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 5px;
@@ -191,7 +186,7 @@ const Validation = styled.p`
 const SignupBox = styled.div`
   display: flex;
   background-color: #CFCFCF;
-  width: 420px;
+  width: 100%;
   border: none;
   color: #fff;
   justify-content: center;
@@ -201,6 +196,7 @@ const SignupBox = styled.div`
   left: 0;
   height: 74px;
   font-size: 24px;
+  cursor: pointer;
 `
 
 export default Signup;

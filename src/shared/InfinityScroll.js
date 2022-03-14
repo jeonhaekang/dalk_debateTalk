@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-const InfinityScroll = ({ children, callNext, paging, type }) => {
+const InfinityScroll = ({ children, callNext, paging }) => {
   //스피너 Ref
   const spinnerRef = useRef(null)
   //스크롤바닥에 닫으면 감지해주는 옵저버 (IntersectionObserver(callback, option))
