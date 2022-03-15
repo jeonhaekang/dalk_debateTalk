@@ -27,7 +27,6 @@ a {
 }
 
 body{
-  height: 100vh;
   position: relative;
   font-size: 14px;
   font-weight: 300;

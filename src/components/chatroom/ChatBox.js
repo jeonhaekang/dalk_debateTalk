@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators } from "../../redux/modules/item";
+import { actionCreators as chatAction } from "../../redux/modules/chat";
 import Chat from "./Chat";
 import { history } from "../../redux/configStore";
 import _ from "lodash";
@@ -12,7 +13,11 @@ const ChatBox = ({ roomId, headers, client }) => {
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
+  const log = useSelector((props) => props.chat.currentRoom.messageLog);
+  console.log("log: ", log);
+
   const [messageLog, setMessageLog] = React.useState([]);
+  console.log("messageLog: ", messageLog);
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
@@ -29,8 +34,9 @@ const ChatBox = ({ roomId, headers, client }) => {
   const subCallback = (log) => {
     // 구독 콜백함수
     const newMassage = JSON.parse(log.body);
+
     //메세지 추가
-    setMessageLog((log) => [...log, newMassage]);
+    // setMessageLog((log) => [...log, newMassage]);
 
     if (newMassage.type === "ITEMTIMEOUT") {
       // 아이템 시간 종료시
@@ -96,6 +102,8 @@ const ChatBox = ({ roomId, headers, client }) => {
   React.useEffect(() => {
     client.connect(headers, connectCallback, errorCallback);
     // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
+
+    dispatch(chatAction.loadMessageLogDB(roomId));
 
     return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
   }, []);

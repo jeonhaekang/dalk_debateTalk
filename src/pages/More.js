@@ -28,14 +28,15 @@ const More = () => {
 
   React.useEffect(() => {
     dispatch(chatAction.loadAllRoomDB(0));
-  }, [dispatch]);
+
+    return () => dispatch(chatAction.clear());
+  }, []);
 
   const roomList = useSelector((state) => state.chat);
 
   const getRoomList = () => {
     dispatch(chatAction.loadAllRoomDB(roomList.page));
   };
-  console.log(roomList.roomList.length);
 
   return (
     <>

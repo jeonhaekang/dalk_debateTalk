@@ -25,6 +25,8 @@ const Main = (props) => {
   // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
     dispatch(actionCreators.loadMainRoomDB());
+
+    return () => dispatch(actionCreators.clear());
   }, []);
 
   return (

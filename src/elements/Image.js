@@ -21,7 +21,7 @@ const Outer = styled.div`
 const Inner = styled.div`
   width: 100%;
   padding-top: 100%;
-
+  border-radius: 15px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   box-shadow: ${(props) => (props.active ? "inset 0 0 0 4px black" : "none")};

@@ -4,7 +4,6 @@ import Modal from "../components/shared/Modal";
 import CreateRoom from "../components/shared/CreateRoom";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
-import create from "../image/shared/create.png";
 import { loginCheck, loginAction } from "../modules/loginCheck";
 
 const Footer = () => {
@@ -57,7 +56,26 @@ const Footer = () => {
 
         {/* <Icon onClick={() => setCreateModalState(true)}> */}
         <Icon onClick={() => loginAction(() => setCreateModalState(true))}>
-          <CreateBtn src={create} />
+          <svg width="46" height="47" viewBox="0 0 46 47">
+            <ellipse cx="23" cy="23.5195" rx="23" ry="22.7013" fill="#F19121" />
+            <rect
+              x="20.4443"
+              y="11.7484"
+              width="5.96296"
+              height="24.3829"
+              rx="2.98148"
+              fill="white"
+            />
+            <rect
+              x="35.7778"
+              y="20.9971"
+              width="5.88552"
+              height="24.7037"
+              rx="2.94276"
+              transform="rotate(90 35.7778 20.9971)"
+              fill="white"
+            />
+          </svg>
         </Icon>
       </FixedNav>
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
@@ -87,14 +105,5 @@ const FixedNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-`;
-
-const CreateBtn = styled.button`
-  width: 46px;
-  height: 46px;
-  background-size: cover;
-  background-image: url("${(props) => props.src}");
-  background-color: white;
-  border: 0;
 `;
 export default Footer;

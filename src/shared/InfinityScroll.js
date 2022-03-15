@@ -7,7 +7,7 @@ const InfinityScroll = ({ children, callNext, paging }) => {
   //스크롤바닥에 닫으면 감지해주는 옵저버 (IntersectionObserver(callback, option))
   //option은 없기에 callback으로 isIntersecting(page수가 올라가면 감지)을 넣었습니다.
   const handleObserver = new IntersectionObserver(([{ isIntersecting }]) => {
-    console.log(isIntersecting);
+    
     if (isIntersecting) {
       //여기서 callNext는 post 리덕스의 page입니다
       callNext();

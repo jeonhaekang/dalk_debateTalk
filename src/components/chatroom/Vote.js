@@ -11,7 +11,7 @@ const Vote = ({ topic, setModalState }) => {
   const dispatch = useDispatch();
   const user = useSelector((props) => props.user.user);
   const [point, setPoint] = React.useState(0);
-  const roomInfo = useSelector((props) => props.chat.currentRoom);
+  const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
 
   const vote = () => {
     console.log(point, user.point);

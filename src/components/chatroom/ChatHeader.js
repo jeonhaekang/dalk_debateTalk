@@ -14,7 +14,8 @@ const ChatHeader = (props) => {
   const [modalState, setModalState] = React.useState(false);
   const [data, setData] = React.useState();
 
-  const roomInfo = useSelector((state) => state.chat.currentRoom);
+  const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
+  // console.log(roomInfo);
 
   const vote = (topic) => {
     setData({ topic: topic });

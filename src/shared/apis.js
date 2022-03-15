@@ -67,10 +67,8 @@ const apis = {
   createRoom: (data) => instance.post("/rooms", data),
 
   //토론방 리스트 전체보기
-  loadAllRoom: (size, page) => {
-    console.log(size, page);
-    return instance.get(`/api/rooms?size=${size}&page=${page}`);
-  },
+  loadAllRoom: (size, page) =>
+    instance.get(`/api/rooms?size=${size}&page=${page}`),
 
   //토론방 메인 리스트 가져오기
   loadMainRoom: () => instance.get("api/main/rooms"),
@@ -89,6 +87,9 @@ const apis = {
 
   //투표하기
   vote: (roomId, data) => instance.post("/vote/" + roomId, data),
+
+  //이전 메세지 로딩
+  messageLog: (roomId) => instance.get("/rooms/messages/" + roomId),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회

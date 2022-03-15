@@ -10,6 +10,7 @@ import ChatBox from "../components/chatroom/ChatBox";
 import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators } from "../redux/modules/chat";
+import FlexGrid from "../elements/FlexGrid";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
@@ -40,11 +41,11 @@ const ChatRoom = (props) => {
     <>
       <Header page="토론방" report />
       {roomInfo && (
-        <Grid display="flex" flexDirection="column" height="calc(100% - 70px)">
+        <FlexGrid is_column height="calc(100% - 70px)">
           <ChatHeader />
           <ChatBox {...data} />
           <ChatInput {...data} />
-        </Grid>
+        </FlexGrid>
       )}
     </>
   );

@@ -14,6 +14,8 @@ const GET_ROOM = "GET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
+const CLEAR = "CLEAR";
+const MESSAGE_SET = "MESSAGE_SET";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list) => ({ list }));
@@ -22,12 +24,14 @@ const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
+const clear = createAction("CLEAR", () => ({}));
+const messageSet = createAction("MESSAGE_SET", (message) => ({ message }));
 
 //initialState
 const initialState = {
   is_loaded: false,
   roomList: [],
-  currentRoom: null,
+  currentRoom: { roomInfo: null, messageLog: [], users: [] },
   itemState: false,
 
   page: 0, // 무한스크롤을 위한 페이지네이션 번호입니다
@@ -59,7 +63,7 @@ const loadAllRoomDB = (page) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
     const size = 5;
-    console.log(size, page);
+
     apis
       .loadAllRoom(size, page)
       .then((res) => {
@@ -74,7 +78,7 @@ const loadAllRoomDB = (page) => {
           page: page + 1,
           next: is_next,
         };
-        console.log(res);
+
         dispatch(getRoom(data));
       })
       .catch((err) => {
@@ -164,6 +168,19 @@ const getOneRoomDB = (roomId) => {
   };
 };
 
+const loadMessageLogDB = (roomId) => {
+  return function (dispatch) {
+    apis
+      .messageLog(roomId)
+      .then((res) => {
+        dispatch(messageSet(res.data));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -183,7 +200,7 @@ export default handleActions(
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom = action.payload.data;
+        draft.currentRoom.roomInfo = action.payload.data;
         draft.itemState = false;
       }),
     [GET_ROOM]: (state, action) =>
@@ -192,6 +209,14 @@ export default handleActions(
         draft.page = action.payload.data.page;
         draft.has_next = action.payload.data.next;
         draft.is_loading = false;
+      }),
+    [CLEAR]: (state) =>
+      produce(state, (draft) => {
+        draft.roomList = [];
+      }),
+    [MESSAGE_SET]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.messageLog = action.payload.message;
       }),
   },
   initialState
@@ -207,6 +232,8 @@ const actionCreators = {
   loadMainRoomDB,
   loadCategoryRoomDB,
   voteDB,
+  clear,
+  loadMessageLogDB,
 };
 
 export { actionCreators };

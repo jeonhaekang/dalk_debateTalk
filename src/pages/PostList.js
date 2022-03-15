@@ -20,6 +20,8 @@ const PostList = (props) => {
 
   const debateList = useSelector((state) => state.post);
 
+  console.log(debateList.postList.length);
+
   // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
   // InfinityScroll.js의 handleobserver와 연결
   const getDebateList = () => {
@@ -30,7 +32,7 @@ const PostList = (props) => {
   // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
     dispatch(actionCreators.getPostDB(0));
-  }, [dispatch]);
+  }, []);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
 
@@ -70,7 +72,6 @@ const PostList = (props) => {
       behavior: "smooth",
     });
   };
-  console.log(boxref.current);
 
   return (
     <>
