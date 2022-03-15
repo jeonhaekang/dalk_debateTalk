@@ -13,8 +13,10 @@ function SearchPost(props) {
 
     // 검색결과
     useEffect(() => {
-        dispatch(searchActions.getSearchPostDB(keyword, 0))
-    }, [])
+        dispatch(searchActions.getSearchPostDB(keyword, 0));
+        
+        return () => dispatch(searchActions.clear());
+    }, []);
 
     const getSearchDebateList = () => {
         dispatch(searchActions.getSearchPostDB(keyword, searchDebateList.page))

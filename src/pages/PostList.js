@@ -1,16 +1,16 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
+import InfinityScroll from "../shared/InfinityScroll";
 
 import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../redux/modules/post";
-import InfinityScroll from "../shared/InfinityScroll";
 import ContentContainer from "../elements/Container";
-import { useRef } from "react";
+
 import { history } from "../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions} from "../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -21,13 +21,15 @@ const PostList = (props) => {
   // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
   // InfinityScroll.js의 handleobserver와 연결
   const getDebateList = () => {
-    dispatch(actionCreators.getPostDB(debateList.page))
+    dispatch(postActions.getPostDB(debateList.page))
   }
 
   // 0번부터 결과창 리스트 불러오기
   // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
-    dispatch(actionCreators.getPostDB(0))
+    dispatch(postActions.getPostDB(0));
+
+    return () => dispatch(postActions.clear());
   }, []);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러

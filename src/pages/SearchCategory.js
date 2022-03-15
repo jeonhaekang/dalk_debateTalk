@@ -18,6 +18,7 @@ function SearchCategory(props) {
 
   useEffect(() => {
     dispatch(searchActions.getSearchPostDB(CategoryPage, 0))
+    return () => dispatch(searchActions.clear());
   }, [CategoryPage])
 
   const getSearchDebateList = () => {

@@ -5,10 +5,12 @@ import apis from "../../shared/apis";
 //Action
 const GET_POST = "GET_POST";
 const LOADING = "LOADING";
+const CLEAR = "CLEAR";
 
 //Action Creator
 const getPost = createAction("GET_POST", (Data) => ({ Data }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
+const clear = createAction("CLEAR", () => ({}));
 
 //initialState
 const initialState = {
@@ -61,6 +63,10 @@ export default handleActions(
                 draft.has_next = action.payload.Data.next
                 draft.is_loading = false
             }),
+        [CLEAR]: (state) =>
+            produce(state, (draft) => {
+                draft.postList = [];
+            }),
     },
     initialState
 );
@@ -68,6 +74,7 @@ export default handleActions(
 //Export Action Creator
 const actionCreators = {
     getPostDB,
+    clear,
 };
 
 export { actionCreators }

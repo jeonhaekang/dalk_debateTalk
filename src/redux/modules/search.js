@@ -5,10 +5,12 @@ import apis from "../../shared/apis";
 //Action
 const GET_SEARCHPOST = "GET_SEARCHPOST";
 const LOADING = "LOADING";
+const CLEAR = "CLEAR";
 
 //Action Creator
 const getSearchPost = createAction("GET_SEARCHPOST", (SearchData) => ({ SearchData }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
+const clear = createAction("CLEAR", () => ({}));
 
 //initialState
 const initialState = {
@@ -61,6 +63,11 @@ export default handleActions(
                 draft.has_next = action.payload.SearchData.next
                 draft.is_loading = false
             }),
+        [CLEAR]: (state) => 
+            produce(state, (draft) => {
+                draft.SearchPostList = [];
+            }),
+
     },
     initialState
 );
@@ -68,6 +75,7 @@ export default handleActions(
 //Export Action Creator
 const actionCreators = {
     getSearchPostDB,
+    clear,
 };
 
 export { actionCreators }
