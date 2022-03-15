@@ -75,7 +75,6 @@ const MyGradeInfo = styled.div`
     text-align: center;
     padding: 60px;
 `
-
 const MyGradeImage = styled.img`
     width: 184px;
     height: 184px;
@@ -83,7 +82,6 @@ const MyGradeImage = styled.img`
     border: none;
     border-radius: 100%;
 `
-
 const IsMyGrade = styled.div`
     padding-top: 30px;
     font-size: 20px;
@@ -91,19 +89,16 @@ const IsMyGrade = styled.div`
         color: #E9C718;
     }
 `
-
 const NextGrade = styled.div`
     padding-top: 20px;
     .RP{
         color: #E9C718;
     }
 `
-
 const GradeInfo = styled.div`
     border-top: 1px solid #C4C4C4;
     padding: 20px;
 `
-
 const GradeLevel = styled.div`
     display: flex;
     justify-content: space-between;

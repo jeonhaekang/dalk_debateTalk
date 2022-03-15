@@ -6,15 +6,17 @@ import Grid from '../elements/Grid';
 import PostListCategory from '../components/postlist/PostListCategory';
 import PostListCard from '../components/postlist/PostListCard';
 import { useSelector } from 'react-redux';
+import { useRef } from 'react';
+import ContentContainer from '../elements/Container';
 
 function SearchCategory(props) {
-  const page = props.match.params.category;
+  const CategoryPage = props.match.params.category;
   const debateList = useSelector(state => state.post.postList);
 
   const [searchCategoryList, setSearchCategoryList] = useState([]);
 
   useEffect(() => {
-    apis.getDebateKeyword(page)
+    apis.getDebateKeyword(CategoryPage)
         .then((res) => {
           console.log("카테고리 목록 가져오기 성공", res.data)
           setSearchCategoryList(res.data)
@@ -22,17 +24,19 @@ function SearchCategory(props) {
         .catch((err) => {
           console.log("카테고리 목록 가져오기 실패", err)
         })
-  },[page])
-
-  const [keyword, setKeyword] = useState("");
+  },[CategoryPage])
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
-  // const handleTop = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth"
-  //   });
-  // }
+  const boxref = useRef();
+  const handleTop = () => {
+    boxref.current.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  //검색 State
+  const [keyword, setKeyword] = useState("");
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
@@ -49,19 +53,12 @@ function SearchCategory(props) {
   const [searchDebateList, setSearchDebateList] = useState([]);
   //검색결과
   const searchDebate = () => {
-    apis.getDebateKeyword(keyword)
-        .then((res) => {
-          console.log("검색 성공" ,res.data)
-          setSearchDebateList(res.data)
-        })
-        .catch((err) => {
-          console.log("검색 실패" ,err)
-        })
+    <></>
   }
 
   return (
     <>
-      <Grid height="calc(100vh-60px)" overflow='scroll'>
+      <ContentContainer Xfooter ref={boxref}>
         <Header page="메인" />
         <Grid margin="30px">
           <Container>
@@ -82,10 +79,10 @@ function SearchCategory(props) {
               return <PostListCard {...d} key={idx} debateList={debateList} />
             })
           }
-            {/* <button onClick={handleTop}>＾</button> */}
+            <button onClick={handleTop}>TOP</button>
           </Grid>
         </Grid>
-      </Grid>
+      </ContentContainer>
     </>
   )
 }

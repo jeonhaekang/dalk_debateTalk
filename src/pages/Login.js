@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
+import { actionCreators as alertAction } from "../redux/modules/alert";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -45,11 +46,12 @@ const Login = (props) => {
   //로그인 버튼 onClick
   const handleLogin = () => {
     if (username === "" || password === "") {
-      alert("아이디 또는 비밀번호를 채워주세요!");
+      dispatch(alertAction.open({
+        message: "아이디, 비밀번호를 모두 적어주세요"
+      }))
     } else {
       //DB dispatch 하기
       dispatch(userActions.logInDB(username, password));
-      alert("로그인 완료!");
     }
   };
 

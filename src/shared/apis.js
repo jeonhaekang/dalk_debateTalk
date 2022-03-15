@@ -97,7 +97,7 @@ const apis = {
   getDebate: (page, size) =>
     instance.get(`/api/boards?size=${size}&page=${page}`),
   // ---------게시글 검색------------
-  getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
+  getDebateKeyword: (keyword, size, page) => instance.get(`/api/keywords/${keyword}?size=${size}&page=${page}`),
   // ---------게시글 신고------------
   warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 

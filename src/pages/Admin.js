@@ -50,7 +50,7 @@ const Admin = () => {
             </AdminList>
             {BannerList.map((b, idx) => {
               return <Log key={idx}>
-                <img src={b.image}></img>
+                <img src={b.image} />
                 <Grid display="flex" gap="10px" justifyContent="center" padding="5px">
                   {idx + 1}번 캐러셀 이미지
                   <OutBtn onClick={()=>handleDelBanner(b.carouselId)}>삭제</OutBtn>

@@ -30,9 +30,9 @@ import Spinner from "./Spinner";
 import Onboarding from "./Onboarding";
 import SearchCategory from "../pages/SearchCategory";
 import Alert from "./Alert";
+import SearchPost from "../pages/SearchPost";
 
 function App() {
-  console.log(window.location.pathname);
   const is_loaded = useSelector((state) => state.chat.is_loaded);
 
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -81,6 +81,7 @@ function App() {
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
+            <Route path="/postlist/search/:keyword" exact component={SearchPost} />
             <Route
               path="/postlist/:category"
               exact

@@ -1,17 +1,22 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import FlexGrid from '../../elements/FlexGrid'
-import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
+import { actionCreators as alertAction } from '../../redux/modules/alert'
 import apis from '../../shared/apis'
 import { deleteCookie } from '../../shared/Cookie'
 
 function UserOut(props) {
+    const dispatch = useDispatch();
+
     const HandleUserOut = () => {
         apis.userOut()
             .then((res) => {
                 console.log("회원탈퇴 완료", res)
-                alert("정상적으로 탈퇴되었습니다.")
+                dispatch(alertAction.open({
+                    message: "정상적으로 탈퇴되었습니다"
+                }))
                 deleteCookie("authorization");
                 history.replace('/')
             })
