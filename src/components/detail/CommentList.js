@@ -20,6 +20,12 @@ const CommentList = ({ debate }) => {
     setComment(e.target.value)
   };
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      addComment();
+    }
+  }
+
   const token = document.cookie;
   const tokenCheck = token.split("=")[1]
   const addComment = () => {
@@ -28,6 +34,7 @@ const CommentList = ({ debate }) => {
       history.replace('/login');
     } else {
       dispatch(commentActions.addCommentDB(boardId, comment))
+      setComment("");
     }
   }
 
@@ -44,6 +51,7 @@ const CommentList = ({ debate }) => {
             type="text"
             value={comment}
             onChange={onChangeComment}
+            onKeyDown={onKeyDown}
           ></input>
         </ImgInput>
         <Button onClick={addComment}>아이콘</Button>

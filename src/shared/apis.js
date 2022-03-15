@@ -122,6 +122,13 @@ const apis = {
   addBanner: (image) => instance.post(`admin/carousels`, image),
   delBannerList: (carouselId) =>
     instance.delete(`admin/carousels/${carouselId}`),
+  //공지사항
+  getNotice: () => instance.get(`api/notices`),
+  postNotice: (title, content) => instance.post(`admin/notices`, {title: title, content: content}),
+  updateNotice: (noticeId, title, content) => instance.put(`admin/notices/${noticeId}`, {title: title, content: content}),
+  delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
+  getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
+
 };
 
 export default apis;

@@ -27,7 +27,7 @@ const UserRanking = () => {
 
     return (
         <>
-            <Header height="100%" overflow="scroll" />
+            <Header height="100vh" overflow="scroll" />
             <TopThree>
                 <Second>
                     <FadeIn>
