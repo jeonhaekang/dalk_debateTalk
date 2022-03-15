@@ -1,11 +1,14 @@
 const fontSizes = {
-  headline: 32,
-  subtitle: 24,
-  bigBody: 16,
-  smallBody: 14,
+  headline1: "28px",
+  headline2: "24px",
+  subtitle1: "18px",
+  gnb: "20px",
+  body1: "16px",
+  body2: "14px",
 };
 
 const fontWeight = {
+  black: 900,
   semiBold: 600,
   medium: 500,
   regular: 400,
@@ -13,7 +16,8 @@ const fontWeight = {
 };
 
 const color = {
-  
+  black: "#333333",
+  orange: "#F19121",
 };
 
 const theme = {

@@ -18,7 +18,9 @@ const MainCategoryCard = (props) => {
             <FlexGrid>
               <Chip color={el.color}>{el.name}</Chip>
             </FlexGrid>
-            <Text size="subtitle">{el.message}</Text>
+            <Text size="gnb" weight="medium">
+              {el.message}
+            </Text>
             <Icon src={el.img} />
           </CardWrap>
         );
@@ -30,11 +32,12 @@ const MainCategoryCard = (props) => {
 MainCategoryCard.defaultProps = {};
 
 const Chip = styled.div`
-  padding: 4px 12px;
-  background-color: ${(props) => props.color};
+  width: 52px;
+  height: 26px;
+  text-align: center;
   border-radius: 13px;
-
-  font-size: ${(props) => props.theme.fontSizes.bigBody}px;
+  background-color: ${(props) => props.color};
+  font-size: ${(props) => props.theme.fontSizes.body1};
   color: white;
 `;
 

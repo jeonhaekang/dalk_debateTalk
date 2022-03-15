@@ -5,6 +5,7 @@ import FlexGrid from "../../elements/FlexGrid";
 import Image from "../../elements/Image";
 import Input from "../../elements/Input";
 import test from "../../image/testlogo.jpeg";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 
 const Vote = ({ topic, setModalState }) => {
@@ -14,13 +15,12 @@ const Vote = ({ topic, setModalState }) => {
   const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
 
   const vote = () => {
-    console.log(point, user.point);
     if (point > user.point) {
-      console.log("보유 포인트 보다 더 많은 금액 배팅 못함");
+      dispatch(alertAction.open({ message: "까불지 말고 적당히 배팅하십쇼" }));
       return;
     }
     if (point === 0) {
-      console.log("0원 배팅 못함");
+      dispatch(alertAction.open({ message: "돈 없으면 가서 자라" }));
       return;
     }
     dispatch(chatAction.voteDB(roomInfo.roomId, topic, point));
@@ -38,12 +38,13 @@ const Vote = ({ topic, setModalState }) => {
           </FlexGrid>
           <FlexGrid center is_column gap="0">
             <FlexGrid>보유 알포인트</FlexGrid>
-            <FlexGrid>{user.point.toLocaleString()}</FlexGrid>
+            {user && <FlexGrid>{user.point.toLocaleString()}</FlexGrid>}
           </FlexGrid>
           <FlexGrid center is_column gap="0">
             <FlexGrid>알포인트 걸기</FlexGrid>
             <FlexGrid>
               <Input
+                fontSize="16px"
                 width="100%"
                 onChange={(e) => setPoint(parseInt(e.target.value))}
                 type="number"

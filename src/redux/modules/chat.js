@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
-import { actionCreators as userAction } from "./user";
+import user, { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
 import moment from "moment";
 import axios from "axios";
@@ -15,7 +15,11 @@ const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
 const CLEAR = "CLEAR";
-const MESSAGE_SET = "MESSAGE_SET";
+const SET_MESSAGE = "SET_MESSAGE";
+const NEW_MESSAGE = "NEW_MESSAGE";
+const LOAD_USER_LIST = "LOAD_USER_LIST";
+const ENTER_USER = "ENTER_USER";
+const EXIT_USER = "EXIT_USER";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list) => ({ list }));
@@ -25,7 +29,13 @@ const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 const clear = createAction("CLEAR", () => ({}));
-const messageSet = createAction("MESSAGE_SET", (message) => ({ message }));
+const setMessage = createAction("SET_MESSAGE", (messages) => ({ messages }));
+const newMessage = createAction("NEW_MESSAGE", (message) => ({ message }));
+const loadUserList = createAction("LOAD_USER_LIST", (userList) => ({
+  userList,
+}));
+const enterUser = createAction("ENTER_USER", (user) => ({ user }));
+const exitUser = createAction("EXIT_USER", (user) => ({ user }));
 
 //initialState
 const initialState = {
@@ -111,6 +121,11 @@ const voteDB = (roomId, topic, point) => {
       })
       .catch((err) => {
         console.log(err.response.data.message);
+        dispatch(
+          alertAction.open({
+            message: err.response.data.message,
+          })
+        );
       });
   };
 };
@@ -173,7 +188,20 @@ const loadMessageLogDB = (roomId) => {
     apis
       .messageLog(roomId)
       .then((res) => {
-        dispatch(messageSet(res.data));
+        dispatch(setMessage(res.data));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+};
+
+const loadUserListDB = (roomId) => {
+  return function (dispatch) {
+    apis
+      .roomUsers(roomId)
+      .then((res) => {
+        dispatch(loadUserList(res.data));
       })
       .catch((err) => {
         console.log(err.response);
@@ -214,9 +242,28 @@ export default handleActions(
       produce(state, (draft) => {
         draft.roomList = [];
       }),
-    [MESSAGE_SET]: (state, action) =>
+    [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom.messageLog = action.payload.message;
+        draft.currentRoom.messageLog = action.payload.messages;
+      }),
+    [NEW_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.messageLog.push(action.payload.message);
+      }),
+    [LOAD_USER_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.users = action.payload.userList;
+      }),
+    [ENTER_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.users.push(action.payload.user);
+      }),
+    [EXIT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        const idx = draft.currentRoom.users.findIndex(
+          (el) => el.userId === action.payload.user.userId
+        );
+        draft.currentRoom.users.splice(idx, 1);
       }),
   },
   initialState
@@ -234,6 +281,10 @@ const actionCreators = {
   voteDB,
   clear,
   loadMessageLogDB,
+  newMessage,
+  loadUserListDB,
+  enterUser,
+  exitUser,
 };
 
 export { actionCreators };

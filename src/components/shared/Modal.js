@@ -73,7 +73,7 @@ const ModalLayout = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
-  z-index: 999;
+  z-index: 998;
 `;
 
 const slideIn = keyframes`

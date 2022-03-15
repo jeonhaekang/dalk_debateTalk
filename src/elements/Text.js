@@ -22,7 +22,7 @@ const Text = ({ onClick, cursor, children, size, weight, color, ...props }) => {
 };
 
 const Label = styled.label`
-  font-size: ${(props) => props.theme.fontSizes[`${props.size}`]}px;
+  font-size: ${(props) => props.theme.fontSizes[`${props.size}`]};
   font-weight: ${(props) => props.theme.fontWeight[`${props.weight}`]};
 `;
 

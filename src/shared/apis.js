@@ -1,6 +1,8 @@
 import axios from "axios";
 import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
+import { actionCreators as alertAction } from "../redux/modules/alert";
+import store from "../redux/configStore";
 
 export const instance = axios.create({
   baseURL: "http://3.34.199.42:8080", //영민님 주소
@@ -27,8 +29,14 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (axios.isCancel(error) && error.message === 400) {
-      history.goBack();
-      console.log("로그인 해라");
+      store.dispatch(
+        alertAction.open({
+          type: "confirm",
+          message: "로그인이 필요합니다.",
+          history: () => history.replace("/"),
+          action: () => history.replace("/login"),
+        })
+      );
     }
     return Promise.reject(error);
   }
@@ -90,6 +98,9 @@ const apis = {
 
   //이전 메세지 로딩
   messageLog: (roomId) => instance.get("/rooms/messages/" + roomId),
+
+  //채팅방 참가 인원 목록
+  roomUsers: (roomId) => instance.get("/rooms/users/" + roomId),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회

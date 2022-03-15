@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import FlexGrid from "../../elements/FlexGrid";
 import Badge from "../../elements/Badge";
+import Text from "../../elements/Text";
 import bronze from "../../image/rank/bronze.png";
 
 const TopRank = (props) => {
@@ -47,7 +48,7 @@ const TopRank = (props) => {
           <FlexGrid>{rank}위</FlexGrid>
           <FlexGrid gap="3px" center>
             <Badge src={bronze} />
-            {nickName}
+            <Text>{nickName}</Text>
           </FlexGrid>
         </FlexGrid>
       </Rank>
@@ -61,6 +62,7 @@ const RankWrap = styled(FlexGrid)`
   border-bottom: 1px solid #dfdfdf;
   & * {
     color: #ff6d0d;
+    white-space: nowrap;
   }
 `;
 

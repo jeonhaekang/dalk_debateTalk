@@ -105,4 +105,4 @@ const DebateComment = styled.div`
   color: gray;
 `;
 
-export default PostListCard;
+export default React.memo(PostListCard);

@@ -49,7 +49,7 @@ const MainCard = (props) => {
 
 MainCard.defaultProps = {};
 const VS = styled(FlexGrid)`
-  font-size: ${(props) => props.theme.fontSizes.subtitle}px;
+  font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: 900;
   color: #f19121;
 `;
@@ -68,7 +68,7 @@ const Topic = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  font-size: 18px;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
   font-weight: ${(props) => props.theme.fontWeight.semiBold};
 `;
 

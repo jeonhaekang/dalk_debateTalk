@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const CountDownTimer = (props) => {
+  const dispatch = useDispatch();
   const end = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
@@ -24,6 +27,12 @@ const CountDownTimer = (props) => {
 
   useEffect(() => {
     if (restTime <= 0) {
+      dispatch(
+        alertAction.open({
+          message: "토론이 종료되었습니다.",
+          history: () => history.push("/"),
+        })
+      );
       return;
     }
     const timer = setInterval(() => tick(), 1000);

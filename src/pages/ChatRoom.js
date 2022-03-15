@@ -11,6 +11,7 @@ import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators } from "../redux/modules/chat";
 import FlexGrid from "../elements/FlexGrid";
+import ContentContainer from "../elements/Container";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const ChatRoom = (props) => {
     },
   };
 
-  const roomInfo = useSelector((props) => props.chat.currentRoom);
+  const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
+  console.log(roomInfo);
 
   React.useEffect(() => {
     dispatch(actionCreators.getOneRoomDB(data.roomId));
@@ -39,14 +41,16 @@ const ChatRoom = (props) => {
 
   return (
     <>
-      <Header page="토론방" report />
-      {roomInfo && (
-        <FlexGrid is_column height="calc(100% - 70px)">
-          <ChatHeader />
-          <ChatBox {...data} />
-          <ChatInput {...data} />
-        </FlexGrid>
-      )}
+      <FlexGrid is_column height="100%" gap="0">
+        <Header page="토론방" report />
+        {roomInfo && (
+          <ContentContainer Xfooter display="flex" flexDirection="column">
+            <ChatHeader {...roomInfo} />
+            <ChatBox {...data} />
+            <ChatInput {...data} />
+          </ContentContainer>
+        )}
+      </FlexGrid>
     </>
   );
 };

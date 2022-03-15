@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Center from "../../elements/Center";
@@ -8,14 +8,16 @@ import CountDownTimer from "./CountDownTimer";
 import Modal from "../shared/Modal";
 import Vote from "./Vote";
 import GaugeTimer from "./GaugeTimer";
+import UserList from "./UserList";
 
 const ChatHeader = (props) => {
   const [state, setState] = React.useState(false);
   const [modalState, setModalState] = React.useState(false);
+  const [userModal, setUserModal] = React.useState(false);
   const [data, setData] = React.useState();
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
-  // console.log(roomInfo);
+  const { roomId, topicA, topicB } = roomInfo;
 
   const vote = (topic) => {
     setData({ topic: topic });
@@ -24,35 +26,42 @@ const ChatHeader = (props) => {
 
   return (
     <div>
-      {roomInfo && <GaugeTimer {...roomInfo} page="chatRoom" />}
       {roomInfo && (
-        <InfoWrap state={state}>
-          {!state ? (
-            <FlexGrid>
-              <DefaultTopic>{roomInfo.topicA}</DefaultTopic>
-              <Center>VS</Center>
-              <DefaultTopic>{roomInfo.topicB}</DefaultTopic>
-            </FlexGrid>
-          ) : (
-            <FlexGrid is_column center>
-              <CountDownTimer {...roomInfo} />
+        <>
+          <GaugeTimer {...roomInfo} page="chatRoom" />
+          <InfoWrap state={state}>
+            {!state ? (
               <FlexGrid>
-                <Topic onClick={() => vote(true)}>{roomInfo.topicA}</Topic>
+                <DefaultTopic>{topicA}</DefaultTopic>
                 <Center>VS</Center>
-                <Topic onClick={() => vote(false)}>{roomInfo.topicB}</Topic>
+                <DefaultTopic>{topicB}</DefaultTopic>
               </FlexGrid>
-            </FlexGrid>
-          )}
+            ) : (
+              <FlexGrid is_column center>
+                <CountDownTimer {...roomInfo} />
+                <FlexGrid>
+                  <Topic onClick={() => vote(true)}>{topicA}</Topic>
+                  <Center>VS</Center>
+                  <Topic onClick={() => vote(false)}>{topicB}</Topic>
+                </FlexGrid>
+              </FlexGrid>
+            )}
 
-          <Grid position="absolute" right="5px" bottom="5px">
-            <button onClick={() => setState(!state)}>
-              {state ? "닫기" : "열기"}
-            </button>
-          </Grid>
-        </InfoWrap>
+            <Grid position="absolute" right="5px" bottom="5px">
+              <button onClick={() => setUserModal(true)}>참여인원</button>
+
+              <button onClick={() => setState(!state)}>
+                {state ? "닫기" : "열기"}
+              </button>
+            </Grid>
+          </InfoWrap>
+        </>
       )}
       <Modal modalState={modalState} setModalState={setModalState}>
         <Vote {...data} setModalState={setModalState} />
+      </Modal>
+      <Modal modalState={userModal} setModalState={setUserModal}>
+        <UserList roomId={roomId} />
       </Modal>
     </div>
   );
