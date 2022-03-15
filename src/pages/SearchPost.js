@@ -14,7 +14,6 @@ function SearchPost(props) {
     // 검색결과
     useEffect(() => {
         dispatch(searchActions.getSearchPostDB(keyword, 0));
-        
         return () => dispatch(searchActions.clear());
     }, []);
 

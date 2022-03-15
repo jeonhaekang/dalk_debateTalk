@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import styled from 'styled-components'
 import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
@@ -97,4 +97,4 @@ const DebateComment = styled.div`
   color: gray;
 `
 
-export default PostListCard;
+export default memo(PostListCard);
