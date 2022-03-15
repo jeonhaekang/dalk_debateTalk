@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
 
@@ -28,7 +28,7 @@ const PostList = (props) => {
   // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
     dispatch(actionCreators.getPostDB(0))
-  }, [dispatch]);
+  }, []);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러
   const boxref = useRef();

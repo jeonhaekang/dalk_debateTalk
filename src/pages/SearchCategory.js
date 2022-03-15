@@ -1,30 +1,28 @@
-import React, {useState, useEffect} from 'react'
-import apis from '../shared/apis';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import Header from '../shared/Header';
 import Grid from '../elements/Grid';
 import PostListCategory from '../components/postlist/PostListCategory';
 import PostListCard from '../components/postlist/PostListCard';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import ContentContainer from '../elements/Container';
+import { history } from '../redux/configStore';
+import { actionCreators as searchActions } from '../redux/modules/search';
+import InfinityScroll from '../shared/InfinityScroll';
 
 function SearchCategory(props) {
   const CategoryPage = props.match.params.category;
-  const debateList = useSelector(state => state.post.postList);
-
-  const [searchCategoryList, setSearchCategoryList] = useState([]);
+  const dispatch = useDispatch();
+  const searchDebateList = useSelector(state => state.search);
 
   useEffect(() => {
-    apis.getDebateKeyword(CategoryPage)
-        .then((res) => {
-          console.log("카테고리 목록 가져오기 성공", res.data)
-          setSearchCategoryList(res.data)
-        })
-        .catch((err) => {
-          console.log("카테고리 목록 가져오기 실패", err)
-        })
-  },[CategoryPage])
+    dispatch(searchActions.getSearchPostDB(CategoryPage, 0))
+  }, [CategoryPage])
+
+  const getSearchDebateList = () => {
+    dispatch(searchActions.getSearchPostDB(CategoryPage, searchDebateList.page))
+  }
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트핸들러
   const boxref = useRef();
@@ -37,23 +35,19 @@ function SearchCategory(props) {
 
   //검색 State
   const [keyword, setKeyword] = useState("");
-
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
-    if(e.keyCode === 13){
+    if (e.keyCode === 13) {
       searchDebate();
     }
   }
-
   //검색 밸류
   const handleKeyword = (e) => {
     setKeyword(e.target.value)
   }
-
-  const [searchDebateList, setSearchDebateList] = useState([]);
   //검색결과
   const searchDebate = () => {
-    <></>
+    history.push(`/postlist/search/${keyword}`)
   }
 
   return (
@@ -63,7 +57,7 @@ function SearchCategory(props) {
         <Grid margin="30px">
           <Container>
             <InputContainer id="SearchBar">
-              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown}/>
+              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown} />
               <button onClick={searchDebate}>검색</button>
             </InputContainer>
           </Container>
@@ -71,14 +65,11 @@ function SearchCategory(props) {
             <PostListCategory />
           </Grid>
           <Grid margin="20px 0px" justifyContent="center">
-          {!searchDebateList.length == 0 ?
-            searchDebateList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
-            }) :
-            searchCategoryList.map((d, idx) => {
-              return <PostListCard {...d} key={idx} debateList={debateList} />
-            })
-          }
+            <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
+              {searchDebateList.SearchPostList.map((d, idx) => {
+                return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
+              })}
+            </InfinityScroll>
             <button onClick={handleTop}>TOP</button>
           </Grid>
         </Grid>

@@ -27,7 +27,6 @@ const getPostDB = (page) => {
         // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
         apis.getDebate(page, size)
             .then((res) => {
-                console.log("api에서 온 res.data값", res.data)
                 let is_next = null
                 // 마지막 끝단에서 데이터가 없을 때 페이지를 멈추는 if문입니다.
                 if (res.data.length < size) {
