@@ -26,7 +26,7 @@ const getNoticeDB = () => {
   return function (dispatch, getState, {history}) {
     apis.getNotice()
         .then((res) => {
-          console.log(res.data)
+          console.log("공지사항 가져오기 성공!", res.data)
           dispatch(getNotice(res.data));
         })
         .catch((err) => {
@@ -79,7 +79,7 @@ const updateNoticeDB = (noticeId, title, content) => {
 const delNoticeDB = (noticeId) => {
   //배너 삭제하기
   return function (dispatch, getState, { history }) {
-    apis.delNoticeDB(noticeId)
+    apis.delNotice(noticeId)
         .then((res) => {
           console.log("공지사항 삭제 성공", res);
           dispatch(delNotice(noticeId));
@@ -129,6 +129,7 @@ export default handleActions(
 const actionCreators = {
     getNoticeDB,
     getOneNoticeDB,
+    updateNoticeDB,
     addNoticeDB,
     delNoticeDB,
 };

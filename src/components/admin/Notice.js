@@ -1,40 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { actionCreators as noticeActions } from '../../redux/modules/notice';
+import Modal from '../shared/Modal';
 
 function Notice() {
-    // const [NoticeList, setBlindBoardList] = useState([]);
+    const dispatch = useDispatch();
+    const noticeList = useSelector(state => state.notice.NoticeList)
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [createModalState, setCreateModalState] = useState(false);
 
-    // useEffect(() => {
-    //     apis.getblindboard()
-    //         .then((res) => {
-    //             console.log("블라인드 게시물 가져오기 성공", res.data)
-    //             setBlindBoardList(res.data)
-    //         })
-    //         .catch((err) => {
-    //             console.log("블라인드 게시물 가져오기 실패", err)
-    //         })
-    // }, [])
+    console.log(noticeList)
 
-    // const delBlindBoard = (boardId) => {
-    //     apis.delblindboard(boardId)
-    //         .then((res) => {
-    //             console.log("블라인드 게시물 삭제완료", res)
-    //         })
-    //         .catch((err) => {
-    //             console.log("블라인드 게시물 삭제 실패", err)
-    //         })
-    // }
+    useEffect(() => {
+        dispatch(noticeActions.getNoticeDB())
+    }, [])
+
+    const handleAddNotice = () => {
+        dispatch(noticeActions.addNoticeDB(title, content))
+        setTitle("");
+        setContent("");
+        setCreateModalState(false);
+    }
+
+    const handleUpdateNotice = () => {
+        dispatch(noticeActions.updateNoticeDB(title, content))
+    }
+
+    const handleDelNotice = (noticeId) => {
+        dispatch(noticeActions.delNoticeDB(noticeId))
+    }
+
+    const onChangeTitle = (e) => {
+        setTitle(e.target.value)
+    }
+
+    const onChangeContent = (e) => {
+        setContent(e.target.value);
+    }
 
     return (
         <>
-        <Title>현재 공지사항 목록</Title>
-            {/* {BlindBoardList.map((r, idx) => {
+            <Title>현재 공지사항 목록</Title>
+            <div onClick={() => setCreateModalState(true)}>공지사항 등록하기</div>
+            {noticeList.map((r, idx) => {
                 return <List key={idx}>
-                    <div> {r.topicA} VS {r.topicB} </div>
-                    <div> 신고수 : {r.warnCnt} </div>
-                    <button onClick={()=>delBlindBoard(r.boardId)}> 삭제 </button>
+                    <div> {r.title} </div>
+                    <button> 수정 </button>
+                    <button onClick={() => handleDelNotice(r.noticeId)}> 삭제 </button>
                 </List>
-            })} */}
+            })}
+
+
+            <Modal modalState={createModalState} setModalState={setCreateModalState}>
+                <div>
+                    <div>타이틀</div>
+                    <input type="text" onChange={onChangeTitle} value={title}></input>
+                </div>
+                <div>
+                    <div>내용</div>
+                    <input type="text" onChange={onChangeContent} value={content}></input>
+                </div>
+                <div onClick={handleAddNotice}>등록</div>
+            </Modal>
         </>
     )
 }
