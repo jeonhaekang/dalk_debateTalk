@@ -22,6 +22,7 @@ const OneComment = (props) => {
     (state) => state.comment.commentList[index].disagreeUserList
   );
   const dispatch = useDispatch();
+  console.log(agreeList, disagreeList)
 
   //찬성, 반대 기능을 위해
   const token = document.cookie;
@@ -117,11 +118,11 @@ const OneComment = (props) => {
 
         <AgreeBtn>
           <Number className="agree-count" onClick={handleClickAgree}>
-            {agreeList.includes(user?.id) ? "찬성취소" : "찬성"}{" "}
+            {agreeList.includes(user?.userId) ? "찬성취소" : "찬성"}{" "}
             {agreeList.length}
           </Number>
           <Number className="disagree-count" onClick={handleClickDisagree}>
-            {disagreeList.includes(user?.id) ? "반대취소" : "반대"}{" "}
+            {disagreeList.includes(user?.userId) ? "반대취소" : "반대"}{" "}
             {disagreeList.length}
           </Number>
         </AgreeBtn>
@@ -136,7 +137,7 @@ const OneComment = (props) => {
               onClick={handleClickWarning}
               style={{ cursor: "pointer" }}
             >
-              {props.warnUserList.includes(user?.id) ? null : "신고"}
+              {props.warnUserList.includes(user?.userId) ? null : "신고"}
             </Number>
           </div>
 

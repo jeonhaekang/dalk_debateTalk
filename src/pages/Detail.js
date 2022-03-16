@@ -58,24 +58,12 @@ const Detail = (props) => {
     Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
       + Number(debate.loserResponse?.cnt))) * 100);
 
-  //모달
-  const [createModalState, setCreateModalState] = useState(false);
-
   return (
     <>
       <DetailHeader page="토론 결과방" boardId={boardId} debate={debate}/>
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DetailCreatedAt>
-          {debate.createdAt}
-          <WarnShareBox>
-            <div onClick={() => setCreateModalState(true)} style={{cursor:"pointer"}}>
-              공유
-            </div>
-            <Modal modalState={createModalState} setModalState={setCreateModalState}>
-              {/* 공유하기 기능 */}
-              <ShareLink createModalState={createModalState} setCreateModalState={setCreateModalState} />
-            </Modal>
-          </WarnShareBox>
+          {debate.createdAt.split(" ")[0]}
         </DetailCreatedAt>
         <DebateWrap>
           {(winnerRate !== loserRate) ?

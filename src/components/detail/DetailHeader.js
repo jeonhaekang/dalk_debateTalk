@@ -8,13 +8,13 @@ import { actionCreators as alertAction } from "../../redux/modules/alert";
 import Grid from "../../elements/Grid";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Modal from "../shared/Modal";
+import ShareLink from "../shared/ShareLink";
 
 const DetailHeader = (props) => {
     const { page, boardId, debate } = props;
     const dispatch = useDispatch();
     const [threeDotButton, setThreeDotButton] = useState(false);
-    const user = useSelector(state => state.user.user)
-    console.log(user)
 
     //신고 기능
     const [isWarn, setIsWarn] = useState(false);
@@ -61,6 +61,13 @@ const DetailHeader = (props) => {
         }
     };
 
+    //모달
+    const [createModalState, setCreateModalState] = useState(false);
+
+    const shareModal = () => {
+        setCreateModalState(true);
+    }
+
     return (
         <HeaderContainer>
             <Grid position="relative" width="100%">
@@ -84,10 +91,14 @@ const DetailHeader = (props) => {
                                 <SideGoProfile onClick={handleClickWarning}>
                                     <SideBarText>게시물 신고하기</SideBarText>
                                 </SideGoProfile>
-                                <SideGoProfile>
+                                <SideGoProfile onClick={shareModal}>
                                     <SideBarText>게시물 공유하기</SideBarText>
                                 </SideGoProfile>
                             </SideBarModal>
+                                <Modal modalState={createModalState} setModalState={setCreateModalState}>
+                                    {/* 공유하기 기능 */}
+                                    <ShareLink createModalState={createModalState} setCreateModalState={setCreateModalState} />
+                                </Modal>
                         </div>
                     ) : (
                         <div>
@@ -130,14 +141,14 @@ const SideBarModal = styled.div`
   right: 10px;
   border-radius: 5px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
-  z-index: 9998;
+  z-index: 9;
 `
 const SideGoProfile = styled.div`
   display: flex;
   align-items: center;
-  width: 230px;
+  width: 180px;
   height: 35px;
-  padding: 10px;
+  padding: 14px;
   &:hover {
     background-color: #f7f7f7;
   }
@@ -145,5 +156,6 @@ const SideGoProfile = styled.div`
 const SideBarText = styled.div`
   margin-left: 10px;
   color : black;
+  font-size : 20px;
 `
 export default DetailHeader;
