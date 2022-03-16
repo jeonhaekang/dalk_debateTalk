@@ -2,113 +2,74 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as infinitiAction } from "../redux/modules/infinityScroll";
-import MoreCard from "../components/shared/MoreCard";
-import XScrollDrag from "../components/shared/XScrollDrag";
 import FlexGrid from "../elements/FlexGrid";
 import ContentContainer from "../elements/Container";
-import InfinityScroll from "../shared/InfinityScroll";
-import styled from "styled-components";
 import categoryDate from "../data/categoryData";
 import Text from "../elements/Text";
+import MoreContent from "../components/more/MoreContent";
+import MoreHeader from "../components/more/MoreHeader";
+import styled from "styled-components";
 
 const More = () => {
   const dispatch = useDispatch();
 
   const [category, setCategory] = React.useState("전체");
+  const [idx, setIdx] = React.useState(0);
 
-  const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
-  React.useEffect(() => {
-    dispatch(infinitiAction.loadListDB(0, api, category));
-
-    return () => {
-      return dispatch(infinitiAction.clear());
-    };
-  }, [category]);
-
-  const roomList = useSelector((props) => props.infinityScroll);
-
-  const getRoomList = () => {
-    dispatch(infinitiAction.loadListDB(roomList.page, api, category));
-  };
+  console.log(category, idx);
 
   return (
     <>
       <Header page="토론리스트" />
       <ContentContainer>
-        <FlexGrid is_column gap="0" padding="16px">
+        <FlexGrid is_column gap="0" height="100%">
           <Text size="headline1" weight="medium" lineHeight="38px">
             실시간 HOT한 토론에
             <br />
             참여해보세요
           </Text>
-          <CategoryBox is_column>
-            <XScrollDrag>
-              {categoryDate.map((el, i) => {
-                return (
-                  <Category
-                    center
-                    key={i}
-                    category={category === el.name}
-                    _onClick={() => setCategory(el.name)}
-                  >
-                    {el.name}
-                  </Category>
-                );
-              })}
-            </XScrollDrag>
-          </CategoryBox>
-          <InfinityScroll
-            callNext={getRoomList}
-            paging={{ next: roomList.has_next }}
-          >
-            <MoreBox>
-              {roomList.list.map((el, i) => {
-                return <MoreCard key={i} {...el} />;
-              })}
-            </MoreBox>
-          </InfinityScroll>
+          <MoreHeader
+            category={category}
+            setCategory={setCategory}
+            idx={idx}
+            setIdx={setIdx}
+          />
+          {/* <MoreContent category={category} /> */}
+          {/* <TestWrap>
+            {categoryDate.map((el, i) => {
+              return <Test idx={idx} key={i} color={el.color}></Test>;
+            })}
+          </TestWrap> */}
+          <TestWrap>
+            {categoryDate.map((el, i) => {
+              return <Test idx={idx} key={i} color={el.color}></Test>;
+            })}
+          </TestWrap>
         </FlexGrid>
       </ContentContainer>
       <Footer />
     </>
   );
 };
-const CategoryBox = styled.div`
-  gap: 0;
-  margin: 0 -16px;
-  border-bottom: 2px solid #e5e5e5;
+const Test = styled.div`
+  --idx: ${(props) => props.idx * -100}%;
+  transform: translateX(var(--idx));
+  transition: 0.3s;
 
-  position: sticky;
-  top: -3px;
-
-  background-color: white;
-  z-index: 100;
-`;
-
-const Category = styled(FlexGrid)`
-  width: calc(100% / 6);
-  height: 46px;
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.color};
   flex: 0 0 auto;
-
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: ${(props) => (props.category ? props.theme.color.orange : "#ABABAB")};
-  ${(props) =>
-    props.category &&
-    `color: ${props.theme.color.orange}; border-bottom: 2px solid orange;`}
-
-  transition: 0.05s;
 `;
 
-const MoreBox = styled.div`
-  .moreBox {
-    border-bottom: 1px solid #c4c4c4;
-  }
+const TestWrap = styled.div`
+  display: flex;
 
-  .moreBox:last-child {
-    border: none;
-  }
+  /* border: 3px solid red; */
+  height: 100%;
+  width: 100%;
 `;
+
+const Frame = styled.div``;
 
 export default More;
