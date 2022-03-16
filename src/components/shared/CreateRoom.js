@@ -64,7 +64,7 @@ const CreateRoom = (props) => {
     for (const [key, value] of Object.entries(category)) {
       value && cate.push(key);
     } // 선택한 카테고리만 배열로 만들어서 넘겨줌
-    setBtnState(false);
+    // setBtnState(false);
     dispatch(actionCreators.createRoomDB({ ...roomInfo, category: cate }));
   };
 

@@ -38,7 +38,12 @@ const Main = (props) => {
           <TopRank />
           <FlexGrid is_column padding="24px" gap="22px">
             <FlexGrid paddingBottom="58px">
-              <Text size="subtitle" weight="semiBold" fontSize="28px">
+              <Text
+                size="subtitle"
+                weight="medium"
+                fontSize="28px"
+                lineHeight="38px"
+              >
                 실시간 HOT한
                 <br /> 토론에 참여해보세요!
               </Text>
@@ -52,7 +57,7 @@ const Main = (props) => {
             <CategoryTap is_column>
               <FlexGrid is_column padding="0 24px">
                 <Text size="body1">일상토론 찾아보기</Text>
-                <Text size="headline2" weight="semiBold">
+                <Text size="headline2" weight="medium">
                   다양한 주제로 토론에 참여해보세요!
                 </Text>
               </FlexGrid>
@@ -94,9 +99,9 @@ const CategoryTap = styled(FlexGrid)`
 `;
 
 const MoreButton = styled.div`
-  margin: 47px 0 52px 0;
-  font-size: ${(props) => props.theme.fontSizes.gnb};
-  font-weight: ${(props) => props.theme.fontWeight.regular};
+  margin: 31px 0 58px 0;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 `;
 
 const FireDalk = styled.img`
@@ -104,7 +109,7 @@ const FireDalk = styled.img`
 
   position: absolute;
   right: -30px;
-  bottom: -80px;
+  bottom: -90px;
 
   transform: rotate(18.52deg);
 `;

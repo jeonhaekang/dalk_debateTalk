@@ -11,6 +11,7 @@ const MainCategoryCard = (props) => {
       {categoryDate.map((el) => {
         return (
           <CardWrap
+            gap="4px"
             is_column
             key={el.code}
             _onClick={() => history.push("/more/" + el.name)}
@@ -18,7 +19,12 @@ const MainCategoryCard = (props) => {
             <FlexGrid>
               <Chip color={el.color}>{el.name}</Chip>
             </FlexGrid>
-            <Text size="gnb" weight="medium">
+            <Text
+              size="headline2"
+              weight="medium"
+              lineHeight="28px"
+              letter="0.18px"
+            >
               {el.message}
             </Text>
             <Icon src={el.img} />

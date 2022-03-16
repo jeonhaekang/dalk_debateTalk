@@ -44,7 +44,7 @@ const TopRank = (props) => {
   return (
     <RankWrap center>
       <Rank key={nickName}>
-        <FlexGrid>
+        <FlexGrid gap="17px">
           <FlexGrid>{rank}위</FlexGrid>
           <FlexGrid gap="3px" center>
             <Badge src={bronze} />
@@ -79,8 +79,8 @@ to {
 
 const Rank = styled.div`
   animation: ${fadeIn} 0.4s;
-  font-size: ${(props) => props.theme.fontSizes.bigBody}px;
-  font-weight: ${(props) => props.theme.fontWeight.semiBold};
+  font-size: ${(props) => props.theme.fontSizes.body1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 `;
 
 TopRank.defaultProps = {

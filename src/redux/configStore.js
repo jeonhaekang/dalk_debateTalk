@@ -11,6 +11,7 @@ import banner from "./modules/banner";
 import image from "./modules/image";
 import alert from "./modules/alert";
 import post from "./modules/post";
+import infinityScroll from "./modules/infinityScroll";
 
 export const history = createBrowserHistory();
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   image: image,
   alert: alert,
   post: post,
+  infinityScroll: infinityScroll,
 
   router: connectRouter(history),
 });

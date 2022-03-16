@@ -50,8 +50,9 @@ const MainCard = (props) => {
 MainCard.defaultProps = {};
 const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
-  font-weight: 900;
-  color: #f19121;
+  font-weight: ${(props) => props.theme.fontWeight.black};
+  color: ${(props) => props.theme.color.orange};
+  font-family: "Noto Sans", sans-serif;
 `;
 
 const CardBox = styled(FlexGrid)`
@@ -69,7 +70,8 @@ const Topic = styled.div`
   text-overflow: ellipsis;
   text-align: center;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  font-weight: ${(props) => props.theme.fontWeight.semiBold};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  line-height: 20px;
 `;
 
 export default React.memo(MainCard);

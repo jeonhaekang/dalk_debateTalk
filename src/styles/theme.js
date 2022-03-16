@@ -1,8 +1,8 @@
 const fontSizes = {
   headline1: "28px",
   headline2: "24px",
-  subtitle1: "18px",
   gnb: "20px",
+  subtitle1: "18px",
   body1: "16px",
   body2: "14px",
 };

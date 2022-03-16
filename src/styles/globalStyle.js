@@ -33,6 +33,7 @@ body{
   font-size: 14px;
   overflow: hidden;
   font-weight: 300;
+  letter-spacing: -0.25px;
 }
 
 input[type=radio]{
