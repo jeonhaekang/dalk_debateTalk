@@ -1,45 +1,89 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import InfinityScroll from "../../shared/InfinityScroll";
 import { actionCreators as infinityAction } from "../../redux/modules/infinityScroll";
 import MoreCard from "../shared/MoreCard";
+import apis from "../../shared/apis";
+import Text from "../../elements/Text";
 
 const MoreContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
-  React.useEffect(() => {
-    dispatch(infinityAction.loadListDB(0, api, category));
 
-    return () => {
-      return dispatch(infinityAction.clear());
-    };
-  }, [category]);
+  const [scrollData, setScrollData] = React.useState({
+    list: [],
+    page: 0,
+    has_next: false,
+  });
 
-  const roomList = useSelector((props) => props.infinityScroll);
-
-  console.log(roomList);
+  const { size = 5, page, has_next } = scrollData;
 
   const getRoomList = () => {
-    dispatch(infinityAction.loadListDB(roomList.page, api, category));
+    apis[api](size, page, category)
+      .then((res) => {
+        let is_next = null;
+        if (res.data.length < size) {
+          is_next = false;
+        } else {
+          is_next = true;
+        }
+
+        setScrollData({
+          list: [...scrollData.list, ...res.data],
+          page: scrollData.page + 1,
+          has_next: is_next,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+  const observe = useRef(null);
+
+  const callback = (entries, observer) => {
+    entries.forEach((entry) => {
+      // console.log(category, entry);
+      if (entry.isIntersecting) {
+        console.log("화면에 노출됨:", category);
+        getRoomList();
+      }
+    });
+  };
+
+  let observer = new IntersectionObserver(callback, { threshold: 0.5 });
+
+  React.useEffect(() => {
+    console.log("useEffect:", category);
+    observer.observe(observe.current);
+    // getRoomList();
+  }, []);
+
+  console.log(`${category} : `, scrollData);
+
+  // console.log(observe.current.clientHeight);
+
   return (
     <>
-      <InfinityScroll
-        callNext={getRoomList}
-        paging={{ next: roomList.has_next }}
-      >
-        <MoreBox>
-          {roomList.list.map((el, i) => {
-            return <MoreCard key={i} {...el} />;
-          })}
-        </MoreBox>
-      </InfinityScroll>
+      <div ref={observe} style={{ border: "1px solid rgba(0,0,0,0)" }}>
+        <InfinityScroll callNext={getRoomList} paging={{ next: has_next }}>
+          {scrollData.list.length !== 0 ? (
+            <MoreBox>
+              {scrollData.list.map((el, i) => {
+                return <MoreCard key={i} {...el} />;
+              })}
+            </MoreBox>
+          ) : (
+            <Text size="subtitle1">채팅방이 없습니다.</Text>
+          )}
+        </InfinityScroll>
+      </div>
     </>
   );
 };
 
 const MoreBox = styled.div`
+  padding: 0 16px;
   .moreBox {
     border-bottom: 1px solid #c4c4c4;
   }
@@ -49,4 +93,4 @@ const MoreBox = styled.div`
   }
 `;
 
-export default MoreContent;
+export default React.memo(MoreContent);

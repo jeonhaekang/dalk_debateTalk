@@ -16,36 +16,32 @@ const More = () => {
   const [category, setCategory] = React.useState("전체");
   const [idx, setIdx] = React.useState(0);
 
-  console.log(category, idx);
-
   return (
     <>
       <Header page="토론리스트" />
       <ContentContainer>
-        <FlexGrid is_column gap="0" height="100%">
+        <FlexGrid padding="16px" height="108px">
           <Text size="headline1" weight="medium" lineHeight="38px">
             실시간 HOT한 토론에
             <br />
             참여해보세요
           </Text>
-          <MoreHeader
-            category={category}
-            setCategory={setCategory}
-            idx={idx}
-            setIdx={setIdx}
-          />
-          {/* <MoreContent category={category} /> */}
-          {/* <TestWrap>
-            {categoryDate.map((el, i) => {
-              return <Test idx={idx} key={i} color={el.color}></Test>;
-            })}
-          </TestWrap> */}
-          <TestWrap>
-            {categoryDate.map((el, i) => {
-              return <Test idx={idx} key={i} color={el.color}></Test>;
-            })}
-          </TestWrap>
         </FlexGrid>
+        <MoreHeader
+          category={category}
+          setCategory={setCategory}
+          idx={idx}
+          setIdx={setIdx}
+        />
+        <TestWrap>
+          {categoryDate.map((el, i) => {
+            return (
+              <Test idx={idx} key={i}>
+                <MoreContent category={el.name} />
+              </Test>
+            );
+          })}
+        </TestWrap>
       </ContentContainer>
       <Footer />
     </>
@@ -57,19 +53,21 @@ const Test = styled.div`
   transition: 0.3s;
 
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 302px);
+
   background-color: ${(props) => props.color};
+
+  box-sizing: border-box;
+  overflow-y: scroll;
+
   flex: 0 0 auto;
 `;
 
 const TestWrap = styled.div`
   display: flex;
 
-  /* border: 3px solid red; */
-  height: 100%;
   width: 100%;
+  flex-grow: 1;
 `;
-
-const Frame = styled.div``;
 
 export default More;

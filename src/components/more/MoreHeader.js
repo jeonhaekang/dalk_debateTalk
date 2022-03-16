@@ -34,9 +34,6 @@ const CategoryBox = styled.div`
   gap: 0;
   border-bottom: 2px solid #e5e5e5;
 
-  position: sticky;
-  top: -3px;
-
   background-color: white;
   z-index: 100;
 `;
