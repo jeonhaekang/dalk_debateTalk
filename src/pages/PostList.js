@@ -10,19 +10,19 @@ import ContentContainer from "../elements/Container";
 
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions} from "../redux/modules/post";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
 
   // 전체 목록 조회
-  const debateList = useSelector(state => state.post);
+  const debateList = useSelector((state) => state.post);
 
   // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
   // InfinityScroll.js의 handleobserver와 연결
   const getDebateList = () => {
-    dispatch(postActions.getPostDB(debateList.page))
-  }
+    dispatch(postActions.getPostDB(debateList.page));
+  };
 
   // 0번부터 결과창 리스트 불러오기
   // dispatch 될때마다 포스트가 업데이트 됩니다.
@@ -38,8 +38,8 @@ const PostList = (props) => {
     boxref.current.scrollTo({
       top: 0,
       behavior: "smooth",
-    })
-  }
+    });
+  };
 
   //-------------검색-------------
   //검색 State
@@ -47,30 +47,34 @@ const PostList = (props) => {
 
   //검색 밸류
   const handleKeyword = (e) => {
-    setKeyword(e.target.value)
-  }
+    setKeyword(e.target.value);
+  };
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       searchDebate();
     }
-  }
+  };
 
   const searchDebate = () => {
-    history.push(`/postlist/search/${keyword}`)
-  }
+    history.push(`/postlist/search/${keyword}`);
+  };
 
   return (
     <>
       <ContentContainer Xfooter ref={boxref}>
-
         <Header page="메인" />
 
         <Grid margin="30px">
           <Container>
             <InputContainer id="SearchBar">
-              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown} />
+              <Input
+                placeholder="토론 결과를 검색해보세요"
+                value={keyword}
+                onChange={handleKeyword}
+                onKeyDown={onKeyDown}
+              />
               <button onClick={searchDebate}>검색</button>
             </InputContainer>
           </Container>
@@ -81,31 +85,39 @@ const PostList = (props) => {
 
           <Grid margin="20px 0px" justifyContent="center">
             {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
-            <InfinityScroll callNext={getDebateList} paging={{ next: debateList.has_next }}>
+            <InfinityScroll
+              callNext={getDebateList}
+              paging={{ next: debateList.has_next }}
+            >
               {debateList.postList.map((d, idx) => {
-                return <PostListCard {...d} key={idx} debateList={debateList.postList} />
+                return (
+                  <PostListCard
+                    {...d}
+                    key={idx}
+                    debateList={debateList.postList}
+                  />
+                );
               })}
             </InfinityScroll>
-
             <TopBtn onClick={handleTop}>TOP</TopBtn>
           </Grid>
         </Grid>
       </ContentContainer>
     </>
-  )
+  );
 };
 
 const Container = styled.div`
   position: relative;
   width: 100%;
   // height: fit-content;
-`
+`;
 const InputContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-self: center;
-`
+`;
 const Input = styled.input`
   width: 100%;
   height: 44px;
@@ -115,9 +127,9 @@ const Input = styled.input`
   border: none;
   border-radius: 8px;
   padding: 13px 16px;
-`
+`;
 const TopBtn = styled.button`
   position: fixed;
   bottom: 0;
-`
+`;
 export default PostList;

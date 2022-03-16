@@ -4,18 +4,27 @@ import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
 const PostListCard = (props) => {
+  console.log("render");
   const boardId = props.boardId;
-  const createdAt = props.createdAt.split("-")[0] + "년 "
-                  + props.createdAt.split("-")[1] + "월 "
-                  + props.createdAt.split("-")[2] + "일";
+  const createdAt =
+    props.createdAt.split("-")[0] +
+    "년 " +
+    props.createdAt.split("-")[1] +
+    "월 " +
+    props.createdAt.split("-")[2] +
+    "일";
 
   return (
     <>
       <Container onClick={() => history.push(`/detail/${boardId}`)}>
         <CategoryList>
-          {props.category.map((c,i) => <CategoryBtn key={i}>#{c}</CategoryBtn>)}
+          {props.category.map((c, i) => (
+            <CategoryBtn key={i}>#{c}</CategoryBtn>
+          ))}
         </CategoryList>
-        <DebateTitle>{props.topicA} VS {props.topicB}</DebateTitle>
+        <DebateTitle>
+          {props.topicA} VS {props.topicB}
+        </DebateTitle>
         <DebateSummary>{props.winner} 👍</DebateSummary>
         <Grid height="fit-content">
           <Grid>
@@ -28,8 +37,8 @@ const PostListCard = (props) => {
         </Grid>
       </Container>
     </>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   width: 100%;
@@ -44,7 +53,7 @@ const Container = styled.div`
   background-color: #fff;
   -webkit-appearance: none;
   cursor: zoom-in;
-`
+`;
 
 const DebateTitle = styled.div`
   color: #016dad;
@@ -52,7 +61,7 @@ const DebateTitle = styled.div`
   height: fit-content;
   font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
-`
+`;
 
 const DebateSummary = styled.div`
   width: 100%;
@@ -60,41 +69,40 @@ const DebateSummary = styled.div`
   font-size: 14px;
   padding: 10px 0 20px;
   word-break: keep-all;
-`
+`;
 const CategoryList = styled.div`
   display: flex;
-`
-
+`;
 
 const CategoryBtn = styled.div`
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 5px;
   font-size: 12px;
   border: none;
   border-radius: 10px;
   margin-right: 5px;
   margin-bottom: 5px;
-`
+`;
 
 const DebateFirstWriter = styled.div`
-  font-size: 10px
+  font-size: 10px;
   padding: 0 15px 0 0;
-  color: gray
+  color: gray;
   width: fit-content;
   height: fit-content;
-`
+`;
 
 const DebateCreateAt = styled.div`
   font-size: 10px;
   width: fit-content;
   color: gray;
   margin-top: 5px;
-`
+`;
 
 const DebateComment = styled.div`
   font-size: 10px;
   width: fit-content;
   color: gray;
-`
+`;
 
 export default memo(PostListCard);

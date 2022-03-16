@@ -13,6 +13,7 @@ import alert from "./modules/alert";
 import post from "./modules/post";
 import search from "./modules/search";
 import notice from "./modules/notice";
+import infinityScroll from "./modules/infinityScroll";
 
 export const history = createBrowserHistory();
 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   post: post,
   search: search,
   notice: notice,
+  infinityScroll: infinityScroll,
 
   router: connectRouter(history),
 });

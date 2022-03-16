@@ -11,6 +11,7 @@ const MainCategoryCard = (props) => {
       {categoryDate.map((el) => {
         return (
           <CardWrap
+            gap="4px"
             is_column
             key={el.code}
             _onClick={() => history.push("/more/" + el.name)}
@@ -18,7 +19,14 @@ const MainCategoryCard = (props) => {
             <FlexGrid>
               <Chip color={el.color}>{el.name}</Chip>
             </FlexGrid>
-            <Text size="subtitle">{el.message}</Text>
+            <Text
+              size="headline2"
+              weight="medium"
+              lineHeight="28px"
+              letter="0.18px"
+            >
+              {el.message}
+            </Text>
             <Icon src={el.img} />
           </CardWrap>
         );
@@ -30,11 +38,12 @@ const MainCategoryCard = (props) => {
 MainCategoryCard.defaultProps = {};
 
 const Chip = styled.div`
-  padding: 4px 12px;
-  background-color: ${(props) => props.color};
+  width: 52px;
+  height: 26px;
+  text-align: center;
   border-radius: 13px;
-
-  font-size: ${(props) => props.theme.fontSizes.bigBody}px;
+  background-color: ${(props) => props.color};
+  font-size: ${(props) => props.theme.fontSizes.body1};
   color: white;
 `;
 

@@ -6,9 +6,7 @@ import { actionCreators } from "../redux/modules/alert";
 
 const Alert = () => {
   const dispatch = useDispatch();
-  const alert = useSelector((props) => props.alert.data);
-
-  console.log(alert);
+  const alert = useSelector((props) => props.alert);
 
   const close = () => {
     alert.history();
@@ -43,8 +41,9 @@ const Alert = () => {
 
 const Background = styled.div`
   position: absolute;
+  top: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 

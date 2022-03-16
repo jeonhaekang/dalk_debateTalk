@@ -4,14 +4,13 @@ import { FcSpeaker } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import Badge from "../../elements/Badge";
-import FlexGrid from "../../elements/FlexGrid";
 import { rank, discriminant } from "../../data/rank";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const Chat = (props) => {
   const dispatch = useDispatch();
-  const { userInfo, message, bigFont, type, createdAt, boxRef } = props;
+  const { userInfo, message, bigFont, type, createdAt } = props;
 
   const [togleState, setTogleState] = React.useState(false);
 
@@ -28,8 +27,6 @@ const Chat = (props) => {
   };
 
   const reportUser = (e) => {
-    console.log("report");
-
     if (userInfo.id === user.id) {
       return;
     }
@@ -57,7 +54,10 @@ const Chat = (props) => {
 
   return (
     <>
-      <ChatBox bigFont={bigFont} user={userInfo.id === user.id ? true : false}>
+      <ChatBox
+        bigFont={bigFont}
+        user={userInfo.userId === user.userId ? true : false}
+      >
         <NickName gap="3px" width="auto" center onClick={togleShow}>
           <Badge src={userRank.img}></Badge>
           {myName ? myName : userInfo.nickname}

@@ -1,14 +1,17 @@
 import axios from "axios";
 import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
+import { actionCreators as alertAction } from "../redux/modules/alert";
+import store from "../redux/configStore";
 
 export const instance = axios.create({
   // baseURL: "http://3.34.199.42:8080", //영민님 주소
   baseURL: "http://44.201.245.76:8080", //지훈님 주소
 });
 
-instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use((config) => {
   const token = getCookie("authorization");
+
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
     throw new axios.Cancel(400);
@@ -19,6 +22,25 @@ instance.interceptors.request.use(function (config) {
   config.headers.common["authorization"] = `${token}`;
   return config;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (axios.isCancel(error) && error.message === 400) {
+      store.dispatch(
+        alertAction.open({
+          type: "confirm",
+          message: "로그인이 필요합니다.",
+          history: () => history.replace("/"),
+          action: () => history.replace("/login"),
+        })
+      );
+    }
+    return Promise.reject(error);
+  }
+);
 
 const apis = {
   //유저 로그인 api
@@ -43,8 +65,7 @@ const apis = {
   Gacha: () => instance.get("/lotto"),
 
   //유저신고하기
-  reportUser: (userId, message) =>
-    instance.post("/warnings/" + userId, message),
+  reportUser: (userId, message) => instance.get("/warnings/" + userId, message),
 
   // ---------캐러셀 관련------------
   carousels: () => instance.get("/api/carousels"),
@@ -54,7 +75,8 @@ const apis = {
   createRoom: (data) => instance.post("/rooms", data),
 
   //토론방 리스트 전체보기
-  loadAllRoom: () => instance.get("/api/rooms"),
+  loadAllRoom: (size, page) =>
+    instance.get(`/api/rooms?size=${size}&page=${page}`),
 
   //토론방 메인 리스트 가져오기
   loadMainRoom: () => instance.get("api/main/rooms"),
@@ -73,6 +95,12 @@ const apis = {
 
   //투표하기
   vote: (roomId, data) => instance.post("/vote/" + roomId, data),
+
+  //이전 메세지 로딩
+  messageLog: (roomId) => instance.get("/rooms/messages/" + roomId),
+
+  //채팅방 참가 인원 목록
+  roomUsers: (roomId) => instance.get("/rooms/users/" + roomId),
 
   // ---------댓글 코멘트 관련------------
   // 댓글 조회

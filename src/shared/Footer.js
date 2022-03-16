@@ -4,7 +4,7 @@ import Modal from "../components/shared/Modal";
 import CreateRoom from "../components/shared/CreateRoom";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
-import create from "../image/shared/create.png";
+import { loginCheck, loginAction } from "../modules/loginCheck";
 
 const Footer = () => {
   const [createModalState, setCreateModalState] = React.useState(false);
@@ -44,18 +44,32 @@ const Footer = () => {
           <Text>결과방</Text>
         </Icon>
 
-        <Icon onClick={() => history.push("/mypage")}>
+        <Icon onClick={() => loginCheck("push", "/mypage")}>
           <svg width="38" height="38" viewBox="0 0 38 38">
             <path
-              d="M18.6667 19C22.1658 19 25 16.1658 25 12.6667C25 9.16749 22.1658 6.33333 18.6667 6.33333C15.1675 6.33333 12.3333 9.16749 12.3333 12.6667C12.3333 16.1658 15.1675 19 18.6667 19ZM18.6667 9.49999C20.4083 9.49999 21.8333 10.925 21.8333 12.6667C21.8333 14.4083 20.4083 15.8333 18.6667 15.8333C16.925 15.8333 15.5 14.4083 15.5 12.6667C15.5 10.925 16.925 9.49999 18.6667 9.49999ZM18.6667 20.5833C14.4392 20.5833 6 22.705 6 26.9167V30.0833C6 30.9542 6.7125 31.6667 7.58333 31.6667H29.75C30.6208 31.6667 31.3333 30.9542 31.3333 30.0833V26.9167C31.3333 22.705 22.8942 20.5833 18.6667 20.5833ZM28.1667 28.5H9.16667V26.9325C9.48333 25.7925 14.3917 23.75 18.6667 23.75C22.9417 23.75 27.85 25.7925 28.1667 26.9167V28.5Z"
-              fill={path === "/mypage" ? "#F19121" : "#CDCDCD"}
+              d="M18.9998 3.16667C10.2598 3.16667 3.1665 10.26 3.1665 19C3.1665 27.74 10.2598 34.8333 18.9998 34.8333C27.7398 34.8333 34.8332 27.74 34.8332 19C34.8332 10.26 27.7398 3.16667 18.9998 3.16667ZM18.9998 7.91667C21.6282 7.91667 23.7498 10.0383 23.7498 12.6667C23.7498 15.295 21.6282 17.4167 18.9998 17.4167C16.3715 17.4167 14.2498 15.295 14.2498 12.6667C14.2498 10.0383 16.3715 7.91667 18.9998 7.91667ZM18.9998 30.4C15.0415 30.4 11.5423 28.3733 9.49984 25.3017C9.54734 22.1508 15.8332 20.425 18.9998 20.425C22.1507 20.425 28.4523 22.1508 28.4998 25.3017C26.4573 28.3733 22.9582 30.4 18.9998 30.4Z"
+              fill="#CDCDCD"
             />
           </svg>
+
           <Text>마이페이지</Text>
         </Icon>
 
-        <Icon onClick={() => setCreateModalState(true)}>
-          <CreateBtn src={create} />
+        {/* <Icon onClick={() => setCreateModalState(true)}> */}
+        <Icon onClick={() => loginAction(() => setCreateModalState(true))}>
+          <svg width="46" height="46" viewBox="0 0 46 46">
+            <circle cx="23" cy="23" r="23" fill="#F19121" />
+            <rect x="21" y="11" width="4" height="25" rx="2" fill="white" />
+            <rect
+              x="35"
+              y="21"
+              width="4"
+              height="25"
+              rx="2"
+              transform="rotate(90 35 21)"
+              fill="white"
+            />
+          </svg>
         </Icon>
       </FixedNav>
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
@@ -65,11 +79,11 @@ const Footer = () => {
   );
 };
 const Icon = styled.div`
-  width: 61px;
+  width: 38px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  white-space: nowrap;
   gap: 0;
 `;
 
@@ -85,14 +99,5 @@ const FixedNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-`;
-
-const CreateBtn = styled.button`
-  width: 46px;
-  height: 46px;
-  background-size: cover;
-  background-image: url("${(props) => props.src}");
-  background-color: white;
-  border: 0;
 `;
 export default Footer;

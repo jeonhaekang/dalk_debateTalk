@@ -25,6 +25,8 @@ const Main = (props) => {
   // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
     dispatch(actionCreators.loadMainRoomDB());
+
+    return () => dispatch(actionCreators.clear());
   }, []);
 
   return (
@@ -35,21 +37,27 @@ const Main = (props) => {
           <MainCarousel />
           <TopRank />
           <FlexGrid is_column padding="24px" gap="22px">
-            <FlexGrid paddingBottom="50px">
-              <Text size="subtitle" weight="semiBold">
+            <FlexGrid paddingBottom="58px">
+              <Text
+                size="subtitle"
+                weight="medium"
+                fontSize="28px"
+                lineHeight="38px"
+              >
                 실시간 HOT한
                 <br /> 토론에 참여해보세요!
               </Text>
+              <FireDalk src={fireDalk} />
             </FlexGrid>
-            <FireDalk src={fireDalk} />
+
             {roomList.map((el, i) => {
               if (i < 3) return <MainCard key={i} {...el} page="메인" />;
             })}
 
             <CategoryTap is_column>
               <FlexGrid is_column padding="0 24px">
-                <Text>일상토론 찾아보기</Text>
-                <Text fontSize="23px" fontWeight="600">
+                <Text size="body1">일상토론 찾아보기</Text>
+                <Text size="headline2" weight="medium">
                   다양한 주제로 토론에 참여해보세요!
                 </Text>
               </FlexGrid>
@@ -91,19 +99,17 @@ const CategoryTap = styled(FlexGrid)`
 `;
 
 const MoreButton = styled.div`
-  margin: 47px 0 52px 0;
-  font-size: 20px;
-  font-weight: ${(props) => props.theme.fontWeight.regular};
+  margin: 31px 0 58px 0;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 `;
 
-const FireDalk = styled.div`
-  width: 200px;
-  height: 200px;
-  background-size: cover;
-  background-image: url("${(props) => props.src}");
+const FireDalk = styled.img`
+  width: 53%;
 
   position: absolute;
-  right: -10px;
+  right: -30px;
+  bottom: -90px;
 
   transform: rotate(18.52deg);
 `;

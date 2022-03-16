@@ -2,32 +2,43 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
-import { actionCreators as userAction } from "./user";
+import user, { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
 import moment from "moment";
 import axios from "axios";
 import { history } from "../configStore";
 
 //Action
-const IS_LOADED = "IS_LOADED";
 const SET_ROOM = "SET_ROOM";
 const CREATE_ROOM = "CREATE_ROOM";
 const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
-const VOTE = "VOTE";
+const CLEAR = "CLEAR";
+const SET_MESSAGE = "SET_MESSAGE";
+const NEW_MESSAGE = "NEW_MESSAGE";
+const LOAD_USER_LIST = "LOAD_USER_LIST";
+const ENTER_USER = "ENTER_USER";
+const EXIT_USER = "EXIT_USER";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
-const vote = createAction(VOTE, (topic, point) => ({ topic, point }));
+const clear = createAction(CLEAR, () => ({}));
+const setMessage = createAction(SET_MESSAGE, (messages) => ({ messages }));
+const newMessage = createAction(NEW_MESSAGE, (message) => ({ message }));
+const loadUserList = createAction(LOAD_USER_LIST, (userList) => ({
+  userList,
+}));
+const enterUser = createAction(ENTER_USER, (user) => ({ user }));
+const exitUser = createAction(EXIT_USER, (user) => ({ user }));
 
 //initialState
 const initialState = {
   is_loaded: false,
   roomList: [],
-  currentRoom: null,
+  currentRoom: { roomInfo: null, messageLog: [], users: [] },
   itemState: false,
 };
 
@@ -42,19 +53,6 @@ const loadMainRoomDB = () => {
   return function (dispatch, getState, { history }) {
     apis
       .loadMainRoom()
-      .then((res) => {
-        dispatch(setRoom(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-const loadAllRoomDB = () => {
-  // 모든 방 목록 가져오기
-  return function (dispatch, getState, { history }) {
-    apis
-      .loadAllRoom()
       .then((res) => {
         dispatch(setRoom(res.data));
       })
@@ -88,6 +86,11 @@ const voteDB = (roomId, topic, point) => {
       })
       .catch((err) => {
         console.log(err.response.data.message);
+        dispatch(
+          alertAction.open({
+            message: err.response.data.message,
+          })
+        );
       });
   };
 };
@@ -140,17 +143,32 @@ const getOneRoomDB = (roomId) => {
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
-        // console.log(err.message);
-        if (axios.isCancel(err) && err.message === 400) {
-          dispatch(
-            alertAction.open({
-              message: "로그인이 필요합니다",
-              history: () => history.replace("/login"),
-            })
-          );
-          // console.log(err.message);
-          // console.log(axios.isCancel(err));
-        }
+        console.log(err.response);
+      });
+  };
+};
+
+const loadMessageLogDB = (roomId) => {
+  return function (dispatch) {
+    apis
+      .messageLog(roomId)
+      .then((res) => {
+        dispatch(setMessage(res.data));
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+};
+
+const loadUserListDB = (roomId) => {
+  return function (dispatch) {
+    apis
+      .roomUsers(roomId)
+      .then((res) => {
+        dispatch(loadUserList(res.data));
+      })
+      .catch((err) => {
         console.log(err.response);
       });
   };
@@ -175,8 +193,35 @@ export default handleActions(
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom = action.payload.data;
+        draft.currentRoom.roomInfo = action.payload.data;
         draft.itemState = false;
+      }),
+    [CLEAR]: (state) =>
+      produce(state, (draft) => {
+        draft.roomList = [];
+      }),
+    [SET_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.messageLog = action.payload.messages;
+      }),
+    [NEW_MESSAGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.messageLog.push(action.payload.message);
+      }),
+    [LOAD_USER_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.users = action.payload.userList;
+      }),
+    [ENTER_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.users.push(action.payload.user);
+      }),
+    [EXIT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        const idx = draft.currentRoom.users.findIndex(
+          (el) => el.userId === action.payload.user.userId
+        );
+        draft.currentRoom.users.splice(idx, 1);
       }),
   },
   initialState
@@ -186,12 +231,17 @@ export default handleActions(
 const actionCreators = {
   setCurrentRoom,
   createRoomDB,
-  loadAllRoomDB,
   getOneRoomDB,
   deleteRoom,
   loadMainRoomDB,
   loadCategoryRoomDB,
   voteDB,
+  clear,
+  loadMessageLogDB,
+  newMessage,
+  loadUserListDB,
+  enterUser,
+  exitUser,
 };
 
 export { actionCreators };

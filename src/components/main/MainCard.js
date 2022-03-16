@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
@@ -8,31 +7,16 @@ import GaugeTimer from "../chatroom/GaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
-import LoginCheck from "../../shared/LoginCheck";
-import { useDispatch } from "react-redux";
-import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { loginCheck } from "../../modules/loginCheck";
 
 const MainCard = (props) => {
-  const dispatch = useDispatch();
   const userRank = rank[discriminant(props.userInfo.ex)];
 
-  const loginCheck = () => {
-    console.log(LoginCheck());
-    if (LoginCheck()) {
-      history.push("/chatroom/" + props.roomId);
-    } else {
-      dispatch(
-        alertAction.open({
-          type: "confirm",
-          message: "로그인이 필요합니다",
-          action: () => history.push("/login"),
-        })
-      );
-    }
-  };
-
   return (
-    <CardBox is_column _onClick={loginCheck}>
+    <CardBox
+      is_column
+      _onClick={() => loginCheck("push", "/chatroom/" + props.roomId)}
+    >
       {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
@@ -65,9 +49,10 @@ const MainCard = (props) => {
 
 MainCard.defaultProps = {};
 const VS = styled(FlexGrid)`
-  font-size: ${(props) => props.theme.fontSizes.subtitle}px;
-  font-weight: 900;
-  color: #f19121;
+  font-size: ${(props) => props.theme.fontSizes.headline2};
+  font-weight: ${(props) => props.theme.fontWeight.black};
+  color: ${(props) => props.theme.color.orange};
+  font-family: "Noto Sans", sans-serif;
 `;
 
 const CardBox = styled(FlexGrid)`
@@ -84,8 +69,9 @@ const Topic = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  font-size: 18px;
-  font-weight: ${(props) => props.theme.fontWeight.semiBold};
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  line-height: 20px;
 `;
 
-export default MainCard;
+export default React.memo(MainCard);

@@ -170,6 +170,7 @@ const reportUserDB = (userId, message) => {
     apis
       .reportUser(userId, message)
       .then((res) => {
+        console.log(res);
         dispatch(
           alertAction.open({ type: "alert", message: "유저를 신고하였습니다." })
         );

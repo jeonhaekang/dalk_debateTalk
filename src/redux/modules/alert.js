@@ -11,13 +11,11 @@ const close = createAction(CLOSE, () => ({}));
 
 //initialState
 const initialState = {
-  data: {
-    type: "alert",
-    openState: false,
-    message: "",
-    action: () => {},
-    history: () => {},
-  },
+  type: "alert",
+  openState: false,
+  message: "",
+  action: () => {},
+  history: () => {},
 };
 
 //Reducer
@@ -25,7 +23,7 @@ export default handleActions(
   {
     [OPEN]: (state, action) =>
       produce(state, (draft) => {
-        draft.data = {
+        draft = {
           ...initialState.data,
           openState: true,
           ...action.payload.data,
@@ -33,7 +31,7 @@ export default handleActions(
       }),
     [CLOSE]: (state) =>
       produce(state, (draft) => {
-        draft.data = initialState.data;
+        return initialState;
       }),
   },
   initialState

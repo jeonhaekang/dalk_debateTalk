@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators } from "../../redux/modules/item";
+import { actionCreators as chatAction } from "../../redux/modules/chat";
 import Chat from "./Chat";
 import { history } from "../../redux/configStore";
 import _ from "lodash";
@@ -12,7 +13,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
-  const [messageLog, setMessageLog] = React.useState([]);
+  const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   const connectCallback = () => {
     // 연결 성공시 호출함수
@@ -28,22 +29,31 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   const subCallback = (log) => {
     // 구독 콜백함수
-    const newMassage = JSON.parse(log.body);
-    //메세지 추가
-    setMessageLog((log) => [...log, newMassage]);
+    const newMessage = JSON.parse(log.body);
 
-    if (newMassage.type === "ITEMTIMEOUT") {
+    //메세지 추가
+    dispatch(chatAction.newMessage(newMessage));
+
+    if (newMessage.type === "ITEMTIMEOUT") {
       // 아이템 시간 종료시
       dispatch(actionCreators.clear());
       return;
     }
 
-    if (newMassage.type === "ENTER" || newMassage.type === "ITEM") {
+    if (newMessage.type === "ENTER") {
+      dispatch(chatAction.enterUser(newMessage.userInfo));
+    }
+
+    if (newMessage.type === "EXIT") {
+      dispatch(chatAction.exitUser(newMessage.userInfo));
+    }
+
+    if (newMessage.type === "ENTER" || newMessage.type === "ITEM") {
       // 입장시, 누군가 아이템 사용시 사용중인 사용자 지정
-      const myName = newMassage.myName; // myName을 사용중인 유저
-      const onlyMe = newMassage.onlyMe; // onlyMe를 사용중인 유저
-      const papago = newMassage.papago; // onlyMe를 사용중인 유저
-      const reverse = newMassage.reverse; // onlyMe를 사용중인 유저
+      const myName = newMessage.myName; // myName을 사용중인 유저
+      const onlyMe = newMessage.onlyMe; // onlyMe를 사용중인 유저
+      const papago = newMessage.papago; // onlyMe를 사용중인 유저
+      const reverse = newMessage.reverse; // onlyMe를 사용중인 유저
 
       if (myName || onlyMe || papago || reverse) {
         console.log("입장");
@@ -64,7 +74,6 @@ const ChatBox = ({ roomId, headers, client }) => {
   const [endState, setEndState] = React.useState(false); // 아래로 버튼 등장 여부
 
   const scrollEvent = _.debounce(() => {
-    console.log("scroll");
     const scrollTop = boxRef.current.scrollTop; // 스크롤 위치
     const clientHeight = boxRef.current.clientHeight; // 요소의 높이
     const scrollHeight = boxRef.current.scrollHeight; // 스크롤의 높이
@@ -97,6 +106,12 @@ const ChatBox = ({ roomId, headers, client }) => {
     client.connect(headers, connectCallback, errorCallback);
     // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
 
+    dispatch(chatAction.loadMessageLogDB(roomId));
+
+    window.addEventListener("beforeunload", (event) => {
+      client.disconnect(() => client.unsubscribe("sub-0"), headers);
+    });
+
     return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
   }, []);
 
@@ -104,13 +119,16 @@ const ChatBox = ({ roomId, headers, client }) => {
     boxRef.current.addEventListener("scroll", scroll);
   });
 
+  // useBeforeunload((event) =>
+  //   client.disconnect(() => client.unsubscribe("sub-0"), headers)
+  // );
+
   return (
     <>
       <ShowChat ref={boxRef}>
         {messageLog.map((el, i) => {
           return <Chat {...el} key={i} boxRef={boxRef} />;
         })}
-        {/* <div style={{ marginBottom: "5000px" }} /> */}
         <div ref={scrollRef} />
         {endState && (
           <FlexGrid center position="sticky" bottom="0">

@@ -12,14 +12,12 @@ const Chip = ({ children, value, _onClick }) => {
 const ChipBox = styled.div`
   background-color: #e7e7e7;
 
+  width: 45px;
+  height: 24px;
+
   border-radius: 20px;
-  padding: 3px 10px;
 
-  font-size: 14px;
-
-  box-sizing: border-box;
-
-  border: none;
+  font-size: ${(props) => props.theme.fontSizes.body2};
 
   display: flex;
   align-items: center;
