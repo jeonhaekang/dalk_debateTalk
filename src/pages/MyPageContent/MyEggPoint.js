@@ -87,7 +87,6 @@ const Wrap = styled.div`
     gap: 20px;
     padding-right: 10px;
 `
-
 const CurrentEggPoint = styled.div`
     text-align: center;
     font-size: 24px;
@@ -100,23 +99,18 @@ const ColumnList = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const UserEggpoint = styled.div`
     margin-bottom: 5px;
 `
-
 const CheckEggpoint = styled.div`
     margin-bottom: 5px;
 `
-
 const PointCreatedAt = styled.div`
     font-size: 12px;
 `
-
 const PointLog = styled.div`
     font-size: 12px;
 `
-
 const PointPlusMinus = styled.div`
     font-size: 12px;
 `

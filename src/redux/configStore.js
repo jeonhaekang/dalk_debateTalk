@@ -11,6 +11,8 @@ import banner from "./modules/banner";
 import image from "./modules/image";
 import alert from "./modules/alert";
 import post from "./modules/post";
+import search from "./modules/search";
+import notice from "./modules/notice";
 
 export const history = createBrowserHistory();
 
@@ -24,6 +26,8 @@ const rootReducer = combineReducers({
   image: image,
   alert: alert,
   post: post,
+  search: search,
+  notice: notice,
 
   router: connectRouter(history),
 });

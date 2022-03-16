@@ -3,8 +3,8 @@ import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
 
 export const instance = axios.create({
-  baseURL: "http://3.34.199.42:8080", //영민님 주소
-  // baseURL: "http://44.201.245.76:8080", //지훈님 주소
+  // baseURL: "http://3.34.199.42:8080", //영민님 주소
+  baseURL: "http://44.201.245.76:8080", //지훈님 주소
 });
 
 instance.interceptors.request.use(function (config) {
@@ -97,7 +97,7 @@ const apis = {
   getDebate: (page, size) =>
     instance.get(`/api/boards?size=${size}&page=${page}`),
   // ---------게시글 검색------------
-  getDebateKeyword: (keyword) => instance.get(`/api/keywords/${keyword}`),
+  getDebateKeyword: (keyword, size, page) => instance.get(`/api/keywords/${keyword}?size=${size}&page=${page}`),
   // ---------게시글 신고------------
   warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
@@ -122,6 +122,13 @@ const apis = {
   addBanner: (image) => instance.post(`admin/carousels`, image),
   delBannerList: (carouselId) =>
     instance.delete(`admin/carousels/${carouselId}`),
+  //공지사항
+  getNotice: () => instance.get(`api/notices`),
+  postNotice: (title, content) => instance.post(`admin/notices`, {title: title, content: content}),
+  updateNotice: (noticeId, title, content) => instance.put(`admin/notices/${noticeId}`, {title: title, content: content}),
+  delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
+  getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
+
 };
 
 export default apis;

@@ -23,6 +23,7 @@ import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
 import MyGrade from "../pages/MyPageContent/MyGrade";
 import UserRanking from "../pages/MyPageContent/UserRanking";
 import PointShop from "../pages/MyPageContent/PointShop";
+import AnnounceDetail from "../pages/MyPageContent/AnnounceDetail";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,9 +31,9 @@ import Spinner from "./Spinner";
 import Onboarding from "./Onboarding";
 import SearchCategory from "../pages/SearchCategory";
 import Alert from "./Alert";
+import SearchPost from "../pages/SearchPost";
 
 function App() {
-  console.log(window.location.pathname);
   const is_loaded = useSelector((state) => state.chat.is_loaded);
 
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -78,9 +79,11 @@ function App() {
             <Route path="/mypage/pointshop" exact component={PointShop} />
             <Route path="/mypage/gacha" exact component={Gacha} />
             <Route path="/announcement" exact component={Announcement} />
+            <Route path="/announcement/:noticeId" exact component={AnnounceDetail} />
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
+            <Route path="/postlist/search/:keyword" exact component={SearchPost} />
             <Route
               path="/postlist/:category"
               exact

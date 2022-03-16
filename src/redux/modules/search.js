@@ -3,18 +3,18 @@ import produce from "immer";
 import apis from "../../shared/apis";
 
 //Action
-const GET_POST = "GET_POST";
+const GET_SEARCHPOST = "GET_SEARCHPOST";
 const LOADING = "LOADING";
 const CLEAR = "CLEAR";
 
 //Action Creator
-const getPost = createAction("GET_POST", (Data) => ({ Data }));
+const getSearchPost = createAction("GET_SEARCHPOST", (SearchData) => ({ SearchData }));
 const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 const clear = createAction("CLEAR", () => ({}));
 
 //initialState
 const initialState = {
-    postList: [],
+    SearchPostList: [],
     // 무한스크롤 관련 초기값
     page: 0, // 무한스크롤을 위한 페이지네이션 번호입니다
     has_next: false, // 다음 페이지로 넘어갈건지에 대한 boolean값입니다.
@@ -22,12 +22,12 @@ const initialState = {
 }
 
 //MiddleWare
-const getPostDB = (page) => {
+const getSearchPostDB = (keyword, page) => {
     return function (dispatch, getstate, { history }) {
         dispatch(loading(true));
         const size = 5 // 한 페이지에 몇개의 포스트를 불러올지 정합니다.
         // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
-        apis.getDebate(page, size)
+        apis.getDebateKeyword(keyword, size, page)
             .then((res) => {
                 let is_next = null
                 // 마지막 끝단에서 데이터가 없을 때 페이지를 멈추는 if문입니다.
@@ -37,17 +37,17 @@ const getPostDB = (page) => {
                     is_next = true
                 }
                 // res.data 값을 새로운 배열로 지정해주기 위한 객체입니다.
-                const Data = {
+                const SearchData = {
                     postList: res.data,
                     // is_next가 true가 되면 page가 +1 됩니다.
                     page: page + 1,
                     next: is_next,
                 }
-                console.log("결과방 목록 가져오기 성공", Data)
-                dispatch(getPost(Data));
+                console.log("검색 성공", SearchData)
+                dispatch(getSearchPost(SearchData));
             })
             .catch((err) => {
-                console.log("결과창 목록 가져오기 실패", err);
+                console.log("검색 실패", err);
             })
     };
 }
@@ -55,25 +55,26 @@ const getPostDB = (page) => {
 //Reducer
 export default handleActions(
     {
-        [GET_POST]: (state, action) =>
+        [GET_SEARCHPOST]: (state, action) =>
             produce(state, (draft) => {
                 // Data값을 push 해주어 page수를 +1 할 때마다 push가 됩니다.
-                draft.postList.push(...action.payload.Data.postList)
-                draft.page = action.payload.Data.page
-                draft.has_next = action.payload.Data.next
+                draft.SearchPostList.push(...action.payload.SearchData.postList)
+                draft.page = action.payload.SearchData.page
+                draft.has_next = action.payload.SearchData.next
                 draft.is_loading = false
             }),
-        [CLEAR]: (state) =>
+        [CLEAR]: (state) => 
             produce(state, (draft) => {
-                draft.postList = [];
+                draft.SearchPostList = [];
             }),
+
     },
     initialState
 );
 
 //Export Action Creator
 const actionCreators = {
-    getPostDB,
+    getSearchPostDB,
     clear,
 };
 

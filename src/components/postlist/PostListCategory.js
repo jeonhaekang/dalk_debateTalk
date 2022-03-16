@@ -42,7 +42,7 @@ const PostListCategory = (props) => {
   };
 
   const delay = 30;
-  const onThrottleDragMove = throttle(onDragMove, delay); 
+  const onThrottleDragMove = throttle(onDragMove, delay);
 
   const CategoryList = [
     "연애",
@@ -56,8 +56,6 @@ const PostListCategory = (props) => {
     "기타",
   ];
 
-  const listPath = window.location.href
-
   return (
     <CategoryScroll
       onMouseDown={onDragStart}
@@ -65,14 +63,12 @@ const PostListCategory = (props) => {
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
       ref={scrollRef}>
-        {props.path == listPath ?
-        <CategoryBtn onClick={() => document.location.reload()}>전체보기</CategoryBtn> :
-        <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
-        }
+      <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
       {CategoryList.map((c, idx) => {
         return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>
           #{c}
-          </CategoryBtn>})}
+        </CategoryBtn>
+      })}
     </CategoryScroll>
   )
 };

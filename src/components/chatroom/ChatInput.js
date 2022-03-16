@@ -82,6 +82,7 @@ const ChatInput = (props) => {
           onKeyPress={MessageEnter}
           padding="10px"
           height="40px"
+          fontSize="16px"
           ref={message}
         />
         <button onClick={sendMessage}>송신</button>

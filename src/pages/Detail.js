@@ -15,6 +15,7 @@ import apis from "../shared/apis";
 import Modal from "../components/shared/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as alertAction } from "../redux/modules/alert";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -64,7 +65,9 @@ const Detail = (props) => {
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인이 필요한 서비스입니다"
+      }))
       history.replace("/login");
     }
     if (isWarn === false) {
@@ -74,7 +77,9 @@ const Detail = (props) => {
           if (window.confirm("정말 신고하시겠어요?")) {
             console.log("상세페이지 신고 성공", res);
             setIsWarn(true);
-            alert("신고처리가 완료되었습니다");
+            dispatch(alertAction.open({
+              message: "신고처리가 완료되었습니다"
+            }));
           } else {
             return;
           }
@@ -83,7 +88,9 @@ const Detail = (props) => {
           console.log("상세페이지 신고하기 에러", err);
         });
     } else {
-      alert("이미 신고를 하셨습니다");
+      dispatch(alertAction.open({
+        message: "이미 신고를 하셨습니다"
+      }))
       return;
     }
   };

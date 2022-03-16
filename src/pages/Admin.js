@@ -7,6 +7,7 @@ import BlindRoom from "../components/admin/BlindRoom";
 import BlindBoard from "../components/admin/BlindBoard";
 import { actionCreators as bannerActions } from "../redux/modules/banner";
 import { useEffect } from "react";
+import Notice from "../components/admin/Notice";
 
 const Admin = () => {
   const BannerList = useSelector(state => state.banner.BannerList)
@@ -39,6 +40,7 @@ const Admin = () => {
         <BlindBoard />
         <BlindRoom />
         <WarnUser />
+        <Notice />
 
         <Grid>
           <Title>메인 배너 리스트</Title>
@@ -50,7 +52,7 @@ const Admin = () => {
             </AdminList>
             {BannerList.map((b, idx) => {
               return <Log key={idx}>
-                <img src={b.image}></img>
+                <img src={b.image} />
                 <Grid display="flex" gap="10px" justifyContent="center" padding="5px">
                   {idx + 1}번 캐러셀 이미지
                   <OutBtn onClick={()=>handleDelBanner(b.carouselId)}>삭제</OutBtn>
