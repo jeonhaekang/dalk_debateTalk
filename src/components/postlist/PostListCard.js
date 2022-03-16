@@ -6,13 +6,7 @@ import { history } from '../../redux/configStore'
 const PostListCard = (props) => {
   console.log("render");
   const boardId = props.boardId;
-  const createdAt =
-    props.createdAt.split("-")[0] +
-    "년 " +
-    props.createdAt.split("-")[1] +
-    "월 " +
-    props.createdAt.split("-")[2] +
-    "일";
+  const createdAt = props.createdAt.split(" ")[0];
 
   return (
     <>
@@ -105,4 +99,4 @@ const DebateComment = styled.div`
   color: gray;
 `;
 
-export default memo(PostListCard);
+export default React.memo(PostListCard);

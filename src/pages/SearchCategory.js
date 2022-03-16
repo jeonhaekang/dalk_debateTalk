@@ -10,6 +10,7 @@ import ContentContainer from '../elements/Container';
 import { history } from '../redux/configStore';
 import { actionCreators as searchActions } from '../redux/modules/search';
 import InfinityScroll from '../shared/InfinityScroll';
+import Footer from '../shared/Footer';
 
 function SearchCategory(props) {
   const CategoryPage = props.match.params.category;
@@ -59,7 +60,6 @@ function SearchCategory(props) {
           <Container>
             <InputContainer id="SearchBar">
               <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown} />
-              <button onClick={searchDebate}>검색</button>
             </InputContainer>
           </Container>
           <Grid padding="20px 20px 20px">
@@ -71,10 +71,13 @@ function SearchCategory(props) {
                 return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
               })}
             </InfinityScroll>
-            <button onClick={handleTop}>TOP</button>
+            <Top>
+              <TopBtn onClick={handleTop}>TOP</TopBtn>
+            </Top>
           </Grid>
         </Grid>
       </ContentContainer>
+      <Footer />
     </>
   )
 }
@@ -101,19 +104,24 @@ const Input = styled.input`
   border-radius: 8px;
   padding: 13px 16px;
 `
-const TopBtn = styled.button`
-  // position: fixed; 
-  // bottom: 40px; 
-  // right: 40px; 
-  // width: 50px; 
-  // height: 50px;
-  // border-radius: 100%;
-  // border: 0 none;
-  // background: lightpink;
-  // color: blueviolet;
-  // letter-spacing: -0.06em;
-  // box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.3);
-  // cursor: pointer;
+const Top = styled.div`
+   position: fixed;
+   bottom: 135px;
+   margin: 0 auto;
+   max-width: 375px;
+   height; 124px;
+   z-Index: 2;
 `
+const TopBtn = styled.button`
+  position: absolute;
+  top: 0;
+  background-color: #F6D629;
+  border: none;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  transform: translate(320px, 0px);
+  cursor: pointer;
+`;
 
 export default SearchCategory

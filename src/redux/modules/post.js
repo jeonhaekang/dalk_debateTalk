@@ -4,12 +4,10 @@ import apis from "../../shared/apis";
 
 //Action
 const GET_POST = "GET_POST";
-const LOADING = "LOADING";
 const CLEAR = "CLEAR";
 
 //Action Creator
 const getPost = createAction("GET_POST", (Data) => ({ Data }));
-const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 const clear = createAction("CLEAR", () => ({}));
 
 //initialState
@@ -24,7 +22,6 @@ const initialState = {
 //MiddleWare
 const getPostDB = (page) => {
   return function (dispatch, getstate, { history }) {
-    dispatch(loading(true));
     const size = 5; // 한 페이지에 몇개의 포스트를 불러올지 정합니다.
     // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
     apis
@@ -62,7 +59,6 @@ export default handleActions(
         draft.postList.push(...action.payload.Data.postList);
         draft.page = action.payload.Data.page;
         draft.has_next = action.payload.Data.next;
-        draft.is_loading = false;
       }),
     [CLEAR]: (state) =>
       produce(state, (draft) => {

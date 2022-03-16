@@ -75,10 +75,16 @@ const OneComment = (props) => {
           }
         })
         .catch((err) => {
-          console.log("댓글 신고하기 에러", err);
+          console.log("이미 신고한 유저입니다", err);
+          dispatch(alertAction.open({
+            message: "이미 신고를 하셨습니다"
+          }))
+          return;
         });
     } else {
-      alert("이미 신고를 하셨습니다");
+      dispatch(alertAction.open({
+        message: "이미 신고를 하셨습니다"
+      }))
       return;
     }
   };
@@ -108,19 +114,19 @@ const OneComment = (props) => {
             <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
+
         <AgreeBtn>
-          {/* <Number className="agree-count" onClick={handleClickAgree}>{(agreeAction === false) ? "찬성" : "찬성취소"} {agreeCnt}</Number> */}
           <Number className="agree-count" onClick={handleClickAgree}>
             {agreeList.includes(user?.id) ? "찬성취소" : "찬성"}{" "}
             {agreeList.length}
           </Number>
-          {/* <Number className="disagree-count" onClick={handleClickDisagree}>{(disagreeAction === false) ? "반대" : "반대취소"} {disagreeCnt}</Number> */}
           <Number className="disagree-count" onClick={handleClickDisagree}>
             {disagreeList.includes(user?.id) ? "반대취소" : "반대"}{" "}
             {disagreeList.length}
           </Number>
         </AgreeBtn>
       </Wrap>
+
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>

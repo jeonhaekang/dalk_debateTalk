@@ -10,12 +10,12 @@ import detail2 from "../image/detailElement/pickPeople.png"
 import detail3 from "../image/detailElement/rate.png"
 import detail4 from "../image/detailElement/topPoint.png"
 
-import Header from "../shared/Header";
 import apis from "../shared/apis";
 import Modal from "../components/shared/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { actionCreators as alertAction } from "../redux/modules/alert";
+import DetailHeader from "../components/detail/DetailHeader";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -58,57 +58,16 @@ const Detail = (props) => {
     Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
       + Number(debate.loserResponse?.cnt))) * 100);
 
-  //신고 기능
-  const [isWarn, setIsWarn] = useState(false);
-
-  const handleClickWarning = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!tokenCheck) {
-      dispatch(alertAction.open({
-        message: "로그인이 필요한 서비스입니다"
-      }))
-      history.replace("/login");
-    }
-    if (isWarn === false) {
-      await apis
-        .warningDebate(boardId)
-        .then((res) => {
-          if (window.confirm("정말 신고하시겠어요?")) {
-            console.log("상세페이지 신고 성공", res);
-            setIsWarn(true);
-            dispatch(alertAction.open({
-              message: "신고처리가 완료되었습니다"
-            }));
-          } else {
-            return;
-          }
-        })
-        .catch((err) => {
-          console.log("상세페이지 신고하기 에러", err);
-        });
-    } else {
-      dispatch(alertAction.open({
-        message: "이미 신고를 하셨습니다"
-      }))
-      return;
-    }
-  };
-
   //모달
   const [createModalState, setCreateModalState] = useState(false);
 
   return (
     <>
-      <Header />
+      <DetailHeader page="토론 결과방" boardId={boardId} debate={debate}/>
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DetailCreatedAt>
           {debate.createdAt}
           <WarnShareBox>
-            <div style={{ marginRight: "5px", cursor: "pointer" }}
-              onClick={handleClickWarning}>
-              {debate.warnUserList?.includes(user?.id) ? null : "신고"}
-            </div>
             <div onClick={() => setCreateModalState(true)} style={{cursor:"pointer"}}>
               공유
             </div>

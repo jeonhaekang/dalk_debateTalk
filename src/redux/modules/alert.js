@@ -14,8 +14,8 @@ const initialState = {
   type: "alert",
   openState: false,
   message: "",
-  action: () => {},
-  history: () => {},
+  action: () => { },
+  history: () => { },
 };
 
 //Reducer
@@ -23,8 +23,8 @@ export default handleActions(
   {
     [OPEN]: (state, action) =>
       produce(state, (draft) => {
-        draft = {
-          ...initialState.data,
+        return {
+          ...initialState,
           openState: true,
           ...action.payload.data,
         };
