@@ -23,6 +23,7 @@ import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
 import MyGrade from "../pages/MyPageContent/MyGrade";
 import UserRanking from "../pages/MyPageContent/UserRanking";
 import PointShop from "../pages/MyPageContent/PointShop";
+import AnnounceDetail from "../pages/MyPageContent/AnnounceDetail";
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -78,6 +79,7 @@ function App() {
             <Route path="/mypage/pointshop" exact component={PointShop} />
             <Route path="/mypage/gacha" exact component={Gacha} />
             <Route path="/announcement" exact component={Announcement} />
+            <Route path="/announcement/:noticeId" exact component={AnnounceDetail} />
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />

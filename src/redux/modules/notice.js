@@ -35,19 +35,6 @@ const getNoticeDB = () => {
   };
 };
 
-const getOneNoticeDB = (noticeId) => {
-    return function (dispatch, getState, {history}) {
-        apis.getDetailNotice(noticeId)
-            .then((res) => {
-                console.log("공지사항 상세보기 성공", res.data);
-                dispatch(getNotice([res.data]));
-            })
-            .catch((err) => {
-                console.log("공지사항 상세보기 실패", err);
-            });
-    };
-};
-
 const addNoticeDB = (title, content) => {
   //배너 추가하기
   return function (dispatch, getState, { history }) {
@@ -69,6 +56,7 @@ const updateNoticeDB = (noticeId, title, content) => {
             .then((res) => {
                 console.log("공지사항 수정 완료", res)
                 dispatch(updateNotice(noticeId, title, content));
+                dispatch(getNoticeDB())
             })
             .catch((err) => {
                 console.log("공지사항 수정 실패", err)
@@ -106,7 +94,6 @@ export default handleActions(
             produce(state, (draft) => {
                 const noticeId = action.payload.noticeId;
                 draft.NoticeList = draft.NoticeList.map((el) => {
-                    console.log(el.noticeId, noticeId);
                     if (el.noticeId === parseInt(noticeId)) {
                         return {...el, ...action.payload.notice}
                     }
@@ -128,7 +115,6 @@ export default handleActions(
 //Export Action Creator
 const actionCreators = {
     getNoticeDB,
-    getOneNoticeDB,
     updateNoticeDB,
     addNoticeDB,
     delNoticeDB,

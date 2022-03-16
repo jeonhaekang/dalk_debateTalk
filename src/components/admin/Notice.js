@@ -9,9 +9,8 @@ function Notice() {
     const noticeList = useSelector(state => state.notice.NoticeList)
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [updateModalState, setUpdateModalState] = useState(false);
     const [createModalState, setCreateModalState] = useState(false);
-
-    console.log(noticeList)
 
     useEffect(() => {
         dispatch(noticeActions.getNoticeDB())
@@ -24,8 +23,11 @@ function Notice() {
         setCreateModalState(false);
     }
 
-    const handleUpdateNotice = () => {
-        dispatch(noticeActions.updateNoticeDB(title, content))
+    const handleUpdateNotice = (noticeId) => {
+        dispatch(noticeActions.updateNoticeDB(noticeId, title, content))
+        setTitle("");
+        setContent("");
+        setUpdateModalState(false);
     }
 
     const handleDelNotice = (noticeId) => {
@@ -45,13 +47,25 @@ function Notice() {
             <Title>현재 공지사항 목록</Title>
             <div onClick={() => setCreateModalState(true)}>공지사항 등록하기</div>
             {noticeList.map((r, idx) => {
-                return <List key={idx}>
-                    <div> {r.title} </div>
-                    <button> 수정 </button>
-                    <button onClick={() => handleDelNotice(r.noticeId)}> 삭제 </button>
-                </List>
+                return <>
+                    <List key={idx}>
+                        <div> {r.title} </div>
+                        <button onClick={() => setUpdateModalState(true)}> 수정하기 </button>
+                        <button onClick={() => handleDelNotice(r.noticeId)}> 삭제 </button>
+                    </List>
+                    <Modal modalState={updateModalState} setModalState={setUpdateModalState}>
+                        <div>
+                            <div>타이틀</div>
+                            <input type="text" onChange={onChangeTitle} value={title}></input>
+                        </div>
+                        <div>
+                            <div>내용</div>
+                            <input type="text" onChange={onChangeContent} value={content}></input>
+                        </div>
+                        <div onClick={() => handleUpdateNotice(r.noticeId)}>수정</div>
+                    </Modal>
+                </>
             })}
-
 
             <Modal modalState={createModalState} setModalState={setCreateModalState}>
                 <div>
