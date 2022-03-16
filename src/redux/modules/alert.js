@@ -23,8 +23,8 @@ export default handleActions(
   {
     [OPEN]: (state, action) =>
       produce(state, (draft) => {
-        draft = {
-          ...initialState.data,
+        return {
+          ...initialState,
           openState: true,
           ...action.payload.data,
         };

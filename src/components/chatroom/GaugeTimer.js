@@ -29,11 +29,6 @@ const GaugeTimer = (props) => {
 
   React.useEffect(() => {
     if (restTime <= 0) {
-      if (props.page === "chatRoom") {
-        dispatch(
-          alertAction.open("토론이 종료되었습니다", () => history.replace("/"))
-        );
-      }
       dispatch(chatAction.deleteRoom(props.roomId));
       return;
     }
@@ -46,7 +41,7 @@ const GaugeTimer = (props) => {
   //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
 
   return (
-    <GaugeOuter {...props}>
+    <GaugeOuter {...props} style={{ ...props }}>
       <GaugeInner {...props} width={per} />
     </GaugeOuter>
   );
@@ -54,10 +49,12 @@ const GaugeTimer = (props) => {
 
 const GaugeOuter = styled.div`
   ${(props) =>
-    props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
+    props.page === "main" ? "position:absolute; left:0; bottom:0;" : ""}
   height: 4px;
   width: 100%;
-  background-color: #c4c4c4;
+  background-color: #f2f1f1;
+
+  overflow: hidden;
 `;
 
 const GaugeInner = styled.div.attrs((props) => ({
@@ -66,10 +63,8 @@ const GaugeInner = styled.div.attrs((props) => ({
   },
 }))`
   height: 100%;
-  background-color: #f19121;
+  background-color: ${(props) => props.theme.color.orange};
   transition: 0.3s;
-  ${(props) =>
-    props.page !== "chatRoom" ? "position:absolute; left:0; bottom:0;" : ""}
 `;
 
 export default GaugeTimer;
