@@ -25,7 +25,7 @@ const MyGrade = () => {
 
     return (
         <>
-            <Header />
+            <Header page="등급표" />
             <MyGradeInfo>
                 <MyGradeImage src={userRank.img}></MyGradeImage>
                 <IsMyGrade>
@@ -78,7 +78,6 @@ const MyGradeInfo = styled.div`
 const MyGradeImage = styled.img`
     width: 184px;
     height: 184px;
-    background-color: #CFCFCF;
     border: none;
     border-radius: 100%;
 `

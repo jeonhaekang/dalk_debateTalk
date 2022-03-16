@@ -54,7 +54,7 @@ function SearchCategory(props) {
   return (
     <>
       <ContentContainer Xfooter ref={boxref}>
-        <Header page="메인" />
+        <Header page="토론 결과방" />
         <Grid margin="30px">
           <Container>
             <InputContainer id="SearchBar">

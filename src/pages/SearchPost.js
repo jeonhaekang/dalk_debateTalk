@@ -1,7 +1,9 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import PostListCard from '../components/postlist/PostListCard';
+import Grid from '../elements/Grid';
 import { actionCreators as searchActions } from '../redux/modules/search';
 import Header from '../shared/Header';
 import InfinityScroll from '../shared/InfinityScroll';
@@ -23,16 +25,23 @@ function SearchPost(props) {
 
     return (
         <>
-            <Header />
-            <div> {keyword} 검색 결과</div>
-            <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
-                {searchDebateList.SearchPostList.map((d, idx) => {
-                    return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
-                })
-                }
-            </InfinityScroll>
+            <Header page="검색 결과" />
+            <Grid margin="30px">
+                <SearchResult> "{keyword}" 검색 결과</SearchResult>
+                <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
+                    {searchDebateList.SearchPostList.map((d, idx) => {
+                        return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
+                    })
+                    }
+                </InfinityScroll>
+            </Grid>
         </>
     )
 }
+
+const SearchResult = styled.div`
+    font-size: ${(props) => props.theme.fontSizes.subtitle1};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+`
 
 export default SearchPost

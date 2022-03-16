@@ -11,6 +11,8 @@ import ContentContainer from "../elements/Container";
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Button from "../elements/Button";
+import Footer from "../shared/Footer";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -64,18 +66,17 @@ const PostList = (props) => {
   return (
     <>
       <ContentContainer Xfooter ref={boxref}>
-        <Header page="메인" />
+        <Header page="토론 결과방" />
 
         <Grid margin="30px">
           <Container>
-            <InputContainer id="SearchBar">
+            <InputContainer className="searchbox">
               <Input
                 placeholder="토론 결과를 검색해보세요"
                 value={keyword}
                 onChange={handleKeyword}
                 onKeyDown={onKeyDown}
               />
-              <button onClick={searchDebate}>검색</button>
             </InputContainer>
           </Container>
 
@@ -99,10 +100,13 @@ const PostList = (props) => {
                 );
               })}
             </InfinityScroll>
-            <TopBtn onClick={handleTop}>TOP</TopBtn>
+            <Top>
+              <TopBtn onClick={handleTop}>TOP</TopBtn>
+            </Top>
           </Grid>
         </Grid>
       </ContentContainer>
+      <Footer />
     </>
   );
 };
@@ -110,7 +114,6 @@ const PostList = (props) => {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  // height: fit-content;
 `;
 const InputContainer = styled.div`
   position: relative;
@@ -128,8 +131,23 @@ const Input = styled.input`
   border-radius: 8px;
   padding: 13px 16px;
 `;
+const Top = styled.div`
+   position: fixed;
+   bottom: 135px;
+   margin: 0 auto;
+   max-width: 375px;
+   height; 124px;
+   z-Index: 2;
+`
 const TopBtn = styled.button`
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  top: 0;
+  background-color: #F6D629;
+  border: none;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  transform: translate(320px, 0px);
+  cursor: pointer;
 `;
 export default PostList;

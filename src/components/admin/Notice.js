@@ -45,7 +45,7 @@ function Notice() {
     return (
         <>
             <Title>현재 공지사항 목록</Title>
-            <div onClick={() => setCreateModalState(true)}>공지사항 등록하기</div>
+            <Label onClick={() => setCreateModalState(true)}>공지사항 등록하기</Label>
             {noticeList.map((r, idx) => {
                 return <>
                     <List key={idx}>
@@ -54,29 +54,29 @@ function Notice() {
                         <button onClick={() => handleDelNotice(r.noticeId)}> 삭제 </button>
                     </List>
                     <Modal modalState={updateModalState} setModalState={setUpdateModalState}>
-                        <div>
+                        <ModalLabel>
                             <div>타이틀</div>
-                            <input type="text" onChange={onChangeTitle} value={title}></input>
-                        </div>
-                        <div>
+                            <ModalTitleInput type="text" onChange={onChangeTitle} value={title}></ModalTitleInput>
+                        </ModalLabel>
+                        <ModalLabel>
                             <div>내용</div>
-                            <input type="text" onChange={onChangeContent} value={content}></input>
-                        </div>
-                        <div onClick={() => handleUpdateNotice(r.noticeId)}>수정</div>
+                            <ModalContentInput rows="10" onChange={onChangeContent} value={content}></ModalContentInput>
+                        </ModalLabel>
+                        <ModalBtn onClick={() => handleUpdateNotice(r.noticeId)}>수정</ModalBtn>
                     </Modal>
                 </>
             })}
 
             <Modal modalState={createModalState} setModalState={setCreateModalState}>
-                <div>
+                <ModalLabel>
                     <div>타이틀</div>
-                    <input type="text" onChange={onChangeTitle} value={title}></input>
-                </div>
-                <div>
+                    <ModalTitleInput type="text" onChange={onChangeTitle} value={title}></ModalTitleInput>
+                </ModalLabel>
+                <ModalLabel>
                     <div>내용</div>
-                    <input type="text" onChange={onChangeContent} value={content}></input>
-                </div>
-                <div onClick={handleAddNotice}>등록</div>
+                    <ModalContentInput rows="10" onChange={onChangeContent} value={content}></ModalContentInput>
+                </ModalLabel>
+                <ModalBtn onClick={handleAddNotice}>등록</ModalBtn>
             </Modal>
         </>
     )
@@ -94,6 +94,33 @@ const List = styled.div`
     justify-content: center;
     gap: 20px;
     padding: 10px 0px;
+`
+const Label = styled.div`
+    margin: 10px;
+    padding: 5px;
+    width: 120px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #ddd;
+    cursor: pointer;
+`
+const ModalLabel = styled.div`
+    padding: 20px 10px 10px 25px;
+`
+const ModalTitleInput = styled.input`
+    width: 280px;
+`
+const ModalContentInput = styled.textarea`
+    width: 280px;
+`
+const ModalBtn = styled.div`
+    text-align: center;
+    font-size : 14px;
+    padding: 12px;
+    margin: 10px;
+    background-color: #ddd;
+    border-radius: 15px;
+    cursor: pointer;
 `
 
 export default Notice

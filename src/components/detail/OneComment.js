@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
 
 import star from "../../image/star.png";
@@ -29,7 +30,9 @@ const OneComment = (props) => {
   const handleClickAgree = () => {
     console.log("찬성클릭");
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.push("/login");
     }
     dispatch(commentActions.pushAgreeDB(commentId, index));
@@ -37,7 +40,9 @@ const OneComment = (props) => {
 
   const handleClickDisagree = () => {
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.push("/login");
     }
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
@@ -50,7 +55,9 @@ const OneComment = (props) => {
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.replace("/login");
     }
     if (isWarn === false) {
@@ -60,7 +67,9 @@ const OneComment = (props) => {
           if (window.confirm("정말 신고하시겠어요?")) {
             console.log("댓글 신고하기 성공", res);
             setIsWarn(true);
-            alert("신고처리가 완료되었습니다");
+            dispatch(alertAction.open({
+              message: "신고처리가 완료되었습니다"
+            }))
           } else {
             return;
           }
@@ -183,12 +192,6 @@ const Number = styled.p`
   font-weight: 300;
   margin: 0px 10px 0px 0px;
 `;
-const NumberDisabled = styled.p`
-  font-size: 12px;
-  font-weight: 300;
-  margin: 0px 10px 0px 0px;
-`;
-
 const AgreeBtn = styled.div`
   display: flex;
   justify-content: flex-end;

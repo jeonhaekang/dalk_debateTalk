@@ -36,6 +36,7 @@ const UserInfo = (props) => {
         }}
       >
         <div>보유 알포인트 {user?.point}</div>
+        <div> > </div>
       </MyEggPoint>
     </>
   );
