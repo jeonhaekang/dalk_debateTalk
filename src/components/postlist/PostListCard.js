@@ -4,7 +4,7 @@ import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
 const PostListCard = (props) => {
-  console.log("render");
+  console.log("render card");
   const boardId = props.boardId;
   const createdAt =
     props.createdAt.split("-")[0] +

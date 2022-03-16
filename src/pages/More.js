@@ -2,7 +2,6 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { actionCreators as chatAction } from "../redux/modules/chat";
 import { actionCreators as infinitiAction } from "../redux/modules/infinityScroll";
 import MoreCard from "../components/shared/MoreCard";
 import XScrollDrag from "../components/shared/XScrollDrag";
@@ -58,10 +57,8 @@ const More = () => {
                 );
               })}
             </XScrollDrag>
-            <Line />
           </CategoryBox>
           <InfinityScroll
-            className="test2"
             callNext={getRoomList}
             paging={{ next: roomList.has_next }}
           >
@@ -81,23 +78,16 @@ const CategoryBox = styled.div`
   gap: 0;
   margin: 0 -16px;
   border-bottom: 2px solid #e5e5e5;
-`;
 
-// gap="0"
-// margin="0 -16px"
-// width="calc(100% + 32px)"
-// borderBottom="2px solid #e5e5e5"
+  position: sticky;
+  top: -3px;
 
-const Line = styled.div`
-  /* position: absolute;
-  width: 58px;
-  height: 2px;
-  left: 58px;
-  background-color: orange; */
+  background-color: white;
+  z-index: 100;
 `;
 
 const Category = styled(FlexGrid)`
-  width: 58px;
+  width: calc(100% / 6);
   height: 46px;
   flex: 0 0 auto;
 

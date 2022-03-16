@@ -8,7 +8,9 @@ import Text from "../../elements/Text";
 const MainCategoryCard = (props) => {
   return (
     <>
-      {categoryDate.map((el) => {
+      {categoryDate.map((el, i) => {
+        if (i === 0) return null;
+
         return (
           <CardWrap
             gap="4px"
