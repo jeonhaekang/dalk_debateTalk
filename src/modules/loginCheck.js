@@ -21,10 +21,8 @@ const loginCheck = (action, url) => {
 const loginAction = (action) => {
   const token = getCookie("authorization");
   if (token) {
-    console.log("로그인");
     action();
   } else {
-    console.log("로그인 안함");
     store.dispatch(
       alertAction.open({
         type: "confirm",

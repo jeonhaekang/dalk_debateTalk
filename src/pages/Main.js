@@ -38,12 +38,7 @@ const Main = (props) => {
           <TopRank />
           <FlexGrid is_column padding="24px" gap="22px">
             <FlexGrid paddingBottom="58px">
-              <Text
-                size="subtitle"
-                weight="medium"
-                fontSize="28px"
-                lineHeight="38px"
-              >
+              <Text size="headline1" weight="medium" lineHeight="38px">
                 실시간 HOT한
                 <br /> 토론에 참여해보세요!
               </Text>
@@ -51,7 +46,7 @@ const Main = (props) => {
             </FlexGrid>
 
             {roomList.map((el, i) => {
-              if (i < 3) return <MainCard key={i} {...el} page="메인" />;
+              if (i < 3) return <MainCard key={i} {...el} page="main" />;
             })}
 
             <CategoryTap is_column>
@@ -67,7 +62,7 @@ const Main = (props) => {
             </CategoryTap>
 
             {roomList.map((el, i) => {
-              if (i >= 3) return <MainCard key={i} {...el} page="메인" />;
+              if (i >= 3) return <MainCard key={i} {...el} page="main" />;
             })}
           </FlexGrid>
           {roomList.length === 0 ? (

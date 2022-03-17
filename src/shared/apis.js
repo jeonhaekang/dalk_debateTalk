@@ -81,8 +81,13 @@ const apis = {
   //토론방 메인 리스트 가져오기
   loadMainRoom: () => instance.get("api/main/rooms"),
 
-  //토론방 카테고리별로 가져오기
-  loadCategoryRoom: (category) => instance.get("/api/main/" + category),
+  //토론방 검색
+  searchRoom: (size, page, keyword) =>
+    instance.get(`/api/main/${keyword}?size=${size}&page=${page}`),
+
+  //토론방 카테고리 가져오기
+  loadCategoryRoom: (size, page, category) =>
+    instance.get(`/api/category/${category}?size=${size}&page=${page}`),
 
   //카테고리별 베스트 토론방
   loadBestRoom: (category) => instance.get("/api/category/best/" + category),
@@ -125,7 +130,8 @@ const apis = {
   getDebate: (page, size) =>
     instance.get(`/api/boards?size=${size}&page=${page}`),
   // ---------게시글 검색------------
-  getDebateKeyword: (keyword, size, page) => instance.get(`/api/keywords/${keyword}?size=${size}&page=${page}`),
+  getDebateKeyword: (keyword, size, page) =>
+    instance.get(`/api/keywords/${keyword}?size=${size}&page=${page}`),
   // ---------게시글 신고------------
   warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
@@ -152,11 +158,15 @@ const apis = {
     instance.delete(`admin/carousels/${carouselId}`),
   //공지사항
   getNotice: () => instance.get(`api/notices`),
-  postNotice: (title, content) => instance.post(`admin/notices`, {title: title, content: content}),
-  updateNotice: (noticeId, title, content) => instance.put(`admin/notices/${noticeId}`, {title: title, content: content}),
+  postNotice: (title, content) =>
+    instance.post(`admin/notices`, { title: title, content: content }),
+  updateNotice: (noticeId, title, content) =>
+    instance.put(`admin/notices/${noticeId}`, {
+      title: title,
+      content: content,
+    }),
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
-
 };
 
 export default apis;

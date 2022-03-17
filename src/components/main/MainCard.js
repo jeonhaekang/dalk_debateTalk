@@ -11,7 +11,6 @@ import { loginCheck } from "../../modules/loginCheck";
 
 const MainCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
-  console.log(props)
 
   return (
     <CardBox
@@ -34,7 +33,7 @@ const MainCard = (props) => {
 
       <FlexGrid is_flex between center>
         <FlexGrid>
-          {props.page && <Image src={props.filePath} borderRadius="15px" />}
+          <Image src={props.filePath} borderRadius="15px" />
         </FlexGrid>
 
         <FlexGrid is_column justifyContent="space-between" height="100%">
@@ -43,7 +42,7 @@ const MainCard = (props) => {
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
-      <GaugeTimer {...props} page />
+      <GaugeTimer {...props} page={props.page} />
     </CardBox>
   );
 };
@@ -53,7 +52,6 @@ const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
   color: ${(props) => props.theme.color.orange};
-  font-family: "Noto Sans", sans-serif;
 `;
 
 const CardBox = styled(FlexGrid)`

@@ -59,7 +59,6 @@ const CategoryBox = styled.div`
   display: flex;
   flex-wrap: nowrap; // 넘쳐도 줄바꿈 X, white-space: no-wrap과 같은 효과
   overflow-x: scroll; // x축 넘치면 스크롤 생성
-  gap: 10px;
 `;
 
 export default XScrollDrag;

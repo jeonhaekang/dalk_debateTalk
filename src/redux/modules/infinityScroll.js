@@ -18,13 +18,12 @@ const initialState = {
 };
 
 //middleWare
-const loadListDB = (page, api) => {
+const loadListDB = (page, api, keyword) => {
   return function (dispatch, getState, { history }) {
     const size = 5;
 
-    apis[api](size, page)
+    apis[api](size, page, keyword)
       .then((res) => {
-        console.log(res);
         let is_next = null;
         if (res.data.length < size) {
           is_next = false;
