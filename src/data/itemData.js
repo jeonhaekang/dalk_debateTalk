@@ -1,13 +1,15 @@
-import onlyMeIMG from "../image/itemImage/onlyMe.png";
-import bigFontIMG from "../image/itemImage/bigFont.png";
-import myNameIMG from "../image/itemImage/myName.png";
-import exBuyIMG from "../image/itemImage/exBuy.png";
-import reverseIMG from "../image/itemImage/reverse.png";
-import papagoIMG from "../image/itemImage/papago.png";
+import onlyMeIMG from "../image/itemImage/onlyMe.svg";
+import bigFontIMG from "../image/itemImage/bigFont.svg";
+import myNameIMG from "../image/itemImage/myName.svg";
+import exBuyIMG from "../image/itemImage/exBuy.svg";
+import reverseIMG from "../image/itemImage/reverse.svg";
+import papagoIMG from "../image/itemImage/papago.svg";
 
 const itemData = [
   {
     img: onlyMeIMG,
+    color: "#5F8DFA",
+    border: "#3C6BDA",
     state: "back",
     name: "나만 말하기",
     itemCode: "onlyMe",
@@ -16,6 +18,8 @@ const itemData = [
   },
   {
     img: bigFontIMG,
+    color: "#F26A30",
+    border: "#CC501B",
     state: "front",
     name: "빅폰트",
     itemCode: "bigFont",
@@ -24,6 +28,8 @@ const itemData = [
   },
   {
     img: myNameIMG,
+    color: "#00A381",
+    border: "#007D63",
     state: "back",
     name: "전부 내이름",
     itemCode: "myName",
@@ -32,6 +38,8 @@ const itemData = [
   },
   {
     img: papagoIMG,
+    color: "#E99F0F",
+    border: "#CA890A",
     state: "back",
     name: "파파고",
     itemCode: "papago",
@@ -40,6 +48,8 @@ const itemData = [
   },
   {
     img: reverseIMG,
+    color: "#5A30F2",
+    border: "#3F15D7",
     state: "back",
     name: "거꾸로말해요",
     itemCode: "reverse",
@@ -48,6 +58,8 @@ const itemData = [
   },
   {
     img: exBuyIMG,
+    color: "#898989",
+    border: "#4C4C4C",
     state: "back",
     name: "경험치 구매",
     itemCode: "exBuy",

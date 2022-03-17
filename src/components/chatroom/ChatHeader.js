@@ -8,7 +8,6 @@ import CountDownTimer from "./CountDownTimer";
 import Modal from "../shared/Modal";
 import Vote from "./Vote";
 import GaugeTimer from "./GaugeTimer";
-import openIcon from "../../image/chatRoom/expand_more_black_24dp.svg";
 import { useDispatch } from "react-redux";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 
@@ -43,7 +42,12 @@ const ChatHeader = (props) => {
 
             <FlexGrid justifyContent="flex-end">
               <Open state={state} onClick={() => setState(!state)}>
-                <img alt="open" src={openIcon} />
+                <svg width="30" height="30" viewBox="0 0 30 30">
+                  <path
+                    d="M20.7375 10.7375L15 16.4625L9.2625 10.7375L7.5 12.5L15 20L22.5 12.5L20.7375 10.7375Z"
+                    fill="#C5C5C5"
+                  />
+                </svg>
               </Open>
             </FlexGrid>
           </FlexGrid>

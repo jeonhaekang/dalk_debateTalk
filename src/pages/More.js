@@ -16,6 +16,19 @@ const More = () => {
   const [category, setCategory] = React.useState("전체");
   const [idx, setIdx] = React.useState(0);
 
+  // // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
+  // const handleResize = () => {
+  //   const vh = window.innerHeight * 0.01;
+  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
+  // };
+
+  // // 브라우저 창 크기를 변경시 다시 계산
+  // React.useEffect(() => {
+  //   handleResize();
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
   return (
     <>
       <NewHeader page="토론리스트" />
@@ -53,7 +66,7 @@ const Test = styled.div`
   transition: 0.3s;
 
   width: 100%;
-  height: calc(100vh - 302px);
+  height: calc((var(--vh) * 100) - 302px);
 
   background-color: ${(props) => props.color};
 
