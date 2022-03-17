@@ -33,7 +33,7 @@ const More = () => {
           idx={idx}
           setIdx={setIdx}
         />
-        <TestWrap>
+        <FlexGrid gap="0">
           {categoryDate.map((el, i) => {
             return (
               <Test idx={idx} key={i}>
@@ -41,7 +41,7 @@ const More = () => {
               </Test>
             );
           })}
-        </TestWrap>
+        </FlexGrid>
       </ContentContainer>
       <Footer />
     </>
@@ -61,13 +61,6 @@ const Test = styled.div`
   overflow-y: scroll;
 
   flex: 0 0 auto;
-`;
-
-const TestWrap = styled.div`
-  display: flex;
-
-  width: 100%;
-  flex-grow: 1;
 `;
 
 export default More;

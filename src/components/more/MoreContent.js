@@ -39,6 +39,7 @@ const MoreContent = ({ category }) => {
         console.log(err);
       });
   };
+
   const observe = useRef(null);
 
   const callback = (entries, observer) => {
@@ -47,6 +48,7 @@ const MoreContent = ({ category }) => {
       if (entry.isIntersecting) {
         console.log("화면에 노출됨:", category);
         getRoomList();
+        observer.unobserve(entry.target);
       }
     });
   };
@@ -56,12 +58,9 @@ const MoreContent = ({ category }) => {
   React.useEffect(() => {
     console.log("useEffect:", category);
     observer.observe(observe.current);
-    // getRoomList();
   }, []);
 
   console.log(`${category} : `, scrollData);
-
-  // console.log(observe.current.clientHeight);
 
   return (
     <>
