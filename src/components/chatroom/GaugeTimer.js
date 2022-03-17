@@ -13,7 +13,7 @@ const GaugeTimer = (props) => {
 
   // 긴방인지 짧은방인지 판단 후 종료시간에 더함
   //if (props.time) end.setMinutes(end.getMinutes() + 20);
-  if (props.time) end.setSeconds(end.getSeconds() + 30);
+  if (props.time) end.setSeconds(end.getSeconds() + 70);
   else end.setHours(end.getHours() + 1);
 
   // 종료 시간에서 현재 시간을 빼서 남은 시간 구함
@@ -37,7 +37,11 @@ const GaugeTimer = (props) => {
   });
 
   // 게이지 퍼센트
-  const per = (restTime / (props.time ? 30 : 3600)) * 100;
+  let per = (restTime / (props.time ? 70 : 3600)) * 100;
+  if (restTime < 60) {
+    per = (restTime / 60) * 100;
+  }
+
   //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
 
   return (

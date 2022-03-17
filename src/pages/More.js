@@ -1,4 +1,4 @@
-import Header from "../shared/Header";
+import NewHeader from "../shared/NewHeader";
 import Footer from "../shared/Footer";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const More = () => {
 
   return (
     <>
-      <Header page="토론리스트" />
+      <NewHeader page="토론리스트" />
       <ContentContainer>
         <FlexGrid padding="16px" height="108px">
           <Text size="headline1" weight="medium" lineHeight="38px">

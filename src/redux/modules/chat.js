@@ -183,6 +183,20 @@ const loadUserListDB = (roomId) => {
   };
 };
 
+const reportRoomDB = (roomId) => {
+  return function (dispatch) {
+    apis
+      .reportRoom(roomId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        dispatch(alertAction.open({ message: err.response.data.message }));
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -255,6 +269,7 @@ const actionCreators = {
   loadUserListDB,
   enterUser,
   exitUser,
+  reportRoomDB,
 };
 
 export { actionCreators };

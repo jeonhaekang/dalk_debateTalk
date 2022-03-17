@@ -98,34 +98,60 @@ const ModalLayout = styled.div`
   background: rgba(238, 238, 238, 0.8);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
   z-index: 998;
+
+  overflow: hidden;
 `;
 
 const slideIn = keyframes`
   from {
-    transform: translateX(-100%);
+    transform: translateY(100%);
   }
   to {
-    transform: translateX(0%);
+    transform: translateY(0%);
   }
 `;
 
 const slideOut = keyframes`
   from {
-      transform: translate(0%);
+      transform: translateY(0%);
   }
   to {
-      transform: translateX(-100%);
+      transform: translateY(100%);
   }
 `;
 
 const HambergerContents = styled.div`
   position: absolute;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+
   left: 0;
-  top: 0;
-  background-color: white;
+  bottom: 0;
+  background-color: #f1f1f1;
+  border-radius: 15px 15px 0 0;
   animation: ${(props) => (props.aniState ? slideOut : slideIn)} 0.4s;
+
+  & div {
+    width: 100%;
+    height: 82px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: ${(props) => props.theme.fontSizes.headline2};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.15);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 16px;
 `;
 
 const CreateContents = styled.div`

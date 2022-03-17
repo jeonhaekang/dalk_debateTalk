@@ -12,6 +12,7 @@ import Text from "../elements/Text";
 import apis from "../shared/apis";
 import styled from "styled-components";
 import MoreCard from "../components/shared/MoreCard";
+import NewHeader from "../shared/NewHeader";
 
 const Category = (props) => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const Category = (props) => {
 
   return (
     <>
-      <Header page={"#" + page} />
+      <NewHeader page={`#${page}`} color />
       <ContentContainer>
         <BestBox is_column>
           <Text size="headline1" weight="medium" lineHeight="38px">
@@ -51,7 +52,12 @@ const Category = (props) => {
         </BestBox>
 
         <ContentBox is_column>
-          <FlexGrid is_column gap="8px" borderBottom="1px solid #c4c4c4" padding="21px 0 33px 0">
+          <FlexGrid
+            is_column
+            gap="8px"
+            borderBottom="1px solid #c4c4c4"
+            padding="21px 0 33px 0"
+          >
             <Text size="headline2" weight="medium">
               엎치락 뒤치락 실시간 토론
             </Text>
