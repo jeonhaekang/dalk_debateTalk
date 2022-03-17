@@ -86,11 +86,12 @@ const MyEggPoint = () => {
 
 const CurrentEggPoint = styled.div`
 text-align: center;
-font-size: 24px;
+font-size: ${(props) => props.theme.fontSizes.headline2};
+font-weight: ${(props) => props.theme.fontWeight.medium};
 padding: 50px;
 border-bottom: 16px solid #f1f1f1;
 .Mypoint{
-    color: #E9C718;
+    color: #F17521;
 }
 `
 const EggImg = styled.img`

@@ -32,33 +32,33 @@ const MyGrade = () => {
                     나의 등급은 <br/>
                     <span className="GradeColor">{userRank.name}</span> 입니다
                 </IsMyGrade>
-                <NextGrade>다음 등급까지 <span className="RP">{announceScore}RP</span> 남았습니다</NextGrade>
+                <NextGrade>얼마 안남았네요 :) 다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
             </MyGradeInfo>
 
             <GradeInfo>
-                <div style={{ fontSize:"24px", color:"#686868" }}>알포인트 등급</div>
+                <GradeTitle>알포인트 등급소개</GradeTitle>
 
-                <GradeLevel>
-                    <div>브론즈</div>
-                    <div>~1,000 Exp</div>
+                <GradeLevel backgroundColor="#F9CD9A">
+                    <p>브론즈</p>
+                    <p>~1,000 Exp</p>
                 </GradeLevel>
-                <GradeLevel>
+                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.5)">
                     <div>실버</div>
                     <div>~2,000 Exp</div>
                 </GradeLevel>
-                <GradeLevel>
+                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.4)">
                     <div>골드</div>
                     <div>~3,000 Exp</div>
                 </GradeLevel>
-                <GradeLevel>
+                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.3)">
                     <div>플래티넘</div>
                     <div>~4,000 Exp</div>
                 </GradeLevel>
-                <GradeLevel>
+                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.2)">
                     <div>다이아</div>
                     <div>4,000 Exp 이상</div>
                 </GradeLevel>
-                <GradeLevel>
+                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.1)">
                     <div>랭커</div>
                     <div>TOP 1, 2, 3</div>
                 </GradeLevel>
@@ -73,7 +73,7 @@ const MyGradeInfo = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px;
+    padding: 60px 40px;
 `
 const MyGradeImage = styled.img`
     width: 184px;
@@ -83,29 +83,37 @@ const MyGradeImage = styled.img`
 `
 const IsMyGrade = styled.div`
     padding-top: 30px;
-    font-size: 20px;
+    font-size: 28px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
     .GradeColor{
         color: #E9C718;
+        font-weight: ${(props) => props.theme.fontWeight.bold};
     }
 `
 const NextGrade = styled.div`
     padding-top: 20px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
     .RP{
         color: #E9C718;
     }
 `
 const GradeInfo = styled.div`
-    border-top: 1px solid #C4C4C4;
-    padding: 20px;
+    border-top: 16px solid #F1F1F1;
+`
+const GradeTitle = styled.div`
+    margin: 15px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+    font-size: ${(props) => props.theme.fontSizes.headline2};
 `
 const GradeLevel = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: #CFCFCF;
-    margin: 10px 0px 0px 0px;
-    padding: 8px;
-    height: 40px;
-    color: #686868;
+    padding: 16px 30px;
+    height: 50px;
+    background-color: ${(props) => props.backgroundColor};
+    font-weight: ${(props) => props.theme.fontWeight.regular};
+    font-size: ${(props) => props.theme.fontSizes.body1};
+    color: ${(props) => props.theme.color.black};
 `
 
 export default MyGrade;

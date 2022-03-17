@@ -40,12 +40,10 @@ const Title = styled.div`
     font-size: ${(props) => props.theme.fontSizes.gnb};
     font-weight: ${(props) => props.theme.fontWeight.bold};
 `
-
 const Wrap = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const ContentTop = styled.div`
     font-size: 20px;
     color: #686868;
@@ -56,7 +54,6 @@ const ContentTop = styled.div`
     border-bottom: 1px solid #C4C4C4;
     cursor: pointer;
 `
-
 const Content = styled.div`
   font-size: 20px;
   color: #686868;
