@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Input from "../../elements/Input";
 import itemData from "../../data/itemData";
 import { actionCreators } from "../../redux/modules/user";
+import FlexGrid from "../../elements/FlexGrid";
+import itemOpen from "../../image/chatRoom/rocket_launch_black_24dp 1.svg";
 
 const ChatInput = (props) => {
   const dispatch = useDispatch();
@@ -76,16 +78,9 @@ const ChatInput = (props) => {
   return (
     <div>
       <InputWrap>
-        <button onClick={() => setState(!state)}>아이템</button>
-        <Input
-          flexGrow="1"
-          onKeyPress={MessageEnter}
-          padding="10px"
-          height="40px"
-          fontSize="16px"
-          ref={message}
-        />
-        <button onClick={sendMessage}>송신</button>
+        <img alt="open" src={itemOpen} onClick={() => setState(!state)}></img>
+        <MessageInput onKeyPress={MessageEnter} ref={message} />
+        <EnterBtn onClick={sendMessage}>송신</EnterBtn>
       </InputWrap>
 
       <ItemWrap state={state}>
@@ -105,9 +100,31 @@ const ChatInput = (props) => {
     </div>
   );
 };
+const EnterBtn = styled.button`
+  width: 55px;
+  height: 44px;
+  background-color: ${(props) => props.theme.color.orange};
+  border-radius: 10px;
+  border: none;
+  color: white;
 
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+`;
+
+const MessageInput = styled.input`
+  flex-grow: 1;
+  font-size: 16px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #d2d2d2;
+  padding: 0 10px;
+`;
 const InputWrap = styled.div`
   display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #f3f3f3;
 `;
 
 const ItemWrap = styled.div`

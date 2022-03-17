@@ -158,7 +158,6 @@ const ShowChat = styled.div`
   gap: 15px;
 
   padding: 10px;
-  padding-bottom: 0;
   /* 스크롤바 표시 */
   &::-webkit-scrollbar {
     display: block;

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../shared/Header";
+import NewHeader from "../shared/NewHeader";
 import Footer from "../shared/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/chat";
@@ -31,7 +31,7 @@ const Main = (props) => {
 
   return (
     <>
-      <Header page="메인" />
+      <NewHeader page="메인" />
       <ContentContainer>
         <FlexGrid is_column>
           <MainCarousel />

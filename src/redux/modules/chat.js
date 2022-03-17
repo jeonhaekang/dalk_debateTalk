@@ -19,6 +19,7 @@ const NEW_MESSAGE = "NEW_MESSAGE";
 const LOAD_USER_LIST = "LOAD_USER_LIST";
 const ENTER_USER = "ENTER_USER";
 const EXIT_USER = "EXIT_USER";
+const VOTE = "VOTE";
 
 //Action Creator
 const setRoom = createAction(SET_ROOM, (list) => ({ list }));
@@ -33,6 +34,7 @@ const loadUserList = createAction(LOAD_USER_LIST, (userList) => ({
 }));
 const enterUser = createAction(ENTER_USER, (user) => ({ user }));
 const exitUser = createAction(EXIT_USER, (user) => ({ user }));
+const vote = createAction(VOTE, (data) => ({ data }));
 
 //initialState
 const initialState = {
@@ -82,6 +84,13 @@ const voteDB = (roomId, topic, point) => {
       .vote(roomId, { topic: topic, point: point })
       .then((res) => {
         dispatch(userAction.setPoint(-1 * point));
+
+        const data = {
+          userPick: topic,
+          userPoint: point,
+        };
+        dispatch(vote(data));
+
         console.log(res);
       })
       .catch((err) => {
@@ -222,6 +231,10 @@ export default handleActions(
           (el) => el.userId === action.payload.user.userId
         );
         draft.currentRoom.users.splice(idx, 1);
+      }),
+    [VOTE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.currentRoom.roomInfo.userVote = action.payload.data;
       }),
   },
   initialState

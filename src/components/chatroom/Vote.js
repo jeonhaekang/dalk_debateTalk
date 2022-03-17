@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
-import Image from "../../elements/Image";
+import Text from "../../elements/Text";
 import Input from "../../elements/Input";
-import test from "../../image/testlogo.jpeg";
+import test from "../../image/chatRoom/voteDalk.svg";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 
 const Vote = ({ topic, setModalState }) => {
   const dispatch = useDispatch();
   const user = useSelector((props) => props.user.user);
-  const [point, setPoint] = React.useState(0);
+  const [point, setPoint] = React.useState("");
+  const [state, setState] = React.useState(false);
   const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
 
   const vote = () => {
@@ -27,43 +28,76 @@ const Vote = ({ topic, setModalState }) => {
     setModalState(false);
   };
 
+  useEffect(() => {
+    if (point === "") {
+      setState(false);
+      return;
+    }
+    setState(true);
+  }, [point]);
+
   return (
     <>
       {roomInfo && (
-        <FlexGrid is_column center padding="20px">
-          <Image src={test} width="100px" heigh="100px" />
-          <FlexGrid center textAlign="center">
-            {topic ? roomInfo.topicA : roomInfo.topicB}
-            <br />을 선택했어요!
+        <FlexGrid
+          is_column
+          center
+          padding="24px"
+          size="subtitle1"
+          lineHeight="20px"
+          weight="medium"
+          width="300px"
+        >
+          <img alt="voteDalk" src={test} style={{ marginTop: "20px" }} />
+          <FlexGrid center is_column>
+            <Text color="orange">
+              {topic ? roomInfo.topicA : roomInfo.topicB}
+            </Text>
+            <Text>선택했어요!</Text>
           </FlexGrid>
-          <FlexGrid center is_column gap="0">
-            <FlexGrid>보유 알포인트</FlexGrid>
-            {user && <FlexGrid>{user.point.toLocaleString()}</FlexGrid>}
+
+          <FlexGrid between margin="40px 0 25px 0">
+            <Text>보유 알포인트</Text>
+            {user && <Text>{user.point.toLocaleString()} RP</Text>}
           </FlexGrid>
-          <FlexGrid center is_column gap="0">
-            <FlexGrid>알포인트 걸기</FlexGrid>
-            <FlexGrid>
+
+          <FlexGrid is_column gap="8px" marginBottom="36px">
+            <Text> 몇 알포인트를 사용할까요?</Text>
+
+            <FlexGrid center padding="5px 8px" backgroundColor="#F5F5F5">
               <Input
                 fontSize="16px"
                 width="100%"
-                onChange={(e) => setPoint(parseInt(e.target.value))}
+                onChange={(e) => setPoint(e.target.value)}
                 type="number"
+                padding="0"
+                border="none"
+                backgroundColor="#F5F5F5"
+                placeholder="포인트를 입력해주세요"
               />
+              <Text>RP</Text>
             </FlexGrid>
           </FlexGrid>
         </FlexGrid>
       )}
-      <Button onClick={vote}>배팅</Button>
+      <Button state={state} onClick={vote} disabled={!state ? true : false}>
+        알포인트 사용
+      </Button>
     </>
   );
 };
 
 const Button = styled.button`
   width: 100%;
-  padding: 10px;
+  height: 50px;
   border-radius: 0 0 15px 15px;
-  background-color: gray;
+  background-color: ${(props) =>
+    props.state ? props.theme.color.orange : "#CBCBCB"};
   border: none;
+
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  color: white;
 `;
 
 export default Vote;

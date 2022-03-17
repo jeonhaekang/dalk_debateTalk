@@ -40,4 +40,9 @@ input[type=radio]{
   vertical-align: -1px;
 }
 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 `;
