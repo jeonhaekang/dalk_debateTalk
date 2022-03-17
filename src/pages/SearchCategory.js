@@ -68,7 +68,7 @@ function SearchCategory(props) {
           <Grid margin="20px 0px" justifyContent="center">
             <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
               {searchDebateList.SearchPostList.map((d, idx) => {
-                return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
+                return <PostListCard {...d} key={idx} />
               })}
             </InfinityScroll>
             <Top>

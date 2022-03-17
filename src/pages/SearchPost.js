@@ -30,7 +30,7 @@ function SearchPost(props) {
                 <SearchResult> "{keyword}" 검색 결과</SearchResult>
                 <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
                     {searchDebateList.SearchPostList.map((d, idx) => {
-                        return <PostListCard {...d} key={idx} debateList={searchDebateList.SearchPostList} />
+                        return <PostListCard {...d} key={idx} />
                     })
                     }
                 </InfinityScroll>

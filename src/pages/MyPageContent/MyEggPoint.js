@@ -4,6 +4,7 @@ import apis from "../../shared/apis";
 
 import styled from "styled-components";
 import Grid from "../../elements/Grid";
+import GoldenEgg from "../../image/goldenegg.png"
 
 import Header from "../../shared/Header";
 import FlexGrid from "../../elements/FlexGrid";
@@ -30,10 +31,15 @@ const MyEggPoint = () => {
 
 
     return (
-        <>
-            <Header />
-            <CurrentEggPoint>현재 알포인트는 <br />
-                총 <span className="Mypoint">{user?.point}</span> RP 입니다</CurrentEggPoint>
+        <Grid height="100vh" overflow="scroll">
+            <Header page="알포인트 내역" />
+            <CurrentEggPoint>
+                <EggImg src={GoldenEgg} />
+                <div>
+                    현재 나의 알포인트는 <br />
+                    총 <span className="Mypoint">{user?.point.toLocaleString('ko-KR')}</span> RP 입니다
+                </div>
+            </CurrentEggPoint>
 
             <Wrap>
                 <ColumnList>
@@ -43,9 +49,7 @@ const MyEggPoint = () => {
                     {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
                             <PointCreatedAt>
-                                {p.createdAt.split("-")[0] + "년 "
-                                    + p.createdAt.split("-")[1] + "월 "
-                                    + p.createdAt.split("-")[2] + "일"}
+                                {p.createdAt.split(" ")[0]}
                             </PointCreatedAt>
                         </CheckEggpoint>
                     })
@@ -76,43 +80,50 @@ const MyEggPoint = () => {
                     }
                 </ColumnList>
             </Wrap>
-        </>
+        </Grid>
     )
 };
 
+const CurrentEggPoint = styled.div`
+text-align: center;
+font-size: 24px;
+padding: 50px;
+border-bottom: 16px solid #f1f1f1;
+.Mypoint{
+    color: #E9C718;
+}
+`
+const EggImg = styled.img`
+width: 150px;
+height: auto;
+`
 const Wrap = styled.div`
     display: flex;
     justify-content: center;
     text-align: center;
-    gap: 20px;
-    padding-right: 10px;
-`
-const CurrentEggPoint = styled.div`
-    text-align: center;
-    font-size: 24px;
-    padding: 70px;
-    .Mypoint{
-        color: #E9C718;
-    }
+    padding: 10px 0px 0px 0px;
 `
 const ColumnList = styled.div`
     display: flex;
     flex-direction: column;
 `
 const UserEggpoint = styled.div`
-    margin-bottom: 5px;
+    border-bottom: 2px solid ${(props) => props.theme.color.orange};
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    width: 140px;
 `
 const CheckEggpoint = styled.div`
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 `
 const PointCreatedAt = styled.div`
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSizes.body2};
 `
 const PointLog = styled.div`
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSizes.body2};
 `
 const PointPlusMinus = styled.div`
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSizes.body2};
 `
 
 export default MyEggPoint;

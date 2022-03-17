@@ -63,7 +63,7 @@ const Detail = (props) => {
       <DetailHeader page="토론 결과방" boardId={boardId} debate={debate}/>
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DetailCreatedAt>
-          {debate.createdAt.split(" ")[0]}
+          {debate.createdAt?.split(" ")[0]}
         </DetailCreatedAt>
         <DebateWrap>
           {(winnerRate !== loserRate) ?

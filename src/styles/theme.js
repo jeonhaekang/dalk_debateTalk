@@ -9,6 +9,7 @@ const fontSizes = {
 
 const fontWeight = {
   black: 900,
+  bold: 700,
   semiBold: 600,
   medium: 500,
   regular: 400,

@@ -36,7 +36,8 @@ const ShopGachaAnnounce = (props) => {
 const Wrap = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding: 30px 20px;
+  padding: 20px 20px 30px 20px;
+  border-bottom: 16px solid #F1F1F1;
 `;
 
 const Content = styled.div`
@@ -50,14 +51,16 @@ const Content = styled.div`
 const ContentImage = styled.div`
   width: 90px;
   height: 90px;
-  background-color: #cfcfcf;
+  background: #FAEDE1;
+  border-radius: 75px;
   border: none;
-  border-radius: 100%;
   cursor: pointer;
 `;
 
 const ContentTitle = styled.div`
   padding-top: 10px;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   color: #686868;
 `;
 

@@ -95,7 +95,6 @@ const PostList = (props) => {
                   <PostListCard
                     {...d}
                     key={idx}
-                    debateList={debateList.postList}
                   />
                 );
               })}
