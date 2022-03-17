@@ -112,7 +112,6 @@ const OneComment = (props) => {
             }}
           >
             <UserName>{props.userInfo.nickname}</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
 
@@ -131,14 +130,17 @@ const OneComment = (props) => {
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Number
-              className="warning-count"
-              onClick={handleClickWarning}
-              style={{ cursor: "pointer" }}
-            >
-              {props.warnUserList.includes(user?.userId) ? null : "신고"}
-            </Number>
+          <div style={{ display: "flex",  alignItems: "center"}}>
+            <CreatedAt>2022-03-01</CreatedAt>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Number
+                className="warning-count"
+                onClick={handleClickWarning}
+                style={{ cursor: "pointer", marginLeft: "10px"}}
+              >
+                {props.warnUserList.includes(user?.userId) ? null : "신고"}
+              </Number>
+            </div>
           </div>
 
           {user?.username === props.userInfo.username ? (

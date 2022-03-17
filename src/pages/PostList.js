@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
 import InfinityScroll from "../shared/InfinityScroll";
@@ -11,7 +11,6 @@ import ContentContainer from "../elements/Container";
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import Button from "../elements/Button";
 import Footer from "../shared/Footer";
 
 const PostList = (props) => {
@@ -68,11 +67,11 @@ const PostList = (props) => {
       <ContentContainer Xfooter ref={boxref}>
         <Header page="토론 결과방" />
 
-        <Grid margin="30px">
+        <Grid>
           <Container>
             <InputContainer className="searchbox">
               <Input
-                placeholder="토론 결과를 검색해보세요"
+                placeholder="검색어를 입력해주세요"
                 value={keyword}
                 onChange={handleKeyword}
                 onKeyDown={onKeyDown}
@@ -113,6 +112,7 @@ const PostList = (props) => {
 const Container = styled.div`
   position: relative;
   width: 100%;
+  background-color: black;
 `;
 const InputContainer = styled.div`
   position: relative;
@@ -123,7 +123,7 @@ const InputContainer = styled.div`
 const Input = styled.input`
   width: 100%;
   height: 44px;
-  background-color: #e5e5e5;
+  background-color: #fff;
   font-weight: 500;
   font-size: 14px;
   border: none;
@@ -146,7 +146,7 @@ const TopBtn = styled.button`
   border-radius: 100%;
   width: 50px;
   height: 50px;
-  transform: translate(320px, 0px);
+  transform: translate(360px, 0px);
   cursor: pointer;
 `;
 export default PostList;

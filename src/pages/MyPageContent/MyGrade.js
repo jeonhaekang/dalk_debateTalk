@@ -26,6 +26,7 @@ const MyGrade = () => {
     return (
         <>
             <Header page="등급표" />
+            <QuestionRP>내 알포인트 등급은?</QuestionRP>
             <MyGradeInfo>
                 <MyGradeImage src={userRank.img}></MyGradeImage>
                 <IsMyGrade>
@@ -40,19 +41,19 @@ const MyGrade = () => {
 
                 <GradeLevel backgroundColor="#F9CD9A">
                     <p>브론즈</p>
-                    <p>~1,000 Exp</p>
+                    <p>~ 1,000 Exp</p>
                 </GradeLevel>
                 <GradeLevel backgroundColor="rgba(249, 205, 154, 0.5)">
                     <div>실버</div>
-                    <div>~2,000 Exp</div>
+                    <div>~ 2,000 Exp</div>
                 </GradeLevel>
                 <GradeLevel backgroundColor="rgba(249, 205, 154, 0.4)">
                     <div>골드</div>
-                    <div>~3,000 Exp</div>
+                    <div>~ 3,000 Exp</div>
                 </GradeLevel>
                 <GradeLevel backgroundColor="rgba(249, 205, 154, 0.3)">
                     <div>플래티넘</div>
-                    <div>~4,000 Exp</div>
+                    <div>~ 4,000 Exp</div>
                 </GradeLevel>
                 <GradeLevel backgroundColor="rgba(249, 205, 154, 0.2)">
                     <div>다이아</div>
@@ -66,14 +67,18 @@ const MyGrade = () => {
         </>
     )
 };
-
+const QuestionRP = styled.div`
+    padding: 10px 24px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+    font-size: ${(props) => props.theme.fontSizes.headline2};
+`
 const MyGradeInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 40px;
+    padding: 60px 40px 40px 40px;
 `
 const MyGradeImage = styled.img`
     width: 184px;

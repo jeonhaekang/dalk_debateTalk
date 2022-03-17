@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import star from "../../image/star.png"
 import user from "../../redux/modules/user";
 import { pull } from "lodash";
+import Grid from "../../elements/Grid";
 
 const UserRanking = () => {
     const user = useSelector(state => state.user.user);
@@ -26,8 +27,8 @@ const UserRanking = () => {
     const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
 
     return (
-        <>
-            <Header height="100vh" overflow="scroll" page="랭킹" />
+        <Grid height="100vh" overflow="scroll" >
+            <Header page="랭킹" />
             <TopThree>
                 <Second>
                     <FadeIn>
@@ -81,7 +82,7 @@ const UserRanking = () => {
             </Me>
 
 
-        </>
+        </Grid>
     )
 };
 const TopThree = styled.div`
@@ -189,8 +190,11 @@ const RankingUserInfo = styled.div`
     margin-right: 30px;
 `
 const Me = styled.div`
-    position: sticky;
+    position: fixed;
+    bottom: 0;
     padding: 5px 20px;
+    width: 100%;
+    max-width: 420px;
     background-color: #F0F0F0;
 `
 const LevelImg = styled.img`

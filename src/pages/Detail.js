@@ -60,7 +60,7 @@ const Detail = (props) => {
 
   return (
     <>
-      <DetailHeader page="토론 결과방" boardId={boardId} debate={debate}/>
+      <DetailHeader page="완료된 토론" boardId={boardId} debate={debate}/>
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DetailCreatedAt>
           {debate.createdAt?.split(" ")[0]}
@@ -219,12 +219,13 @@ const Versus = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #C4C4C4;
+  color: ${(props) => props.theme.color.orange};
   width: 55px;
   height: 55px;
   border: none;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: ${(props) => props.theme.fontSizes.headline2};
+  font-weight: ${(props) => props.theme.fontWeight.black};
 `
 const DebateWinnerBox = styled.div`
   display: flex;
