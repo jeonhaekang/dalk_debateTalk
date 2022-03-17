@@ -90,12 +90,7 @@ const PostList = (props) => {
               paging={{ next: debateList.has_next }}
             >
               {debateList.postList.map((d, idx) => {
-                return (
-                  <PostListCard
-                    {...d}
-                    key={idx}
-                  />
-                );
+                return <PostListCard {...d} key={idx} />;
               })}
             </InfinityScroll>
             <Top>
@@ -137,11 +132,11 @@ const Top = styled.div`
    max-width: 375px;
    height; 124px;
    z-Index: 2;
-`
+`;
 const TopBtn = styled.button`
   position: absolute;
   top: 0;
-  background-color: #F6D629;
+  background-color: #f6d629;
   border: none;
   border-radius: 100%;
   width: 50px;

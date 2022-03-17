@@ -92,7 +92,8 @@ const Report = styled.div`
 
 const Alert = styled.div`
   align-self: center;
-  background-color: #9dcce0;
+  background-color: ${(props) => props.theme.color.orange};
+  color: white;
 
   display: flex;
   justify-content: center;
@@ -119,8 +120,12 @@ const ChatBox = styled.div`
 
   .message {
     padding: 10px;
-    border-radius: 10px;
-    background-color: ${(props) => (props.user ? "#E0E0E0" : "#EAEAEA")};
+    border: ${(props) => (props.user ? "none" : "1px solid #D2D2D2")};
+    border-radius: ${(props) =>
+      props.user ? "10px 0 10px 10px" : "0 10px 10px 10px"};
+
+    background-color: ${(props) => (props.user ? "#FAEDE1" : "white")};
+
     ${(props) => props.bigFont && "font-size:26px;"}
     word-break: break-all;
     // 영문 한글 상관없이 전부 줄바꿈

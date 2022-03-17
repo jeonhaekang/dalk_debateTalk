@@ -11,6 +11,7 @@ import { loginCheck } from "../../modules/loginCheck";
 
 const MoreCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
+  console.log("render");
 
   return (
     <CardBox

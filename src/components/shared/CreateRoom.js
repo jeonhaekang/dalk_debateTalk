@@ -76,6 +76,7 @@ const CreateRoom = (props) => {
         flexDirection="column"
         gap="30px"
         marginBottom="50px"
+        width="300px"
       >
         <Grid>사진을 첨부해주세요</Grid>
         <Upload />

@@ -3,103 +3,183 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Center from "../../elements/Center";
 import FlexGrid from "../../elements/FlexGrid";
-import Grid from "../../elements/Grid";
+import Text from "../../elements/Text";
 import CountDownTimer from "./CountDownTimer";
 import Modal from "../shared/Modal";
 import Vote from "./Vote";
 import GaugeTimer from "./GaugeTimer";
-import UserList from "./UserList";
+import openIcon from "../../image/chatRoom/expand_more_black_24dp.svg";
+import { useDispatch } from "react-redux";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const ChatHeader = (props) => {
+  const dispatch = useDispatch();
   const [state, setState] = React.useState(false);
   const [modalState, setModalState] = React.useState(false);
-  const [userModal, setUserModal] = React.useState(false);
   const [data, setData] = React.useState();
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
   const { roomId, topicA, topicB } = roomInfo;
 
   const vote = (topic) => {
+    if (roomInfo.userVote) {
+      dispatch(alertAction.open({ message: "이미 투표에 참가하셨습니다." }));
+      return;
+    }
     setData({ topic: topic });
     setModalState(true);
   };
+  console.log(roomInfo);
 
   return (
     <div>
       {roomInfo && (
         <>
           <GaugeTimer {...roomInfo} page="chatRoom" />
+          <FlexGrid height="60px" padding="16px">
+            <Center>
+              <CountDownTimer {...roomInfo} />
+            </Center>
+
+            <FlexGrid justifyContent="flex-end">
+              <Open state={state} onClick={() => setState(!state)}>
+                <img alt="open" src={openIcon} />
+              </Open>
+            </FlexGrid>
+          </FlexGrid>
+
           <InfoWrap state={state}>
-            {!state ? (
-              <FlexGrid>
-                <DefaultTopic>{topicA}</DefaultTopic>
-                <Center>VS</Center>
-                <DefaultTopic>{topicB}</DefaultTopic>
-              </FlexGrid>
-            ) : (
-              <FlexGrid is_column center>
-                <CountDownTimer {...roomInfo} />
-                <FlexGrid>
-                  <Topic onClick={() => vote(true)}>{topicA}</Topic>
-                  <Center>VS</Center>
-                  <Topic onClick={() => vote(false)}>{topicB}</Topic>
-                </FlexGrid>
-              </FlexGrid>
-            )}
+            <DefaultTopic
+              onClick={() => vote(true)}
+              state={state}
+              userVote={roomInfo.userVote?.userPick === true}
+            >
+              {topicA}
+              {state && roomInfo.userVote?.userPick === true && (
+                <Text
+                  position="absolute"
+                  top="110px"
+                  fontSize="12px"
+                  color="white"
+                  lineHeight="20px"
+                >
+                  {roomInfo.userVote.userPoint}RP
+                </Text>
+              )}
 
-            <Grid position="absolute" right="5px" bottom="5px">
-              <button onClick={() => setUserModal(true)}>참여인원</button>
-
-              <button onClick={() => setState(!state)}>
-                {state ? "닫기" : "열기"}
-              </button>
-            </Grid>
+              {state && !roomInfo.userVote && (
+                <Text
+                  position="absolute"
+                  top="110px"
+                  fontSize="12px"
+                  color="#C0C0C0"
+                  lineHeight="20px"
+                >
+                  선택하기
+                </Text>
+              )}
+            </DefaultTopic>
+            <Text size="headline2" weight="black" color="orange">
+              VS
+            </Text>
+            <DefaultTopic
+              onClick={() => vote(false)}
+              state={state}
+              userVote={roomInfo.userVote?.userPick === false}
+            >
+              {topicB}
+              {state && roomInfo.userVote?.userPick === false && (
+                <Text
+                  position="absolute"
+                  top="110px"
+                  fontSize="12px"
+                  color="white"
+                  lineHeight="20px"
+                >
+                  {roomInfo.userVote.userPoint}RP
+                </Text>
+              )}
+              {state && !roomInfo.userVote && (
+                <Text
+                  position="absolute"
+                  top="110px"
+                  fontSize="12px"
+                  color="#C0C0C0"
+                  lineHeight="20px"
+                >
+                  선택하기
+                </Text>
+              )}
+            </DefaultTopic>
           </InfoWrap>
         </>
       )}
       <Modal modalState={modalState} setModalState={setModalState}>
         <Vote {...data} setModalState={setModalState} />
       </Modal>
-      <Modal modalState={userModal} setModalState={setUserModal}>
-        <UserList roomId={roomId} />
-      </Modal>
     </div>
   );
 };
 
-const InfoWrap = styled.div`
-  background-color: #eee;
-  height: ${(props) => (props.state ? 200 : 66)}px;
-  transition: 0.3s;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: ${(props) => (props.state ? "flex-start" : "center")};
-  align-items: center;
-
-  position: relative;
-  padding: 0 16px;
+const Open = styled.div`
+  transform: ${(props) => props.state && "rotate(180deg)"};
+  transition: 0.2s;
 `;
+
 const DefaultTopic = styled.div`
+  position: relative;
   width: 100%;
+  height: 100%;
+  line-height: 28px;
 
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
-`;
 
-const Topic = styled(DefaultTopic)`
-  background-color: #e0e0e0;
-  border-radius: 15px;
-  height: 120px;
-  width: 100%;
-  word-break: break-all;
-  padding: 5px;
+  font-size: ${(props) => props.theme.fontSizes.headline2};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  transition: 0.3s;
+  //color: ${(props) => (props.state ? "orange" : "orange")};
+  color: ${(props) =>
+    props.state
+      ? props.userVote
+        ? "white"
+        : props.theme.color.black
+      : props.userVote
+      ? props.theme.color.orange
+      : props.theme.color.black};
+
+  background-color: ${(props) =>
+    props.state && props.userVote ? props.theme.color.orange : "#FAFAFA"};
+
+  box-shadow: ${(props) => props.state && "0px 2px 6px rgba(0, 0, 0, 0.15)"};
+`;
+
+const InfoWrap = styled.div`
+  background-color: #eee;
+  height: ${(props) => (props.state ? 200 : 80)}px;
+  transition: 0.2s;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+
+  background: #fefefe;
+
+  padding: 16px 28px 24px 28px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
 `;
 
 export default ChatHeader;

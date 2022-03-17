@@ -107,6 +107,12 @@ const apis = {
   //채팅방 참가 인원 목록
   roomUsers: (roomId) => instance.get("/rooms/users/" + roomId),
 
+  //카테고리 베스트
+  categoryBest: (category) => instance.get("/api/category/best/" + category),
+
+  //토론방 신고
+  reportRoom: (roomId) => instance.get("/warnings/rooms/" + roomId),
+
   // ---------댓글 코멘트 관련------------
   // 댓글 조회
   getComment: (boardId) => instance.get(`/api/comments/${boardId}`),

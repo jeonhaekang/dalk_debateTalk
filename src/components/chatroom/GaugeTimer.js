@@ -13,7 +13,7 @@ const GaugeTimer = (props) => {
 
   // 긴방인지 짧은방인지 판단 후 종료시간에 더함
   //if (props.time) end.setMinutes(end.getMinutes() + 20);
-  if (props.time) end.setSeconds(end.getSeconds() + 30);
+  if (props.time) end.setSeconds(end.getSeconds() + 70);
   else end.setHours(end.getHours() + 1);
 
   // 종료 시간에서 현재 시간을 빼서 남은 시간 구함
@@ -37,12 +37,16 @@ const GaugeTimer = (props) => {
   });
 
   // 게이지 퍼센트
-  const per = (restTime / (props.time ? 30 : 3600)) * 100;
+  let per = (restTime / (props.time ? 70 : 3600)) * 100;
+  if (restTime < 60) {
+    per = (restTime / 60) * 100;
+  }
+
   //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
 
   return (
     <GaugeOuter {...props} style={{ ...props }}>
-      <GaugeInner {...props} width={per} />
+      <GaugeInner {...props} width={per} color={restTime < 60 && true} />
     </GaugeOuter>
   );
 };
@@ -52,7 +56,7 @@ const GaugeOuter = styled.div`
     props.page === "main" ? "position:absolute; left:0; bottom:0;" : ""}
   height: 4px;
   width: 100%;
-  background-color: #f2f1f1;
+  background-color: #c4c4c4;
 
   overflow: hidden;
 `;
@@ -63,8 +67,10 @@ const GaugeInner = styled.div.attrs((props) => ({
   },
 }))`
   height: 100%;
-  background-color: ${(props) => props.theme.color.orange};
+
   transition: 0.3s;
+  background-color: ${(props) =>
+    props.color ? "#FF5454" : props.theme.color.orange};
 `;
 
 export default GaugeTimer;

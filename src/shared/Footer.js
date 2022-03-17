@@ -55,7 +55,6 @@ const Footer = () => {
           <Text>마이페이지</Text>
         </Icon>
 
-        {/* <Icon onClick={() => setCreateModalState(true)}> */}
         <Icon onClick={() => loginAction(() => setCreateModalState(true))}>
           <svg width="46" height="46" viewBox="0 0 46 46">
             <circle cx="23" cy="23" r="23" fill="#F19121" />

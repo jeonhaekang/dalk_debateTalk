@@ -9,7 +9,6 @@ import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
 
 const PostListCard = (props) => {
-  console.log(props);
   const userRank = rank[discriminant(props.userInfo.ex)];
   const boardId = props.boardId;
   const createdAt = props.createdAt.split(" ")[0];

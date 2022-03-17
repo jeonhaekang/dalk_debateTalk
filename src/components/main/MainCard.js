@@ -11,7 +11,7 @@ import { loginCheck } from "../../modules/loginCheck";
 
 const MainCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
-
+  
   return (
     <CardBox
       is_column

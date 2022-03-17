@@ -18,6 +18,14 @@ const Modal = (props) => {
     }
   };
 
+  const close = () => {
+    setAniState(true);
+    setTimeout(() => {
+      setAniState(false);
+      setModalState(false);
+    }, 200);
+  };
+
   // click이벤트 연결
   React.useEffect(() => {
     window.addEventListener("click", handleClickOutSide);
@@ -41,10 +49,26 @@ const Modal = (props) => {
   }
   return (
     <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
-      <CreateContents aniState={aniState}>{children}</CreateContents>
+      <CreateContents aniState={aniState}>
+        <CloseBtn onClick={close}>
+          <svg width="34" height="34" viewBox="0 0 34 34">
+            <path
+              d="M26.9168 9.08087L24.9193 7.08337L17.0002 15.0025L9.081 7.08337L7.0835 9.08087L15.0027 17L7.0835 24.9192L9.081 26.9167L17.0002 18.9975L24.9193 26.9167L26.9168 24.9192L18.9977 17L26.9168 9.08087Z"
+              fill="#333333"
+            />
+          </svg>
+        </CloseBtn>
+        {children}
+      </CreateContents>
     </ModalLayout>
   );
 };
+const CloseBtn = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 999;
+`;
 
 const fadeIn = keyframes`
   from {
@@ -71,42 +95,68 @@ const ModalLayout = styled.div`
   top: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(238, 238, 238, 0.8);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
   z-index: 998;
+
+  overflow: hidden;
 `;
 
 const slideIn = keyframes`
   from {
-    transform: translateX(-100%);
+    transform: translateY(100%);
   }
   to {
-    transform: translateX(0%);
+    transform: translateY(0%);
   }
 `;
 
 const slideOut = keyframes`
   from {
-      transform: translate(0%);
+      transform: translateY(0%);
   }
   to {
-      transform: translateX(-100%);
+      transform: translateY(100%);
   }
 `;
 
 const HambergerContents = styled.div`
   position: absolute;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+
   left: 0;
-  top: 0;
-  background-color: white;
+  bottom: 0;
+  background-color: #f1f1f1;
+  border-radius: 15px 15px 0 0;
   animation: ${(props) => (props.aniState ? slideOut : slideIn)} 0.4s;
+
+  & div {
+    width: 100%;
+    height: 82px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: ${(props) => props.theme.fontSizes.headline2};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.15);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 16px;
 `;
 
 const CreateContents = styled.div`
   position: absolute;
-  width: 80%;
+  max-width: 80%;
 
   left: 50%;
   top: 50%;
