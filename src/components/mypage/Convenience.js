@@ -9,7 +9,7 @@ const Convenience = () => {
 
     return (
         <>
-            <Title>토론 속 편의기능</Title>
+            <Title>토론정보</Title>
             <Wrap>
                 <ContentTop onClick={() => { history.push('/ranking') }}>
                     <div>유저랭킹</div>
@@ -37,15 +37,13 @@ const Convenience = () => {
 
 const Title = styled.div`
     padding: 24px 16px;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: ${(props) => props.theme.fontSizes.gnb};
+    font-weight: ${(props) => props.theme.fontWeight.bold};
 `
-
 const Wrap = styled.div`
     display: flex;
     flex-direction: column;
 `
-
 const ContentTop = styled.div`
     font-size: 20px;
     color: #686868;
@@ -56,7 +54,6 @@ const ContentTop = styled.div`
     border-bottom: 1px solid #C4C4C4;
     cursor: pointer;
 `
-
 const Content = styled.div`
   font-size: 20px;
   color: #686868;

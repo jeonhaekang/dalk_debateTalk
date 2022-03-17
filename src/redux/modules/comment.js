@@ -113,7 +113,7 @@ const delCommentDB = (commentId) => {
 
 const pushAgreeDB = (commentId, index) => {
   return function (dispatch, getState, { history }) {
-    const userId = getState().user.user.id;
+    const userId = getState().user.user.userId;
 
     apis
       .agreeComment(commentId)
@@ -130,7 +130,7 @@ const pushAgreeDB = (commentId, index) => {
 
 const pushDisAgreeDB = (commentId, index) => {
   return function (dispatch, getState, { history }) {
-    const userId = getState().user.user.id;
+    const userId = getState().user.user.userId;
 
     apis
       .disagreeComment(commentId)

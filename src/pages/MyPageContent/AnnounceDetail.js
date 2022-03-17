@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { actionCreators as noticeActions } from '../../redux/modules/notice';
 import apis from '../../shared/apis';
+import Header from '../../shared/Header';
 
 function AnnounceDetail(props) {
     const noticeId = props.match.params.noticeId;
@@ -27,11 +29,28 @@ function AnnounceDetail(props) {
 
     return (
         <>
-            <div>{detailNotice.title}</div>
-            <div>{createdAt}</div>
-            <div>{detailNotice.content}</div>
+            <Header page="공지사항"/>
+            <Wrap>
+                <Title>{detailNotice.title}</Title>
+                <CreatedAt>{createdAt}</CreatedAt>
+            </Wrap>
+            <Content>{detailNotice.content}</Content>
         </>
     )
 }
+const Wrap = styled.div`
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+`
+const Title = styled.div`
+    font-weight: bold;
+    font-size: 20px;
+`
+const CreatedAt = styled.div`
+    font-size: 12px;
+`
+const Content = styled.pre`
+    padding: 15px;
+`
 
 export default AnnounceDetail

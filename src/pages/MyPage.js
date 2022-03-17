@@ -9,7 +9,7 @@ const MyPage = (props) => {
   return (
     <>
       <Grid height="100vh" overflow="scroll">
-        <Header />
+        <Header page="마이 페이지" />
         <UserInfo />
         <ShopGachaAnnounce />
         <Convenience />

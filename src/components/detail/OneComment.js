@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
 
 import star from "../../image/star.png";
@@ -21,6 +22,7 @@ const OneComment = (props) => {
     (state) => state.comment.commentList[index].disagreeUserList
   );
   const dispatch = useDispatch();
+  console.log(agreeList, disagreeList)
 
   //찬성, 반대 기능을 위해
   const token = document.cookie;
@@ -29,7 +31,9 @@ const OneComment = (props) => {
   const handleClickAgree = () => {
     console.log("찬성클릭");
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.push("/login");
     }
     dispatch(commentActions.pushAgreeDB(commentId, index));
@@ -37,7 +41,9 @@ const OneComment = (props) => {
 
   const handleClickDisagree = () => {
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.push("/login");
     }
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
@@ -50,7 +56,9 @@ const OneComment = (props) => {
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
-      alert("로그인을 해주세요!");
+      dispatch(alertAction.open({
+        message: "로그인을 해주세요!"
+      }))
       history.replace("/login");
     }
     if (isWarn === false) {
@@ -60,16 +68,24 @@ const OneComment = (props) => {
           if (window.confirm("정말 신고하시겠어요?")) {
             console.log("댓글 신고하기 성공", res);
             setIsWarn(true);
-            alert("신고처리가 완료되었습니다");
+            dispatch(alertAction.open({
+              message: "신고처리가 완료되었습니다"
+            }))
           } else {
             return;
           }
         })
         .catch((err) => {
-          console.log("댓글 신고하기 에러", err);
+          console.log("이미 신고한 유저입니다", err);
+          dispatch(alertAction.open({
+            message: "이미 신고를 하셨습니다"
+          }))
+          return;
         });
     } else {
-      alert("이미 신고를 하셨습니다");
+      dispatch(alertAction.open({
+        message: "이미 신고를 하셨습니다"
+      }))
       return;
     }
   };
@@ -96,33 +112,35 @@ const OneComment = (props) => {
             }}
           >
             <UserName>{props.userInfo.nickname}</UserName>
-            <CreatedAt>2022-03-01</CreatedAt>
           </div>
         </FlexAlign>
+
         <AgreeBtn>
-          {/* <Number className="agree-count" onClick={handleClickAgree}>{(agreeAction === false) ? "찬성" : "찬성취소"} {agreeCnt}</Number> */}
           <Number className="agree-count" onClick={handleClickAgree}>
-            {agreeList.includes(user?.id) ? "찬성취소" : "찬성"}{" "}
+            {agreeList.includes(user?.userId) ? "찬성취소" : "찬성"}{" "}
             {agreeList.length}
           </Number>
-          {/* <Number className="disagree-count" onClick={handleClickDisagree}>{(disagreeAction === false) ? "반대" : "반대취소"} {disagreeCnt}</Number> */}
           <Number className="disagree-count" onClick={handleClickDisagree}>
-            {disagreeList.includes(user?.id) ? "반대취소" : "반대"}{" "}
+            {disagreeList.includes(user?.userId) ? "반대취소" : "반대"}{" "}
             {disagreeList.length}
           </Number>
         </AgreeBtn>
       </Wrap>
+
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Number
-              className="warning-count"
-              onClick={handleClickWarning}
-              style={{ cursor: "pointer" }}
-            >
-              {props.warnUserList.includes(user?.id) ? null : "신고"}
-            </Number>
+          <div style={{ display: "flex",  alignItems: "center"}}>
+            <CreatedAt>2022-03-01</CreatedAt>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Number
+                className="warning-count"
+                onClick={handleClickWarning}
+                style={{ cursor: "pointer", marginLeft: "10px"}}
+              >
+                {props.warnUserList.includes(user?.userId) ? null : "신고"}
+              </Number>
+            </div>
           </div>
 
           {user?.username === props.userInfo.username ? (
@@ -183,12 +201,6 @@ const Number = styled.p`
   font-weight: 300;
   margin: 0px 10px 0px 0px;
 `;
-const NumberDisabled = styled.p`
-  font-size: 12px;
-  font-weight: 300;
-  margin: 0px 10px 0px 0px;
-`;
-
 const AgreeBtn = styled.div`
   display: flex;
   justify-content: flex-end;

@@ -19,14 +19,14 @@ const Announcement = () => {
 
     return (
         <>
-            <Header />
+            <Header page="공지사항" />
             {noticeList.map((el, idx) => {
-                return <ContentTop key={idx}>
-                    <AnnouncementContent>
+                return <ContentTop key={idx} onClick={() => handleDetail(el.noticeId)}>
+                    <AnnouncementContent >
                         <div style={{ fontSize: "14px" }}>{el.title}</div>
-                        <div style={{ fontSize: "12px" }}>{el.createdAt}</div>
+                        <div style={{ fontSize: "12px" }}>{el.createdAt.split("T")[0]}</div>
                     </AnnouncementContent>
-                    <Inner onClick={() => handleDetail(el.noticeId)}> > </Inner>
+                    <Inner> > </Inner>
                 </ContentTop>
             })
             }
@@ -42,6 +42,7 @@ const ContentTop = styled.div`
     padding: 18px 20px;
     border-top: 1px solid #C4C4C4;
     border-bottom: 1px solid #C4C4C4;
+    cursor: pointer;
 `
 const AnnouncementContent = styled.div`
     display: flex;

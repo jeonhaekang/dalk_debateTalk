@@ -83,6 +83,7 @@ padding: 8px;
 margin-right: 5px;
 border: none;
 border-radius: 10px;
+cursor: pointer;
 `
 
 export default PostListCategory;

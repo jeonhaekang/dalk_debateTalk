@@ -50,6 +50,7 @@ const OutBtn = styled.button`
     border: none;
     border-radius: 10px;
     background-color: #def;
+    cursor: pointer;
 `
 
 export default UserOut

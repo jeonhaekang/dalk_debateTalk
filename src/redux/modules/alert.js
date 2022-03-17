@@ -14,8 +14,8 @@ const initialState = {
   type: "alert",
   openState: false,
   message: "",
-  action: () => {},
-  history: () => {},
+  action: () => { },
+  history: () => { },
 };
 
 //Reducer
