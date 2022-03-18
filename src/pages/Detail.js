@@ -3,18 +3,18 @@ import styled from "styled-components";
 import Grid from "../elements/Grid";
 import CommentList from "../components/detail/CommentList";
 import { history } from "../redux/configStore";
-import FlexGrid from "../elements/FlexGrid"
+import FlexGrid from "../elements/FlexGrid";
 
-import detailLogo from "../image/detailElement/detaillogo.svg"
-import detailLogoFill from "../image/detailElement/detaillogofill.svg"
-import egg from "../image/detailElement/egg.svg"
-import person from "../image/detailElement/person.svg"
-import thumbUp from "../image/detailElement/thumb_up_black.svg"
-import trendingUp from "../image/detailElement/trending_up.svg"
-import eggFill from "../image/detailElement/egg_fill.svg"
-import personFill from "../image/detailElement/person_fill.svg"
-import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg"
-import trendingUpFill from "../image/detailElement/trending_up_fill.svg"
+import detailLogo from "../image/detailElement/detaillogo.svg";
+import detailLogoFill from "../image/detailElement/detaillogofill.svg";
+import egg from "../image/detailElement/egg.svg";
+import person from "../image/detailElement/person.svg";
+import thumbUp from "../image/detailElement/thumb_up_black.svg";
+import trendingUp from "../image/detailElement/trending_up.svg";
+import eggFill from "../image/detailElement/egg_fill.svg";
+import personFill from "../image/detailElement/person_fill.svg";
+import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
+import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
 
 import apis from "../shared/apis";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,13 +31,14 @@ const Detail = (props) => {
   //유저, 토큰 정보
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.user.user);
 
   // 결과창 리스트에 있는 boardId 값
   const boardId = props.match.params.boardId;
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
+  console.log(debate);
 
   // 상세 게시글의 Data 받아오기
   const getOneDebateDB = async () => {
@@ -59,13 +60,21 @@ const Detail = (props) => {
   }, []);
 
   //승률 구하기
-  const winnerRate =
-    Math.round((Number(debate.winnerResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
-      + Number(debate.loserResponse?.cnt))) * 100);
+  const winnerRate = Math.round(
+    (Number(debate.winnerResponse?.cnt) /
+      (Number(debate.winnerResponse?.cnt) +
+        Number(debate.loserResponse?.cnt))) *
+      100
+  );
 
-  const loserRate =
-    Math.round((Number(debate.loserResponse?.cnt) / (Number(debate.winnerResponse?.cnt)
-      + Number(debate.loserResponse?.cnt))) * 100);
+  const loserRate = Math.round(
+    (Number(debate.loserResponse?.cnt) /
+      (Number(debate.winnerResponse?.cnt) +
+        Number(debate.loserResponse?.cnt))) *
+      100
+  );
+
+  console.log(winnerRate, loserRate);
 
   //신고 기능
   const [isWarn, setIsWarn] = useState(false);
@@ -74,9 +83,11 @@ const Detail = (props) => {
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
-      dispatch(alertAction.open({
-        message: "로그인이 필요한 서비스입니다"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "로그인이 필요한 서비스입니다",
+        })
+      );
       history.replace("/login");
     }
     if (isWarn === false) {
@@ -86,9 +97,10 @@ const Detail = (props) => {
           if (window.confirm("정말 신고하시겠어요?")) {
             console.log("상세페이지 신고 성공", res);
             setIsWarn(true);
-            dispatch(alertAction.open({
-              message: "신고처리가 완료되었습니다",
-            })
+            dispatch(
+              alertAction.open({
+                message: "신고처리가 완료되었습니다",
+              })
             );
           } else {
             return;
@@ -96,15 +108,19 @@ const Detail = (props) => {
         })
         .catch((err) => {
           console.log("이미 신고한 유저입니다", err);
-          dispatch(alertAction.open({
-            message: "이미 신고를 하셨습니다"
-          }))
+          dispatch(
+            alertAction.open({
+              message: "이미 신고를 하셨습니다",
+            })
+          );
           return;
         });
     } else {
-      dispatch(alertAction.open({
-        message: "이미 신고를 하셨습니다"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "이미 신고를 하셨습니다",
+        })
+      );
       return;
     }
   };
@@ -113,7 +129,7 @@ const Detail = (props) => {
   const [createModalState, setCreateModalState] = useState(false);
   const shareModal = () => {
     setCreateModalState(true);
-  }
+  };
 
   return (
     <>
@@ -144,7 +160,7 @@ const Detail = (props) => {
       {/* 무승부일때, 승부가 났을 때 두가지 케이스 */}
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DebateWrap>
-          {(winnerRate !== loserRate) ?
+          {winnerRate !== loserRate ? (
             <>
               <DebateWinnerBox>
                 <DetailLogo>
@@ -158,24 +174,33 @@ const Detail = (props) => {
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
-                    <div style={{ color: "#F19121" }}>총 {debate.winnerResponse?.totalPoint} RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      총 {debate.winnerResponse?.totalPoint} RP
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={thumbUpFill} />
-                    <div style={{ color: "#F19121" }}>최고 {debate.winnerResponse?.topPoint} RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      최고 {debate.winnerResponse?.topPoint} RP
+                    </div>
                   </Box>
                 </DetailBox1>
                 <DetailBox2>
                   <Box>
                     <DetailImg src={personFill} />
-                    <div style={{ color: "#F19121" }}>{debate.winnerResponse?.cnt}명 선택</div>
+                    <div style={{ color: "#F19121" }}>
+                      {debate.winnerResponse?.cnt}명 선택
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={trendingUpFill} />
-                    <div style={{ color: "#F19121" }}>배당 : {debate.winnerResponse?.rate}</div>
+                    <div style={{ color: "#F19121" }}>
+                      배당 : {debate.winnerResponse?.rate}
+                    </div>
                   </Box>
                 </DetailBox2>
-                <WinnerGraph />
+
+                <GrapGauge which={true} rate={winnerRate} />
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateLoserBox>
@@ -207,10 +232,11 @@ const Detail = (props) => {
                     <div>배당 : {debate.loserResponse?.rate}</div>
                   </Box>
                 </LoserDetailBox2>
-                <LoserGraph />
+
+                <GrapGauge which={false} rate={loserRate} />
               </DebateLoserBox>
             </>
-            :
+          ) : (
             <>
               <DebateWinnerBox>
                 <DetailLogo>
@@ -224,21 +250,29 @@ const Detail = (props) => {
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
-                    <div style={{ color: "#F19121" }}>총 {debate.winnerResponse?.totalPoint} RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      총 {debate.winnerResponse?.totalPoint} RP
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={thumbUpFill} />
-                    <div style={{ color: "#F19121" }}>최고 {debate.winnerResponse?.topPoint} RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      최고 {debate.winnerResponse?.topPoint} RP
+                    </div>
                   </Box>
                 </DetailBox1>
                 <DetailBox2>
                   <Box>
                     <DetailImg src={personFill} />
-                    <div style={{ color: "#F19121" }}>{debate.winnerResponse?.cnt}명 선택</div>
+                    <div style={{ color: "#F19121" }}>
+                      {debate.winnerResponse?.cnt}명 선택
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={thumbUpFill} />
-                    <div style={{ color: "#F19121" }}>배당 : {debate.winnerResponse?.rate}</div>
+                    <div style={{ color: "#F19121" }}>
+                      배당 : {debate.winnerResponse?.rate}
+                    </div>
                   </Box>
                 </DetailBox2>
               </DebateWinnerBox>
@@ -255,26 +289,34 @@ const Detail = (props) => {
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
-                    <div style={{ color: "#F19121" }}>총 {debate.loserResponse?.totalPoint}RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      총 {debate.loserResponse?.totalPoint}RP
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={thumbUpFill} />
-                    <div style={{ color: "#F19121" }}>최고 {debate.loserResponse?.topPoint}RP</div>
+                    <div style={{ color: "#F19121" }}>
+                      최고 {debate.loserResponse?.topPoint}RP
+                    </div>
                   </Box>
                 </DetailBox1>
                 <DetailBox2>
                   <Box>
                     <DetailImg src={personFill} />
-                    <div style={{ color: "#F19121" }}>{debate.loserResponse?.cnt}명 선택</div>
+                    <div style={{ color: "#F19121" }}>
+                      {debate.loserResponse?.cnt}명 선택
+                    </div>
                   </Box>
                   <Box>
                     <DetailImg src={trendingUpFill} />
-                    <div style={{ color: "#F19121" }}>배당 : {debate.loserResponse?.rate}</div>
+                    <div style={{ color: "#F19121" }}>
+                      배당 : {debate.loserResponse?.rate}
+                    </div>
                   </Box>
                 </DetailBox2>
               </DebateWinnerBox>
             </>
-          }
+          )}
         </DebateWrap>
 
         {/* 댓글 전체 */}
@@ -283,7 +325,10 @@ const Detail = (props) => {
 
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
         {/* 공유하기 기능 */}
-        <ShareLink createModalState={createModalState} setCreateModalState={setCreateModalState} />
+        <ShareLink
+          createModalState={createModalState}
+          setCreateModalState={setCreateModalState}
+        />
       </Modal>
     </>
   );
@@ -292,18 +337,20 @@ const DebateWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-`
+`;
 const DebateLoserBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(196,196,196,0.1);
+  background-color: rgba(196, 196, 196, 0.1);
   font-size: 20px;
   border: none;
   width: 50%;
   height: 232px;
-`
+
+  position: relative;
+`;
 const Versus = styled.div`
   position: absolute;
   transform: translate(0px, 88px);
@@ -317,18 +364,20 @@ const Versus = styled.div`
   border-radius: 10px;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
-`
+`;
 const DebateWinnerBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #FEFEFE;
+  background-color: #fefefe;
   font-weight: bold;
   border: none;
   width: 50%;
   height: 232px;
-`
+
+  position: relative;
+`;
 const DetailLogo = styled.div`
   display: flex;
   justify-content: center;
@@ -336,69 +385,61 @@ const DetailLogo = styled.div`
   position: absolute;
   transform: translate(0px, -76px);
   gap: 4px;
-
-`
+`;
 const WinnerTitleBox = styled.div`
   font-size: 28px;
   padding-bottom: 20px;
   text-align: center;
   color: ${(props) => props.theme.color.orange};
-`
+`;
 const LoserTitleBox = styled.div`
   font-size: 24px;
   padding-bottom: 20px;
   text-align: center;
-`
+`;
 const DetailBox1 = styled.div`
   position: absolute;
   transform: translate(-10px, 66px);
   font-size: 12px;
-`
+`;
 const DetailBox2 = styled.div`
   position: absolute;
   transform: translate(84px, 66px);
   font-size: 12px;
-`
+`;
 const LoserDetailBox1 = styled.div`
   position: absolute;
   transform: translate(0px, 66px);
   font-size: 12px;
-`
+`;
 const LoserDetailBox2 = styled.div`
   position: absolute;
   transform: translate(90px, 66px);
   font-size: 12px;
-`
+`;
 const Box = styled.div`
   width: 150px;
   display: flex;
   align-items: center;
-`
-const DetailImg = styled.img`  
+`;
+const DetailImg = styled.img`
   width: 12px;
   height: 12px;
   margin-right: 4px;
-`
-const WinnerGraph = styled.div`
-  background-color: ${(props) => props.theme.color.orange};
-  width : 100px;
-  height: 6px;
-  position: absolute;
-  bottom: 0;
-  transform: translate(55.5px, 0px);
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-`
+`;
 
-const LoserGraph = styled.div`
-  background-color: #c4c4c4;
-  width : 100px;
+const GrapGauge = styled.div`
+  width: ${(props) => props.rate}%;
   height: 6px;
+
+  background-color: ${(props) =>
+    props.which ? props.theme.color.orange : "#c4c4c4"};
+  display: flex;
+
   position: absolute;
   bottom: 0;
-  transform: translate(-55px, 0px);
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-`
+
+  ${(props) => (props.which ? "right:0" : "left:0")}
+`;
 
 export default Detail;
