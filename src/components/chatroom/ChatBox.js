@@ -96,9 +96,9 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   React.useEffect(() => {
     if (scrollState) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      // scrollRef.current.scrollIntoView({ behavior: "smooth" });
       // scrollRef의 element위치로 스크롤 이동 behavior는 전환 에니메이션의 정의
-      // boxRef.current.scrollTop = boxRef.current.scrollHeight;
+      boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
   }, [messageLog]);
 

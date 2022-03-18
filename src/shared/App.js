@@ -36,6 +36,7 @@ import SearchPost from "../pages/SearchPost";
 
 function App() {
   const is_loaded = useSelector((state) => state.chat.is_loaded);
+  console.log(process.env.REACT_APP_SERVERIP);
 
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
   const handleResize = () => {
