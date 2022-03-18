@@ -44,6 +44,7 @@ function UserOut(props) {
 }
 const OutMessage = styled.div`
     padding: 30px;
+    width: 300px;
 `
 const OutBtn = styled.button`
     padding: 10px;
