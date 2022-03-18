@@ -12,6 +12,9 @@ const SearchRoom = ({ state, setState }) => {
 
   React.useEffect(() => {
     localStorage.setItem("searchHistory", JSON.stringify(keywords));
+    if (keyword !== "") {
+      history.push("/search/" + keyword);
+    }
   }, [keywords]);
 
   const searchEnter = (e) => {
@@ -27,8 +30,6 @@ const SearchRoom = ({ state, setState }) => {
     };
 
     setKeywords([data, ...keywords]);
-    setKeyword("");
-    history.push("/search/" + keyword);
   };
 
   const removeHistory = (key) => {
@@ -37,11 +38,11 @@ const SearchRoom = ({ state, setState }) => {
   };
 
   const close = () => {
-    setAniState(true);
+    // setAniState(true);
 
-    setTimeout(() => {
-      setState(false);
-    }, 200);
+    // setTimeout(() => {
+    setState(false);
+    // }, 200);
   };
   return (
     <Container aniState={aniState}>
@@ -71,7 +72,11 @@ const SearchRoom = ({ state, setState }) => {
         {keywords.map((el) => {
           return (
             <HistoryBox key={el.id}>
-              <Text size="subtitle1" weight="medium">
+              <Text
+                size="subtitle1"
+                weight="medium"
+                onClick={() => history.push("/search/" + el.keyword)}
+              >
                 {el.keyword}
               </Text>
               <svg width="20" height="20" onClick={() => removeHistory(el.id)}>
@@ -162,7 +167,7 @@ const Container = styled.div`
   background-color: white;
   z-index: 999;
 
-  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.3s;
+  /* animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.3s; */
 `;
 
 export default SearchRoom;
