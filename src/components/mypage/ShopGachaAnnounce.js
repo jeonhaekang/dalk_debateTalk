@@ -61,7 +61,7 @@ const ContentTitle = styled.div`
   padding-top: 10px;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: #686868;
+  color: #333333;
 `;
 
 export default ShopGachaAnnounce;
