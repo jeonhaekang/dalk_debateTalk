@@ -11,6 +11,8 @@ import { history } from '../redux/configStore';
 import { actionCreators as searchActions } from '../redux/modules/search';
 import InfinityScroll from '../shared/InfinityScroll';
 import Footer from '../shared/Footer';
+import SearchBlack from "../image/post/search_black.png"
+import Arrow from "../image/post/arrow_upward_black.png"
 
 function SearchCategory(props) {
   const CategoryPage = props.match.params.category;
@@ -56,23 +58,34 @@ function SearchCategory(props) {
     <>
       <ContentContainer Xfooter ref={boxref}>
         <Header page="토론 결과방" />
-        <Grid margin="30px">
+
+        <Grid>
           <Container>
-            <InputContainer id="SearchBar">
-              <Input placeholder="토론 결과를 검색해보세요" value={keyword} onChange={handleKeyword} onKeyDown={onKeyDown} />
+            <InputContainer className="searchbox">
+            <Input
+                placeholder="검색어를 입력해주세요"
+                value={keyword}
+                onChange={handleKeyword}
+                onKeyDown={onKeyDown}
+              />
+              <SearchImg src={SearchBlack} onClick={searchDebate} alt="돋보기" />
             </InputContainer>
           </Container>
-          <Grid padding="20px 20px 20px">
+
+
             <PostListCategory />
-          </Grid>
-          <Grid margin="20px 0px" justifyContent="center">
-            <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
+
+          <Grid justifyContent="center">
+            <InfinityScroll 
+            callNext={getSearchDebateList} 
+            paging={{ next: searchDebateList.has_next }}
+            >
               {searchDebateList.SearchPostList.map((d, idx) => {
                 return <PostListCard {...d} key={idx} />
               })}
             </InfinityScroll>
             <Top>
-              <TopBtn onClick={handleTop}>TOP</TopBtn>
+            <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
             </Top>
           </Grid>
         </Grid>
@@ -85,24 +98,38 @@ function SearchCategory(props) {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: fit-content;
+  background-color: #EFEFEF;
+  height: 60px;
 `
 const InputContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-self: center;
+  padding: 8px 16px;
 `
-
 const Input = styled.input`
   width: 100%;
   height: 44px;
-  background-color: #e5e5e5;
+  background-color: #fff;
   font-weight: 500;
   font-size: 14px;
-  border: none;
+  border: 1px solid #D2D2D2;
   border-radius: 8px;
-  padding: 13px 16px;
+  padding: 12px 13px;
+  ::placeholder{
+    color: #D9D9D9;
+    font-size: ${(props) => props.theme.fontWeight.regular}
+    font-weight: ${(props) => props.theme.fontWeight.light}
+  }
+`;
+const SearchImg = styled.img`
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
 `
 const Top = styled.div`
    position: fixed;
@@ -112,15 +139,15 @@ const Top = styled.div`
    height; 124px;
    z-Index: 2;
 `
-const TopBtn = styled.button`
+const TopBtn = styled.img`
   position: absolute;
   top: 0;
-  background-color: #F6D629;
+  background-color: rgba(222, 222, 222, 0.8);
   border: none;
   border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  transform: translate(320px, 0px);
+  width: 60px;
+  height: 60px;
+  transform: translate(350px, -10px);
   cursor: pointer;
 `;
 

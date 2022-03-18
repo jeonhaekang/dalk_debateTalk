@@ -7,6 +7,8 @@ import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import ContentContainer from "../elements/Container";
+import SearchBlack from "../image/post/search_black.png"
+import Arrow from "../image/post/arrow_upward_black.png"
 
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +17,6 @@ import Footer from "../shared/Footer";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-
   // 전체 목록 조회
   const debateList = useSelector((state) => state.post);
 
@@ -76,25 +77,26 @@ const PostList = (props) => {
                 onChange={handleKeyword}
                 onKeyDown={onKeyDown}
               />
+            <SearchImg src={SearchBlack} onClick={searchDebate} alt="돋보기" />
             </InputContainer>
           </Container>
 
-          <Grid padding="20px 20px 20px">
-            <PostListCategory debateList={debateList} />
-          </Grid>
+          <PostListCategory debateList={debateList} />
 
-          <Grid margin="20px 0px" justifyContent="center">
+          <Grid justifyContent="center">
             {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
             <InfinityScroll
               callNext={getDebateList}
               paging={{ next: debateList.has_next }}
             >
               {debateList.postList.map((d, idx) => {
-                return <PostListCard {...d} key={idx} />;
+                return (
+                  <PostListCard {...d} key={idx} />
+                );
               })}
             </InfinityScroll>
             <Top>
-              <TopBtn onClick={handleTop}>TOP</TopBtn>
+              <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
             </Top>
           </Grid>
         </Grid>
@@ -107,13 +109,15 @@ const PostList = (props) => {
 const Container = styled.div`
   position: relative;
   width: 100%;
-  background-color: black;
+  background-color: #EFEFEF;
+  height: 60px;
 `;
 const InputContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-self: center;
+  padding: 8px 16px;
 `;
 const Input = styled.input`
   width: 100%;
@@ -121,10 +125,23 @@ const Input = styled.input`
   background-color: #fff;
   font-weight: 500;
   font-size: 14px;
-  border: none;
+  border: 1px solid #D2D2D2;
   border-radius: 8px;
-  padding: 13px 16px;
+  padding: 12px 13px;
+  ::placeholder{
+    color: #D9D9D9;
+    font-size: ${(props) => props.theme.fontWeight.regular}
+    font-weight: ${(props) => props.theme.fontWeight.light}
+  }
 `;
+const SearchImg = styled.img`
+  position: absolute;
+  right: 20px;
+  top: 14px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+`
 const Top = styled.div`
    position: fixed;
    bottom: 135px;
@@ -132,16 +149,16 @@ const Top = styled.div`
    max-width: 375px;
    height; 124px;
    z-Index: 2;
-`;
-const TopBtn = styled.button`
+`
+const TopBtn = styled.img`
   position: absolute;
   top: 0;
-  background-color: #f6d629;
+  background-color: rgba(222, 222, 222, 0.8);
   border: none;
   border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  transform: translate(360px, 0px);
+  width: 60px;
+  height: 60px;
+  transform: translate(350px, -10px);
   cursor: pointer;
 `;
 export default PostList;

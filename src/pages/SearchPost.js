@@ -26,8 +26,8 @@ function SearchPost(props) {
     return (
         <>
             <Header page="검색 결과" />
-            <Grid margin="30px">
-                <SearchResult> "{keyword}" 검색 결과</SearchResult>
+            <Grid>
+                <SearchResult> <span className='Mykeyword'>"{keyword}"</span> 검색 결과</SearchResult>
                 <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>
                     {searchDebateList.SearchPostList.map((d, idx) => {
                         return <PostListCard {...d} key={idx} />
@@ -40,8 +40,12 @@ function SearchPost(props) {
 }
 
 const SearchResult = styled.div`
+    padding: 20px;
     font-size: ${(props) => props.theme.fontSizes.subtitle1};
     font-weight: ${(props) => props.theme.fontWeight.medium};
+    .Mykeyword{
+        color: ${(props) => props.theme.color.orange};
+    }
 `
 
 export default SearchPost

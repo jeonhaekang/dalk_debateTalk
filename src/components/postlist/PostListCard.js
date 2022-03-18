@@ -7,6 +7,9 @@ import Image from "../../elements/Image";
 import styled from 'styled-components'
 import Grid from '../../elements/Grid'
 import { history } from '../../redux/configStore'
+import Person from '../../image/post/person.svg'
+import Textsms from '../../image/post/textsms.svg'
+import Notification from '../../image/post/notification.svg'
 
 const PostListCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
@@ -15,7 +18,7 @@ const PostListCard = (props) => {
 
   return (
     <>
-      <CardBox is_column onClick={() => history.push(`/detail/${boardId}`)}>
+      <CardBox is_column _onClick={() => history.push(`/detail/${boardId}`)}>
         <FlexGrid is_flex between>
           <FlexGrid is_flex gap="8px">
             {props.category.map((el, i) => {
@@ -34,16 +37,35 @@ const PostListCard = (props) => {
             <Image src={props.filePath} borderRadius="15px" />
           </FlexGrid>
 
-          <FlexGrid is_column justifyContent="space-between" height="100%" gap="10px">
-            <Topic>{props.topicA}</Topic>
-            <VS center>VS</VS>
-            <Topic>{props.topicB}</Topic>
+          <FlexGrid is_column justifyContent="space-between" height="100%" gap="8px">
+            {props.winner?.includes(props.topicA) ?
+              <>
+                <WinnerTopic>{props.topicA}</WinnerTopic>
+                <VS center>VS</VS>
+                <Topic>{props.topicB}</Topic>
+              </>
+              :
+              <>
+                <Topic>{props.topicA}</Topic>
+                <VS center>VS</VS>
+                <WinnerTopic>{props.topicB}</WinnerTopic>
+              </>
+            }
             <DebateInfo>
-              <div>사람 5</div>
+              <Grid display="flex">
+                <img src={Person} style={{ padding:"0px 5px 0px 0px" }}/>
+                <div>5</div>
+              </Grid>
               <div>|</div>
-              <div>댓글 5</div>
+              <Grid display="flex">
+                <img src={Textsms} style={{ padding:"0px 5px 0px 0px" }}/>
+                {props.commentCnt}
+              </Grid>
               <div>|</div>
-              <div>신고 5</div>
+              <Grid display="flex">
+                <img src={Notification} style={{ padding:"0px 5px 0px 0px" }}/>
+                  {props.warnCnt}
+              </Grid>
             </DebateInfo>
           </FlexGrid>
 
@@ -67,6 +89,16 @@ const VS = styled(FlexGrid)`
   color: ${(props) => props.theme.color.orange};
   font-family: "Noto Sans", sans-serif;
 `;
+const WinnerTopic = styled.div`
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  line-height: 20px;
+  color: ${(props) => props.theme.color.orange};
+`;
 
 const Topic = styled.div`
   width: 100%;
@@ -81,10 +113,12 @@ const Topic = styled.div`
 const DebateInfo = styled.div`
   display: flex;
   justify-content: center;
-  gap: 15px;
-  background-color: #F8F8F8;
+  align-items: center;
+  gap: 20px;
+  background-color: #EFEFEF;
   border-radius: 10px;
-  padding: 5px 30px;
+  height: 30px;
+  padding: 0px 30px;
 `
 
 export default React.memo(PostListCard);
