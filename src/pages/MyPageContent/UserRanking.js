@@ -5,7 +5,6 @@ import apis from "../../shared/apis";
 import { useSelector } from "react-redux";
 import star from "../../image/star.png"
 import user from "../../redux/modules/user";
-import { pull } from "lodash";
 import Grid from "../../elements/Grid";
 
 const UserRanking = () => {

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
+import { discriminant, rank } from "../../data/rank";
+import TimeCounting from "time-counting";
+import apis from "../../shared/apis";
 
-import star from "../../image/star.png";
 import Del from "../../image/comment/delete.svg"
 import ThumbsUp from "../../image/comment/thumb_up.svg"
 import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg"
 import ThumbsDown from "../../image/comment/thumb_down.svg"
 import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg"
-import apis from "../../shared/apis";
-import { discriminant, rank } from "../../data/rank";
 
 const OneComment = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
@@ -29,7 +28,6 @@ const OneComment = (props) => {
     (state) => state.comment.commentList[index].disagreeUserList
   );
   const dispatch = useDispatch();
-  console.log(agreeList, disagreeList)
 
   //찬성, 반대 기능을 위해
   const token = document.cookie;
@@ -106,6 +104,15 @@ const OneComment = (props) => {
     }
   };
 
+  //타임 카운팅
+  const option = {
+    lang: "ko",
+    objectTime: new Date(),
+    calculate: {
+      justNow: 60
+    }
+  };
+
   return (
     <Container>
       <Wrap>
@@ -144,7 +151,7 @@ const OneComment = (props) => {
         <Content>{props.comment}</Content>
         <IconBox>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <CreatedAt>2022-03-01</CreatedAt>
+            <CreatedAt>{TimeCounting(props.createdAt, option)}</CreatedAt>
             <div style={{ display: "flex", alignItems: "center", margin: "0px 0px 2px 10px", fontSize: "10px", color: "#8E8E8E" }}>
               |
             </div>
