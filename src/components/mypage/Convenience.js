@@ -24,12 +24,9 @@ const Convenience = () => {
                     <Content onClick={() => { history.push('/ranking') }}>
                         <div>유저랭킹</div>
                     </Content>
-                    <Content onClick={() => setCreateModalState(true)}>
-                        <div>회원탈퇴</div>
+                    <Content onClick={() => { history.push('/mypage/grade') }}>
+                        <div>등급안내</div>
                     </Content>
-                    <Modal modalState={createModalState} setModalState={setCreateModalState}>
-                        <UserOut createModalState={createModalState} setCreateModalState={setCreateModalState} />
-                    </Modal>
                 </FlexGrid>
             </ConvinienceWrap>
 
