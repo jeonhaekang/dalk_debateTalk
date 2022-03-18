@@ -3,8 +3,6 @@ import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
 import { history } from "../../redux/configStore";
 import XScrollDrag from "../shared/XScrollDrag";
-import categoryDate from "../../data/categoryData";
-import { includes } from "lodash";
 
 const PostListCategory = ({ category }) => {
   const CategoryList = [

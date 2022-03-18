@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
-import Image from "../../elements/Image";
 import { actionCreators } from "../../redux/modules/user";
 import NewHeader from "../../shared/NewHeader";
 import itemData from "../../data/itemData";
