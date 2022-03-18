@@ -1,41 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configStore";
-import styled from "styled-components";
 import { discriminant, rank } from "../../data/rank";
+import { actionCreators } from "../../redux/modules/user";
 
 const UserInfo = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const userRank = rank[discriminant(user?.ex)];
 
+  useEffect(() => {
+    dispatch(actionCreators.logincheckDB())
+  }, [])
+
   return (
     <>
       {user && (
         <UserInfoCard>
-          <LevelImg src={userRank.img} />
+          <Radius>
+            <LevelImg src={userRank.img} />
+          </Radius>
           <MypageUser>
-            <MyUserName>{user?.nickname}</MyUserName>
+            <MyUserName>{user?.nickname} <span className="nim">님</span></MyUserName>
             <Grade>
               <MyLevel>{userRank.name}</MyLevel>
-              <GradeInfo
-                onClick={() => {
-                  history.push("/mypage/grade");
-                }}
-              >
-                등급 더보기
-              </GradeInfo>
             </Grade>
           </MypageUser>
         </UserInfoCard>
       )}
-      <MyEggPoint
-        onClick={() => {
+      <MyEggPoint>
+        <div style={{ fontSize: "18px", fontWeight: "500" }}>나의 알포인트 </div>
+        <MyRP>
+          {user?.point.toLocaleString('ko-KR')}
+          <RP>RP</RP>
+        </MyRP>
+        <div onClick={() => {
           history.push("/mypage/eggpoint");
-        }}
-      >
-        <div style={{fontSize:"16px"}}>마이 알포인트 </div>
-        <MyRP>{user?.point.toLocaleString('ko-KR')} RP</MyRP>
+        }} style={{ cursor: "pointer" }}>자세히보기</div>
       </MyEggPoint>
     </>
   );
@@ -46,24 +48,36 @@ const UserInfoCard = styled.div`
   padding-top: 20px;
 `;
 
+const Radius = styled.div`
+  position: relative;
+  width: 130px;
+  height: 130px;
+  background-color: #FAFAFA;
+  border-radius: 100%;
+  margin: 0px 24px 0px 44px;
+  box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.05);
+`
 const LevelImg = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  margin: 0px 16px 0px 34px;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: translate(15px, 15px);
 `;
 
 const MypageUser = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 300px;
+  width: 200px;
 `;
 
 const MyUserName = styled.div`
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: #cfcfcf;
+  color: ${(props) => props.theme.color.black};
+  .nim{
+    font-size: ${(props) => props.theme.fontSizes.body2};
+  }
 `;
 
 const Grade = styled.div`
@@ -71,19 +85,9 @@ const Grade = styled.div`
   justify-content: space-between;
 `;
 
-const GradeInfo = styled.div`
-  font-size: 12px;
-  font-weight: ${(props) => props.theme.fontWeight.light};
-  padding-top: 4px;
-  padding-right: 20px;
-  color: #cfcfcf;
-  cursor: pointer;
-`;
-
 const MyLevel = styled.div`
-  color: #cfcfcf;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  // padding-top: 5px;
+  color: ${(props) => props.theme.color.black};
 `;
 
 const MyEggPoint = styled.div`
@@ -92,18 +96,23 @@ const MyEggPoint = styled.div`
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin: 20px 0px;
-  padding: 18px 20px;
-  border-top: 1px solid #c4c4c4;
-  border-bottom: 1px solid #c4c4c4;
-  cursor: pointer;
-  &:hover {
-    border: 2px solid ${(props) => props.theme.color.orange};
-  }
+  margin: 20px 20px;
+  padding: 20px 10px;
+  background-color: #FAEDE1;
+  border-radius: 15px;
 `;
 const MyRP = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.gnb};
+  display: flex;
+  font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
+  color: ${(props) => props.theme.color.orange};
+  margin: 0px 30px 2px 0px;
+`
+const RP = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.body2};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  color: ${(props) => props.theme.color.black};
+  margin: 10px 0px 0px 5px;
 `
 
 export default UserInfo;

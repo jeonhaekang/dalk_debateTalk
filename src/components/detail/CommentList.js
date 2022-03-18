@@ -47,14 +47,14 @@ const CommentList = ({ debate }) => {
       <CommentWriteContainer>
         <ImgInput>
           <input className='writebox'
-            placeholder="이 토론에 대한 의견을 작성해주세요"
+            placeholder="내 생각을 남겨주세요 :)"
             type="text"
             value={comment}
             onChange={onChangeComment}
             onKeyDown={onKeyDown}
           ></input>
         </ImgInput>
-        <Button onClick={addComment}>아이콘</Button>
+        <SendBtn onClick={addComment}>등록</SendBtn>
       </CommentWriteContainer>
     </>
   )
@@ -74,13 +74,31 @@ const ImgInput = styled.div`
   display: flex;
   align-items: center;
   .writebox {
-    border: none;
+    border: 1px solid #D2D2D2;
+    height: 44px;
+    border-radius: 10px;
     font-size: 16px;
-    padding: 0 20px 0 0;
-    width: calc(100% - 30px);
+    padding: 0px 20px 0px 0px;
+    width: calc(100% - 10px);
     &::placeholder {
-      color: gray
+      color: #D9D9D9;
+      font-size: ${(props) => (props.theme.fontSizes.body2)};
+      padding: 5px;
+    }
+    :focus{
+      padding: 5px;
     }
   }
+`
+const SendBtn = styled.button`
+  background-color: ${(props) => (props.theme.color.orange)};
+  color: white;
+  width: 55px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-size: ${(props) => (props.theme.fontSizes.subtitle1)};
+  font-weight: ${(props) => (props.theme.fontWeight.medium)};
+
 `
 export default CommentList;

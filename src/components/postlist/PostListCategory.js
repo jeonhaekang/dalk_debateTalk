@@ -1,49 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import FlexGrid from "../../elements/FlexGrid";
 import { history } from "../../redux/configStore";
+import XScrollDrag from "../shared/XScrollDrag";
+import categoryDate from "../../data/categoryData";
+import { includes } from "lodash";
 
-const PostListCategory = (props) => {
-  //ref로 스크롤 querySelector함
-  const scrollRef = React.useRef(null);
-
-  //드래그 상태값
-  const [isDrag, setIsDrag] = useState(false);
-  //x축 이동 상태값
-  const [startX, setStartX] = useState();
-
-  const onDragStart = (e) => {
-    e.preventDefault();
-    setIsDrag(true);
-    setStartX(e.pageX + scrollRef.current.scrollLeft);
-  };
-
-  const onDragEnd = () => {
-    setIsDrag(false);
-  };
-
-  const onDragMove = (e) => {
-    if (isDrag) {
-      scrollRef.current.scrollLeft = startX - e.pageX;
-    }
-  };
-
-  //마우스 무브가 너무 많은 이벤트를 발생시켜 delay 시키는 쓰로틀 사용
-  const throttle = (func, ms) => {
-    let throttled = false;
-    return (...args) => {
-      if (!throttled) {
-        throttled = true;
-        setTimeout(() => {
-          func(...args);
-          throttled = false;
-        }, ms);
-      }
-    };
-  };
-
-  const delay = 30;
-  const onThrottleDragMove = throttle(onDragMove, delay);
-
+const PostListCategory = () => {
   const CategoryList = [
     "연애",
     "정치",
@@ -55,35 +18,53 @@ const PostListCategory = (props) => {
     "운동",
     "기타",
   ];
+  // console.log(window.location.href)
 
   return (
-    <CategoryScroll
-      onMouseDown={onDragStart}
-      onMouseMove={isDrag ? onThrottleDragMove : null}
-      onMouseUp={onDragEnd}
-      onMouseLeave={onDragEnd}
-      ref={scrollRef}>
-      <CategoryBtn onClick={() => history.replace('/postlist')}>전체보기</CategoryBtn>
-      {CategoryList.map((c, idx) => {
-        return <CategoryBtn key={idx} onClick={() => history.replace("/postlist/" + c)}>
-          #{c}
-        </CategoryBtn>
-      })}
-    </CategoryScroll>
+    <>
+      <CategoryScroll is_column>
+        <XScrollDrag>
+          <CategoryBtn center _onClick={() => history.replace('/postlist')}>전체</CategoryBtn>
+          {/* <CategoryBtn center category={window.location.href.indexOf("연애") ? "연애" : null} _onClick={() => history.replace('/postlist/' + "연애")}>연애</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"정치"} _onClick={() => history.replace('/postlist/' + "정치")}>정치</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"게임"} _onClick={() => history.replace('/postlist/' + "게임")}>게임</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"음식"} _onClick={() => history.replace('/postlist/' + "음식")}>음식</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"유머"} _onClick={() => history.replace('/postlist/' + "유머")}>유머</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"헬프"} _onClick={() => history.replace('/postlist/' + "헬프")}>헬프</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"망상"} _onClick={() => history.replace('/postlist/' + "망상")}>망상</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"운동"} _onClick={() => history.replace('/postlist/' + "운동")}>운동</CategoryBtn>
+          <CategoryBtn center category={window.location.href.indexOf("연애") ? null :"기타"} _onClick={() => history.replace('/postlist/' + "기타")}>기타</CategoryBtn> */}
+          {CategoryList.map((c, idx) => {
+            return <CategoryBtn center key={idx} _onClick={() => history.replace("/postlist/" + c)}>
+              {c}
+            </CategoryBtn>
+          })}
+        </XScrollDrag>
+      </CategoryScroll>
+    </>
   )
 };
 
 const CategoryScroll = styled.div`
-display:flex;
-white-space: nowrap;
-overflow-x: scroll;
+gap: 0;
+border-bottom: 2px solid #e5e5e5;
+
+background-color: white;
+z-index: 100;
 `
-const CategoryBtn = styled.button`
-padding: 8px;
-margin-right: 5px;
-border: none;
-border-radius: 10px;
-cursor: pointer;
+const CategoryBtn = styled(FlexGrid)`
+width: calc(100% / 6);
+height: 46px;
+flex: 0 0 auto;
+
+font-size: ${(props) => props.theme.fontSizes.subtitle1};
+font-weight: ${(props) => props.theme.fontWeight.medium};
+color: ${(props) => (props.category ? props.theme.color.orange : "#ABABAB")};
+${(props) =>
+    props.category &&
+    `color: ${props.theme.color.orange}; border-bottom: 2px solid orange;`}
+
+transition: 0.05s;
 `
 
 export default PostListCategory;

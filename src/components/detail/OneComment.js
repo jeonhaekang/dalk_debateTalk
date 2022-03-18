@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
-
-import star from "../../image/star.png";
+import { discriminant, rank } from "../../data/rank";
+import TimeCounting from "time-counting";
 import apis from "../../shared/apis";
 
+import Del from "../../image/comment/delete.svg"
+import ThumbsUp from "../../image/comment/thumb_up.svg"
+import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg"
+import ThumbsDown from "../../image/comment/thumb_down.svg"
+import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg"
+
 const OneComment = (props) => {
+  const userRank = rank[discriminant(props.userInfo.ex)];
   //삭제 기능을 위해
   const boardId = props.boardId;
   const index = props.index;
@@ -22,7 +28,6 @@ const OneComment = (props) => {
     (state) => state.comment.commentList[index].disagreeUserList
   );
   const dispatch = useDispatch();
-  console.log(agreeList, disagreeList)
 
   //찬성, 반대 기능을 위해
   const token = document.cookie;
@@ -99,11 +104,20 @@ const OneComment = (props) => {
     }
   };
 
+  //타임 카운팅
+  const option = {
+    lang: "ko",
+    objectTime: new Date(),
+    calculate: {
+      justNow: 60
+    }
+  };
+
   return (
-    <>
+    <Container>
       <Wrap>
         <FlexAlign>
-          <LevelImg src={star} />
+          <LevelImg src={userRank.img} />
           <div
             style={{
               display: "flex",
@@ -117,12 +131,18 @@ const OneComment = (props) => {
 
         <AgreeBtn>
           <Number className="agree-count" onClick={handleClickAgree}>
-            {agreeList.includes(user?.userId) ? "찬성취소" : "찬성"}{" "}
-            {agreeList.length}
+            {agreeList.includes(user?.userId) ? 
+            <img src={ThumbsUpFill} /> : <img src={ThumbsUp} />}{" "}
+            <div style={{ marginLeft: "4px", fontWeight:"400", color:"#8E8E8E" }}>
+              {agreeList.length}
+            </div>
           </Number>
           <Number className="disagree-count" onClick={handleClickDisagree}>
-            {disagreeList.includes(user?.userId) ? "반대취소" : "반대"}{" "}
-            {disagreeList.length}
+            {disagreeList.includes(user?.userId) ? 
+           <img src={ThumbsDownFill} style={{backgroudColor:"#F19121"}}/> : <img src={ThumbsDown} />}{" "}
+            <div style={{ marginLeft: "4px", fontWeight:"400", color:"#8E8E8E"}}>
+              {disagreeList.length}
+            </div>
           </Number>
         </AgreeBtn>
       </Wrap>
@@ -130,13 +150,16 @@ const OneComment = (props) => {
       <ContentWrap>
         <Content>{props.comment}</Content>
         <IconBox>
-          <div style={{ display: "flex",  alignItems: "center"}}>
-            <CreatedAt>2022-03-01</CreatedAt>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <CreatedAt>{TimeCounting(props.createdAt, option)}</CreatedAt>
+            <div style={{ display: "flex", alignItems: "center", margin: "0px 0px 2px 10px", fontSize: "10px", color: "#8E8E8E" }}>
+              |
+            </div>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Number
                 className="warning-count"
                 onClick={handleClickWarning}
-                style={{ cursor: "pointer", marginLeft: "10px"}}
+                style={{ cursor: "pointer", marginLeft: "10px", color: "#8E8E8E" }}
               >
                 {props.warnUserList.includes(user?.userId) ? null : "신고"}
               </Number>
@@ -144,18 +167,20 @@ const OneComment = (props) => {
           </div>
 
           {user?.username === props.userInfo.username ? (
-            <button onClick={deleteComment}>삭제</button>
+            <img onClick={deleteComment} src={Del} style={{ cursor: "pointer" }}></img>
           ) : null}
         </IconBox>
       </ContentWrap>
-    </>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  background-color: #fff;
+  border-top: 4px solid #F0F0F0;
+`
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px solid #e5e5e5;
   border-top: 3px solid #fff;
   padding: 10px 0px;
 `;
@@ -164,10 +189,10 @@ const FlexAlign = styled.div`
   align-items: center;
 `;
 const LevelImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   object-fit: cover;
-  margin: 0 12px 0 20px;
+  margin: 0px 4px 0px 16px;
 `;
 const UserName = styled.div`
   font-weight: 500;
@@ -179,17 +204,19 @@ const UserName = styled.div`
 const CreatedAt = styled.div`
   font-size: 8px;
   font-weight: 300;
+  color: #8E8E8E;
 `;
 const ContentWrap = styled.div`
   border-bottom: 3px solid #fff;
-  padding: 16px 20px;
+  padding: 4px 18px;
 `;
 const Content = styled.div`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSizes.body1}
+  font-weight: ${(props) => props.theme.fontWeight.regular}
   line-height: 16px;
   display: flex;
   align-items: center;
-  padding: 0 0 20px;
+  padding: 0 0 16px;
 `;
 const IconBox = styled.div`
   display: flex;
@@ -197,6 +224,7 @@ const IconBox = styled.div`
   justify-content: space-between;
 `;
 const Number = styled.p`
+  display: flex;
   font-size: 12px;
   font-weight: 300;
   margin: 0px 10px 0px 0px;

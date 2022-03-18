@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import FlexGrid from "../../elements/FlexGrid";
 import { history } from '../../redux/configStore'
 import Modal from "../shared/Modal";
 import UserOut from "./UserOut";
@@ -10,58 +11,66 @@ const Convenience = () => {
     return (
         <>
             <Title>토론정보</Title>
-            <Wrap>
-                <ContentTop onClick={() => { history.push('/ranking') }}>
-                    <div>유저랭킹</div>
-                    <div> > </div>
-                </ContentTop>
-                <Content onClick={() => { history.push('/more') }}>
-                    <div>토론리스트</div>
-                    <div> > </div>
-                </Content>
-                <Content>
-                    <div>토론 즐기는 방법</div>
-                    <div> > </div>
-                </Content>
-                <Content onClick={() => setCreateModalState(true)}>
-                    <div>회원탈퇴</div>
-                    <div> > </div>
-                </Content>
-                <Modal modalState={createModalState} setModalState={setCreateModalState}>
-                    <UserOut createModalState={createModalState} setCreateModalState={setCreateModalState}/>
-                </Modal>
-            </Wrap>
+            <ConvinienceWrap>
+                <FlexGrid is_column margin="0px 24px 0px 0px">
+                    <Content onClick={() => { history.push('/more') }}>
+                        <div style={{ marginLeft: "15px" }}>토론리스트</div>
+                    </Content>
+                    <Content>
+                        <div>토론 안내</div>
+                    </Content>
+                </FlexGrid>
+                <FlexGrid is_column margin="0px 10px 0px 0px">
+                    <Content onClick={() => { history.push('/ranking') }}>
+                        <div>유저랭킹</div>
+                    </Content>
+                    <Content onClick={() => setCreateModalState(true)}>
+                        <div>회원탈퇴</div>
+                    </Content>
+                    <Modal modalState={createModalState} setModalState={setCreateModalState}>
+                        <UserOut createModalState={createModalState} setCreateModalState={setCreateModalState} />
+                    </Modal>
+                </FlexGrid>
+            </ConvinienceWrap>
+
+            <Title>고객센터</Title>
+            <UserOutTitle onClick={() => setCreateModalState(true)}>
+                <div>회원탈퇴</div>
+            </UserOutTitle>
+            <Modal modalState={createModalState} setModalState={setCreateModalState}>
+                <UserOut createModalState={createModalState} setCreateModalState={setCreateModalState} />
+            </Modal>
         </>
     )
 }
 
+const ConvinienceWrap = styled(FlexGrid)`
+    padding-bottom : 24px;
+    border-bottom: 16px solid #F1F1F1;
+`
 const Title = styled.div`
-    padding: 24px 16px;
+    padding: 24px 55px;
     font-size: ${(props) => props.theme.fontSizes.gnb};
     font-weight: ${(props) => props.theme.fontWeight.bold};
-`
-const Wrap = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-const ContentTop = styled.div`
-    font-size: 20px;
-    color: #686868;
-    display: flex;
-    justify-content: space-between;
-    padding: 18px 20px;
-    border-top: 1px solid #C4C4C4;
-    border-bottom: 1px solid #C4C4C4;
-    cursor: pointer;
+    color: #CDCDCD;
 `
 const Content = styled.div`
-  font-size: 20px;
-  color: #686868;
-  display: flex;
-  justify-content: space-between;
-  padding: 18px 20px;
-  border-bottom: 1px solid #C4C4C4;
-  cursor: pointer;
+    font-size: ${(props) => props.theme.fontSizes.gnb};
+    font-weight: ${(props) => props.theme.fontWeight.regular};
+    color: ${(props) => props.theme.color.black};
+    padding: 10px 0px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+const UserOutTitle = styled.div`
+    font-size: ${(props) => props.theme.fontSizes.gnb};
+    font-weight: ${(props) => props.theme.fontWeight.regular};
+    color: ${(props) => props.theme.color.black};
+    padding: 10px 0px;
+    cursor: pointer;
+    margin-left: 55px;
 `
 
 export default Convenience;

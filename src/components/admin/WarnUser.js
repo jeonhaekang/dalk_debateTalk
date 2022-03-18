@@ -17,8 +17,8 @@ function WarnUser() {
             })
     }, [])
 
-    const delWarnUser = (id) => {
-        apis.delWarnUser(id)
+    const delWarnUser = (userId) => {
+        apis.delWarnUser(userId)
             .then((res) => {
                 console.log("불량유저 삭제 성공", res)
             })
@@ -34,7 +34,7 @@ function WarnUser() {
                 return <List key={idx}>
                 <div> 유저 아이디 : {u.username} </div>
                 <div> 신고수 : {u.warnUserCnt} </div>
-                <button onClick={()=>delWarnUser(u.id)}> 삭제 </button>
+                <button onClick={()=>delWarnUser(u.userId)}> 삭제 </button>
             </List>
         })}
         </>
