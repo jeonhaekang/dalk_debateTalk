@@ -17,6 +17,7 @@ import {
   More,
   Category,
   Gacha,
+  SearchRoom,
 } from "../pages/Index";
 import Announcement from "../pages/MyPageContent/Announcement";
 import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
@@ -70,6 +71,7 @@ function App() {
           <Wrap className="wrap">
             <Alert />
             <Route path="/" exact component={Main} />
+            <Route path="/search/:keyword" exact component={SearchRoom} />
             <Route path="/admin" exact component={Admin} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
@@ -79,11 +81,19 @@ function App() {
             <Route path="/mypage/pointshop" exact component={PointShop} />
             <Route path="/mypage/gacha" exact component={Gacha} />
             <Route path="/announcement" exact component={Announcement} />
-            <Route path="/announcement/:noticeId" exact component={AnnounceDetail} />
+            <Route
+              path="/announcement/:noticeId"
+              exact
+              component={AnnounceDetail}
+            />
             <Route path="/ranking" exact component={UserRanking} />
             <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
             <Route path="/postlist" exact component={PostList} />
-            <Route path="/postlist/search/:keyword" exact component={SearchPost} />
+            <Route
+              path="/postlist/search/:keyword"
+              exact
+              component={SearchPost}
+            />
             <Route
               path="/postlist/:category"
               exact

@@ -162,7 +162,11 @@ const DefaultTopic = styled.div`
       : props.theme.color.black};
 
   background-color: ${(props) =>
-    props.state && props.userVote ? props.theme.color.orange : "#FAFAFA"};
+    props.state
+      ? props.userVote
+        ? props.theme.color.orange
+        : "#FAFAFA"
+      : "white"};
 
   box-shadow: ${(props) => props.state && "0px 2px 6px rgba(0, 0, 0, 0.15)"};
 `;

@@ -31,7 +31,7 @@ const More = () => {
 
   return (
     <>
-      <NewHeader page="토론리스트" />
+      <NewHeader page="토론리스트" line/>
       <ContentContainer>
         <FlexGrid padding="16px" height="108px">
           <Text size="headline1" weight="medium" lineHeight="38px">

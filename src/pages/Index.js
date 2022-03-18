@@ -9,6 +9,7 @@ import Signup from "./Signup";
 import More from "./More";
 import Category from "./Category";
 import Gacha from "./Gacha";
+import SearchRoom from "./SearchRoom";
 
 export {
   Admin,
@@ -22,4 +23,5 @@ export {
   More,
   Category,
   Gacha,
+  SearchRoom,
 };

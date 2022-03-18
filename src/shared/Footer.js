@@ -93,7 +93,7 @@ const FixedNav = styled.div`
   height: 76px;
   border-top: 1px solid #c4c4c4;
   background-color: white;
-  z-index: 990;
+  z-index: 900;
 
   display: flex;
   align-items: center;

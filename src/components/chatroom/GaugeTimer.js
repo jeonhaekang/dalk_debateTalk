@@ -46,7 +46,11 @@ const GaugeTimer = (props) => {
 
   return (
     <GaugeOuter {...props} style={{ ...props }}>
-      <GaugeInner {...props} width={per} color={restTime < 60 && true} />
+      <GaugeInner
+        {...props}
+        width={per}
+        restTime={restTime < 60 ? true : false}
+      />
     </GaugeOuter>
   );
 };
@@ -70,7 +74,7 @@ const GaugeInner = styled.div.attrs((props) => ({
 
   transition: 0.3s;
   background-color: ${(props) =>
-    props.color ? "#FF5454" : props.theme.color.orange};
+    props.restTime ? "#FF5454" : props.theme.color.orange};
 `;
 
 export default GaugeTimer;

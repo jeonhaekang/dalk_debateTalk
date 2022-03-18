@@ -18,8 +18,6 @@ const ChatInput = (props) => {
   const itemList = useSelector((state) => state.item.itemList);
   const user = useSelector((state) => state.user.user);
 
-  console.log(user);
-
   const sendMessage = () => {
     if (itemList.onlyMe && itemList.onlyMe !== user.nickname) {
       console.log("나만 말하기 발동!!!");
@@ -95,7 +93,6 @@ const ChatInput = (props) => {
       <ItemWrap state={state}>
         {itemData.map((el) => {
           if (el.itemCode !== "exBuy") {
-            console.log(el);
             return (
               <ItemButton
                 {...el}
@@ -170,6 +167,7 @@ const ItemWrap = styled.div`
   transition: 0.2s;
   padding: 0 15px;
   height: ${(props) => (props.state ? "120px" : "0px")};
+  background-color: #f3f3f3;
 
   display: flex;
   align-items: center;

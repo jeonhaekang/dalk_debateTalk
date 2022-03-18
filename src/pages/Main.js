@@ -31,8 +31,8 @@ const Main = (props) => {
 
   return (
     <>
-      <NewHeader page="메인" />
-      <ContentContainer>
+      <NewHeader page="메인"/>
+      <ContentContainer backgroundColor="#fbfbfb">
         <FlexGrid is_column>
           <MainCarousel />
           <TopRank />

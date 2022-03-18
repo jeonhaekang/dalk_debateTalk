@@ -21,7 +21,6 @@ const Modal = (props) => {
   const close = () => {
     setAniState(true);
     setTimeout(() => {
-      setAniState(false);
       setModalState(false);
     }, 200);
   };
