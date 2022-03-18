@@ -64,6 +64,7 @@ const RankWrap = styled(FlexGrid)`
     color: #ff6d0d;
     white-space: nowrap;
   }
+  overflow: hidden;
 `;
 
 const fadeIn = keyframes`

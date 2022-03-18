@@ -45,7 +45,7 @@ const CountDownTimer = (props) => {
   const seconds = restTime % 60;
 
   return (
-    <Timer color={restTime < 60 && true}>
+    <Timer restTime={restTime < 60 && true}>
       <svg width="24" height="24" viewBox="0 0 24 24">
         <path
           d="M15 1H9V3H15V1Z"

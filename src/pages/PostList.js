@@ -147,7 +147,7 @@ const Top = styled.div`
    bottom: 135px;
    margin: 0 auto;
    max-width: 375px;
-   height; 124px;
+   height: 124px;
    z-Index: 2;
 `
 const TopBtn = styled.img`

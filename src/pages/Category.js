@@ -42,7 +42,7 @@ const Category = (props) => {
 
   return (
     <>
-      <NewHeader page={`#${page}`} color />
+      <NewHeader page={`#${page}`} color line/>
       <ContentContainer>
         <BestBox is_column>
           <Text size="headline1" weight="medium" lineHeight="38px">
