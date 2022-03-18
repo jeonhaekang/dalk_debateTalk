@@ -7,8 +7,8 @@ import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import ContentContainer from "../elements/Container";
-import SearchBlack from "../image/post/search_black.png"
-import Arrow from "../image/post/arrow_upward_black.png"
+import SearchBlack from "../image/post/search_black.png";
+import Arrow from "../image/post/arrow_upward_black.png";
 
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -77,39 +77,53 @@ const PostList = (props) => {
                 onChange={handleKeyword}
                 onKeyDown={onKeyDown}
               />
-            <SearchImg src={SearchBlack} onClick={searchDebate} alt="돋보기" />
+              <SearchImg
+                src={SearchBlack}
+                onClick={searchDebate}
+                alt="돋보기"
+              />
             </InputContainer>
           </Container>
 
           <PostListCategory debateList={debateList} />
 
-          <Grid justifyContent="center">
+          <ContentBox>
             {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
             <InfinityScroll
               callNext={getDebateList}
               paging={{ next: debateList.has_next }}
             >
               {debateList.postList.map((d, idx) => {
-                return (
-                  <PostListCard {...d} key={idx} />
-                );
+                return <PostListCard {...d} key={idx} />;
               })}
             </InfinityScroll>
-            <Top>
-              <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
-            </Top>
-          </Grid>
+          </ContentBox>
         </Grid>
       </ContentContainer>
+
+      <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
+
       <Footer />
     </>
   );
 };
 
+const ContentBox = styled.div`
+  justify-content: center;
+
+  .test {
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  .test:last-child {
+    border: none;
+  }
+`;
+
 const Container = styled.div`
   position: relative;
   width: 100%;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   height: 60px;
 `;
 const InputContainer = styled.div`
@@ -125,13 +139,13 @@ const Input = styled.input`
   background-color: #fff;
   font-weight: 500;
   font-size: 14px;
-  border: 1px solid #D2D2D2;
+  border: 1px solid #d2d2d2;
   border-radius: 8px;
   padding: 12px 13px;
-  ::placeholder{
-    color: #D9D9D9;
-    font-size: ${(props) => props.theme.fontWeight.regular}
-    font-weight: ${(props) => props.theme.fontWeight.light}
+  ::placeholder {
+    color: #d9d9d9;
+    font-size: ${(props) => props.theme.fontWeight.regular};
+    font-weight: ${(props) => props.theme.fontWeight.light};
   }
 `;
 const SearchImg = styled.img`
@@ -141,24 +155,17 @@ const SearchImg = styled.img`
   width: 34px;
   height: 34px;
   cursor: pointer;
-`
-const Top = styled.div`
-   position: fixed;
-   bottom: 135px;
-   margin: 0 auto;
-   max-width: 375px;
-   height: 124px;
-   z-Index: 2;
-`
+`;
 const TopBtn = styled.img`
   position: absolute;
-  top: 0;
+  right: 16px;
+  bottom: 92px;
   background-color: rgba(222, 222, 222, 0.8);
-  border: none;
+
   border-radius: 100%;
   width: 60px;
   height: 60px;
-  transform: translate(350px, -10px);
+
   cursor: pointer;
 `;
 export default PostList;
