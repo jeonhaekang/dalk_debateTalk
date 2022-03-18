@@ -87,7 +87,7 @@ const PostList = (props) => {
 
           <PostListCategory debateList={debateList} />
 
-          <Grid justifyContent="center">
+          <ContentBox>
             {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
             <InfinityScroll
               callNext={getDebateList}
@@ -97,7 +97,7 @@ const PostList = (props) => {
                 return <PostListCard {...d} key={idx} />;
               })}
             </InfinityScroll>
-          </Grid>
+          </ContentBox>
         </Grid>
       </ContentContainer>
 
@@ -107,6 +107,18 @@ const PostList = (props) => {
     </>
   );
 };
+
+const ContentBox = styled.div`
+  justify-content: center;
+
+  .test {
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  .test:last-child {
+    border: none;
+  }
+`;
 
 const Container = styled.div`
   position: relative;

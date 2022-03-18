@@ -1,15 +1,15 @@
-import React, { memo } from 'react'
+import React, { memo } from "react";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
 import Badge from "../../elements/Badge";
 import { rank, discriminant } from "../../data/rank";
 import Image from "../../elements/Image";
-import styled from 'styled-components'
-import Grid from '../../elements/Grid'
-import { history } from '../../redux/configStore'
-import Person from '../../image/post/person.svg'
-import Textsms from '../../image/post/textsms.svg'
-import Notification from '../../image/post/notification.svg'
+import styled from "styled-components";
+import Grid from "../../elements/Grid";
+import { history } from "../../redux/configStore";
+import Person from "../../image/post/person.svg";
+import Textsms from "../../image/post/textsms.svg";
+import Notification from "../../image/post/notification.svg";
 
 const PostListCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
@@ -18,7 +18,11 @@ const PostListCard = (props) => {
 
   return (
     <>
-      <CardBox is_column _onClick={() => history.push(`/detail/${boardId}`)}>
+      <CardBox
+        className="test"
+        is_column
+        _onClick={() => history.push(`/detail/${boardId}`)}
+      >
         <FlexGrid is_flex between>
           <FlexGrid is_flex gap="8px">
             {props.category.map((el, i) => {
@@ -26,7 +30,12 @@ const PostListCard = (props) => {
             })}
           </FlexGrid>
 
-          <FlexGrid center justifyContent="flex-end" gap="4px" margin="0px 5px 0px 0px">
+          <FlexGrid
+            center
+            justifyContent="flex-end"
+            gap="4px"
+            margin="0px 5px 0px 0px"
+          >
             <Badge src={userRank.img}></Badge>
             {props.userInfo.nickname}
           </FlexGrid>
@@ -37,38 +46,45 @@ const PostListCard = (props) => {
             <Image src={props.filePath} borderRadius="15px" />
           </FlexGrid>
 
-          <FlexGrid is_column justifyContent="space-between" height="100%" gap="8px">
-            {props.winner?.includes(props.topicA) ?
+          <FlexGrid
+            is_column
+            justifyContent="space-between"
+            height="100%"
+            gap="8px"
+          >
+            {props.winner?.includes(props.topicA) ? (
               <>
                 <WinnerTopic>{props.topicA}</WinnerTopic>
                 <VS center>VS</VS>
                 <Topic>{props.topicB}</Topic>
               </>
-              :
+            ) : (
               <>
                 <Topic>{props.topicA}</Topic>
                 <VS center>VS</VS>
                 <WinnerTopic>{props.topicB}</WinnerTopic>
               </>
-            }
+            )}
             <DebateInfo>
               <Grid display="flex">
-                <img src={Person} style={{ padding:"0px 5px 0px 0px" }}/>
+                <img src={Person} style={{ padding: "0px 5px 0px 0px" }} />
                 <div>5</div>
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img src={Textsms} style={{ padding:"0px 5px 0px 0px" }}/>
+                <img src={Textsms} style={{ padding: "0px 5px 0px 0px" }} />
                 {props.commentCnt}
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img src={Notification} style={{ padding:"0px 5px 0px 0px" }}/>
-                  {props.warnCnt}
+                <img
+                  src={Notification}
+                  style={{ padding: "0px 5px 0px 0px" }}
+                />
+                {props.warnCnt}
               </Grid>
             </DebateInfo>
           </FlexGrid>
-
         </FlexGrid>
       </CardBox>
     </>
@@ -79,9 +95,8 @@ const CardBox = styled(FlexGrid)`
   padding: 16px;
   background-color: white;
   overflow: hidden;
-  margin-bottom : 16px;
-  border-bottom: 1px solid #c4c4c4;
-
+  margin-bottom: 16px;
+  /* border-bottom: 1px solid #c4c4c4; */
 `;
 const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
@@ -115,10 +130,10 @@ const DebateInfo = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 10px;
   height: 30px;
   padding: 0px 30px;
-`
+`;
 
 export default React.memo(PostListCard);

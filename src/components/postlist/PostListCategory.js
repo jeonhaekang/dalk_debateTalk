@@ -51,13 +51,9 @@ const PostListCategory = ({ category }) => {
   );
 };
 
-const CategoryScroll = styled.div`
-  gap: 0;
-  border-bottom: 2px solid #e5e5e5;
 
-  background-color: white;
-  z-index: 100;
-`;
+
+
 const CategoryBtn = styled(FlexGrid)`
   width: calc(100% / 6);
   height: 46px;
@@ -71,6 +67,13 @@ const CategoryBtn = styled(FlexGrid)`
     `color: ${props.theme.color.orange}; border-bottom: 2px solid orange;`}
 
   transition: 0.05s;
+`;
+const CategoryScroll = styled.div`
+  gap: 0;
+  border-bottom: 2px solid #e5e5e5;
+
+  background-color: white;
+  z-index: 100;
 `;
 
 export default PostListCategory;
