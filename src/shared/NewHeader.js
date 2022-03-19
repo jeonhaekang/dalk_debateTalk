@@ -47,7 +47,7 @@ const NewHeader = (props) => {
       >
         {children}
       </Modal>
-      <HeaderContainer line>
+      <HeaderContainer line={line}>
         {/* 뒤로가기 버튼 */}
         <Left onClick={() => history.goBack()}>
           <svg width="34" height="34" viewBox="0 0 34 34">
