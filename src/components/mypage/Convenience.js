@@ -12,7 +12,7 @@ const Convenience = () => {
         <>
             <Title>토론정보</Title>
             <ConvinienceWrap>
-                <FlexGrid is_column margin="0px 24px 0px 0px">
+                <FlexGrid is_column margin="0px 20px 0px 0px">
                     <Content onClick={() => { history.push('/more') }}>
                         <div style={{ marginLeft: "15px" }}>토론리스트</div>
                     </Content>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configStore";
 import { discriminant, rank } from "../../data/rank";
 import { actionCreators } from "../../redux/modules/user";
+import arrowright from "../../image/mypage/arrowright.svg";
 
 const UserInfo = (props) => {
   const dispatch = useDispatch();
@@ -30,14 +31,14 @@ const UserInfo = (props) => {
         </UserInfoCard>
       )}
       <MyEggPoint>
-        <div style={{ fontSize: "18px", fontWeight: "500" }}>나의 알포인트 </div>
+        <div style={{ fontSize: "18px", fontWeight: "500" }}>내 알포인트 </div>
         <MyRP>
           {user?.point.toLocaleString('ko-KR')}
           <RP>RP</RP>
         </MyRP>
         <div onClick={() => {
           history.push("/mypage/eggpoint");
-        }} style={{ cursor: "pointer" }}>자세히보기</div>
+        }} style={{ cursor: "pointer", display:"flex" }}>자세히보기 <img src={arrowright} style={{margin: "2px 0px 0px 4px"}}/></div>
       </MyEggPoint>
     </>
   );
@@ -99,14 +100,14 @@ const MyEggPoint = styled.div`
   margin: 20px 20px;
   padding: 20px 10px;
   background-color: #FAEDE1;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 const MyRP = styled.div`
   display: flex;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   color: ${(props) => props.theme.color.orange};
-  margin: 0px 30px 2px 0px;
+  margin: 0px 25px 2px 0px;
 `
 const RP = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body2};

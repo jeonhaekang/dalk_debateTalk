@@ -68,7 +68,7 @@ const PostListCard = (props) => {
             <DebateInfo>
               <Grid display="flex">
                 <img src={Person} style={{ padding: "0px 5px 0px 0px" }} />
-                <div>5</div>
+                <div>{props.voteCnt}</div>
               </Grid>
               <div>|</div>
               <Grid display="flex">

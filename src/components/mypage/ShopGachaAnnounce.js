@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
+import shop from "../../image/mypage/shop.svg";
+import gacha from "../../image/mypage/gacha.svg";
+import flag from "../../image/mypage/outlined_flag.svg";
 
 const ShopGachaAnnounce = (props) => {
   return (
@@ -10,14 +13,14 @@ const ShopGachaAnnounce = (props) => {
           onClick={() => {
             history.push("/mypage/pointshop");
           }}
-        ></ContentImage>
+        ><ImgSrc src={shop}></ImgSrc></ContentImage>
         <ContentTitle>알포인트 상점</ContentTitle>
       </Content>
 
       <Content>
         <ContentImage
           onClick={() => history.push("/mypage/gacha")}
-        ></ContentImage>
+        ><ImgSrc src={gacha}></ImgSrc></ContentImage>
         <ContentTitle>행운뽑기</ContentTitle>
       </Content>
 
@@ -26,7 +29,8 @@ const ShopGachaAnnounce = (props) => {
           onClick={() => {
             history.push("/announcement");
           }}
-        ></ContentImage>
+        ><ImgSrc src={flag}></ImgSrc>
+        </ContentImage>
         <ContentTitle>공지사항</ContentTitle>
       </Content>
     </Wrap>
@@ -39,6 +43,10 @@ const Wrap = styled.div`
   padding: 20px 20px 30px 20px;
   border-bottom: 16px solid #F1F1F1;
 `;
+
+const ImgSrc = styled.img`
+  padding-top: 26px;
+`
 
 const Content = styled.div`
   display: flex;
