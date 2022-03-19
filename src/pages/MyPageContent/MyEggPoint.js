@@ -120,7 +120,6 @@ const ColumnList = styled.div`
     flex-direction: column;
 `
 const Flag = styled.div`
-    postion: relative;
     transform: translate(26px, -8px);
     display: inline-block;
     width: 125px;

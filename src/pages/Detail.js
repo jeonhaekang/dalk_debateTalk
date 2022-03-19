@@ -337,6 +337,7 @@ const DebateWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 `;
 const DebateLoserBox = styled.div`
   display: flex;
