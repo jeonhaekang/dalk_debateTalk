@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import itemData from "../../data/itemData";
@@ -6,6 +6,7 @@ import { actionCreators } from "../../redux/modules/user";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import Center from "../../elements/Center";
+import XScrollDrag from "../shared/XScrollDrag";
 
 const ChatInput = (props) => {
   const dispatch = useDispatch();
@@ -74,7 +75,6 @@ const ChatInput = (props) => {
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
   };
-
   return (
     <div>
       <InputWrap>
@@ -91,21 +91,23 @@ const ChatInput = (props) => {
       </InputWrap>
 
       <ItemWrap state={state}>
-        {itemData.map((el) => {
-          if (el.itemCode !== "exBuy") {
-            return (
-              <ItemButton
-                {...el}
-                key={el.itemCode}
-                onClick={() => itemUse(el.itemCode)}
-              >
-                {user && <ItemCount>{user.item[el.itemCode]}</ItemCount>}
-                <ItemImg alt="item" src={el.img} />
-                <ItemText>{el.name}</ItemText>
-              </ItemButton>
-            );
-          }
-        })}
+        <XScrollDrag gap="15px">
+          {itemData.map((el) => {
+            if (el.itemCode !== "exBuy") {
+              return (
+                <ItemButton
+                  {...el}
+                  key={el.itemCode}
+                  onClick={() => itemUse(el.itemCode)}
+                >
+                  {user && <ItemCount>{user.item[el.itemCode]}</ItemCount>}
+                  <ItemImg alt="item" src={el.img} />
+                  <ItemText>{el.name}</ItemText>
+                </ItemButton>
+              );
+            }
+          })}
+        </XScrollDrag>
       </ItemWrap>
     </div>
   );
@@ -163,18 +165,11 @@ const InputWrap = styled.div`
   background-color: #f3f3f3;
 `;
 
-const ItemWrap = styled.div`
+const ItemWrap = styled(FlexGrid)`
   transition: 0.2s;
   padding: 0 15px;
   height: ${(props) => (props.state ? "120px" : "0px")};
   background-color: #f3f3f3;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-
-  overflow: scroll;
 `;
 
 const ItemButton = styled.div`
