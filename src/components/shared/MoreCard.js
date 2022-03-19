@@ -8,10 +8,24 @@ import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
 import { loginCheck } from "../../modules/loginCheck";
+import short from "../../image/shared/short.svg";
+import long from "../../image/shared/long.svg";
 
 const MoreCard = (props) => {
+  const { scrollData, setScrollData } = props;
   const userRank = rank[discriminant(props.userInfo.ex)];
-  console.log("render");
+
+  const test = scrollData.list.filter((el) => el.roomId !== props.roomId);
+
+  console.log(test);
+
+  const deleteRoom = () => {
+    setScrollData({
+      list: [...test],
+      page: scrollData.page,
+      has_next: scrollData.has_next,
+    });
+  };
 
   return (
     <CardBox
@@ -36,6 +50,7 @@ const MoreCard = (props) => {
       <FlexGrid>
         <FlexGrid width="35%">
           <Image src={props.filePath} borderRadius="15px" />
+          <Time src={props.time ? short : long}></Time>
         </FlexGrid>
 
         <FlexGrid is_column between gap="0" width="65%">
@@ -50,7 +65,12 @@ const MoreCard = (props) => {
             <Topic>{props.topicB}</Topic>
           </FlexGrid>
           <FlexGrid>
-            <GaugeTimer {...props} borderRadius="10px" height="6px" />
+            <GaugeTimer
+              deleteRoom={deleteRoom}
+              {...props}
+              borderRadius="10px"
+              height="6px"
+            />
           </FlexGrid>
         </FlexGrid>
       </FlexGrid>
@@ -59,6 +79,13 @@ const MoreCard = (props) => {
 };
 
 MoreCard.defaultProps = {};
+
+const Time = styled.img`
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+`;
+
 const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.black};
