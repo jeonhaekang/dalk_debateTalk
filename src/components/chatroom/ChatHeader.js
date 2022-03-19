@@ -28,7 +28,6 @@ const ChatHeader = (props) => {
     setData({ topic: topic });
     setModalState(true);
   };
-  console.log(roomInfo);
 
   return (
     <div>
@@ -58,7 +57,7 @@ const ChatHeader = (props) => {
               state={state}
               userVote={roomInfo.userVote?.userPick === true}
             >
-              {topicA}
+              <Topic>{topicA}</Topic>
               {state && roomInfo.userVote?.userPick === true && (
                 <Text
                   position="absolute"
@@ -91,7 +90,7 @@ const ChatHeader = (props) => {
               state={state}
               userVote={roomInfo.userVote?.userPick === false}
             >
-              {topicB}
+              <Topic>{topicB}</Topic>
               {state && roomInfo.userVote?.userPick === false && (
                 <Text
                   position="absolute"
@@ -130,14 +129,13 @@ const Open = styled.div`
   transition: 0.2s;
 `;
 
+const Topic = styled.div``;
+
 const DefaultTopic = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   line-height: 28px;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
@@ -152,14 +150,16 @@ const DefaultTopic = styled.div`
 
   transition: 0.3s;
   //color: ${(props) => (props.state ? "orange" : "orange")};
-  color: ${(props) =>
-    props.state
-      ? props.userVote
-        ? "white"
-        : props.theme.color.black
-      : props.userVote
-      ? props.theme.color.orange
-      : props.theme.color.black};
+  & * {
+    color: ${(props) =>
+      props.state
+        ? props.userVote
+          ? "white"
+          : props.theme.color.black
+        : props.userVote
+        ? props.theme.color.orange
+        : props.theme.color.black};
+  }
 
   background-color: ${(props) =>
     props.state
@@ -169,6 +169,14 @@ const DefaultTopic = styled.div`
       : "white"};
 
   box-shadow: ${(props) => props.state && "0px 2px 6px rgba(0, 0, 0, 0.15)"};
+
+  ${Topic} {
+    max-width: 140px;
+
+    ${(props) =>
+      !props.state &&
+      "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"}
+  }
 `;
 
 const InfoWrap = styled.div`

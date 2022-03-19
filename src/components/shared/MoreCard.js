@@ -15,7 +15,7 @@ const MoreCard = (props) => {
   const { scrollData, setScrollData } = props;
   const userRank = rank[discriminant(props.userInfo.ex)];
 
-  const test = scrollData.list.filter((el) => el.roomId !== props.roomId);
+  const test = scrollData?.list.filter((el) => el.roomId !== props.roomId);
 
   console.log(test);
 
