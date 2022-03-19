@@ -6,9 +6,25 @@ import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 
 const MainCategoryCard = (props) => {
+  const [list, setList] = React.useState([]);
+  const categoryList = [...categoryDate];
+
+  React.useEffect(() => {
+    let newList = [];
+
+    while (newList.length <= 4) {
+      const random = Math.floor(Math.random() * categoryList.length);
+      const category = categoryList.splice(random, 1)[0];
+
+      if (category.name !== "전체") newList.push(category);
+    }
+
+    setList(newList);
+  }, []);
+
   return (
     <>
-      {categoryDate.map((el, i) => {
+      {list.map((el, i) => {
         if (i === 0) return null;
 
         return (
