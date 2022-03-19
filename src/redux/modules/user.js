@@ -99,7 +99,7 @@ const logInDB = (username, password) => {
             history.replace("/");
           })
           .catch((err) => {
-            console.log("err", err);
+            console.log("err", err.response);
           });
       })
       .catch((err) => {

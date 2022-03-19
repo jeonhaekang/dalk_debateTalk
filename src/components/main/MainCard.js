@@ -8,10 +8,13 @@ import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
 import { loginCheck } from "../../modules/loginCheck";
+import short from "../../image/shared/short.svg";
+import long from "../../image/shared/long.svg";
 
 const MainCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
-  
+  console.log(props);
+
   return (
     <CardBox
       is_column
@@ -34,6 +37,7 @@ const MainCard = (props) => {
       <FlexGrid is_flex between center>
         <FlexGrid>
           <Image src={props.filePath} borderRadius="15px" />
+          <Time src={props.time ? short : long}></Time>
         </FlexGrid>
 
         <FlexGrid is_column justifyContent="space-between" height="100%">
@@ -48,6 +52,12 @@ const MainCard = (props) => {
 };
 
 MainCard.defaultProps = {};
+const Time = styled.img`
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+`;
+
 const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};

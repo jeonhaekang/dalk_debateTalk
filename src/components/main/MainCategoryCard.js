@@ -64,6 +64,7 @@ const CardWrap = styled(FlexGrid)`
   // flex : flexitem의 기본 크기를 결정하는 속성
 
   margin: 24px 0;
+  padding: 16px;
 `;
 
 const Icon = styled.div`
@@ -73,8 +74,8 @@ const Icon = styled.div`
   background-size: cover;
 
   position: absolute;
-  bottom: 26px;
-  right: 23px;
+  bottom: 16px;
+  right: 16px;
 `;
 
 export default MainCategoryCard;
