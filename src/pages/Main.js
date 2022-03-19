@@ -31,11 +31,14 @@ const Main = (props) => {
 
   return (
     <>
-      <NewHeader page="메인"/>
+      <NewHeader page="메인" />
       <ContentContainer backgroundColor="#fbfbfb">
         <FlexGrid is_column>
+          {/* 캐러셀 */}
           <MainCarousel />
+          {/* 1,2,3등 */}
           <TopRank />
+          {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
           <FlexGrid is_column padding="24px" gap="22px">
             <FlexGrid paddingBottom="58px">
               <Text size="headline1" weight="medium" lineHeight="38px">
@@ -49,6 +52,7 @@ const Main = (props) => {
               if (i < 3) return <MainCard key={i} {...el} page="main" />;
             })}
 
+            {/* 추천 카테고리 */}
             <CategoryTap is_column>
               <FlexGrid is_column padding="0 24px">
                 <Text size="body1">일상토론 찾아보기</Text>
@@ -65,18 +69,11 @@ const Main = (props) => {
               if (i >= 3) return <MainCard key={i} {...el} page="main" />;
             })}
           </FlexGrid>
-          {roomList.length === 0 ? (
-            // 채팅방이 없을때 표시 화면
-            <MainEmpty />
-          ) : (
-            <>
-              <FlexGrid is_flex center>
-                <MoreButton onClick={() => history.push("/more")}>
-                  더 많은 토론보기 &gt;
-                </MoreButton>
-              </FlexGrid>
-            </>
-          )}
+
+          {/* 더보기 버튼 */}
+          <MoreButton onClick={() => history.push("/more")}>
+            더 많은 토론보기 &gt;
+          </MoreButton>
         </FlexGrid>
       </ContentContainer>
       <Footer />
@@ -97,6 +94,7 @@ const MoreButton = styled.div`
   margin: 31px 0 58px 0;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
+  text-align: center;
 `;
 
 const FireDalk = styled.img`
