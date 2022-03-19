@@ -35,7 +35,7 @@ const PointShop = () => {
               {user?.nickname}님이
               <br /> 사용할 수 있는 알포인트는
               <br />
-              <Text color="orange">{user?.point}</Text> RP 에요
+              <Text color="orange">{user?.point.toLocaleString('ko-KR')}</Text> RP 에요
             </Text>
           </FlexGrid>
 

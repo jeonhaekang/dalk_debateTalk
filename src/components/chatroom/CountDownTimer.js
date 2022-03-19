@@ -12,7 +12,7 @@ const CountDownTimer = (props) => {
 
   // 긴방인지 짧은방인지 판단 후 종료시간에 더함
   //if (props.time) end.setMinutes(end.getMinutes() + 20);
-  if (props.time) end.setSeconds(end.getSeconds() + 70);
+  if (props.time) end.setSeconds(end.getSeconds() + 40);
   else end.setHours(end.getHours() + 1);
 
   // 종료 시간에서 현재 시간을 빼서 남은 시간 구함
