@@ -39,12 +39,16 @@ const MyEggPoint = () => {
                 <div className="title">내 활동 내역</div>
             </Flag>
 
+
             <Wrap>
-                {/* <ColumnList>
-                    {pointCheck.map((el, idx, arr) => {
+                <ColumnList>
+                    <UserEggpoint>
+                        <div>날짜</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
                             <PointCreatedAt>
-                                {el.createdAt.split(" ")[0]}
+                                {p.createdAt.split(" ")[0]}
                             </PointCreatedAt>
                         </CheckEggpoint>
                     })
@@ -52,22 +56,28 @@ const MyEggPoint = () => {
                 </ColumnList>
 
                 <ColumnList>
-                    {pointCheck.map((el, idx) => {
+                    <UserEggpoint>
+                        <div>내역</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
-                            <PointLog>{el.content}</PointLog>
+                            <PointLog>{p.content}</PointLog>
                         </CheckEggpoint>
                     })
                     }
                 </ColumnList>
 
                 <ColumnList>
-                    {pointCheck.map((el, idx) => {
+                    <UserEggpoint>
+                        <div>변동</div>
+                    </UserEggpoint>
+                    {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
-                            <PointPlusMinus>{el.changePoint}</PointPlusMinus>
+                            <PointPlusMinus>{p.changePoint}</PointPlusMinus>
                         </CheckEggpoint>
                     })
                     }
-                </ColumnList> */}
+                </ColumnList>
             </Wrap>
         </Grid>
     )
@@ -103,7 +113,7 @@ const Wrap = styled.div`
     display: flex;
     justify-content: center;
     text-align: center;
-    padding: 10px 0px 0px 0px;
+    padding: 40px 0px 0px 0px;
 `
 const ColumnList = styled.div`
     display: flex;
