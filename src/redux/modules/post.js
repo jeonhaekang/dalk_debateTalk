@@ -62,7 +62,7 @@ export default handleActions(
       }),
     [CLEAR]: (state) =>
       produce(state, (draft) => {
-        draft.postList = [];
+        draft.postList = initialState.postList;
       }),
   },
   initialState

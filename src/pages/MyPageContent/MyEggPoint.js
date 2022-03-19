@@ -4,7 +4,7 @@ import apis from "../../shared/apis";
 
 import styled from "styled-components";
 import Grid from "../../elements/Grid";
-import bank from "../../image/moneybag.svg";
+import bank from "../../image/mypage/moneybag.svg";
 
 import Header from "../../shared/Header";
 
@@ -24,7 +24,6 @@ const MyEggPoint = () => {
             })
     }, [])
 
-
     return (
         <Grid height="100vh" overflow="scroll">
             <Header page="알포인트 내역" />
@@ -41,14 +40,11 @@ const MyEggPoint = () => {
             </Flag>
 
             <Wrap>
-                <ColumnList>
-                    <UserEggpoint>
-                        <div>날짜</div>
-                    </UserEggpoint>
-                    {pointCheck.map((p, idx) => {
+                {/* <ColumnList>
+                    {pointCheck.map((el, idx, arr) => {
                         return <CheckEggpoint key={idx}>
                             <PointCreatedAt>
-                                {p.createdAt.split(" ")[0]}
+                                {el.createdAt.split(" ")[0]}
                             </PointCreatedAt>
                         </CheckEggpoint>
                     })
@@ -56,28 +52,22 @@ const MyEggPoint = () => {
                 </ColumnList>
 
                 <ColumnList>
-                    <UserEggpoint>
-                        <div>내역</div>
-                    </UserEggpoint>
-                    {pointCheck.map((p, idx) => {
+                    {pointCheck.map((el, idx) => {
                         return <CheckEggpoint key={idx}>
-                            <PointLog>{p.content}</PointLog>
+                            <PointLog>{el.content}</PointLog>
                         </CheckEggpoint>
                     })
                     }
                 </ColumnList>
 
                 <ColumnList>
-                    <UserEggpoint>
-                        <div>변동</div>
-                    </UserEggpoint>
-                    {pointCheck.map((p, idx) => {
+                    {pointCheck.map((el, idx) => {
                         return <CheckEggpoint key={idx}>
-                            <PointPlusMinus>{p.changePoint}</PointPlusMinus>
+                            <PointPlusMinus>{el.changePoint}</PointPlusMinus>
                         </CheckEggpoint>
                     })
                     }
-                </ColumnList>
+                </ColumnList> */}
             </Wrap>
         </Grid>
     )
