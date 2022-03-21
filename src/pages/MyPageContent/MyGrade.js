@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../../shared/Header";
-import { rank } from "../../data/rank";
+import NewHeader from "../../shared/NewHeader";
+import { rank, RankInfo } from "../../data/rank";
 import { discriminant } from "../../data/rank";
 import { useSelector } from "react-redux";
+import point from "../../image/mypage/point.svg"
+import FlexGrid from "../../elements/FlexGrid"
+import Grid from "../../elements/Grid";
 
 const MyGrade = () => {
     const user = useSelector(state => state.user.user);
@@ -11,83 +14,83 @@ const MyGrade = () => {
 
     const nowExp = user?.ex;
     const nextScore = () => {
-        if(nowExp < 1000){
+        if (nowExp < 1000) {
             return 1000 - nowExp
-        }else if(1000 <= nowExp && nowExp < 2000){
+        } else if (1000 <= nowExp && nowExp < 2000) {
             return 2000 - nowExp
-        }else if(2000 <= nowExp && nowExp < 3000){
+        } else if (2000 <= nowExp && nowExp < 3000) {
             return 3000 - nowExp
-        }else if(3000 <= nowExp && nowExp < 4000){
+        } else if (3000 <= nowExp && nowExp < 4000) {
             return 4000 - nowExp
-        }else return 0
+        } else return 0
     };
     const announceScore = nextScore();
 
     return (
-        <>
-            <Header page="등급표" />
-            <QuestionRP>내 알포인트 등급은?</QuestionRP>
+        <Grid height="100vh" overflow="scroll">
+            <NewHeader page="등급안내" />
             <MyGradeInfo>
-                <MyGradeImage src={userRank.img}></MyGradeImage>
+                <Radius>
+                    <img className="mygradeimg" src={userRank.img}></img>
+                </Radius>
                 <IsMyGrade>
-                    나의 등급은 <br/>
+                    나의 등급은 <br />
                     <span className="GradeColor">{userRank.name}</span> 입니다
                 </IsMyGrade>
-                <NextGrade>얼마 안남았네요 :) 다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
+                <NextGrade>다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
             </MyGradeInfo>
 
             <GradeInfo>
-                <GradeTitle>알포인트 등급소개</GradeTitle>
+                <GradeTitle>알포인트 등급</GradeTitle>
 
-                <GradeLevel backgroundColor="#F9CD9A">
-                    <p>브론즈</p>
-                    <p>~ 1,000 Exp</p>
-                </GradeLevel>
-                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.5)">
-                    <div>실버</div>
-                    <div>~ 2,000 Exp</div>
-                </GradeLevel>
-                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.4)">
-                    <div>골드</div>
-                    <div>~ 3,000 Exp</div>
-                </GradeLevel>
-                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.3)">
-                    <div>플래티넘</div>
-                    <div>~ 4,000 Exp</div>
-                </GradeLevel>
-                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.2)">
-                    <div>다이아</div>
-                    <div>4,000 Exp 이상</div>
-                </GradeLevel>
-                <GradeLevel backgroundColor="rgba(249, 205, 154, 0.1)">
-                    <div>랭커</div>
-                    <div>TOP 1, 2, 3</div>
-                </GradeLevel>
+                <GradeWrap>
+                    {RankInfo.map((el, i) => {
+                        return <FlexGrid key={i}>
+                            <div><GradeImg src={el.img} /></div>
+                            <RankList>
+                                <Grid display="flex">
+                                    <div className="LevelBox">{el.level}</div>
+                                    <div className="NameBox">{el.name}</div>
+                                </Grid>
+                                <Grid display="flex">
+                                    <PointImg src={point} />
+                                    <div className="ExpBox">{el.exp}</div>
+                                </Grid>
+                            </RankList>
+                        </FlexGrid>
+                    })
+                    }
+                </GradeWrap>
             </GradeInfo>
-        </>
+        </Grid>
     )
 };
-const QuestionRP = styled.div`
-    padding: 10px 24px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    font-size: ${(props) => props.theme.fontSizes.headline2};
-`
+
 const MyGradeInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 40px 40px 40px;
+    padding: 100px 110px;
 `
-const MyGradeImage = styled.img`
-    width: 184px;
-    height: 184px;
+const Radius = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     border-radius: 100%;
+    width: 184px;
+    height: 184px;
+    background-color: #F5F5F5;
+    .mygradeimg{
+        width: 130px;
+        height: 130px;
+    }
 `
+
 const IsMyGrade = styled.div`
-    padding-top: 30px;
+    padding-top: 50px;
     font-size: 28px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .GradeColor{
@@ -95,8 +98,9 @@ const IsMyGrade = styled.div`
         font-weight: ${(props) => props.theme.fontWeight.bold};
     }
 `
+
 const NextGrade = styled.div`
-    padding-top: 20px;
+    padding-top: 8px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .RP{
         color: #E9C718;
@@ -106,19 +110,43 @@ const GradeInfo = styled.div`
     border-top: 16px solid #F1F1F1;
 `
 const GradeTitle = styled.div`
-    margin: 15px;
+    padding: 14px 24px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     font-size: ${(props) => props.theme.fontSizes.headline2};
 `
-const GradeLevel = styled.div`
-    display: flex;
+const GradeWrap = styled.div`
+    padding: 2px 24px;
+`
+const RankList = styled(FlexGrid)`
     justify-content: space-between;
-    padding: 16px 30px;
-    height: 50px;
-    background-color: ${(props) => props.backgroundColor};
-    font-weight: ${(props) => props.theme.fontWeight.regular};
-    font-size: ${(props) => props.theme.fontSizes.body1};
-    color: ${(props) => props.theme.color.black};
+    font-size: ${(props) => props.theme.fontSizes.subtitle1};
+    align-items: center;
+    .LevelBox {
+        background-color: #FAA94C;
+        font-size: 12px;
+        font-weight: ${(props) => props.theme.fontWeight.light};
+        padding: 4px 12px 0px 12px;
+        border-radius: 30px;
+        margin-right: 12px;
+    }
+    .NameBox {
+        font-size: ${(props) => props.theme.fontSizes.body1};
+        font-weight: ${(props) => props.theme.fontWeight.medium};
+        margin-bottom: 4px;
+    }
+    .ExpBox {
+        font-size: ${(props) => props.theme.fontSizes.body1};
+        font-weight: ${(props) => props.theme.fontWeight.light};
+    }
+`
+const GradeImg = styled.img`
+    width: 66px;
+    height: 68px;
+`
+const PointImg = styled.img`
+    width: 18px;
+    height: 18px;
+    margin: 4px 8px 0px 0px;
 `
 
 export default MyGrade;

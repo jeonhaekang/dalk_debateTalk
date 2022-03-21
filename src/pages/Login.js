@@ -90,7 +90,7 @@ const Login = (props) => {
           )}
         </Grid>
 
-        <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
+        <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
 
         <Grid padding="30px 0px">
           <Text>DALK 회원이 아니신가요?</Text>
@@ -108,13 +108,16 @@ const Login = (props) => {
     </>
   );
 };
+
 const Wrap = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
 `
+
 const LogoImage = styled.img`
   display: flex;
   width: 196px;
@@ -126,15 +129,19 @@ const LogoImage = styled.img`
   justify-content: center;
   align-items: center;
 `;
+
 const LoginInput = styled.input`
   width: 375px;
   height: 60px;
   box-sizing: border-box;
-  border: 1px solid #9e9e9e;
-  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  padding: 25px;
   ::placeholder {
-    color: #cacaca;
+    color: #333333;
     font-size: 16px;
+    font-weight: ${(props) => props.theme.fontWeight.light};
   }
 `;
 const Validation = styled.p`
@@ -142,13 +149,14 @@ const Validation = styled.p`
   font-size: 6px;
 `;
 const LoginBtn = styled.button`
-  background-color: #cfcfcf;
+  background-color: ${(props) => props.theme.color.orange};
   border: none;
+  border-radius: 10px;
   color: #fff;
   width: 375px;
-  padding: 16px;
-  height: 74px;
+  height: 60px;
   font-size: 24px;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   cursor: pointer;
 `;
 

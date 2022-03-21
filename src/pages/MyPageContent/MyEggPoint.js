@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import apis from "../../shared/apis";
+import FlexGrid from "../../elements/FlexGrid"
 
 import styled from "styled-components";
 import Grid from "../../elements/Grid";
 import bank from "../../image/mypage/moneybag.svg";
 
 import Header from "../../shared/Header";
+import { history } from "../../redux/configStore";
 
 const MyEggPoint = () => {
     const user = useSelector(state => state.user.user);
@@ -24,6 +26,20 @@ const MyEggPoint = () => {
             })
     }, [])
 
+    // const groupBy = function (data, key) {
+    //     return data.reduce(function (carry, el) {
+    //         let group = el[key];
+
+    //         carry[group]?.push(el)
+    //         return carry
+    //     }, {})
+    // }
+
+    // const _groupByResult = groupBy(pointCheck, "createdAt")
+    // console.log(_groupByResult)
+    // const groupByResult = Object.values(_groupByResult)
+    // console.log(groupByResult)
+
     return (
         <Grid height="100vh" overflow="scroll">
             <Header page="알포인트 내역" />
@@ -32,7 +48,12 @@ const MyEggPoint = () => {
                 <RPBox>
                     <span className="Mypoint">{user?.point.toLocaleString('ko-KR')}</span> RP
                 </RPBox>
-                <div style={{fontSize:"18px", paddingTop:"5px"}}>사용하기</div>
+                <div 
+                style={{ fontSize: "18px", paddingTop: "5px", cursor: "pointer" }} 
+                onClick={() => history.replace('/mypage/pointshop')}
+                >
+                사용하기
+                </div>
             </CurrentEggPoint>
 
             <Flag>
@@ -41,43 +62,38 @@ const MyEggPoint = () => {
 
 
             <Wrap>
-                <ColumnList>
-                    <UserEggpoint>
-                        <div>날짜</div>
-                    </UserEggpoint>
+                {/* <FlexGrid is_column>
+                    {
+                        groupByResult.map((x) => {
+                            x.map((p, idx) => {
+                                return <CheckEggpoint key={idx}>
+                                    <PointCreatedAt>
+                                        {p.createdAt}
+                                    </PointCreatedAt>
+                                    <CheckPoint>
+                                        <PointLog>{p.content}</PointLog>
+                                        <PointPlusMinus>{p.changePoint}</PointPlusMinus>
+                                    </CheckPoint>
+                                </CheckEggpoint>
+                            })
+                        })
+                    }
+                </FlexGrid> */}
+
+                <FlexGrid is_column>
                     {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
                             <PointCreatedAt>
                                 {p.createdAt.split(" ")[0]}
                             </PointCreatedAt>
+                            <FlexGrid between>
+                                <PointLog>{p.content}</PointLog>
+                                <PointPlusMinus>{p.changePoint}</PointPlusMinus>
+                            </FlexGrid>
                         </CheckEggpoint>
                     })
                     }
-                </ColumnList>
-
-                <ColumnList>
-                    <UserEggpoint>
-                        <div>내역</div>
-                    </UserEggpoint>
-                    {pointCheck.map((p, idx) => {
-                        return <CheckEggpoint key={idx}>
-                            <PointLog>{p.content}</PointLog>
-                        </CheckEggpoint>
-                    })
-                    }
-                </ColumnList>
-
-                <ColumnList>
-                    <UserEggpoint>
-                        <div>변동</div>
-                    </UserEggpoint>
-                    {pointCheck.map((p, idx) => {
-                        return <CheckEggpoint key={idx}>
-                            <PointPlusMinus>{p.changePoint}</PointPlusMinus>
-                        </CheckEggpoint>
-                    })
-                    }
-                </ColumnList>
+                </FlexGrid>
             </Wrap>
         </Grid>
     )
@@ -109,16 +125,6 @@ const EggImg = styled.img`
     height: auto;
     padding-bottom: 10px;
 `
-const Wrap = styled.div`
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 40px 0px 0px 0px;
-`
-const ColumnList = styled.div`
-    display: flex;
-    flex-direction: column;
-`
 const Flag = styled.div`
     transform: translate(26px, -8px);
     display: inline-block;
@@ -133,10 +139,10 @@ const Flag = styled.div`
         height: 0;
         left: 0;
         position: absolute;
-        top: 40px;
+        top: 39px;
         width: 0;
-      }
-    .title{
+    }
+    .title {
         display: flex;
         justify-content: center;
         padding-top: 10px;
@@ -145,11 +151,8 @@ const Flag = styled.div`
         color: #fff;
     }
 `
-const UserEggpoint = styled.div`
-    border-bottom: 2px solid ${(props) => props.theme.color.orange};
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    width: 140px;
+const Wrap = styled.div`
+    padding: 40px 30px 0px 30px;
 `
 const CheckEggpoint = styled.div`
     margin-bottom: 10px;
@@ -158,10 +161,15 @@ const PointCreatedAt = styled.div`
     font-size: ${(props) => props.theme.fontSizes.body2};
 `
 const PointLog = styled.div`
-    font-size: ${(props) => props.theme.fontSizes.body2};
+    font-size: ${(props) => props.theme.fontSizes.subtitle1};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+    color: ${(props) => props.theme.color.black};
 `
 const PointPlusMinus = styled.div`
-    font-size: ${(props) => props.theme.fontSizes.body2};
+    font-size: ${(props) => props.theme.fontSizes.subtitle1};
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+    color: ${(props) => props.theme.color.orange};
+    text-align: center;
 `
 
 export default MyEggPoint;

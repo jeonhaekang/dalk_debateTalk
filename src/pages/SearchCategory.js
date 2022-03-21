@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Header from "../shared/Header";
-import Grid from "../elements/Grid";
+import { history } from "../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as searchActions } from "../redux/modules/search";
+
+import NewHeader from "../shared/NewHeader";
 import PostListCategory from "../components/postlist/PostListCategory";
 import PostListCard from "../components/postlist/PostListCard";
-import { useDispatch, useSelector } from "react-redux";
-import { useRef } from "react";
-import ContentContainer from "../elements/Container";
-import { history } from "../redux/configStore";
-import { actionCreators as searchActions } from "../redux/modules/search";
 import InfinityScroll from "../shared/InfinityScroll";
 import Footer from "../shared/Footer";
+
+import Grid from "../elements/Grid";
+import ContentContainer from "../elements/Container";
+
 import SearchBlack from "../image/post/search_black.png";
 import Arrow from "../image/post/arrow_upward_black.png";
 
@@ -59,7 +61,7 @@ function SearchCategory(props) {
   return (
     <>
       <ContentContainer Xfooter ref={boxref}>
-        <Header page="토론 결과방" />
+        <NewHeader page="토론 결과방" />
 
         <Grid>
           <Container>
@@ -115,9 +117,9 @@ const InputContainer = styled.div`
 const Input = styled.input`
   width: 100%;
   height: 44px;
-  background-color: #fff;
-  font-weight: 500;
-  font-size: 14px;
+  background-color: #FFFFFF;
+  font-size: ${(props) => props.theme.fontWeight.body1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   border: 1px solid #d2d2d2;
   border-radius: 8px;
   padding: 12px 13px;
@@ -141,11 +143,9 @@ const TopBtn = styled.img`
   bottom: 92px;
   right: 16px;
   background-color: rgba(222, 222, 222, 0.8);
-
   border-radius: 100%;
   width: 60px;
   height: 60px;
-
   cursor: pointer;
 `;
 

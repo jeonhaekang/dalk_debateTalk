@@ -16,7 +16,7 @@ const UserInfo = (props) => {
   }, [])
 
   return (
-    <>
+    <UserInfoWrap>
       {user && (
         <UserInfoCard>
           <Radius>
@@ -40,9 +40,13 @@ const UserInfo = (props) => {
           history.push("/mypage/eggpoint");
         }} style={{ cursor: "pointer", display:"flex" }}>자세히보기 <img src={arrowright} style={{margin: "2px 0px 0px 4px"}}/></div>
       </MyEggPoint>
-    </>
+    </UserInfoWrap>
   );
 };
+
+const UserInfoWrap = styled.div`
+  background-color: #fff;
+`
 
 const UserInfoCard = styled.div`
   display: flex;

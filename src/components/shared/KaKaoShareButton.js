@@ -18,7 +18,7 @@ const KakaoShareButton = (props) => {
     if (window.Kakao) {
       const kakao = window.Kakao;
       // 배포 URL 넣어야됨
-      const debateTalkUrl = "http://localhost:3000";
+      const debateTalkUrl = window.location.href
 
       if (!kakao.isInitialized()) {
         // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
@@ -38,8 +38,7 @@ const KakaoShareButton = (props) => {
           },
         },
         social: {
-          likeCount: 77,
-          commentCount: 55,
+          commentCount: 5,
         },
         buttons: [
           {

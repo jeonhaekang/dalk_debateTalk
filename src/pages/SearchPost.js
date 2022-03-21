@@ -1,12 +1,13 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
-import PostListCard from '../components/postlist/PostListCard';
-import Grid from '../elements/Grid';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as searchActions } from '../redux/modules/search';
-import Header from '../shared/Header';
+
+import NewHeader from '../shared/NewHeader';
+import PostListCard from '../components/postlist/PostListCard';
 import InfinityScroll from '../shared/InfinityScroll';
+
+import Grid from '../elements/Grid';
 
 function SearchPost(props) {
     const keyword = props.match.params.keyword
@@ -25,7 +26,7 @@ function SearchPost(props) {
 
     return (
         <>
-            <Header page="검색 결과" />
+            <NewHeader page="검색 결과" />
             <Grid>
                 <SearchResult> <span className='Mykeyword'>"{keyword}"</span> 검색 결과</SearchResult>
                 <InfinityScroll callNext={getSearchDebateList} paging={{ next: searchDebateList.has_next }}>

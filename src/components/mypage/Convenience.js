@@ -11,8 +11,8 @@ const Convenience = () => {
     return (
         <>
             <Title>토론정보</Title>
-            <ConvinienceWrap>
-                <FlexGrid is_column margin="0px 20px 0px 0px">
+            <ConvinienceContent>
+                <FlexGrid is_column>
                     <Content onClick={() => { history.push('/more') }}>
                         <div style={{ marginLeft: "15px" }}>토론리스트</div>
                     </Content>
@@ -20,7 +20,7 @@ const Convenience = () => {
                         <div>토론 안내</div>
                     </Content>
                 </FlexGrid>
-                <FlexGrid is_column margin="0px 10px 0px 0px">
+                <FlexGrid is_column>
                     <Content onClick={() => { history.push('/ranking') }}>
                         <div>유저랭킹</div>
                     </Content>
@@ -28,7 +28,7 @@ const Convenience = () => {
                         <div>등급안내</div>
                     </Content>
                 </FlexGrid>
-            </ConvinienceWrap>
+            </ConvinienceContent>
 
             <Title>고객센터</Title>
             <UserOutTitle onClick={() => setCreateModalState(true)}>
@@ -41,12 +41,12 @@ const Convenience = () => {
     )
 }
 
-const ConvinienceWrap = styled(FlexGrid)`
+const ConvinienceContent = styled(FlexGrid)`
     padding-bottom : 24px;
     border-bottom: 16px solid #F1F1F1;
 `
 const Title = styled.div`
-    padding: 24px 55px;
+    padding: 20px 24px;
     font-size: ${(props) => props.theme.fontSizes.gnb};
     font-weight: ${(props) => props.theme.fontWeight.bold};
     color: #CDCDCD;
@@ -55,7 +55,7 @@ const Content = styled.div`
     font-size: ${(props) => props.theme.fontSizes.gnb};
     font-weight: ${(props) => props.theme.fontWeight.regular};
     color: ${(props) => props.theme.color.black};
-    padding: 10px 0px;
+    padding: 12px 0px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -65,9 +65,9 @@ const UserOutTitle = styled.div`
     font-size: ${(props) => props.theme.fontSizes.gnb};
     font-weight: ${(props) => props.theme.fontWeight.regular};
     color: ${(props) => props.theme.color.black};
-    padding: 10px 0px;
+    // padding: 10px 0px;
     cursor: pointer;
-    margin-left: 55px;
+    margin-left: 24px;
 `
 
 export default Convenience;
