@@ -48,9 +48,9 @@ const Main = (props) => {
               <FireDalk src={fireDalk} />
             </FlexGrid>
 
-            {roomList.map((el, i) => {
+            {/* {roomList.map((el, i) => {
               if (i < 3) return <MainCard key={i} {...el} page="main" />;
-            })}
+            })} */}
 
             {/* 추천 카테고리 */}
             <CategoryTap is_column>
@@ -65,9 +65,9 @@ const Main = (props) => {
               </XScrollDrag>
             </CategoryTap>
 
-            {roomList.map((el, i) => {
+            {/* {roomList.map((el, i) => {
               if (i >= 3) return <MainCard key={i} {...el} page="main" />;
-            })}
+            })} */}
           </FlexGrid>
 
           {/* 더보기 버튼 */}
