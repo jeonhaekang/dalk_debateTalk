@@ -29,7 +29,7 @@ const ShareLink = () => {
 
   //링크 복사 버튼을 클릭하면 현재 URL 복사됨
   //배포때는 `https://배포URL/detail/${boardId}`
-  const debateDetailUrl = `http://localhost:3000`
+  const debateDetailUrl = window.location.href
 
   //1초 딜레이 모달 닫히게 하기
   const closeModal = () => {

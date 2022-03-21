@@ -1,21 +1,22 @@
-import React, { memo } from "react";
+import React from "react";
+import styled from "styled-components";
+import { history } from "../../redux/configStore";
+
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
 import Badge from "../../elements/Badge";
-import { rank, discriminant } from "../../data/rank";
-import Image from "../../elements/Image";
-import styled from "styled-components";
 import Grid from "../../elements/Grid";
-import { history } from "../../redux/configStore";
+import Image from "../../elements/Image";
+
+import { rank, discriminant } from "../../data/rank";
+
 import Person from "../../image/post/person.svg";
 import Textsms from "../../image/post/textsms.svg";
 import Notification from "../../image/post/notification.svg";
 
 const PostListCard = (props) => {
-  console.log(props)
   const userRank = rank[discriminant(props.userInfo.ex)];
   const boardId = props.boardId;
-  const createdAt = props.createdAt.split(" ")[0];
 
   return (
     <>
@@ -27,7 +28,9 @@ const PostListCard = (props) => {
         <FlexGrid is_flex between>
           <FlexGrid is_flex gap="8px">
             {props.category.map((el, i) => {
-              return <Chip key={i}>{el}</Chip>;
+              return <Chip key={i}>
+                {el}
+              </Chip>;
             })}
           </FlexGrid>
 
@@ -35,7 +38,7 @@ const PostListCard = (props) => {
             center
             justifyContent="flex-end"
             gap="4px"
-            margin="0px 5px 0px 0px"
+            marginRight="5px"
           >
             <Badge src={userRank.img}></Badge>
             {props.userInfo.nickname}
@@ -68,12 +71,12 @@ const PostListCard = (props) => {
             )}
             <DebateInfo>
               <Grid display="flex">
-                <img src={Person} style={{ padding: "0px 5px 0px 0px" }} />
+                <img src={Person} style={{ padding: "0px 5px 0px 0px" }} alt="person"/>
                 <div>{props.voteCnt}</div>
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img src={Textsms} style={{ padding: "0px 5px 0px 0px" }} />
+                <img src={Textsms} style={{ padding: "0px 5px 0px 0px" }} alt="textsms"/>
                 {props.commentCnt}
               </Grid>
               <div>|</div>
@@ -81,6 +84,7 @@ const PostListCard = (props) => {
                 <img
                   src={Notification}
                   style={{ padding: "0px 5px 0px 0px" }}
+                  alt="noti"
                 />
                 {props.warnCnt}
               </Grid>
@@ -96,15 +100,16 @@ const CardBox = styled(FlexGrid)`
   padding: 16px;
   background-color: white;
   overflow: hidden;
-  margin-bottom: 16px;
-  /* border-bottom: 1px solid #c4c4c4; */
+  margin-bottom: 8px;
 `;
+
 const VS = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
   color: ${(props) => props.theme.color.orange};
   font-family: "Noto Sans", sans-serif;
 `;
+
 const WinnerTopic = styled.div`
   width: 100%;
   overflow: hidden;

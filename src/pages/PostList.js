@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import PostListCategory from "../components/postlist/PostListCategory";
-import PostListCard from "../components/postlist/PostListCard";
-import InfinityScroll from "../shared/InfinityScroll";
-
-import Header from "../shared/Header";
-import Grid from "../elements/Grid";
 import styled from "styled-components";
-import ContentContainer from "../elements/Container";
-import SearchBlack from "../image/post/search_black.png";
-import Arrow from "../image/post/arrow_upward_black.png";
-
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+
+import Grid from "../elements/Grid";
+import ContentContainer from "../elements/Container";
+
+import NewHeader from "../shared/NewHeader";
+import PostListCategory from "../components/postlist/PostListCategory";
+import PostListCard from "../components/postlist/PostListCard";
+import InfinityScroll from "../shared/InfinityScroll";
 import Footer from "../shared/Footer";
+
+import SearchBlack from "../image/post/search_black.png";
+import Arrow from "../image/post/arrow_upward_black.png";
+
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -30,11 +32,10 @@ const PostList = (props) => {
   // dispatch 될때마다 포스트가 업데이트 됩니다.
   useEffect(() => {
     dispatch(postActions.getPostDB(0));
-
     return () => dispatch(postActions.clear());
   }, []);
 
-  // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러
+  // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러, Top 버튼
   const boxref = useRef();
   const handleTop = () => {
     boxref.current.scrollTo({
@@ -54,11 +55,13 @@ const PostList = (props) => {
 
   //엔터 키다운 이벤트
   const onKeyDown = (e) => {
+    // KeyCode의 13번째는 Enter입니다.
     if (e.keyCode === 13) {
       searchDebate();
     }
   };
 
+  //돋보기 버튼
   const searchDebate = () => {
     history.push(`/postlist/search/${keyword}`);
   };
@@ -66,7 +69,7 @@ const PostList = (props) => {
   return (
     <>
       <ContentContainer Xfooter ref={boxref}>
-        <Header page="토론 결과방" />
+        <NewHeader page="토론 결과방" />
 
         <Grid>
           <Container>
@@ -108,24 +111,13 @@ const PostList = (props) => {
   );
 };
 
-const ContentBox = styled.div`
-  justify-content: center;
-
-  .test {
-    border-bottom: 1px solid #c4c4c4;
-  }
-
-  .test:last-child {
-    border: none;
-  }
-`;
-
 const Container = styled.div`
   position: relative;
   width: 100%;
   background-color: #efefef;
   height: 60px;
 `;
+
 const InputContainer = styled.div`
   position: relative;
   display: flex;
@@ -133,6 +125,7 @@ const InputContainer = styled.div`
   align-self: center;
   padding: 8px 16px;
 `;
+
 const Input = styled.input`
   width: 100%;
   height: 44px;
@@ -148,6 +141,7 @@ const Input = styled.input`
     font-weight: ${(props) => props.theme.fontWeight.light};
   }
 `;
+
 const SearchImg = styled.img`
   position: absolute;
   right: 20px;
@@ -156,16 +150,25 @@ const SearchImg = styled.img`
   height: 34px;
   cursor: pointer;
 `;
+
+const ContentBox = styled.div`
+  .test {
+    border-bottom: 1px solid #c4c4c4;
+  }
+  .test:last-child {
+    border: none;
+  }
+`;
+
 const TopBtn = styled.img`
   position: absolute;
   right: 16px;
   bottom: 92px;
   background-color: rgba(222, 222, 222, 0.8);
-
   border-radius: 100%;
   width: 60px;
   height: 60px;
-
   cursor: pointer;
 `;
+
 export default PostList;

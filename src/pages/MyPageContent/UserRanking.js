@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../shared/Header"
+import NewHeader from "../../shared/NewHeader";
 import styled, { keyframes } from "styled-components";
 import apis from "../../shared/apis";
 import { useSelector } from "react-redux";
@@ -33,13 +33,13 @@ const UserRanking = () => {
 
     return (
         <Grid height="100vh" overflow="scroll" >
-            <Header page="랭킹" />
+            <NewHeader page="유저랭킹" />
             <TopThree>
                 <Second>
                     <FadeIn>
                         <div className="ranknumber">2등</div>
                         <LevelImg src={star} ></LevelImg>
-                        <div className="rankname" style={{ margin: "10px 0px 4px 0px" }}>{RankingList[1]?.nickname}</div>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
                     </FadeIn>
                     <SecondBar></SecondBar>
                 </Second>
@@ -47,7 +47,7 @@ const UserRanking = () => {
                     <FadeIn>
                         <div className="ranknumber">1등</div>
                         <LevelImg src={star} ></LevelImg>
-                        <div className="rankname" style={{ margin: "10px 0px 4px 0px" }}>{RankingList[0]?.nickname}</div>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
                     </FadeIn>
                     <FirstBar></FirstBar>
                 </First>
@@ -55,7 +55,7 @@ const UserRanking = () => {
                     <FadeIn>
                         <div className="ranknumber">3등</div>
                         <LevelImg src={star} ></LevelImg>
-                        <div className="rankname" style={{ margin: "10px 0px 4px 0px" }}>{RankingList[2]?.nickname}</div>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
                     </FadeIn>
                     <ThirdBar></ThirdBar>
                 </Third>
@@ -104,21 +104,21 @@ const First = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 56px;
+    padding-top: 38px;
     text-align: center;
 `
 const Second = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
+    padding-top: 102px;
     text-align: center;
 `
 const Third = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 132px;
+    padding-top: 134px;
     text-align: center;
 `
 const pullUp = keyframes`
@@ -157,7 +157,7 @@ const SecondBar = styled.div`
 const FirstBar = styled.div`
     background-color: rgba(241, 145, 33, 0.7);
     width: 80px;
-    height: 140px;
+    height: 160px;
     border: none;
     animation: ${pullUp};
     animation-duration: 3.5s;
@@ -213,7 +213,7 @@ const GradeLevel = styled.div`
     margin: 10px 24px 0px 36px;
     padding-bottom: 8px;
     border-bottom : 2px solid #E7E7E7;
-    width: 320px;
+    width: 290px;
 `
 const RankingBox = styled.div`
     display: flex;

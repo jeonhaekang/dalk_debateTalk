@@ -8,6 +8,7 @@ import Grid from "../../elements/Grid";
 import bank from "../../image/mypage/moneybag.svg";
 
 import Header from "../../shared/Header";
+import { history } from "../../redux/configStore";
 
 const MyEggPoint = () => {
     const user = useSelector(state => state.user.user);
@@ -25,18 +26,19 @@ const MyEggPoint = () => {
             })
     }, [])
 
-    const groupBy = function (data, key) {
-        return data.reduce(function (carry, el) {
-            let group = el[key];
+    // const groupBy = function (data, key) {
+    //     return data.reduce(function (carry, el) {
+    //         let group = el[key];
 
-            carry[group].push(el)
-            return carry
-        }, {})
-    }
+    //         carry[group]?.push(el)
+    //         return carry
+    //     }, {})
+    // }
 
-    const _groupByResult = groupBy(pointCheck, "createdAt")
-    const groupByResult = Object.values(_groupByResult)
-    console.log(groupByResult)
+    // const _groupByResult = groupBy(pointCheck, "createdAt")
+    // console.log(_groupByResult)
+    // const groupByResult = Object.values(_groupByResult)
+    // console.log(groupByResult)
 
     return (
         <Grid height="100vh" overflow="scroll">
@@ -46,7 +48,12 @@ const MyEggPoint = () => {
                 <RPBox>
                     <span className="Mypoint">{user?.point.toLocaleString('ko-KR')}</span> RP
                 </RPBox>
-                <div style={{ fontSize: "18px", paddingTop: "5px" }}>사용하기</div>
+                <div 
+                style={{ fontSize: "18px", paddingTop: "5px", cursor: "pointer" }} 
+                onClick={() => history.replace('/mypage/pointshop')}
+                >
+                사용하기
+                </div>
             </CurrentEggPoint>
 
             <Flag>
@@ -74,16 +81,15 @@ const MyEggPoint = () => {
                 </FlexGrid> */}
 
                 <FlexGrid is_column>
-                    {pointCheck.map(({p, idx}) => {
+                    {pointCheck.map((p, idx) => {
                         return <CheckEggpoint key={idx}>
                             <PointCreatedAt>
                                 {p.createdAt.split(" ")[0]}
                             </PointCreatedAt>
-                            <CheckPoint>
-
-                            <PointLog>{p.content}</PointLog>
-                            <PointPlusMinus>{p.changePoint}</PointPlusMinus>
-                            </CheckPoint>
+                            <FlexGrid between>
+                                <PointLog>{p.content}</PointLog>
+                                <PointPlusMinus>{p.changePoint}</PointPlusMinus>
+                            </FlexGrid>
                         </CheckEggpoint>
                     })
                     }
@@ -147,9 +153,6 @@ display: inline-block;
 `
 const Wrap = styled.div`
     padding: 40px 30px 0px 30px;
-`
-const CheckPoint = styled(FlexGrid)`
-    justify-content: space-between;
 `
 const CheckEggpoint = styled.div`
     margin-bottom: 10px;

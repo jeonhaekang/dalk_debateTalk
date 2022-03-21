@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Grid from "../elements/Grid";
-import CommentList from "../components/detail/CommentList";
+import apis from "../shared/apis";
 import { history } from "../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+import { actionCreators as alertAction } from "../redux/modules/alert";
+
+import NewHeader from "../shared/NewHeader";
+import Modal from "../components/shared/Modal";
+import ShareLink from "../components/shared/ShareLink";
+import CommentList from "../components/detail/CommentList";
+
+import Grid from "../elements/Grid";
+import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
 
 import detailLogo from "../image/detailElement/detaillogo.svg";
@@ -16,16 +26,6 @@ import personFill from "../image/detailElement/person_fill.svg";
 import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
 import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
 
-import apis from "../shared/apis";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as commentActions } from "../redux/modules/comment";
-import { actionCreators as alertAction } from "../redux/modules/alert";
-import DetailHeader from "../components/detail/DetailHeader";
-import NewHeader from "../shared/NewHeader";
-import Text from "../elements/Text";
-import Modal from "../components/shared/Modal";
-import ShareLink from "../components/shared/ShareLink";
-
 const Detail = (props) => {
   const dispatch = useDispatch();
   //유저, 토큰 정보
@@ -38,14 +38,12 @@ const Detail = (props) => {
 
   // DB에 받아오는 필요한 Data 정보 : 주제A, 주제B, 이긴주제, 내용,
   const [debate, setDebate] = useState({});
-  console.log(debate);
 
   // 상세 게시글의 Data 받아오기
   const getOneDebateDB = async () => {
     await apis
       .getOneDebate(boardId)
       .then((res) => {
-        console.log(res.data);
         setDebate(res.data);
       })
       .catch((err) => {
@@ -64,17 +62,15 @@ const Detail = (props) => {
     (Number(debate.winnerResponse?.cnt) /
       (Number(debate.winnerResponse?.cnt) +
         Number(debate.loserResponse?.cnt))) *
-      100
+    100
   );
 
   const loserRate = Math.round(
     (Number(debate.loserResponse?.cnt) /
       (Number(debate.winnerResponse?.cnt) +
         Number(debate.loserResponse?.cnt))) *
-      100
+    100
   );
-
-  console.log(winnerRate, loserRate);
 
   //신고 기능
   const [isWarn, setIsWarn] = useState(false);
@@ -134,6 +130,8 @@ const Detail = (props) => {
   return (
     <>
       <NewHeader page="완료된 토론" meatball boardId={boardId} debate={debate}>
+
+        {/* 헤더 미트볼 관련 신고하기 + 공유하기 */}
         <FlexGrid _onClick={handleClickWarning}>
           <svg width="28" height="28" viewBox="0 0 28 28">
             <path
@@ -157,19 +155,20 @@ const Detail = (props) => {
           </Text>
         </FlexGrid>
       </NewHeader>
+
       {/* 무승부일때, 승부가 났을 때 두가지 케이스 */}
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DebateWrap>
           {winnerRate !== loserRate ? (
+            // 무승부가 아닌 승리, 패배 결과가 나왔을 때
             <>
               <DebateWinnerBox>
                 <DetailLogo>
-                  <img src={detailLogoFill} />
+                  <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> WIN </div>
                 </DetailLogo>
                 <WinnerTitleBox>
                   {debate.winnerResponse?.topic}
-                  {/* <p style={{color:"#F19121"}}>{winnerRate}%</p> */}
                 </WinnerTitleBox>
                 <DetailBox1>
                   <Box>
@@ -201,16 +200,16 @@ const Detail = (props) => {
                 </DetailBox2>
 
                 <GrapGauge which={true} rate={winnerRate} />
+
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateLoserBox>
                 <DetailLogo>
-                  <img src={detailLogo} />
+                  <img src={detailLogo} alt="detaillogo" />
                   <div style={{ fontSize: "14px" }}> LOSE </div>
                 </DetailLogo>
                 <LoserTitleBox>
                   {debate.loserResponse?.topic}
-                  {/* <p>{loserRate}%</p> */}
                 </LoserTitleBox>
                 <LoserDetailBox1>
                   <Box>
@@ -234,18 +233,19 @@ const Detail = (props) => {
                 </LoserDetailBox2>
 
                 <GrapGauge which={false} rate={loserRate} />
+
               </DebateLoserBox>
             </>
           ) : (
+            // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
             <>
               <DebateWinnerBox>
                 <DetailLogo>
-                  <img src={detailLogoFill} />
+                  <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
                 <WinnerTitleBox>
                   {debate.winnerResponse?.topic}
-                  {/* <p style={{color:"#F19121"}}>{winnerRate}%</p> */}
                 </WinnerTitleBox>
                 <DetailBox1>
                   <Box>
@@ -275,16 +275,18 @@ const Detail = (props) => {
                     </div>
                   </Box>
                 </DetailBox2>
+
+                <GrapGauge which={true} rate={winnerRate} />
+
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateWinnerBox>
                 <DetailLogo>
-                  <img src={detailLogoFill} />
+                  <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
                 <WinnerTitleBox>
                   {debate.loserResponse?.topic}
-                  {/* <p style={{color:"#F19121"}}>{loserRate}%</p> */}
                 </WinnerTitleBox>
                 <DetailBox1>
                   <Box>
@@ -314,6 +316,9 @@ const Detail = (props) => {
                     </div>
                   </Box>
                 </DetailBox2>
+
+                <GrapGauge which={false} rate={loserRate} />
+
               </DebateWinnerBox>
             </>
           )}
@@ -334,23 +339,23 @@ const Detail = (props) => {
   );
 };
 const DebateWrap = styled.div`
-  position: relative;
   display: flex;
   justify-content: center;
 `;
+
 const DebateLoserBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(196, 196, 196, 0.1);
-  font-size: 20px;
   border: none;
   width: 50%;
   height: 232px;
-
   position: relative;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
 `;
+
 const Versus = styled.div`
   position: absolute;
   transform: translate(0px, 88px);
@@ -358,26 +363,26 @@ const Versus = styled.div`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.color.orange};
-  width: 55px;
-  height: 55px;
-  border: none;
-  border-radius: 10px;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
+  width: 55px;
+  height: 55px;
+  z-index: 99;
 `;
+
 const DebateWinnerBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #fefefe;
-  font-weight: bold;
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   border: none;
   width: 50%;
   height: 232px;
-
   position: relative;
 `;
+
 const DetailLogo = styled.div`
   display: flex;
   justify-content: center;
@@ -386,42 +391,50 @@ const DetailLogo = styled.div`
   transform: translate(0px, -76px);
   gap: 4px;
 `;
+
 const WinnerTitleBox = styled.div`
   font-size: 28px;
   padding-bottom: 20px;
   text-align: center;
   color: ${(props) => props.theme.color.orange};
 `;
+
 const LoserTitleBox = styled.div`
   font-size: 24px;
   padding-bottom: 20px;
   text-align: center;
 `;
+
 const DetailBox1 = styled.div`
   position: absolute;
   transform: translate(-10px, 66px);
   font-size: 12px;
 `;
+
 const DetailBox2 = styled.div`
   position: absolute;
   transform: translate(84px, 66px);
   font-size: 12px;
 `;
+
 const LoserDetailBox1 = styled.div`
   position: absolute;
   transform: translate(0px, 66px);
   font-size: 12px;
 `;
+
 const LoserDetailBox2 = styled.div`
   position: absolute;
   transform: translate(90px, 66px);
   font-size: 12px;
 `;
+
 const Box = styled.div`
   width: 150px;
   display: flex;
   align-items: center;
 `;
+
 const DetailImg = styled.img`
   width: 12px;
   height: 12px;
