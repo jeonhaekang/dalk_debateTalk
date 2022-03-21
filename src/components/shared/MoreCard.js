@@ -17,8 +17,6 @@ const MoreCard = (props) => {
 
   const test = scrollData?.list.filter((el) => el.roomId !== props.roomId);
 
-  console.log(test);
-
   const deleteRoom = () => {
     setScrollData({
       list: [...test],

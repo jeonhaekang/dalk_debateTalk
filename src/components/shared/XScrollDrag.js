@@ -38,13 +38,13 @@ const XScrollDrag = ({ children, ...props }) => {
     };
   };
 
+  const delay = 30;
+  const onThrottleDragMove = throttle(onDragMove, delay);
+
   const onwheel = (event) => {
     scrollRef.current.scrollLeft += event.deltaY;
     event.preventDefault(); // 링크나 폼 전송과 같은 기본 동작을 방지
   };
-
-  const delay = 30;
-  const onThrottleDragMove = throttle(onDragMove, delay);
 
   React.useEffect(() => {
     scrollRef.current.addEventListener("wheel", onwheel, { passive: false });
