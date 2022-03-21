@@ -5,7 +5,6 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
   baseURL: "https://raddas.site",
 });
 

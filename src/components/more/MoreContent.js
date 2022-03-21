@@ -56,7 +56,6 @@ const MoreContent = ({ category }) => {
   let observer = new IntersectionObserver(callback, { threshold: 0.5 });
 
   React.useEffect(() => {
-    console.log("useEffect:", category);
     observer.observe(observe.current);
   }, []);
 
