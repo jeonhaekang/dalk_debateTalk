@@ -33,6 +33,8 @@ const ChatRoom = (props) => {
 
   const userList = useSelector((state) => state.chat.currentRoom.users);
 
+  console.log(roomInfo);
+
   const reportRoom = () => {
     dispatch(chatAction.reportRoomDB(data.roomId));
   };

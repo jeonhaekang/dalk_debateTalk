@@ -1,81 +1,32 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import InfinityScroll from "../../shared/InfinityScroll";
-import { actionCreators as infinityAction } from "../../redux/modules/infinityScroll";
 import MoreCard from "../shared/MoreCard";
-import apis from "../../shared/apis";
 import Text from "../../elements/Text";
+import { actionCreators } from "../../redux/modules/chatRoomInfinity";
 
 const MoreContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
-
-  const [scrollData, setScrollData] = React.useState({
-    list: [],
-    page: 0,
-    has_next: false,
-  });
-
-  const { size = 5, page, has_next } = scrollData;
+  const data = useSelector((props) => props.chatRoomInfinity[category]);
 
   const getRoomList = () => {
-    apis[api](size, page, category)
-      .then((res) => {
-        let is_next = null;
-        if (res.data.length < size) {
-          is_next = false;
-        } else {
-          is_next = true;
-        }
-
-        setScrollData({
-          list: [...scrollData.list, ...res.data],
-          page: scrollData.page + 1,
-          has_next: is_next,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(actionCreators.loadListDB(data.page, api, category));
   };
-
-  const observe = useRef(null);
-
-  const callback = (entries, observer) => {
-    entries.forEach((entry) => {
-      // console.log(category, entry);
-      if (entry.isIntersecting) {
-        console.log("화면에 노출됨:", category);
-        getRoomList();
-        observer.unobserve(entry.target);
-      }
-    });
-  };
-
-  let observer = new IntersectionObserver(callback, { threshold: 0.5 });
 
   React.useEffect(() => {
-    observer.observe(observe.current);
+    getRoomList();
   }, []);
-
-  console.log(`${category} : `, scrollData);
 
   return (
     <>
-      <div ref={observe} style={{ border: "1px solid rgba(0,0,0,0)" }}>
-        <InfinityScroll callNext={getRoomList} paging={{ next: has_next }}>
-          {scrollData.list.length !== 0 ? (
+      <div style={{ border: "1px solid rgba(0,0,0,0)" }}>
+        <InfinityScroll callNext={getRoomList} paging={{ next: data.has_next }}>
+          {data.list.length !== 0 ? (
             <MoreBox>
-              {scrollData.list.map((el, i) => {
-                return (
-                  <MoreCard
-                    key={i}
-                    {...el}
-                    scrollData={scrollData}
-                    setScrollData={setScrollData}
-                  />
-                );
+              {data.list.map((el, i) => {
+                return <MoreCard key={i} {...el} />;
               })}
             </MoreBox>
           ) : (

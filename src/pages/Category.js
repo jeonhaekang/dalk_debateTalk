@@ -1,62 +1,35 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import React, { useState } from "react";
 import Footer from "../shared/Footer";
 
 import FlexGrid from "../elements/FlexGrid";
 
-import InfinityScroll from "../shared/InfinityScroll";
 import ContentContainer from "../elements/Container";
 import Text from "../elements/Text";
-import apis from "../shared/apis";
+
 import styled from "styled-components";
-import MoreCard from "../components/shared/MoreCard";
+
 import NewHeader from "../shared/NewHeader";
 import BestContent from "../components/category/BestContent";
+import CategoryContent from "../components/category/CategoryContent";
+import { actionCreators } from "../redux/modules/chatRoomInfinity";
+import { useDispatch } from "react-redux";
 
 const Category = (props) => {
   const dispatch = useDispatch();
   const category = props.match.params.category;
 
-  const [scrollData, setScrollData] = React.useState({
-    list: [],
-    page: 0,
-    has_next: false,
-  });
+  const [time, setTime] = React.useState(new Date().getTime());
 
-  const { size = 5, page, has_next } = scrollData;
-
-  const getRoomList = () => {
-    apis
-      .loadCategoryRoom(size, page, category)
-      .then((res) => {
-        let is_next = null;
-        if (res.data.length < size) {
-          is_next = false;
-        } else {
-          is_next = true;
-        }
-
-        setScrollData({
-          list: [...scrollData.list, ...res.data],
-          page: scrollData.page + 1,
-          has_next: is_next,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const refresh = () => {
+    setTime(new Date().getTime());
+    dispatch(actionCreators.refreshDB("loadCategoryRoom", category));
   };
-
-  React.useEffect(() => {
-    getRoomList();
-  }, []);
 
   return (
     <>
       <NewHeader page={`#${category}`} color line />
       <ContentContainer>
-        <BestContent category={category} />
+        <BestContent category={category} time={time} />
         <ContentBox is_column>
           <FlexGrid
             is_column
@@ -68,19 +41,10 @@ const Category = (props) => {
               엎치락 뒤치락 실시간 토론
             </Text>
             <Text>투표를 서둘러 주세요!</Text>
+
+            <button onClick={refresh}>새로고침</button>
           </FlexGrid>
-          <InfinityScroll callNext={getRoomList} paging={{ next: has_next }}>
-            {scrollData.list.map((el, i) => {
-              return (
-                <MoreCard
-                  key={i}
-                  {...el}
-                  scrollData={scrollData}
-                  setScrollData={setScrollData}
-                />
-              );
-            })}
-          </InfinityScroll>
+          <CategoryContent category={category} time={time} />
         </ContentBox>
       </ContentContainer>
       <Footer />
