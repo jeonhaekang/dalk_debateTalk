@@ -29,18 +29,19 @@ const MyGrade = () => {
     return (
         <Grid height="100vh" overflow="scroll">
             <Header page="등급표" />
-            <QuestionRP>내 알포인트 등급은?</QuestionRP>
             <MyGradeInfo>
-                <MyGradeImage src={userRank.img}></MyGradeImage>
+                <Radius>
+                    <MyGradeImage src={userRank.img}></MyGradeImage>
+                </Radius>
                 <IsMyGrade>
-                    나의 등급은 <br/>
+                    나의 등급은 <br />
                     <span className="GradeColor">{userRank.name}</span> 입니다
                 </IsMyGrade>
                 <NextGrade>다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
             </MyGradeInfo>
 
             <GradeInfo>
-                <GradeTitle>알포인트 등급 안내</GradeTitle>
+                <GradeTitle>알포인트 등급</GradeTitle>
 
                 <GradeWrap>
                     {RankInfo.map((el, i) => {
@@ -75,19 +76,28 @@ const MyGradeInfo = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px;
+    padding: 100px 40px;
 `
-const MyGradeImage = styled.img`
-    width: 184px;
-    height: 184px;
+const Radius = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
     border-radius: 100%;
+    width: 184px;
+    height: 184px;
+    background-color: #F5F5F5;
+`
+const MyGradeImage = styled.img`
+    width: 130px;
+    height: 130px;
 `
 const Mygradeis = styled.div`
     font-weight: ${(props) => props.theme.fontWeight.medium};
     font-size: ${(props) => props.theme.fontSizes.subtitle1};
 `
 const IsMyGrade = styled.div`
+    padding-top: 60px;
     font-size: 28px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .GradeColor{
@@ -96,7 +106,7 @@ const IsMyGrade = styled.div`
     }
 `
 const NextGrade = styled.div`
-    padding-top: 20px;
+    padding-top: 10px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .RP{
         color: #E9C718;
