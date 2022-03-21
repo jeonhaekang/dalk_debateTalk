@@ -9,12 +9,18 @@ import Text from "../elements/Text";
 import MoreContent from "../components/more/MoreContent";
 import MoreHeader from "../components/more/MoreHeader";
 import styled from "styled-components";
+import { actionCreators } from "../redux/modules/chatRoomInfinity";
 
 const More = () => {
   const dispatch = useDispatch();
 
   const [category, setCategory] = React.useState("전체");
+  const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
   const [idx, setIdx] = React.useState(0);
+
+  const refresh = () => {
+    dispatch(actionCreators.refreshDB(api, category));
+  };
 
   return (
     <>
@@ -26,7 +32,9 @@ const More = () => {
             <br />
             참여해보세요
           </Text>
+          <button onClick={refresh}>새로고침</button>
         </FlexGrid>
+
         <MoreHeader
           category={category}
           setCategory={setCategory}

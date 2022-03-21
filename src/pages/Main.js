@@ -36,6 +36,7 @@ const Main = (props) => {
   return (
     <>
       <NewHeader page="메인" />
+
       <ContentContainer backgroundColor="#fbfbfb">
         <FlexGrid is_column>
           {/* 캐러셀 */}
@@ -53,6 +54,7 @@ const Main = (props) => {
 
               <FireDalk src={fireDalk} />
             </FlexGrid>
+
             {roomList.map((el, i) => {
               if (i < 3)
                 return <MainCard key={el.roomId} {...el} page="main" />;
@@ -82,6 +84,7 @@ const Main = (props) => {
           </MoreButton>
         </FlexGrid>
       </ContentContainer>
+
       <Footer />
     </>
   );

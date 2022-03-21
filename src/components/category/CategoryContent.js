@@ -8,7 +8,6 @@ import { actionCreators } from "../../redux/modules/chatRoomInfinity";
 const CategoryContent = ({ category, time }) => {
   const dispatch = useDispatch();
   const data = useSelector((props) => props.chatRoomInfinity[category]);
-  console.log(data);
 
   const getRoomList = () => {
     dispatch(

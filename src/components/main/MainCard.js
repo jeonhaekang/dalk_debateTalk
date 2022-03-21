@@ -29,8 +29,6 @@ const MainCard = (props) => {
     }
   }, []);
 
-  console.log(props);
-
   return (
     <CardBox is_column _onClick={enterRoom}>
       {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
