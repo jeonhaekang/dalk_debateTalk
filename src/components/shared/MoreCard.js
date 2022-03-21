@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
-import GaugeTimer from "../chatroom/GaugeTimer";
+import CardGaugeTimer from "../chatroom/CardGaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
@@ -12,26 +12,28 @@ import short from "../../image/shared/short.svg";
 import long from "../../image/shared/long.svg";
 
 const MoreCard = (props) => {
-  const { scrollData, setScrollData } = props;
   const userRank = rank[discriminant(props.userInfo.ex)];
 
-  const test = scrollData?.list.filter((el) => el.roomId !== props.roomId);
+  const [blindState, setBlindState] = React.useState(false);
+  const [timeState, setTimeState] = React.useState(false);
 
-  const deleteRoom = () => {
-    setScrollData({
-      list: [...test],
-      page: scrollData.page,
-      has_next: scrollData.has_next,
-    });
+  const enterRoom = () => {
+    if (blindState || timeState) {
+      return;
+    }
+    loginCheck("push", "/chatroom/" + props.roomId);
   };
 
+  React.useEffect(() => {
+    if (props.warnCnt >= 3) {
+      setBlindState(true);
+    }
+  }, []);
+
   return (
-    <CardBox
-      is_column
-      _onClick={() => loginCheck("push", "/chatroom/" + props.roomId)}
-      className="moreBox"
-    >
-      {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
+    <CardBox is_column _onClick={enterRoom} className="moreBox">
+      {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
+      {timeState && <Blind>종료된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
           {props.category.map((el, i) => {
@@ -63,11 +65,11 @@ const MoreCard = (props) => {
             <Topic>{props.topicB}</Topic>
           </FlexGrid>
           <FlexGrid>
-            <GaugeTimer
-              deleteRoom={deleteRoom}
+            <CardGaugeTimer
               {...props}
               borderRadius="10px"
               height="6px"
+              setTimeState={setTimeState}
             />
           </FlexGrid>
         </FlexGrid>

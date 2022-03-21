@@ -29,6 +29,10 @@ const Main = (props) => {
     return () => dispatch(actionCreators.clear());
   }, []);
 
+  const refresh = () => {
+    dispatch(actionCreators.loadMainRoomDB());
+  };
+
   return (
     <>
       <NewHeader page="메인" />
@@ -38,6 +42,7 @@ const Main = (props) => {
           <MainCarousel />
           {/* 1,2,3등 */}
           <TopRank />
+          <button onClick={refresh}>새로고침</button>
           {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
           <FlexGrid is_column padding="24px" gap="22px">
             <FlexGrid paddingBottom="58px">
@@ -45,11 +50,12 @@ const Main = (props) => {
                 실시간 HOT한
                 <br /> 토론에 참여해보세요!
               </Text>
+
               <FireDalk src={fireDalk} />
             </FlexGrid>
-
             {roomList.map((el, i) => {
-              if (i < 3) return <MainCard key={i} {...el} page="main" />;
+              if (i < 3)
+                return <MainCard key={el.roomId} {...el} page="main" />;
             })}
 
             {/* 추천 카테고리 */}

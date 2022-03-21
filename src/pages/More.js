@@ -15,10 +15,10 @@ const More = () => {
 
   const [category, setCategory] = React.useState("전체");
   const [idx, setIdx] = React.useState(0);
-  
+
   return (
     <>
-      <NewHeader page="토론리스트" line/>
+      <NewHeader page="토론리스트" line />
       <ContentContainer>
         <FlexGrid padding="16px" height="108px">
           <Text size="headline1" weight="medium" lineHeight="38px">

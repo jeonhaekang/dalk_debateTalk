@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
-import GaugeTimer from "../chatroom/GaugeTimer";
+import CardGaugeTimer from "../chatroom/CardGaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
@@ -13,14 +13,28 @@ import long from "../../image/shared/long.svg";
 
 const MainCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex)];
+  const [blindState, setBlindState] = useState(false);
+  const [timeState, setTimeState] = useState(false);
+
+  const enterRoom = () => {
+    if (blindState || timeState) {
+      return;
+    }
+    loginCheck("push", "/chatroom/" + props.roomId);
+  };
+
+  useEffect(() => {
+    if (props.warnCnt >= 3) {
+      setBlindState(true);
+    }
+  }, []);
+
   console.log(props);
 
   return (
-    <CardBox
-      is_column
-      _onClick={() => loginCheck("push", "/chatroom/" + props.roomId)}
-    >
-      {props.warnCnt >= 3 && <Blind>블라인드 처리된 채팅방</Blind>}
+    <CardBox is_column _onClick={enterRoom}>
+      {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
+      {timeState && <Blind>종료된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
           {props.category.map((el, i) => {
@@ -46,7 +60,11 @@ const MainCard = (props) => {
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
-      <GaugeTimer {...props} page={props.page} />
+      <CardGaugeTimer
+        {...props}
+        page={props.page}
+        setTimeState={setTimeState}
+      />
     </CardBox>
   );
 };

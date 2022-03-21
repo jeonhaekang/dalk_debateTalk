@@ -5,27 +5,25 @@ import Text from "../../elements/Text";
 import MainCard from "../../components/main/MainCard";
 import apis from "../../shared/apis";
 
-const BestContent = ({ category }) => {
+const BestContent = ({ category, time }) => {
   const [most, setMost] = React.useState();
-
   React.useEffect(() => {
     apis
       .categoryBest(category)
       .then((res) => {
-        console.log(res.data);
         setMost(res.data);
       })
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [time]);
 
   return (
     <BestBox is_column>
       <Text size="headline1" weight="medium" lineHeight="38px">
         실시간 베스트 토론
       </Text>
-      {most && <MainCard {...most} page="main" />}
+      {most && <MainCard key={most.roomId} {...most} page="main" />}
     </BestBox>
   );
 };
