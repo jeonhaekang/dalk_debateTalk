@@ -16,33 +16,63 @@ import NewHeader from "../shared/NewHeader";
 
 const Category = (props) => {
   const dispatch = useDispatch();
-  const page = props.match.params.category;
+  const category = props.match.params.category;
   const [most, setMost] = React.useState();
 
-  React.useEffect(() => {
-    dispatch(infinitiAction.loadListDB(0, "loadCategoryRoom", page));
+  const [scrollData, setScrollData] = React.useState({
+    list: [],
+    page: 0,
+    has_next: false,
+  });
 
-    apis.categoryBest(page).then((res) => {
-      console.log(res.data);
-      setMost(res.data);
-    });
-
-    return () => {
-      return dispatch(infinitiAction.clear());
-    };
-  }, []);
+  const { size = 5, page, has_next } = scrollData;
 
   const getRoomList = () => {
-    dispatch(
-      infinitiAction.loadListDB(roomList.page, "loadCategoryRoom", page)
-    );
+    apis
+      .loadCategoryRoom(size, page, category)
+      .then((res) => {
+        let is_next = null;
+        if (res.data.length < size) {
+          is_next = false;
+        } else {
+          is_next = true;
+        }
+
+        setScrollData({
+          list: [...scrollData.list, ...res.data],
+          page: scrollData.page + 1,
+          has_next: is_next,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  // React.useEffect(() => {
+  //   dispatch(infinitiAction.loadListDB(0, "loadCategoryRoom", page));
+
+  //   apis.categoryBest(page).then((res) => {
+  //     console.log(res.data);
+  //     setMost(res.data);
+  //   });
+
+  //   return () => {
+  //     return dispatch(infinitiAction.clear());
+  //   };
+  // }, []);
+
+  // const getRoomList = () => {
+  //   dispatch(
+  //     infinitiAction.loadListDB(roomList.page, "loadCategoryRoom", page)
+  //   );
+  // };
 
   const roomList = useSelector((props) => props.infinityScroll);
 
   return (
     <>
-      <NewHeader page={`#${page}`} color line/>
+      <NewHeader page={`#${category}`} color line />
       <ContentContainer>
         <BestBox is_column>
           <Text size="headline1" weight="medium" lineHeight="38px">
@@ -67,7 +97,7 @@ const Category = (props) => {
             callNext={getRoomList}
             paging={{ next: roomList.has_next }}
           >
-            {roomList.list.map((el, i) => {
+            {scrollData.list.map((el, i) => {
               return <MoreCard key={i} {...el} />;
             })}
           </InfinityScroll>
