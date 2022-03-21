@@ -13,14 +13,16 @@ const ShopGachaAnnounce = (props) => {
           onClick={() => {
             history.push("/mypage/pointshop");
           }}
-        ><ImgSrc src={shop}></ImgSrc></ContentImage>
+        >
+          <ImgSrc src={shop}></ImgSrc>
+        </ContentImage>
         <ContentTitle>알포인트 상점</ContentTitle>
       </Content>
 
       <Content>
-        <ContentImage
-          onClick={() => history.push("/mypage/gacha")}
-        ><ImgSrc src={gacha}></ImgSrc></ContentImage>
+        <ContentImage onClick={() => history.push("/mypage/gacha")}>
+          <ImgSrc src={gacha}></ImgSrc>
+        </ContentImage>
         <ContentTitle>행운뽑기</ContentTitle>
       </Content>
 
@@ -29,7 +31,8 @@ const ShopGachaAnnounce = (props) => {
           onClick={() => {
             history.push("/announcement");
           }}
-        ><ImgSrc src={flag}></ImgSrc>
+        >
+          <ImgSrc src={flag}></ImgSrc>
         </ContentImage>
         <ContentTitle>공지사항</ContentTitle>
       </Content>
@@ -41,12 +44,12 @@ const Wrap = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: 20px 20px 30px 20px;
-  border-bottom: 16px solid #F1F1F1;
+  background-color: white;
 `;
 
 const ImgSrc = styled.img`
   padding-top: 26px;
-`
+`;
 
 const Content = styled.div`
   display: flex;
@@ -59,7 +62,7 @@ const Content = styled.div`
 const ContentImage = styled.div`
   width: 90px;
   height: 90px;
-  background: #FAEDE1;
+  background: #faede1;
   border-radius: 75px;
   border: none;
   cursor: pointer;
