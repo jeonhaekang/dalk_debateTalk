@@ -5,7 +5,8 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "http://3.39.10.20:8080",
 });
 
 instance.interceptors.request.use((config) => {
