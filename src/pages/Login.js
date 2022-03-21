@@ -65,10 +65,26 @@ const Login = (props) => {
     }
   };
 
+  //인풋 패스워드 눈
+  const [passwordType, setPasswordType] = useState({
+    type: 'password',
+    visible: false
+  });
+
+  const handlePasswordType = (e) => {
+    setPasswordType(() => {
+        if (!passwordType.visible) {
+            return { type: 'text', visible: true };
+        }
+        return { type: 'password', visible: false };
+    })
+}
+
   return (
     <>
       <FlexGrid is_column center height="100%" padding="16px">
         <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
+
         <FlexGrid is_column gap="20px">
           <LoginInput
             type="text"
@@ -81,29 +97,25 @@ const Login = (props) => {
           )}
 
           <LoginInput
-            type="password"
+            type={passwordType.type}
             placeholder={"패스워드 입력"}
             onKeyDown={handleKeyDown}
             onChange={onChangePassword}
           ></LoginInput>
+          <span onClick={handlePasswordType}>
+            	{ passwordType.visible ? <span>숨기기</span> : <span>보이기</span> }
+          </span>
           {password.length > 0 && !isPassword && (
-            <Validation>8자 이상의 영문/숫자 조합을 입력해주세요.</Validation>
+            <Validation>다시 입력해주세요</Validation>
           )}
 
           <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
         </FlexGrid>
 
         <Grid padding="30px 0px">
-          <Text>DALK 회원이 아니신가요?</Text>
-          <Text
-            color="#A64BF5"
-            cursor="pointer"
-            onClick={() => {
+          <Signuptext>아직 회원이 아니신가요? 지금 <span className="gosignup" onClick={() => {
               history.push("/signup");
-            }}
-          >
-            회원가입
-          </Text>
+            }}>가입</span>하세요</Signuptext>
         </Grid>
       </FlexGrid>
     </>
@@ -130,8 +142,10 @@ const LoginInput = styled.input`
 `;
 const Validation = styled.p`
   margin-top: 5px;
-  font-size: 6px;
+  font-size: 12px;
+  color: #FF5454;
 `;
+
 const LoginBtn = styled.button`
   background-color: ${(props) => props.theme.color.orange};
   border: none;
@@ -144,4 +158,13 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
+const Signuptext = styled.text`
+  font-size: ${(props) => props.theme.fontSizes.body1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  text-decoration: underline;
+  .gosignup{
+    color: ${(props) => props.theme.color.orange};
+    cursor: pointer;
+  }
+`
 export default Login;
