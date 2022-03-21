@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import { actionCreators as alertAction } from "../redux/modules/alert";
+import FlexGrid from "../elements/FlexGrid";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -46,9 +47,11 @@ const Login = (props) => {
   //로그인 버튼 onClick
   const handleLogin = () => {
     if (username === "" || password === "") {
-      dispatch(alertAction.open({
-        message: "아이디, 비밀번호를 모두 적어주세요"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "아이디, 비밀번호를 모두 적어주세요",
+        })
+      );
     } else {
       //DB dispatch 하기
       dispatch(userActions.logInDB(username, password));
@@ -79,10 +82,10 @@ const Login = (props) => {
 
   return (
     <>
-      <Wrap>
+      <FlexGrid is_column center height="100%" padding="16px">
         <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
 
-        <Grid padding="17px 0px">
+        <FlexGrid is_column gap="20px">
           <LoginInput
             type="text"
             placeholder={"아이디 입력"}
@@ -92,8 +95,7 @@ const Login = (props) => {
           {username.length > 0 && !isUsername && (
             <Validation>올바른 아이디 형식을 입력해주세요.</Validation>
           )}
-        </Grid>
-        <Grid padding="0px 0px 33px 0px">
+
           <LoginInput
             type={passwordType.type}
             placeholder={"패스워드 입력"}
@@ -106,45 +108,28 @@ const Login = (props) => {
           {password.length > 0 && !isPassword && (
             <Validation>다시 입력해주세요</Validation>
           )}
-        </Grid>
 
-        <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
+          <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
+        </FlexGrid>
 
         <Grid padding="30px 0px">
           <Signuptext>아직 회원이 아니신가요? 지금 <span className="gosignup" onClick={() => {
               history.push("/signup");
             }}>가입</span>하세요</Signuptext>
         </Grid>
-      </Wrap>
+      </FlexGrid>
     </>
   );
 };
 
-const Wrap = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-`
-
 const LogoImage = styled.img`
-  display: flex;
   width: 196px;
-  height: 196px;
-  border: none;
-  border-radius: 15px;
-  color: #fff;
-  font-size: 32px;
-  justify-content: center;
-  align-items: center;
 `;
 
 const LoginInput = styled.input`
-  width: 375px;
+  width: 100%;
   height: 60px;
-  box-sizing: border-box;
+
   border: none;
   border-radius: 10px;
   background-color: #f1f1f1;
@@ -166,7 +151,7 @@ const LoginBtn = styled.button`
   border: none;
   border-radius: 10px;
   color: #fff;
-  width: 375px;
+  width: 100%;
   height: 60px;
   font-size: 24px;
   font-weight: ${(props) => props.theme.fontWeight.medium};
