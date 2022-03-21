@@ -126,9 +126,9 @@ const EggImg = styled.img`
     padding-bottom: 10px;
 `
 const Flag = styled.div`
-transform: translate(26px, -8px);
-display: inline-block;
-    width: 124px;
+    transform: translate(26px, -8px);
+    display: inline-block;
+    width: 125px;
     height: 40px;
     background: ${(props) => props.theme.color.orange};
     :before {

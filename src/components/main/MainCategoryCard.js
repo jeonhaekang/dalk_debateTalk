@@ -6,9 +6,25 @@ import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 
 const MainCategoryCard = (props) => {
+  const [list, setList] = React.useState([]);
+  const categoryList = [...categoryDate];
+
+  React.useEffect(() => {
+    let newList = [];
+
+    while (newList.length <= 4) {
+      const random = Math.floor(Math.random() * categoryList.length);
+      const category = categoryList.splice(random, 1)[0];
+
+      if (category.name !== "전체") newList.push(category);
+    }
+
+    setList(newList);
+  }, []);
+
   return (
     <>
-      {categoryDate.map((el, i) => {
+      {list.map((el, i) => {
         if (i === 0) return null;
 
         return (
@@ -64,6 +80,7 @@ const CardWrap = styled(FlexGrid)`
   // flex : flexitem의 기본 크기를 결정하는 속성
 
   margin: 24px 0;
+  padding: 16px;
 `;
 
 const Icon = styled.div`
@@ -73,8 +90,8 @@ const Icon = styled.div`
   background-size: cover;
 
   position: absolute;
-  bottom: 26px;
-  right: 23px;
+  bottom: 16px;
+  right: 16px;
 `;
 
 export default MainCategoryCard;

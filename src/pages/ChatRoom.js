@@ -30,10 +30,8 @@ const ChatRoom = (props) => {
   };
 
   const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
-  console.log(roomInfo);
 
   const userList = useSelector((state) => state.chat.currentRoom.users);
-  console.log(userList.length);
 
   const reportRoom = () => {
     dispatch(chatAction.reportRoomDB(data.roomId));

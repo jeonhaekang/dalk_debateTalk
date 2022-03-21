@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useDispatch } from "react-redux";
+import { actionCreators as infinityAction } from "../../redux/modules/infinityScroll";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
 
 const GaugeTimer = (props) => {
+  const { deleteRoom } = props;
   const dispatch = useDispatch();
 
   const end = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
@@ -13,7 +15,7 @@ const GaugeTimer = (props) => {
 
   // 긴방인지 짧은방인지 판단 후 종료시간에 더함
   //if (props.time) end.setMinutes(end.getMinutes() + 20);
-  if (props.time) end.setSeconds(end.getSeconds() + 70);
+  if (props.time) end.setSeconds(end.getSeconds() + 40);
   else end.setHours(end.getHours() + 1);
 
   // 종료 시간에서 현재 시간을 빼서 남은 시간 구함
@@ -30,6 +32,9 @@ const GaugeTimer = (props) => {
   React.useEffect(() => {
     if (restTime <= 0) {
       dispatch(chatAction.deleteRoom(props.roomId));
+      if (deleteRoom) {
+        deleteRoom(props.roomId);
+      }
       return;
     }
     const timer = setInterval(() => tick(), 1000);
@@ -37,7 +42,7 @@ const GaugeTimer = (props) => {
   });
 
   // 게이지 퍼센트
-  let per = (restTime / (props.time ? 70 : 3600)) * 100;
+  let per = (restTime / (props.time ? 40 : 3600)) * 100;
   if (restTime < 60) {
     per = (restTime / 60) * 100;
   }

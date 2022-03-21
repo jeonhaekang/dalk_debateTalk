@@ -341,6 +341,7 @@ const Detail = (props) => {
 const DebateWrap = styled.div`
   display: flex;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const DebateLoserBox = styled.div`

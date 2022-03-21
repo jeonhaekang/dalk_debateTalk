@@ -56,7 +56,6 @@ const MoreContent = ({ category }) => {
   let observer = new IntersectionObserver(callback, { threshold: 0.5 });
 
   React.useEffect(() => {
-    console.log("useEffect:", category);
     observer.observe(observe.current);
   }, []);
 
@@ -69,7 +68,14 @@ const MoreContent = ({ category }) => {
           {scrollData.list.length !== 0 ? (
             <MoreBox>
               {scrollData.list.map((el, i) => {
-                return <MoreCard key={i} {...el} />
+                return (
+                  <MoreCard
+                    key={i}
+                    {...el}
+                    scrollData={scrollData}
+                    setScrollData={setScrollData}
+                  />
+                );
               })}
             </MoreBox>
           ) : (
