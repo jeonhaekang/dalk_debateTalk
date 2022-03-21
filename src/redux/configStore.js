@@ -14,7 +14,6 @@ import post from "./modules/post";
 import search from "./modules/search";
 import notice from "./modules/notice";
 import infinityScroll from "./modules/infinityScroll";
-import chatRoomInfinity from "./modules/chatRoomInfinity";
 
 export const history = createBrowserHistory();
 
@@ -31,7 +30,6 @@ const rootReducer = combineReducers({
   search: search,
   notice: notice,
   infinityScroll: infinityScroll,
-  chatRoomInfinity: chatRoomInfinity,
 
   router: connectRouter(history),
 });

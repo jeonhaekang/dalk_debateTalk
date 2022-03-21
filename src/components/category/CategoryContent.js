@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import InfinityScroll from "../../shared/InfinityScroll";
 import MoreCard from "../../components/shared/MoreCard";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../../redux/modules/chatRoomInfinity";
+import { actionCreators } from "../../redux/modules/infinityScroll";
 
 const CategoryContent = ({ category, time }) => {
   const dispatch = useDispatch();
-  const data = useSelector((props) => props.chatRoomInfinity[category]);
+  const data = useSelector((props) => props.infinityScroll[category]);
 
   const getRoomList = () => {
     dispatch(

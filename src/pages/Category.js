@@ -11,7 +11,7 @@ import styled from "styled-components";
 import NewHeader from "../shared/NewHeader";
 import BestContent from "../components/category/BestContent";
 import CategoryContent from "../components/category/CategoryContent";
-import { actionCreators } from "../redux/modules/chatRoomInfinity";
+import { actionCreators } from "../redux/modules/infinityScroll";
 import { useDispatch } from "react-redux";
 
 const Category = (props) => {

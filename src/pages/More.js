@@ -9,7 +9,7 @@ import Text from "../elements/Text";
 import MoreContent from "../components/more/MoreContent";
 import MoreHeader from "../components/more/MoreHeader";
 import styled from "styled-components";
-import { actionCreators } from "../redux/modules/chatRoomInfinity";
+import { actionCreators } from "../redux/modules/infinityScroll";
 
 const More = () => {
   const dispatch = useDispatch();

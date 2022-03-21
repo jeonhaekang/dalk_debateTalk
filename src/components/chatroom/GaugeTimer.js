@@ -2,9 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { useDispatch } from "react-redux";
-import { actionCreators as infinityAction } from "../../redux/modules/infinityScroll";
-import { actionCreators as alertAction } from "../../redux/modules/alert";
-import { history } from "../../redux/configStore";
 
 const GaugeTimer = (props) => {
   const { deleteRoom } = props;

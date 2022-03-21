@@ -4,12 +4,12 @@ import styled from "styled-components";
 import InfinityScroll from "../../shared/InfinityScroll";
 import MoreCard from "../shared/MoreCard";
 import Text from "../../elements/Text";
-import { actionCreators } from "../../redux/modules/chatRoomInfinity";
+import { actionCreators } from "../../redux/modules/infinityScroll";
 
 const MoreContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
-  const data = useSelector((props) => props.chatRoomInfinity[category]);
+  const data = useSelector((props) => props.infinityScroll[category]);
 
   const getRoomList = () => {
     dispatch(actionCreators.loadListDB(data.page, api, category));
