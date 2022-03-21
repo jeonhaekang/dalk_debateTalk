@@ -6,7 +6,6 @@ import styled from "styled-components";
 import kakaoLogo from "../../image/kakao-logo.png";
 
 const KakaoShareButton = (props) => {
-  console.log(props)
   const { size } = props;
   const styles = { size: size };
 
@@ -39,7 +38,7 @@ const KakaoShareButton = (props) => {
           },
         },
         social: {
-          commentCount: 55,
+          commentCount: 5,
         },
         buttons: [
           {

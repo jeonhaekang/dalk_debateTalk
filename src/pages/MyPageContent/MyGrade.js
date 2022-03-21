@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../../shared/Header";
+import NewHeader from "../../shared/NewHeader";
 import { rank, RankInfo } from "../../data/rank";
 import { discriminant } from "../../data/rank";
 import { useSelector } from "react-redux";
@@ -28,10 +28,10 @@ const MyGrade = () => {
 
     return (
         <Grid height="100vh" overflow="scroll">
-            <Header page="등급표" />
+            <NewHeader page="등급안내" />
             <MyGradeInfo>
                 <Radius>
-                    <MyGradeImage src={userRank.img}></MyGradeImage>
+                    <img className="mygradeimg" src={userRank.img}></img>
                 </Radius>
                 <IsMyGrade>
                     나의 등급은 <br />
@@ -53,7 +53,7 @@ const MyGrade = () => {
                                     <div className="NameBox">{el.name}</div>
                                 </Grid>
                                 <Grid display="flex">
-                                    <PoingImg src={point} />
+                                    <PointImg src={point} />
                                     <div className="ExpBox">{el.exp}</div>
                                 </Grid>
                             </RankList>
@@ -65,18 +65,14 @@ const MyGrade = () => {
         </Grid>
     )
 };
-const QuestionRP = styled.div`
-    padding: 20px 24px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    font-size: ${(props) => props.theme.fontSizes.headline2};
-`
+
 const MyGradeInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 100px 40px;
+    padding: 100px 110px;
 `
 const Radius = styled.div`
     display: flex;
@@ -87,17 +83,14 @@ const Radius = styled.div`
     width: 184px;
     height: 184px;
     background-color: #F5F5F5;
+    .mygradeimg{
+        width: 130px;
+        height: 130px;
+    }
 `
-const MyGradeImage = styled.img`
-    width: 130px;
-    height: 130px;
-`
-const Mygradeis = styled.div`
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    font-size: ${(props) => props.theme.fontSizes.subtitle1};
-`
+
 const IsMyGrade = styled.div`
-    padding-top: 60px;
+    padding-top: 50px;
     font-size: 28px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .GradeColor{
@@ -105,8 +98,9 @@ const IsMyGrade = styled.div`
         font-weight: ${(props) => props.theme.fontWeight.bold};
     }
 `
+
 const NextGrade = styled.div`
-    padding-top: 10px;
+    padding-top: 8px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .RP{
         color: #E9C718;
@@ -116,12 +110,12 @@ const GradeInfo = styled.div`
     border-top: 16px solid #F1F1F1;
 `
 const GradeTitle = styled.div`
-    padding: 15px;
+    padding: 14px 24px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     font-size: ${(props) => props.theme.fontSizes.headline2};
 `
 const GradeWrap = styled.div`
-    padding: 15px;
+    padding: 2px 24px;
 `
 const RankList = styled(FlexGrid)`
     justify-content: space-between;
@@ -149,7 +143,7 @@ const GradeImg = styled.img`
     width: 66px;
     height: 68px;
 `
-const PoingImg = styled.img`
+const PointImg = styled.img`
     width: 18px;
     height: 18px;
     margin: 4px 8px 0px 0px;
