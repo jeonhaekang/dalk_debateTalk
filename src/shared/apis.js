@@ -6,7 +6,7 @@ import store from "../redux/configStore";
 
 export const instance = axios.create({
   // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: "https://3.39.10.20:8080",
+  baseURL: "raddas.site",
 });
 
 instance.interceptors.request.use((config) => {
