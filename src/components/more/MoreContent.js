@@ -5,6 +5,8 @@ import InfinityScroll from "../../shared/InfinityScroll";
 import MoreCard from "../shared/MoreCard";
 import Text from "../../elements/Text";
 import { actionCreators } from "../../redux/modules/infinityScroll";
+import FlexGrid from "../../elements/FlexGrid";
+import empty from "../../image/shared/emptyRoom.svg";
 
 const MoreContent = ({ category }) => {
   const dispatch = useDispatch();
@@ -30,7 +32,10 @@ const MoreContent = ({ category }) => {
               })}
             </MoreBox>
           ) : (
-            <Text size="subtitle1">채팅방이 없습니다.</Text>
+            <FlexGrid is_column center padding="50px 0">
+              <img alt="empty" src={empty} />
+              <Text size="subtitle1">채팅방이 없습니다.</Text>
+            </FlexGrid>
           )}
         </InfinityScroll>
       </div>

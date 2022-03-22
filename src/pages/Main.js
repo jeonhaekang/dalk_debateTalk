@@ -15,7 +15,9 @@ import MainCard from "../components/main/MainCard";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
-import fireDalk from "../image/shared/fireDalk.png";
+import fireDalk from "../image/shared/fireDalk.svg";
+import reset from "../image/shared/reset.svg";
+import empty from "../image/shared/emptyRoom.svg";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -42,45 +44,57 @@ const Main = (props) => {
           <MainCarousel />
           {/* 1,2,3등 */}
           <TopRank />
-          <button onClick={refresh}>새로고침</button>
+
           {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
           <FlexGrid is_column padding="24px" gap="22px">
-            <FlexGrid paddingBottom="58px">
+            <FlexGrid paddingBottom="58px" between alignItems="flex-start">
               <Text size="headline1" weight="medium" lineHeight="38px">
                 실시간 HOT한
                 <br /> 토론에 참여해보세요!
               </Text>
-
-              <FireDalk src={fireDalk} />
+              <img alt="reset" onClick={refresh} src={reset} />
             </FlexGrid>
 
-            {roomList.map((el, i) => {
-              if (i < 3)
-                return <MainCard key={el.roomId} {...el} page="main" />;
-            })}
+            {roomList.length !== 0 ? (
+              <FlexGrid is_column gap="24px">
+                <FireDalk src={fireDalk} />
+                {roomList.map((el, i) => {
+                  if (i < 3)
+                    return <MainCard key={el.roomId} {...el} page="main" />;
+                })}
 
-            {/* 추천 카테고리 */}
-            <CategoryTap is_column>
-              <FlexGrid is_column padding="0 24px">
-                <Text size="body1">일상토론 찾아보기</Text>
-                <Text size="headline2" weight="medium">
-                  다양한 주제로 토론에 참여해보세요!
+                {/* 추천 카테고리 */}
+                <CategoryTap is_column>
+                  <FlexGrid is_column padding="0 24px">
+                    <Text size="body1">일상토론 찾아보기</Text>
+                    <Text size="headline2" weight="medium">
+                      다양한 주제로 토론에 참여해보세요!
+                    </Text>
+                  </FlexGrid>
+                  <XScrollDrag gap="16px" padding="0 24px">
+                    <MainCategoryCard />
+                  </XScrollDrag>
+                </CategoryTap>
+
+                {roomList.map((el, i) => {
+                  if (i >= 3) return <MainCard key={i} {...el} page="main" />;
+                })}
+                {/* 더보기 버튼 */}
+                <MoreButton onClick={() => history.push("/more")}>
+                  더 많은 토론보기 &gt;
+                </MoreButton>
+              </FlexGrid>
+            ) : (
+              <FlexGrid center is_column textAlign="center">
+                <img alt="empty" src={empty} />
+                <Text>
+                  아직 방이 없어요
+                  <br />
+                  방을 생성해주세요!
                 </Text>
               </FlexGrid>
-              <XScrollDrag gap="16px" padding="0 24px">
-                <MainCategoryCard />
-              </XScrollDrag>
-            </CategoryTap>
-
-            {roomList.map((el, i) => {
-              if (i >= 3) return <MainCard key={i} {...el} page="main" />;
-            })}
+            )}
           </FlexGrid>
-
-          {/* 더보기 버튼 */}
-          <MoreButton onClick={() => history.push("/more")}>
-            더 많은 토론보기 &gt;
-          </MoreButton>
         </FlexGrid>
       </ContentContainer>
 
@@ -88,8 +102,6 @@ const Main = (props) => {
     </>
   );
 };
-
-Main.defaultProps = {};
 
 const CategoryTap = styled(FlexGrid)`
   width: calc(100% + 48px);
@@ -106,13 +118,11 @@ const MoreButton = styled.div`
 `;
 
 const FireDalk = styled.img`
-  width: 53%;
+  max-width: 219px;
 
   position: absolute;
-  right: -30px;
-  bottom: -90px;
-
-  transform: rotate(18.52deg);
+  right: -20px;
+  top: -155px;
 `;
 
 export default Main;

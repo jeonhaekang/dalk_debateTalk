@@ -17,6 +17,7 @@ const fontWeight = {
 };
 
 const color = {
+  white: "#ffffff",
   black: "#333333",
   orange: "#F19121",
   deepOrange: "#F26A30",

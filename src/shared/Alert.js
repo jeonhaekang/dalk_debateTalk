@@ -2,20 +2,20 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../elements/FlexGrid";
+import Text from "../elements/Text";
 import { actionCreators } from "../redux/modules/alert";
 import Portal from "./Portal";
 
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert);
-  console.log(alert);
+
   const close = () => {
     alert.history();
     dispatch(actionCreators.close());
   };
 
   const action = () => {
-    console.log(alert.action);
     alert.action();
     dispatch(actionCreators.close());
   };
@@ -25,15 +25,28 @@ const Alert = () => {
       <Portal>
         <Background>
           <Content is_column>
-            <FlexGrid>{alert.message}</FlexGrid>
-
-            {alert.type === "alert" && <button onClick={close}>확인</button>}
-            {alert.type === "confirm" && (
-              <FlexGrid center justifyContent="space-around">
-                <button onClick={action}>확인</button>
-                <button onClick={close}>취소</button>
-              </FlexGrid>
-            )}
+            <FlexGrid center padding="40px 24px">
+              <Text size="subtitle1" weight="medium">
+                {alert.message}
+              </Text>
+            </FlexGrid>
+            <FlexGrid gap="0">
+              {alert.type === "alert" && (
+                <Yes center _onClick={close}>
+                  확인
+                </Yes>
+              )}
+              {alert.type === "confirm" && (
+                <>
+                  <Yes center _onClick={action}>
+                    확인
+                  </Yes>
+                  <No center _onClick={close}>
+                    취소
+                  </No>
+                </>
+              )}
+            </FlexGrid>
           </Content>
         </Background>
       </Portal>
@@ -55,9 +68,24 @@ const Background = styled.div`
 `;
 
 const Content = styled(FlexGrid)`
-  padding: 15px;
-  width: auto;
+  border-radius: 15px;
+  width: 300px;
   background-color: white;
+  gap: 0;
+  overflow: hidden;
+`;
+
+const Yes = styled(FlexGrid)`
+  width: 100%;
+  height: 48px;
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  background-color: ${(props) => props.theme.color.orange};
+  color: white;
+`;
+
+const No = styled(Yes)`
+  background-color: #cbcbcb;
 `;
 
 export default Alert;

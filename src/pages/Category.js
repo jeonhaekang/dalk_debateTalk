@@ -29,7 +29,7 @@ const Category = (props) => {
     <>
       <NewHeader page={`#${category}`} color line />
       <ContentContainer>
-        <BestContent category={category} time={time} />
+        <BestContent category={category} time={time} refresh={refresh} />
         <ContentBox is_column>
           <FlexGrid
             is_column
@@ -41,8 +41,6 @@ const Category = (props) => {
               엎치락 뒤치락 실시간 토론
             </Text>
             <Text>투표를 서둘러 주세요!</Text>
-
-            <button onClick={refresh}>새로고침</button>
           </FlexGrid>
           <CategoryContent category={category} time={time} />
         </ContentBox>

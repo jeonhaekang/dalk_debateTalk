@@ -4,8 +4,10 @@ import styled from "styled-components";
 import Text from "../../elements/Text";
 import MainCard from "../../components/main/MainCard";
 import apis from "../../shared/apis";
+import reset from "../../image/shared/reset.svg";
+import pinkReset from "../../image/shared/pinkReset.svg";
 
-const BestContent = ({ category, time }) => {
+const BestContent = ({ category, time, refresh }) => {
   const [most, setMost] = React.useState();
   React.useEffect(() => {
     apis
@@ -20,9 +22,12 @@ const BestContent = ({ category, time }) => {
 
   return (
     <BestBox is_column>
-      <Text size="headline1" weight="medium" lineHeight="38px">
-        실시간 베스트 토론
-      </Text>
+      <FlexGrid between>
+        <Text size="headline1" weight="medium" lineHeight="38px">
+          실시간 베스트 토론
+        </Text>
+        <img alt="reset" src={pinkReset} onClick={refresh} />
+      </FlexGrid>
       {most && <MainCard key={most.roomId} {...most} page="main" />}
     </BestBox>
   );

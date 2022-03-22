@@ -12,10 +12,10 @@ import short from "../../image/shared/short.svg";
 import long from "../../image/shared/long.svg";
 
 const MainCard = (props) => {
-  const userRank = rank[discriminant(props.userInfo.ex)];
+  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
   const [blindState, setBlindState] = useState(false);
   const [timeState, setTimeState] = useState(false);
-
+  
   const enterRoom = () => {
     if (blindState || timeState) {
       return;
