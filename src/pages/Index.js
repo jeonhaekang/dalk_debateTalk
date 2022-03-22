@@ -10,6 +10,7 @@ import More from "./More";
 import Category from "./Category";
 import Gacha from "./Gacha";
 import SearchRoom from "./SearchRoom";
+import CreateRoom from "./CreateRoom";
 
 export {
   Admin,
@@ -24,4 +25,5 @@ export {
   Category,
   Gacha,
   SearchRoom,
+  CreateRoom,
 };

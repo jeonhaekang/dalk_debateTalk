@@ -18,6 +18,7 @@ import {
   Category,
   Gacha,
   SearchRoom,
+  CreateRoom,
 } from "../pages/Index";
 import Announcement from "../pages/MyPageContent/Announcement";
 import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
@@ -72,6 +73,7 @@ function App() {
           <Wrap className="wrap">
             <Alert />
             <Route path="/" exact component={Main} />
+            <Route path="/createroom" exact component={CreateRoom} />
             <Route path="/search/:keyword" exact component={SearchRoom} />
             <Route path="/admin" exact component={Admin} />
             <Route path="/login" exact component={Login} />

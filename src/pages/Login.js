@@ -158,7 +158,7 @@ const LoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const Signuptext = styled.text`
+const Signuptext = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   text-decoration: underline;
