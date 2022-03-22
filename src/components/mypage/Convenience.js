@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import FlexGrid from "../../elements/FlexGrid";
 import { history } from "../../redux/configStore";
+
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
+
 import Modal from "../shared/Modal";
 import UserOut from "./UserOut";
 
@@ -60,19 +63,21 @@ const ConvinienceContent = styled(FlexGrid)`
   background-color: white;
   padding: 24px;
 `;
+
 const Title = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.bold};
   color: #cdcdcd;
 `;
+
 const Content = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.regular};
   color: ${(props) => props.theme.color.black};
   cursor: pointer;
-
   width: calc(100% / 2 - 20px);
 `;
+
 const UserOutTitle = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.regular};

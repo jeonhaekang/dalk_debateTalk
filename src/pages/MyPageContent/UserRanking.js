@@ -238,6 +238,7 @@ const LevelImg = styled.img`
     height: 30px;
     object-fit: cover;
 `
+
 const LevelImgList = styled.img`
     width: 23px;
     height: auto;
@@ -245,13 +246,13 @@ const LevelImgList = styled.img`
 `
 
 const MyGradeLevel = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 11px 16px;
-height: 54px;
-border-radius: 15px;
-background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 16px;
+    height: 54px;
+    border-radius: 15px;
+    background-color: #fff;
 `
 
 const Me = styled.div`

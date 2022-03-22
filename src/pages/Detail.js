@@ -62,14 +62,14 @@ const Detail = (props) => {
     (Number(debate.winnerResponse?.cnt) /
       (Number(debate.winnerResponse?.cnt) +
         Number(debate.loserResponse?.cnt))) *
-    100
+      100
   );
 
   const loserRate = Math.round(
     (Number(debate.loserResponse?.cnt) /
       (Number(debate.winnerResponse?.cnt) +
         Number(debate.loserResponse?.cnt))) *
-    100
+      100
   );
 
   //신고 기능
@@ -90,17 +90,13 @@ const Detail = (props) => {
       await apis
         .warningDebate(boardId)
         .then((res) => {
-          if (window.confirm("정말 신고하시겠어요?")) {
-            console.log("상세페이지 신고 성공", res);
-            setIsWarn(true);
-            dispatch(
-              alertAction.open({
-                message: "신고처리가 완료되었습니다",
-              })
-            );
-          } else {
-            return;
-          }
+          console.log("상세페이지 신고 성공", res);
+          setIsWarn(true);
+          dispatch(
+            alertAction.open({
+              message: "신고처리가 완료되었습니다",
+            })
+          );
         })
         .catch((err) => {
           console.log("이미 신고한 유저입니다", err);
@@ -130,7 +126,6 @@ const Detail = (props) => {
   return (
     <>
       <NewHeader page="완료된 토론" meatball boardId={boardId} debate={debate}>
-
         {/* 헤더 미트볼 관련 신고하기 + 공유하기 */}
         <FlexGrid _onClick={handleClickWarning}>
           <svg width="28" height="28" viewBox="0 0 28 28">
@@ -167,9 +162,7 @@ const Detail = (props) => {
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> WIN </div>
                 </DetailLogo>
-                <WinnerTitleBox>
-                  {debate.winnerResponse?.topic}
-                </WinnerTitleBox>
+                <WinnerTitleBox>{debate.winnerResponse?.topic}</WinnerTitleBox>
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
@@ -200,7 +193,6 @@ const Detail = (props) => {
                 </DetailBox2>
 
                 <GrapGauge which={true} rate={winnerRate} />
-
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateLoserBox>
@@ -208,9 +200,7 @@ const Detail = (props) => {
                   <img src={detailLogo} alt="detaillogo" />
                   <div style={{ fontSize: "14px" }}> LOSE </div>
                 </DetailLogo>
-                <LoserTitleBox>
-                  {debate.loserResponse?.topic}
-                </LoserTitleBox>
+                <LoserTitleBox>{debate.loserResponse?.topic}</LoserTitleBox>
                 <LoserDetailBox1>
                   <Box>
                     <DetailImg src={egg} />
@@ -233,7 +223,6 @@ const Detail = (props) => {
                 </LoserDetailBox2>
 
                 <GrapGauge which={false} rate={loserRate} />
-
               </DebateLoserBox>
             </>
           ) : (
@@ -244,9 +233,7 @@ const Detail = (props) => {
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
-                <WinnerTitleBox>
-                  {debate.winnerResponse?.topic}
-                </WinnerTitleBox>
+                <WinnerTitleBox>{debate.winnerResponse?.topic}</WinnerTitleBox>
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
@@ -277,7 +264,6 @@ const Detail = (props) => {
                 </DetailBox2>
 
                 <GrapGauge which={true} rate={winnerRate} />
-
               </DebateWinnerBox>
               <Versus>VS</Versus>
               <DebateWinnerBox>
@@ -285,9 +271,7 @@ const Detail = (props) => {
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
-                <WinnerTitleBox>
-                  {debate.loserResponse?.topic}
-                </WinnerTitleBox>
+                <WinnerTitleBox>{debate.loserResponse?.topic}</WinnerTitleBox>
                 <DetailBox1>
                   <Box>
                     <DetailImg src={eggFill} />
@@ -318,7 +302,6 @@ const Detail = (props) => {
                 </DetailBox2>
 
                 <GrapGauge which={false} rate={loserRate} />
-
               </DebateWinnerBox>
             </>
           )}
