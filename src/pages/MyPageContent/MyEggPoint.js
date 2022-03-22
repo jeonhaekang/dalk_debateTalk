@@ -8,7 +8,7 @@ import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
 
-import Header from "../../shared/Header";
+import NewHeader from "../../shared/NewHeader";
 import { history } from "../../redux/configStore";
 
 const MyEggPoint = () => {
@@ -38,7 +38,7 @@ const MyEggPoint = () => {
 
   return (
     <Grid height="100vh" overflow="scroll">
-      <Header page="알포인트 내역" />
+      <NewHeader page="알포인트 내역" />
       <FlexGrid
         is_column
         center

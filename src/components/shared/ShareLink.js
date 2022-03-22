@@ -1,9 +1,11 @@
 // 토론결과 detail 페이지에 있는 공유하기 버튼 컴포넌트들
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import link from '../../image/link.png'
-import Modal from './Modal'
+import { useDispatch } from 'react-redux'
+import { actionCreators as alertAction } from '../../redux/modules/alert'
 import { KakaoShareButton } from './KaKaoShareButton'
+
+import link from '../../image/link.png'
 
 //카카오 공유하기 Developer Script 사용
 import useScript from './useScript'
@@ -22,6 +24,7 @@ import {
 } from 'react-share'
 
 const ShareLink = () => {
+  const dispatch = useDispatch();
   useScript('https://developers.kakao.com/sdk/js/kakao.js')
 
   //링크 복사완료되면 복사완료라고 모달 띄워줄거임
@@ -51,7 +54,12 @@ const ShareLink = () => {
         <ShareBody>
           <div className="each-share-container">
             <CopyToClipboard onCopy={onCopy} text={debateDetailUrl}>
-              <button className="link-copy-button" onClick={() => {alert("복사 완료!")}}>
+              <button className="link-copy-button" 
+              onClick={() => {
+                dispatch(alertAction.open({
+                  message: "복사 완료!"
+                }))
+                }}>
                 <img src={link} width="40" />
               </button>
             </CopyToClipboard>

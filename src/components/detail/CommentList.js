@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { history } from '../../redux/configStore'
-import { actionCreators as commentActions } from '../../redux/modules/comment'
-import OneComment from './OneComment'
-
-import Button from '../../elements/Button'
-
 import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators as commentActions } from '../../redux/modules/comment'
+import { actionCreators as alertAction} from '../../redux/modules/alert'
+
+import OneComment from './OneComment'
 
 const CommentList = ({ debate }) => {
   const boardId = debate.boardId;
@@ -30,8 +29,10 @@ const CommentList = ({ debate }) => {
   const tokenCheck = token.split("=")[1]
   const addComment = () => {
     if (!tokenCheck) {
-      alert("로그인 해주세요!")
-      history.replace('/login');
+      dispatch(alertAction.open({
+        message : "로그인 해주세요!"
+      }))
+      history.push('/login');
     } else {
       dispatch(commentActions.addCommentDB(boardId, comment))
       setComment("");
