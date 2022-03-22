@@ -13,11 +13,11 @@ const Modal = (props) => {
     // ModalLayout부분 클릭시 모달창 닫힘
     const layout = modalRef.current === event.target;
     const close = closeRef.current === event.target;
-    console.log(layout, close);
+
     if (layout || close) {
       setAniState(true);
+
       setTimeout(() => {
-        setAniState(false);
         setModalState(false);
       }, 200);
     }
@@ -67,7 +67,12 @@ const CloseBtn = styled.div`
   position: absolute;
   right: 16px;
   top: 16px;
-  z-index: 12;
+  z-index: 1;
+
+  & * {
+    //하위 요소 클릭 막음
+    pointer-events: none;
+  }
 `;
 
 const fadeIn = keyframes`
