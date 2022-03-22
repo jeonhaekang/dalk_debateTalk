@@ -17,33 +17,49 @@ const UserInfo = (props) => {
   const userRank = rank[discriminant(user?.ex)];
 
   useEffect(() => {
-    dispatch(actionCreators.logincheckDB())
-  }, [])
+    dispatch(actionCreators.logincheckDB());
+  }, []);
 
   return (
     <UserInfoWrap>
       {user && (
-        <UserInfoCard gap='0'>
+        <FlexGrid padding="30px 0 0 0" gap="0">
           <Radius>
             <LevelImg src={userRank.img} />
           </Radius>
           <MypageUser>
-            <Text size="headline2" weight="medium" color="black">{user?.nickname} <Text size="body2">님</Text></Text>
-            <Grade>
-              <MyLevel>{userRank.name}</MyLevel>
-            </Grade>
+            <Text size="headline2" weight="medium" color="black">
+              {user?.nickname}
+              <Text size="body2">님</Text>
+            </Text>
+            <Text size="subtitle1" color="black">
+              {userRank.name}
+            </Text>
           </MypageUser>
-        </UserInfoCard>
+        </FlexGrid>
       )}
       <MyEggPoint>
         <div style={{ fontSize: "18px", fontWeight: "500" }}>내 알포인트 </div>
         <MyRP>
-          {user?.point.toLocaleString('ko-KR')}
-          <RP>RP</RP>
+          {user?.point.toLocaleString("ko-KR")}
+          <Text
+            color="black"
+            size="body2"
+            weight="medium"
+            margin="10px 0px 0px 5px"
+          >
+            RP
+          </Text>
         </MyRP>
-        <div onClick={() => {
-          history.push("/mypage/eggpoint");
-        }} style={{ cursor: "pointer", display:"flex" }}>자세히보기 <img src={arrowright} style={{margin: "2px 0px 0px 4px"}}/></div>
+        <div
+          onClick={() => {
+            history.push("/mypage/eggpoint");
+          }}
+          style={{ cursor: "pointer", display: "flex" }}
+        >
+          자세히보기{" "}
+          <img src={arrowright} style={{ margin: "2px 0px 0px 4px" }} />
+        </div>
       </MyEggPoint>
     </UserInfoWrap>
   );
@@ -51,21 +67,18 @@ const UserInfo = (props) => {
 
 const UserInfoWrap = styled.div`
   background-color: #fff;
-`
-
-const UserInfoCard = styled(FlexGrid)`
-  padding-top: 30px;
 `;
 
 const Radius = styled.div`
   position: relative;
   width: 130px;
   height: 130px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 100%;
   margin: 0px 24px 0px 44px;
-  box-shadow:inset 0 0 10px rgba(0, 0, 0, 0.05);
-`
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+`;
+
 const LevelImg = styled.img`
   position: absolute;
   width: 100px;
@@ -80,25 +93,6 @@ const MypageUser = styled.div`
   width: 200px;
 `;
 
-const MyUserName = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.headline2};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: ${(props) => props.theme.color.black};
-  .nim{
-    font-size: ${(props) => props.theme.fontSizes.body2};
-  }
-`;
-
-const Grade = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const MyLevel = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  color: ${(props) => props.theme.color.black};
-`;
-
 const MyEggPoint = styled.div`
   color: #686868;
   display: flex;
@@ -107,21 +101,16 @@ const MyEggPoint = styled.div`
   text-align: center;
   margin: 20px 20px;
   padding: 20px 10px;
-  background-color: #FAEDE1;
+  background-color: #faede1;
   border-radius: 10px;
 `;
+
 const MyRP = styled.div`
   display: flex;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   color: ${(props) => props.theme.color.orange};
   margin: 0px 25px 2px 0px;
-`
-const RP = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.body2};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: ${(props) => props.theme.color.black};
-  margin: 10px 0px 0px 5px;
-`
+`;
 
 export default UserInfo;

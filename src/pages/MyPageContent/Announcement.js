@@ -4,6 +4,7 @@ import { actionCreators as noticeActions } from "../../redux/modules/notice";
 import styled from "styled-components";
 import NewHeader from "../../shared/NewHeader";
 import { history } from "../../redux/configStore";
+import FlexGrid from "../../elements/FlexGrid";
 
 const Announcement = () => {
   const dispatch = useDispatch();
@@ -23,12 +24,12 @@ const Announcement = () => {
       {noticeList.map((el, idx) => {
         return (
           <ContentTop key={idx} onClick={() => handleDetail(el.noticeId)}>
-            <AnnouncementContent>
+            <FlexGrid is_column>
               <div style={{ fontSize: "14px" }}>
               <div style={{ fontSize: "16px" }}>{el.title}</div>
                 {el.createdAt.split("T")[0]}
               </div>
-            </AnnouncementContent>
+            </FlexGrid>
           </ContentTop>
         );
       })}
@@ -45,10 +46,6 @@ const ContentTop = styled.div`
   border-top: 1px solid #c4c4c4;
   border-bottom: 1px solid #c4c4c4;
   cursor: pointer;
-`;
-const AnnouncementContent = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export default Announcement;

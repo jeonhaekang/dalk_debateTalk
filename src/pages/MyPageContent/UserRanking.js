@@ -43,30 +43,30 @@ const UserRanking = () => {
         <ContentContainer Xfooter >
             <NewHeader page="유저랭킹" />
             <TopThree>
-                <TopLayOut>
+                <Second>
                     <FadeIn>
                         <div className="ranknumber">2등</div>
                         <LevelImg src={second.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
                     </FadeIn>
                     <SecondBar></SecondBar>
-                </TopLayOut>
-                <TopLayOut>
+                </Second>
+                <First>
                     <FadeIn>
                         <div className="ranknumber">1등</div>
                         <LevelImg src={first.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
                     </FadeIn>
                     <FirstBar></FirstBar>
-                </TopLayOut>
-                <TopLayOut>
+                </First>
+                <Third>
                     <FadeIn>
                         <div className="ranknumber">3등</div>
                         <LevelImg src={third.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
                     </FadeIn>
                     <ThirdBar></ThirdBar>
-                </TopLayOut>
+                </Third>
             </TopThree>
 
             <FlexGrid between padding="12px 28px 0px 28px">
@@ -112,10 +112,25 @@ const TopThree = styled.div`
     border-bottom: 4px solid ${(props) => props.theme.color.orange};
     justify-content: center;
 `
-const TopLayOut = styled.div`
+const First = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 38px;
+    text-align: center;
+`
+const Second = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 102px;
+    text-align: center;
+`
+const Third = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 134px;
     text-align: center;
 `
 const pullUp = keyframes`
