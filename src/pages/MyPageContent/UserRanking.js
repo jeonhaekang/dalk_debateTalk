@@ -4,10 +4,6 @@ import { useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
 import apis from "../../shared/apis";
 
-import first from "../../image/rank/first.png"
-import second from "../../image/rank/second.png"
-import third from "../../image/rank/third.png"
-
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
@@ -20,7 +16,13 @@ const UserRanking = () => {
     //4등부터 보여주기
     const SliceRankingList = RankingList.slice(3);
 
-    const userRank = rank[discriminant(user?.ex)];
+    const userRank = rank[discriminant(user?.ex, user?.rank)];
+
+    const first = rank[discriminant(null, RankingList[0].rank)];
+    const second = rank[discriminant(null, RankingList[1].rank)];
+    const third = rank[discriminant(null, RankingList[2].rank)];
+
+    const topUser = [RankingList[1], RankingList[0], RankingList[2]];
 
     useEffect(() => {
         apis.rank()
@@ -41,30 +43,30 @@ const UserRanking = () => {
         <ContentContainer Xfooter >
             <NewHeader page="유저랭킹" />
             <TopThree>
-                <Second>
+                <TopLayOut>
                     <FadeIn>
                         <div className="ranknumber">2등</div>
-                        <LevelImg src={second} ></LevelImg>
+                        <LevelImg src={second.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
                     </FadeIn>
                     <SecondBar></SecondBar>
-                </Second>
-                <First>
+                </TopLayOut>
+                <TopLayOut>
                     <FadeIn>
                         <div className="ranknumber">1등</div>
-                        <LevelImg src={first} ></LevelImg>
+                        <LevelImg src={first.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
                     </FadeIn>
                     <FirstBar></FirstBar>
-                </First>
-                <Third>
+                </TopLayOut>
+                <TopLayOut>
                     <FadeIn>
                         <div className="ranknumber">3등</div>
-                        <LevelImg src={third} ></LevelImg>
+                        <LevelImg src={third.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
                     </FadeIn>
                     <ThirdBar></ThirdBar>
-                </Third>
+                </TopLayOut>
             </TopThree>
 
             <FlexGrid between padding="12px 28px 0px 28px">
@@ -110,26 +112,10 @@ const TopThree = styled.div`
     border-bottom: 4px solid ${(props) => props.theme.color.orange};
     justify-content: center;
 `
-const First = styled.div`
-    margin: 0px 24px;
+const TopLayOut = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 38px;
-    text-align: center;
-`
-const Second = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 102px;
-    text-align: center;
-`
-const Third = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 134px;
     text-align: center;
 `
 const pullUp = keyframes`
