@@ -40,13 +40,15 @@ const NewHeader = (props) => {
   }
   return (
     <>
-      <Modal
-        modalState={modalState}
-        setModalState={setModalState}
-        type="hamburger"
-      >
-        {children}
-      </Modal>
+      {modalState && (
+        <Modal
+          modalState={modalState}
+          setModalState={setModalState}
+          type="hamburger"
+        >
+          {children}
+        </Modal>
+      )}
       <HeaderContainer line={line}>
         {/* 뒤로가기 버튼 */}
         <Left onClick={() => history.goBack()}>

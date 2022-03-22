@@ -117,9 +117,11 @@ const ChatHeader = (props) => {
           </InfoWrap>
         </>
       )}
-      <Modal modalState={modalState} setModalState={setModalState}>
-        <Vote {...data}  />
-      </Modal>
+      {modalState && (
+        <Modal modalState={modalState} setModalState={setModalState}>
+          <Vote {...data} />
+        </Modal>
+      )}
     </div>
   );
 };

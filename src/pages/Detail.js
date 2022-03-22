@@ -310,14 +310,18 @@ const Detail = (props) => {
         {/* 댓글 전체 */}
         {<CommentList debate={debate} />}
       </Grid>
-
-      <Modal modalState={createModalState} setModalState={setCreateModalState}>
-        {/* 공유하기 기능 */}
-        <ShareLink
-          createModalState={createModalState}
-          setCreateModalState={setCreateModalState}
-        />
-      </Modal>
+      {createModalState && (
+        <Modal
+          modalState={createModalState}
+          setModalState={setCreateModalState}
+        >
+          {/* 공유하기 기능 */}
+          <ShareLink
+            createModalState={createModalState}
+            setCreateModalState={setCreateModalState}
+          />
+        </Modal>
+      )}
     </>
   );
 };
@@ -351,7 +355,6 @@ const Versus = styled.div`
   font-weight: ${(props) => props.theme.fontWeight.black};
   width: 55px;
   height: 55px;
-  z-index: 99;
 `;
 
 const DebateWinnerBox = styled.div`

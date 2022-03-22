@@ -11,7 +11,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/configStore";
 import { ThemeProvider } from "styled-components";
-import styled from "styled-components";
 
 // theme
 import theme from "./styles/theme";
@@ -21,7 +20,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="container">
-          <div className="wrap">
+          <div className="wrap" id="globalPortal">
             <App />
           </div>
         </div>
