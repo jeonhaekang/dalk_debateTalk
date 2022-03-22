@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../elements/FlexGrid";
 import { actionCreators } from "../redux/modules/alert";
+import Portal from "./Portal";
 
 const Alert = () => {
   const dispatch = useDispatch();
@@ -21,19 +22,21 @@ const Alert = () => {
 
   if (alert.openState) {
     return (
-      <Background>
-        <Content is_column>
-          <FlexGrid>{alert.message}</FlexGrid>
+      <Portal>
+        <Background>
+          <Content is_column>
+            <FlexGrid>{alert.message}</FlexGrid>
 
-          {alert.type === "alert" && <button onClick={close}>확인</button>}
-          {alert.type === "confirm" && (
-            <FlexGrid center justifyContent="space-around">
-              <button onClick={action}>확인</button>
-              <button onClick={close}>취소</button>
-            </FlexGrid>
-          )}
-        </Content>
-      </Background>
+            {alert.type === "alert" && <button onClick={close}>확인</button>}
+            {alert.type === "confirm" && (
+              <FlexGrid center justifyContent="space-around">
+                <button onClick={action}>확인</button>
+                <button onClick={close}>취소</button>
+              </FlexGrid>
+            )}
+          </Content>
+        </Background>
+      </Portal>
     );
   }
   return null;
@@ -49,7 +52,6 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 `;
 
 const Content = styled(FlexGrid)`

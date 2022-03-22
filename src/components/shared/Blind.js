@@ -9,7 +9,7 @@ const Blind = (props) => {
 
 const BlindCard = styled.div`
   border-radius: 5px;
-  
+
   background: rgba(#f3f4f5);
   backdrop-filter: blur(10px);
 
@@ -23,7 +23,6 @@ const BlindCard = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 30px;
-  z-index: 10;
 `;
 
 export default Blind;
