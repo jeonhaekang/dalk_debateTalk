@@ -15,6 +15,7 @@ import ThumbsDown from "../../image/comment/thumb_down.svg"
 import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg"
 
 const OneComment = (props) => {
+  console.log(props)
   const userRank = rank[discriminant(props.userInfo.ex)];
   //삭제 기능을 위해
   const boardId = props.boardId;
