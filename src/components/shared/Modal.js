@@ -24,21 +24,6 @@ const Modal = (props) => {
     }
   }, []);
 
-  // const handleClickOutSide = (event) => {
-  //   console.log("ddd");
-  //   // ModalLayout부분 클릭시 모달창 닫힘
-  //   const layout = modalRef.current === event.target;
-  //   const close = closeRef.current === event.target;
-
-  //   if (layout || close) {
-  //     setAniState(true);
-
-  //     setTimeout(() => {
-  //       setModalState(false);
-  //     }, 200);
-  //   }
-  // };
-
   // click이벤트 연결
   React.useEffect(() => {
     window.addEventListener("click", handleClickOutSide);
