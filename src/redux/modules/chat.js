@@ -132,7 +132,7 @@ const createRoomDB = (data) => {
 
         dispatch(createRoom(setData));
         dispatch(imageAction.clear());
-        history.push("/chatroom/" + res.data.roomId);
+        history.replace("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
