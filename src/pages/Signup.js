@@ -9,6 +9,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
+import check from "../image/check.svg";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -113,56 +114,76 @@ const Signup = (props) => {
     <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
       {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
       <FlexGrid is_column center gap="20px">
+        {/* 아이디 입력 */}
         <FlexGrid is_column gap="0px">
           <Text size="body1" weight="medium">
             아이디 입력
           </Text>
-          <LoginInput
-            defaultValue={username}
-            onChange={onChangeUsername}
-          ></LoginInput>
+          <InputContainer>
+            <LoginInput
+              defaultValue={username}
+              onChange={onChangeUsername}
+            ></LoginInput>
+            {isUsername === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {username.length > 0 && !isUsername && (
             <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
           )}
         </FlexGrid>
+
+        {/* 닉네임 입력 */}
         <FlexGrid is_column gap="0px">
           <Text size="body1" weight="medium">
             닉네임 입력
           </Text>
-          <LoginInput
-            defaultValue={nickname}
-            onChange={onChangeNickname}
-          ></LoginInput>
+          <InputContainer>
+            <LoginInput
+              defaultValue={nickname}
+              onChange={onChangeNickname}
+            ></LoginInput>
+            {isNickname === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {nickname.length > 0 && !isNickname && (
             <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
           )}
         </FlexGrid>
+
+        {/* 패스워드 입력 */}
         <FlexGrid is_column gap="0px">
           <Text size="body1" weight="medium">
             패스워드 입력
           </Text>
-          <LoginInput
-            type="password"
-            defaultValue={password}
-            onChange={onChangePassword}
-          ></LoginInput>
+          <InputContainer>
+            <LoginInput
+              type="password"
+              defaultValue={password}
+              onChange={onChangePassword}
+            ></LoginInput>
+            {isPassword === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {password.length > 0 && !isPassword && (
             <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
           )}
         </FlexGrid>
+
+        {/* 패스워드 재확인 */}
         <FlexGrid is_column gap="0px">
           <Text size="body1" weight="medium">
             패스워드 재확인
           </Text>
-          <LoginInput
-            type="password"
-            defaultValue={passwordCheck}
-            onChange={onChangePasswordCheck}
-          ></LoginInput>
+          <InputContainer>
+            <LoginInput
+              type="password"
+              defaultValue={passwordCheck}
+              onChange={onChangePasswordCheck}
+            ></LoginInput>
+            {isPasswordCheck === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {passwordCheck.length > 0 && !isPasswordCheck && (
             <Validation>비밀번호가 다릅니다.</Validation>
           )}
         </FlexGrid>
+
         <Text>
           이미 계정이 있으신가요?{" "}
           <Text
@@ -194,6 +215,7 @@ const LogoImage = styled.img`
   align-items: center;
   background-color: #cfcfcf;
 `;
+
 const LoginInput = styled.input`
   width: 100%;
   height: 60px;
@@ -206,10 +228,12 @@ const LoginInput = styled.input`
   //   font-size: 16px;
   // }
 `;
+
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 5px;
 `;
+
 const SignupBox = styled.div`
   display: flex;
   justify-content: center;
@@ -225,6 +249,20 @@ const SignupBox = styled.div`
   left: 0;
   height: 74px;
   cursor: pointer;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 54px;
+  width: 100%;
+`;
+
+const CheckImg = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
 `;
 
 export default Signup;
