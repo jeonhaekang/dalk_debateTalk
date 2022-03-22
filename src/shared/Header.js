@@ -15,37 +15,6 @@ const Header = (props) => {
   return (
     <HeaderContainer>
       <Grid position="relative" width="100%">
-        {/* 햄버거 모달 */}
-        <Modal
-          modalState={modalState}
-          setModalState={setModalState}
-          type="hamburger"
-        >
-          <Grid
-            position="absolute"
-            left="50%"
-            top="30%"
-            transform="translate(-50%)"
-          >
-            <Logo src={TestLogo} />
-          </Grid>
-          <Grid
-            position="absolute"
-            bottom="0"
-            display="flex"
-            flexDirection="column"
-            gap="10px"
-            padding="15px"
-            fontSize="20px"
-            cursor="pointer"
-          >
-            <Grid>로그인</Grid>
-            <Grid>회원가입</Grid>
-            <Grid>마이페이지</Grid>
-            <Grid>토론리스트</Grid>
-          </Grid>
-        </Modal>
-
         {/* 페이지에 따른 뒤로가기 버튼 및 신고버튼 */}
         <Grid
           display="flex"
@@ -81,7 +50,6 @@ const HeaderContainer = styled.div`
   top: 0;
   height: 70px;
   display: flex;
-  z-index: 990;
   background-color: white;
 `;
 

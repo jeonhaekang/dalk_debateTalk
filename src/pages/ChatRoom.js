@@ -68,7 +68,7 @@ const ChatRoom = (props) => {
         </NewHeader>
 
         {roomInfo && (
-          <ContentContainer Xfooter display="flex" flexDirection="column">
+          <ContentContainer Xfooter display="flex" flexDirection="column" border="1px solid red" height="100%">
             <ChatHeader {...roomInfo} />
             <ChatBox {...data} />
             <ChatInput {...data} />

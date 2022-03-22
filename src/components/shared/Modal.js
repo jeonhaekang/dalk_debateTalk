@@ -1,28 +1,26 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import Portal from "../../shared/Portal";
 
 const Modal = (props) => {
   const { modalState, setModalState, children, type, top } = props;
   const [aniState, setAniState] = React.useState(false);
 
   const modalRef = React.useRef();
+  const closeRef = React.useRef();
 
   const handleClickOutSide = (event) => {
     // ModalLayout부분 클릭시 모달창 닫힘
-    if (modalRef.current === event.target) {
+    const layout = modalRef.current === event.target;
+    const close = closeRef.current === event.target;
+    console.log(layout, close);
+    if (layout || close) {
       setAniState(true);
       setTimeout(() => {
         setAniState(false);
         setModalState(false);
       }, 200);
     }
-  };
-
-  const close = () => {
-    setAniState(true);
-    setTimeout(() => {
-      setModalState(false);
-    }, 200);
   };
 
   // click이벤트 연결
@@ -35,20 +33,22 @@ const Modal = (props) => {
 
   if (type === "hamburger") {
     return (
-      <ModalLayout
-        ref={modalRef}
-        modalState={modalState}
-        aniState={aniState}
-        top={top}
-      >
-        <HambergerContents aniState={aniState}>{children}</HambergerContents>
-      </ModalLayout>
+      <Portal>
+        <ModalLayout
+          ref={modalRef}
+          modalState={modalState}
+          aniState={aniState}
+          top={top}
+        >
+          <HambergerContents aniState={aniState}>{children}</HambergerContents>
+        </ModalLayout>
+      </Portal>
     );
   }
   return (
-    <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
-      <CreateContents aniState={aniState}>
-        <CloseBtn onClick={close}>
+    <Portal>
+      <ModalLayout ref={modalRef} modalState={modalState} aniState={aniState}>
+        <CloseBtn ref={closeRef}>
           <svg width="34" height="34" viewBox="0 0 34 34">
             <path
               d="M26.9168 9.08087L24.9193 7.08337L17.0002 15.0025L9.081 7.08337L7.0835 9.08087L15.0027 17L7.0835 24.9192L9.081 26.9167L17.0002 18.9975L24.9193 26.9167L26.9168 24.9192L18.9977 17L26.9168 9.08087Z"
@@ -56,16 +56,16 @@ const Modal = (props) => {
             />
           </svg>
         </CloseBtn>
-        {children}
-      </CreateContents>
-    </ModalLayout>
+        <CreateContents aniState={aniState}>{children}</CreateContents>
+      </ModalLayout>
+    </Portal>
   );
 };
 const CloseBtn = styled.div`
   position: absolute;
   right: 16px;
   top: 16px;
-  z-index: 999;
+  z-index: 12;
 `;
 
 const fadeIn = keyframes`
@@ -95,8 +95,7 @@ const ModalLayout = styled.div`
   height: 100%;
   background: rgba(238, 238, 238, 0.8);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
-  z-index: 998;
-
+  
   overflow: hidden;
 `;
 

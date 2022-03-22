@@ -45,11 +45,11 @@ const Background = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 999;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 
 const Content = styled(FlexGrid)`

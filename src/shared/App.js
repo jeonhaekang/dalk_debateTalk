@@ -26,7 +26,6 @@ import MyGrade from "../pages/MyPageContent/MyGrade";
 import UserRanking from "../pages/MyPageContent/UserRanking";
 import PointShop from "../pages/MyPageContent/PointShop";
 import AnnounceDetail from "../pages/MyPageContent/AnnounceDetail";
-import styled from "styled-components";
 import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "./Spinner";
@@ -65,84 +64,34 @@ function App() {
   }, []);
 
   return (
-    <React.Fragment>
+    <ConnectedRouter history={history}>
       <GlobalStyle />
-
-      <ConnectedRouter history={history}>
-        <Container className="con">
-          <Wrap className="wrap">
-            <Alert />
-            <Route path="/" exact component={Main} />
-            <Route path="/createroom" exact component={CreateRoom} />
-            <Route path="/search/:keyword" exact component={SearchRoom} />
-            <Route path="/admin" exact component={Admin} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/mypage" exact component={MyPage} />
-            <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
-            <Route path="/mypage/grade" exact component={MyGrade} />
-            <Route path="/mypage/pointshop" exact component={PointShop} />
-            <Route path="/mypage/gacha" exact component={Gacha} />
-            <Route path="/announcement" exact component={Announcement} />
-            <Route
-              path="/announcement/:noticeId"
-              exact
-              component={AnnounceDetail}
-            />
-            <Route path="/ranking" exact component={UserRanking} />
-            <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
-            <Route path="/postlist" exact component={PostList} />
-            <Route
-              path="/postlist/search/:keyword"
-              exact
-              component={SearchPost}
-            />
-            <Route
-              path="/postlist/:category"
-              exact
-              component={SearchCategory}
-            />
-            <Route path="/detail/:boardId" exact component={Detail} />
-            <Route path="/more" exact component={More} />
-            <Route path="/more/:category" exact component={Category} />
-            <Onboarding />
-            {is_loaded && <Spinner />}
-          </Wrap>
-        </Container>
-      </ConnectedRouter>
-    </React.Fragment>
+      <Alert />
+      <Route path="/" exact component={Main} />
+      <Route path="/createroom" exact component={CreateRoom} />
+      <Route path="/search/:keyword" exact component={SearchRoom} />
+      <Route path="/admin" exact component={Admin} />
+      <Route path="/login" exact component={Login} />
+      <Route path="/signup" exact component={Signup} />
+      <Route path="/mypage" exact component={MyPage} />
+      <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
+      <Route path="/mypage/grade" exact component={MyGrade} />
+      <Route path="/mypage/pointshop" exact component={PointShop} />
+      <Route path="/mypage/gacha" exact component={Gacha} />
+      <Route path="/announcement" exact component={Announcement} />
+      <Route path="/announcement/:noticeId" exact component={AnnounceDetail} />
+      <Route path="/ranking" exact component={UserRanking} />
+      <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
+      <Route path="/postlist" exact component={PostList} />
+      <Route path="/postlist/search/:keyword" exact component={SearchPost} />
+      <Route path="/postlist/:category" exact component={SearchCategory} />
+      <Route path="/detail/:boardId" exact component={Detail} />
+      <Route path="/more" exact component={More} />
+      <Route path="/more/:category" exact component={Category} />
+      <Onboarding />
+      {is_loaded && <Spinner />}
+    </ConnectedRouter>
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-
-  background-color: #f6f6f6;
-  //배경 이미지 받으면 url에 넣기
-  background-image: url();
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: bottom;
-
-  @media screen and (max-width: 1024px) {
-    background-image: none;
-  }
-`;
-
-const Wrap = styled.div`
-  width: 100%;
-  max-width: 420px;
-  height: calc(var(--vh) * 100);
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-  position: relative;
-
-  @media screen and (min-width: 1024px) {
-    left: 11%;
-    top: 0;
-  }
-`;
 export default App;

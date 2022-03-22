@@ -118,7 +118,7 @@ const ChatHeader = (props) => {
         </>
       )}
       <Modal modalState={modalState} setModalState={setModalState}>
-        <Vote {...data} setModalState={setModalState} />
+        <Vote {...data}  />
       </Modal>
     </div>
   );

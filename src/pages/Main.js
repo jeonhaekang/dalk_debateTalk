@@ -9,7 +9,6 @@ import ContentContainer from "../elements/Container";
 import FlexGrid from "../elements/FlexGrid";
 import MainCarousel from "../components/main/MainCarousel";
 import TopRank from "../components/main/TopRank";
-import MainEmpty from "../components/main/MainEmpty";
 import XScrollDrag from "../components/shared/XScrollDrag";
 import MainCategoryCard from "../components/main/MainCategoryCard";
 import MainCard from "../components/main/MainCard";
