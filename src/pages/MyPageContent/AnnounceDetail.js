@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import apis from "../../shared/apis";
-import Header from "../../shared/Header";
+import NewHeader from "../../shared/NewHeader";
 
 function AnnounceDetail(props) {
   const noticeId = props.match.params.noticeId;
@@ -27,7 +27,7 @@ function AnnounceDetail(props) {
 
   return (
     <>
-      <Header page="공지사항" />
+      <NewHeader page="공지사항" />
       <Wrap>
         <Title>{detailNotice.title}</Title>
         <CreatedAt>{createdAt}</CreatedAt>
@@ -38,7 +38,7 @@ function AnnounceDetail(props) {
 }
 const Wrap = styled.div`
   border-bottom: 1px solid #ccc;
-  padding: 15px;
+  padding: 20px;
 `;
 const Title = styled.div`
   font-weight: bold;
@@ -49,6 +49,9 @@ const CreatedAt = styled.div`
 `;
 const Content = styled.pre`
   padding: 15px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
 `;
 
 export default AnnounceDetail;

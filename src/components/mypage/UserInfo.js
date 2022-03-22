@@ -2,9 +2,14 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configStore";
-import { discriminant, rank } from "../../data/rank";
 import { actionCreators } from "../../redux/modules/user";
+
+import { discriminant, rank } from "../../data/rank";
+
 import arrowright from "../../image/mypage/arrowright.svg";
+
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
 
 const UserInfo = (props) => {
   const dispatch = useDispatch();
@@ -18,12 +23,12 @@ const UserInfo = (props) => {
   return (
     <UserInfoWrap>
       {user && (
-        <UserInfoCard>
+        <UserInfoCard gap='0'>
           <Radius>
             <LevelImg src={userRank.img} />
           </Radius>
           <MypageUser>
-            <MyUserName>{user?.nickname} <span className="nim">님</span></MyUserName>
+            <Text size="headline2" weight="medium" color="black">{user?.nickname} <Text size="body2">님</Text></Text>
             <Grade>
               <MyLevel>{userRank.name}</MyLevel>
             </Grade>
@@ -48,9 +53,8 @@ const UserInfoWrap = styled.div`
   background-color: #fff;
 `
 
-const UserInfoCard = styled.div`
-  display: flex;
-  padding-top: 20px;
+const UserInfoCard = styled(FlexGrid)`
+  padding-top: 30px;
 `;
 
 const Radius = styled.div`

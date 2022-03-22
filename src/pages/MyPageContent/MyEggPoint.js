@@ -8,7 +8,7 @@ import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
 
-import Header from "../../shared/Header";
+import NewHeader from "../../shared/NewHeader";
 import { history } from "../../redux/configStore";
 
 const MyEggPoint = () => {
@@ -38,17 +38,18 @@ const MyEggPoint = () => {
 
   return (
     <Grid height="100vh" overflow="scroll">
-      <Header page="알포인트 내역" />
+      <NewHeader page="알포인트 내역" />
       <FlexGrid
         is_column
         center
         borderBottom="8px solid #f1f1f1"
         weight="medium"
+        padding="40px"
       >
         <EggImg src={bank} />
         <RPBox center>
-          <Text size="headline1" color="orange">
-            {user?.point.toLocaleString("ko-KR")}RP
+          <Text size="headline2" color="orange">
+            {user?.point.toLocaleString("ko-KR")} RP
           </Text>
         </RPBox>
         <Text
@@ -98,11 +99,12 @@ const RPBox = styled(FlexGrid)`
   background-color: #fefefe;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 `;
+
 const EggImg = styled.img`
   width: 98px;
-
   padding-bottom: 10px;
 `;
+
 const Flag = styled.div`
   transform: translate(26px, -8px);
   display: inline-block;

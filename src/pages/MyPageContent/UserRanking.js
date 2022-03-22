@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import NewHeader from "../../shared/NewHeader";
 import styled, { keyframes } from "styled-components";
-import apis from "../../shared/apis";
 import { useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
-import star from "../../image/star.png"
-import user from "../../redux/modules/user";
+import apis from "../../shared/apis";
+
+import first from "../../image/rank/first.png"
+import second from "../../image/rank/second.png"
+import third from "../../image/rank/third.png"
+
 import Grid from "../../elements/Grid";
+import NewHeader from "../../shared/NewHeader";
+import ContentContainer from "../../elements/Container";
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
 
 const UserRanking = () => {
     const user = useSelector(state => state.user.user);
@@ -32,13 +38,13 @@ const UserRanking = () => {
     const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
 
     return (
-        <Grid height="100vh" overflow="scroll" >
+        <ContentContainer Xfooter >
             <NewHeader page="유저랭킹" />
             <TopThree>
                 <Second>
                     <FadeIn>
                         <div className="ranknumber">2등</div>
-                        <LevelImg src={star} ></LevelImg>
+                        <LevelImg src={second} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
                     </FadeIn>
                     <SecondBar></SecondBar>
@@ -46,7 +52,7 @@ const UserRanking = () => {
                 <First>
                     <FadeIn>
                         <div className="ranknumber">1등</div>
-                        <LevelImg src={star} ></LevelImg>
+                        <LevelImg src={first} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
                     </FadeIn>
                     <FirstBar></FirstBar>
@@ -54,22 +60,27 @@ const UserRanking = () => {
                 <Third>
                     <FadeIn>
                         <div className="ranknumber">3등</div>
-                        <LevelImg src={star} ></LevelImg>
+                        <LevelImg src={third} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
                     </FadeIn>
                     <ThirdBar></ThirdBar>
                 </Third>
             </TopThree>
 
+            <FlexGrid between padding="12px 28px 0px 28px">
+                <Text>랭킹</Text>
+                <Text>닉네임</Text>
+                <Text marginRight="10px">EXP</Text>
+            </FlexGrid>
 
-            <GradeInfo>
+            <Grid padding="12px 24px 24px 24px">
                 {SliceRankingList.map((r, idx) => {
                     return <div key={idx}>
                         <ListWrap>
                             <RankingBox>{idx + 4}</RankingBox>
                             <GradeLevel>
                                 <Grid display="flex">
-                                    <LevelImgList src={userRank.img}></LevelImgList>
+                                    <LevelImgList src={rank[discriminant(r.ex)].img}></LevelImgList>
                                     <div style={{ fontSize: '16px', fontWeight: '400' }}>{r.nickname}</div>
                                 </Grid>
 
@@ -78,7 +89,7 @@ const UserRanking = () => {
                         </ListWrap>
                     </div>
                 })}
-            </GradeInfo>
+            </Grid>
 
             <Me>
                 <MyGradeLevel style={{ backgroundColor: "#fff" }}>
@@ -91,12 +102,12 @@ const UserRanking = () => {
                 </MyGradeLevel>
             </Me>
 
-        </Grid>
+        </ContentContainer>
     )
 };
 const TopThree = styled.div`
     display: flex;
-    border-bottom: 1px solid #C4C4C4;
+    border-bottom: 4px solid ${(props) => props.theme.color.orange};
     justify-content: center;
 `
 const First = styled.div`
@@ -190,18 +201,14 @@ const FadeIn = styled.div`
     animation-duration: 4s;
     .ranknumber{
         font-size: 18px;
-        font-weight: ${(props) => props.theme.fontWeight.medium}
+        font-weight: ${(props) => props.theme.fontWeight.medium};
     }
     .rankname{
         font-size: 18px;
-        font-weight: ${(props) => props.theme.fontWeight.medium}
+        font-weight: ${(props) => props.theme.fontWeight.medium};
     }
 `
 
-const GradeInfo = styled.div`
-    border-top: 1px solid #C4C4C4;
-    padding: 20px;
-`
 const ListWrap = styled.div`
     display: flex;
     align-items: center;
@@ -210,7 +217,7 @@ const GradeLevel = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 24px 0px 36px;
+    margin: 10px 12px 0px 36px;
     padding-bottom: 8px;
     border-bottom : 2px solid #E7E7E7;
     width: 290px;
@@ -231,6 +238,7 @@ const LevelImg = styled.img`
     height: 30px;
     object-fit: cover;
 `
+
 const LevelImgList = styled.img`
     width: 23px;
     height: auto;
@@ -238,13 +246,13 @@ const LevelImgList = styled.img`
 `
 
 const MyGradeLevel = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 11px 16px;
-height: 54px;
-border-radius: 15px;
-background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 16px;
+    height: 54px;
+    border-radius: 15px;
+    background-color: #fff;
 `
 
 const Me = styled.div`

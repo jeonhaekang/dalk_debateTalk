@@ -4,6 +4,7 @@ import apis from "../../shared/apis";
 import { setCookie, deleteCookie } from "../../shared/Cookie";
 import { instance } from "../../shared/apis";
 import { actionCreators as alertAction } from "./alert";
+import { useDispatch } from "react-redux";
 //Action
 // const LOGIN = 'LOGIN'
 const LOGOUT = "LOGOUT";
@@ -53,9 +54,6 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
           .then((res) => {
             const token = res.headers.authorization;
             setCookie(res.headers.authorization, 7);
-            // axios.get("http://54.180.8.233:8080/loginCheck",{headers:{
-            //     authorization: token
-            // }})
             instance
               .get("/loginCheck", {
                 headers: {
@@ -76,6 +74,9 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
       })
       .catch((err) => {
         console.log("회원가입 에러", err);
+        dispatch(alertAction.open({
+          message: "아이디 또는 닉네임이 중복입니다"
+        }));
       });
   };
 };
@@ -116,9 +117,11 @@ const logincheckDB = () => {
         dispatch(setUser(res.data));
       })
       .catch((err) => {
-        alert("다시 로그인 해주세요!");
-        history.replace("/login");
-        console.log(err);
+        useDispatch(alertAction.open({
+          message: '다시 로그인 해주세요!'
+        }));
+        history.push("/login");
+        console.log("로그인 체크 에러",err);
       });
   };
 };

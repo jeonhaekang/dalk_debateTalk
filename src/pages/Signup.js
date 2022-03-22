@@ -8,6 +8,8 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
+import FlexGrid from "../elements/FlexGrid";
+import check from "../image/check.svg";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -24,7 +26,6 @@ const Signup = (props) => {
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
 
-
   //5자이상 15자 이하 아이디
   const onChangeUsername = (e) => {
     let userNameReg = /^[A-za-z0-9]{5,15}/g;
@@ -36,7 +37,7 @@ const Signup = (props) => {
     } else {
       setIsUsername(true);
     }
-  }
+  };
 
   //영문 숫자 조합 8자리 패스워드
   const onChangePassword = (e) => {
@@ -49,7 +50,7 @@ const Signup = (props) => {
     } else {
       setIsPassword(true);
     }
-  }
+  };
 
   const onChangePasswordCheck = (e) => {
     const currentPasswordCheck = e.target.value;
@@ -84,89 +85,121 @@ const Signup = (props) => {
       passwordCheck === "" ||
       nickname === ""
     ) {
-      dispatch(alertAction.open({
-        message: "빈칸을 모두 채워주세요!"
-      }));
+      dispatch(
+        alertAction.open({
+          message: "빈칸을 모두 채워주세요!",
+        })
+      );
       return;
     } else if (
-      isUsername === false || 
-      isNickname === false || 
-      isPassword === false || 
+      isUsername === false ||
+      isNickname === false ||
+      isPassword === false ||
       isPasswordCheck === false
     ) {
-      dispatch(alertAction.open({
-        message: "올바르게 가입했는지 다시 한번 확인해주세요!"
-      }));
+      dispatch(
+        alertAction.open({
+          message: "올바르게 가입했는지 다시 한번 확인해주세요!",
+        })
+      );
       return;
     } else {
-      dispatch(alertAction.open({
-        message: "회원가입 완료! 바로 메인창으로 이동합니다"
-      }))
-      dispatch(userActions.signUpDB(username, password, nickname, passwordCheck))
+      dispatch(
+        userActions.signUpDB(username, password, nickname, passwordCheck)
+      );
     }
   };
 
   return (
-    <Grid height="100vh" display="flex" justifyContent="center" flexDirection="column" alignItems="center" overflow="scroll">
-      <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
-      <Grid padding="0px 0px 20px 0px">
-        <Grid padding="20px 0px 0px 0px">
-          <LoginInput
-            defaultValue={username}
-            onChange={onChangeUsername}
-            placeholder={"아이디 입력"}
-          ></LoginInput>
+    <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
+      {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
+      <FlexGrid is_column center gap="20px">
+        {/* 아이디 입력 */}
+        <FlexGrid is_column gap="0px">
+          <Text size="body1" weight="medium">
+            아이디 입력
+          </Text>
+          <InputContainer>
+            <LoginInput
+              defaultValue={username}
+              onChange={onChangeUsername}
+            ></LoginInput>
+            {isUsername === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {username.length > 0 && !isUsername && (
             <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
           )}
-        </Grid>
-        <Grid padding="10px 0px 0px 0px">
-          <LoginInput
-            defaultValue={nickname}
-            onChange={onChangeNickname}
-            placeholder={"닉네임 입력"}
-          ></LoginInput>
+        </FlexGrid>
+
+        {/* 닉네임 입력 */}
+        <FlexGrid is_column gap="0px">
+          <Text size="body1" weight="medium">
+            닉네임 입력
+          </Text>
+          <InputContainer>
+            <LoginInput
+              defaultValue={nickname}
+              onChange={onChangeNickname}
+            ></LoginInput>
+            {isNickname === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {nickname.length > 0 && !isNickname && (
             <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
           )}
-        </Grid>
-        <Grid padding="30px 0px 0px 0px">
-          <LoginInput
-            type="password"
-            defaultValue={password}
-            onChange={onChangePassword}
-            placeholder={"패스워드 입력"}
-          ></LoginInput>
+        </FlexGrid>
+
+        {/* 패스워드 입력 */}
+        <FlexGrid is_column gap="0px">
+          <Text size="body1" weight="medium">
+            패스워드 입력
+          </Text>
+          <InputContainer>
+            <LoginInput
+              type="password"
+              defaultValue={password}
+              onChange={onChangePassword}
+            ></LoginInput>
+            {isPassword === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {password.length > 0 && !isPassword && (
             <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
           )}
-        </Grid>
-        <Grid padding="10px 0px 0px 0px">
-          <LoginInput
-            type="password"
-            defaultValue={passwordCheck}
-            onChange={onChangePasswordCheck}
-            placeholder={"패스워드 확인"}
-          ></LoginInput>
+        </FlexGrid>
+
+        {/* 패스워드 재확인 */}
+        <FlexGrid is_column gap="0px">
+          <Text size="body1" weight="medium">
+            패스워드 재확인
+          </Text>
+          <InputContainer>
+            <LoginInput
+              type="password"
+              defaultValue={passwordCheck}
+              onChange={onChangePasswordCheck}
+            ></LoginInput>
+            {isPasswordCheck === true && <CheckImg src={check} alt="check" />}
+          </InputContainer>
           {passwordCheck.length > 0 && !isPasswordCheck && (
             <Validation>비밀번호가 다릅니다.</Validation>
           )}
-        </Grid>
-      </Grid>
-      <Grid>
-        <Grid>
-          <Text>이미 계정이 있으신가요?</Text>
-          <Text color="#A64BF5" cursor="pointer"
+        </FlexGrid>
+
+        <Text>
+          이미 계정이 있으신가요?{" "}
+          <Text
+            color="orange"
+            weight="medium"
+            cursor="pointer"
             onClick={() => {
               history.push("/login");
             }}
           >
             로그인
           </Text>
-        </Grid>
-      </Grid>
-      <SignupBox onClick={clickSignUp}>회원가입</SignupBox>
-    </Grid>
+        </Text>
+      </FlexGrid>
+      <SignupBox onClick={clickSignUp}>가입하기</SignupBox>
+    </FlexGrid>
   );
 };
 
@@ -180,36 +213,56 @@ const LogoImage = styled.img`
   font-size: 32px;
   justify-content: center;
   align-items: center;
-  background-color: #CFCFCF;
-`
+  background-color: #cfcfcf;
+`;
+
 const LoginInput = styled.input`
-  width: 375px;
+  width: 100%;
   height: 60px;
-  box-sizing: border-box;
-  border: 1px solid #9E9E9E;
-  ::placeholder {
-    color: #CACACA;
-    font-size: 16px;
-  }
-`
+  border: none;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  padding: 16px;
+  // ::placeholder {
+  //   color: #CACACA;
+  //   font-size: 16px;
+  // }
+`;
+
 const Validation = styled.p`
   margin-top: 5px;
   font-size: 5px;
-`
+`;
+
 const SignupBox = styled.div`
   display: flex;
-  background-color: #CFCFCF;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.color.orange};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  font-size: 24px;
   width: 100%;
   border: none;
   color: #fff;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   bottom: 0;
   left: 0;
   height: 74px;
-  font-size: 24px;
   cursor: pointer;
-`
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 54px;
+  width: 100%;
+`;
+
+const CheckImg = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+`;
 
 export default Signup;

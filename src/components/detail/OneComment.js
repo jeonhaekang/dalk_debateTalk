@@ -8,19 +8,25 @@ import { discriminant, rank } from "../../data/rank";
 import TimeCounting from "time-counting";
 import apis from "../../shared/apis";
 
-import Del from "../../image/comment/delete.svg"
-import ThumbsUp from "../../image/comment/thumb_up.svg"
-import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg"
-import ThumbsDown from "../../image/comment/thumb_down.svg"
-import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg"
+import Del from "../../image/comment/delete.svg";
+import ThumbsUp from "../../image/comment/thumb_up.svg";
+import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg";
+import ThumbsDown from "../../image/comment/thumb_down.svg";
+import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg";
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
+import Grid from "../../elements/Grid";
 
 const OneComment = (props) => {
+  //댓글 유저 뱃지
   const userRank = rank[discriminant(props.userInfo.ex)];
+
   //삭제 기능을 위해
-  const boardId = props.boardId;
+  const user = useSelector((state) => state.user.user);
   const index = props.index;
   const commentId = props.commentId;
-  const user = useSelector((state) => state.user.user);
+
+  //찬성 반대 기능 리덕스
   const agreeList = useSelector(
     (state) => state.comment.commentList[index].agreeUserList
   );
@@ -36,9 +42,11 @@ const OneComment = (props) => {
   const handleClickAgree = () => {
     console.log("찬성클릭");
     if (!tokenCheck) {
-      dispatch(alertAction.open({
-        message: "로그인을 해주세요!"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "로그인을 해주세요!",
+        })
+      );
       history.push("/login");
     }
     dispatch(commentActions.pushAgreeDB(commentId, index));
@@ -46,9 +54,11 @@ const OneComment = (props) => {
 
   const handleClickDisagree = () => {
     if (!tokenCheck) {
-      dispatch(alertAction.open({
-        message: "로그인을 해주세요!"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "로그인을 해주세요!",
+        })
+      );
       history.push("/login");
     }
     dispatch(commentActions.pushDisAgreeDB(commentId, index));
@@ -61,47 +71,47 @@ const OneComment = (props) => {
     e.preventDefault();
     e.stopPropagation();
     if (!tokenCheck) {
-      dispatch(alertAction.open({
-        message: "로그인을 해주세요!"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "로그인을 해주세요!",
+        })
+      );
       history.replace("/login");
     }
     if (isWarn === false) {
       await apis
         .warningComment(commentId)
         .then((res) => {
-          if (window.confirm("정말 신고하시겠어요?")) {
-            console.log("댓글 신고하기 성공", res);
-            setIsWarn(true);
-            dispatch(alertAction.open({
-              message: "신고처리가 완료되었습니다"
-            }))
-          } else {
-            return;
-          }
+          console.log("댓글 신고하기 성공", res);
+          setIsWarn(true);
+          dispatch(
+            alertAction.open({
+              message: "신고처리가 완료되었습니다",
+            })
+          );
         })
         .catch((err) => {
           console.log("이미 신고한 유저입니다", err);
-          dispatch(alertAction.open({
-            message: "이미 신고를 하셨습니다"
-          }))
+          dispatch(
+            alertAction.open({
+              message: "이미 신고를 하셨습니다",
+            })
+          );
           return;
         });
     } else {
-      dispatch(alertAction.open({
-        message: "이미 신고를 하셨습니다"
-      }))
+      dispatch(
+        alertAction.open({
+          message: "이미 신고를 하셨습니다",
+        })
+      );
       return;
     }
   };
 
   // 코멘트 삭제
   const deleteComment = () => {
-    if (window.confirm("정말 삭제하시겠어요?")) {
-      dispatch(commentActions.delCommentDB(commentId));
-    } else {
-      return;
-    }
+    dispatch(commentActions.delCommentDB(commentId));
   };
 
   //타임 카운팅
@@ -109,57 +119,76 @@ const OneComment = (props) => {
     lang: "ko",
     objectTime: new Date(),
     calculate: {
-      justNow: 60
-    }
+      justNow: 60,
+    },
   };
 
   return (
     <Container>
-      <Wrap>
+      <FlexGrid between>
+
         <FlexAlign>
           <LevelImg src={userRank.img} />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <UserName>{props.userInfo.nickname}</UserName>
-          </div>
+          <FlexGrid is_column center>
+            <Text size="body2" weight="medium" lineHeight="22px">
+              {props.userInfo.nickname}
+            </Text>
+          </FlexGrid>
         </FlexAlign>
 
         <AgreeBtn>
           <Number className="agree-count" onClick={handleClickAgree}>
-            {agreeList.includes(user?.userId) ? 
-            <img src={ThumbsUpFill} /> : <img src={ThumbsUp} />}{" "}
-            <div style={{ marginLeft: "4px", fontWeight:"400", color:"#8E8E8E" }}>
+            {agreeList.includes(user?.userId) ? (
+              <img src={ThumbsUpFill} alt="ThumbsUpfill"/>
+            ) : (
+              <img src={ThumbsUp} alt="ThumbsUp"/>
+            )}{" "}
+            <div
+              style={{ margin: "0px 4px", fontWeight: "400", color: "#8E8E8E" }}
+            >
               {agreeList.length}
             </div>
           </Number>
           <Number className="disagree-count" onClick={handleClickDisagree}>
-            {disagreeList.includes(user?.userId) ? 
-           <img src={ThumbsDownFill} style={{backgroudColor:"#F19121"}}/> : <img src={ThumbsDown} />}{" "}
-            <div style={{ marginLeft: "4px", fontWeight:"400", color:"#8E8E8E"}}>
+            {disagreeList.includes(user?.userId) ? (
+              <img src={ThumbsDownFill} style={{ backgroudColor: "#F19121" }} alt="ThumbsDownfill"/>
+            ) : (
+              <img src={ThumbsDown} alt="ThumbsDown"/>
+            )}{" "}
+            <div
+              style={{ marginLeft: "4px", fontWeight: "400", color: "#8E8E8E" }}
+            >
               {disagreeList.length}
             </div>
           </Number>
         </AgreeBtn>
-      </Wrap>
+      </FlexGrid>
 
-      <ContentWrap>
+      <Grid padding="4px 0px">
         <Content>{props.comment}</Content>
-        <IconBox>
+        <FlexGrid between>
           <div style={{ display: "flex", alignItems: "center" }}>
             <CreatedAt>{TimeCounting(props.createdAt, option)}</CreatedAt>
-            <div style={{ display: "flex", alignItems: "center", margin: "0px 0px 2px 10px", fontSize: "10px", color: "#8E8E8E" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: "0px 0px 2px 10px",
+                fontSize: "10px",
+                color: "#8E8E8E",
+              }}
+            >
               |
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Number
                 className="warning-count"
                 onClick={handleClickWarning}
-                style={{ cursor: "pointer", marginLeft: "10px", color: "#8E8E8E" }}
+                style={{
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                  color: "#8E8E8E",
+                }}
               >
                 {props.warnUserList.includes(user?.userId) ? null : "신고"}
               </Number>
@@ -167,73 +196,61 @@ const OneComment = (props) => {
           </div>
 
           {user?.username === props.userInfo.username ? (
-            <img onClick={deleteComment} src={Del} style={{ cursor: "pointer" }}></img>
+            <img
+              onClick={deleteComment}
+              src={Del}
+              style={{ cursor: "pointer" }}
+              alt="delcomment"
+            />
           ) : null}
-        </IconBox>
-      </ContentWrap>
+        </FlexGrid>
+      </Grid>
     </Container>
   );
 };
+
 const Container = styled.div`
   background-color: #fff;
-  border-top: 4px solid #F0F0F0;
-`
-const Wrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: 3px solid #fff;
-  padding: 10px 0px;
+  border-top: 4px solid #f0f0f0;
+  padding: 10px 16px;
 `;
+
 const FlexAlign = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const LevelImg = styled.img`
   width: 20px;
   height: 20px;
-  object-fit: cover;
-  margin: 0px 4px 0px 16px;
+  margin-right: 4px;
 `;
-const UserName = styled.div`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
-`;
+
 const CreatedAt = styled.div`
   font-size: 8px;
   font-weight: 300;
-  color: #8E8E8E;
+  color: #8e8e8e;
 `;
-const ContentWrap = styled.div`
-  border-bottom: 3px solid #fff;
-  padding: 4px 18px;
-`;
+
 const Content = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body1}
   font-weight: ${(props) => props.theme.fontWeight.regular}
   line-height: 16px;
   display: flex;
-  align-items: center;
-  padding: 0 0 16px;
+  padding: 12px 0px;
 `;
-const IconBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const Number = styled.p`
+
+const Number = styled.div`
   display: flex;
   font-size: 12px;
-  font-weight: 300;
-  margin: 0px 10px 0px 0px;
+  font-weight: ${(props) => props.theme.fontWeight.light};
+  margin: 0px 6px 0px 0px;
 `;
+
 const AgreeBtn = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0px 10px;
 `;
 
 export default OneComment;

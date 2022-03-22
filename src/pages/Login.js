@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 
+import noon from "../image/noon.svg";
+
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import { actionCreators as alertAction } from "../redux/modules/alert";
@@ -67,55 +69,75 @@ const Login = (props) => {
 
   //인풋 패스워드 눈
   const [passwordType, setPasswordType] = useState({
-    type: 'password',
-    visible: false
+    type: "password",
+    visible: false,
   });
 
   const handlePasswordType = (e) => {
     setPasswordType(() => {
-        if (!passwordType.visible) {
-            return { type: 'text', visible: true };
-        }
-        return { type: 'password', visible: false };
-    })
-}
+      if (!passwordType.visible) {
+        return { type: "text", visible: true };
+      }
+      return { type: "password", visible: false };
+    });
+  };
 
   return (
     <>
-      <FlexGrid is_column center height="100%" padding="16px">
-        <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" />
-
+      <FlexGrid is_column center height="100%" padding="16px" gap="20px">
+        <Text size="headline1" weight="black" color="orange">
+          LET'S DALKING
+        </Text>
+        {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
         <FlexGrid is_column gap="20px">
-          <LoginInput
-            type="text"
-            placeholder={"아이디 입력"}
-            onKeyDown={handleKeyDown}
-            onChange={onChangeUsername}
-          ></LoginInput>
-          {username.length > 0 && !isUsername && (
-            <Validation>올바른 아이디 형식을 입력해주세요.</Validation>
-          )}
-
-          <LoginInput
-            type={passwordType.type}
-            placeholder={"패스워드 입력"}
-            onKeyDown={handleKeyDown}
-            onChange={onChangePassword}
-          ></LoginInput>
-          <span onClick={handlePasswordType}>
-            	{ passwordType.visible ? <span>숨기기</span> : <span>보이기</span> }
-          </span>
-          {password.length > 0 && !isPassword && (
-            <Validation>다시 입력해주세요</Validation>
-          )}
+          <FlexGrid is_column gap="0px">
+            <LoginInput
+              type="text"
+              placeholder={"아이디 입력"}
+              onKeyDown={handleKeyDown}
+              onChange={onChangeUsername}
+            ></LoginInput>
+            {username.length > 0 && !isUsername && (
+              <Validation>올바른 아이디 형식을 입력해주세요.</Validation>
+            )}
+          </FlexGrid>
+          <FlexGrid is_column gap="0px">
+            <InputContainer>
+              <LoginInput
+                type={passwordType.type}
+                placeholder={"패스워드 입력"}
+                onKeyDown={handleKeyDown}
+                onChange={onChangePassword}
+              ></LoginInput>
+              <VisiblePw onClick={handlePasswordType}>
+                {passwordType.visible ? (
+                  <img src={noon} alt="noon" />
+                ) : (
+                  <span>보이기</span>
+                )}
+              </VisiblePw>
+              </InputContainer>
+              {password.length > 0 && !isPassword && (
+                <Validation>다시 입력해주세요</Validation>
+              )}
+          </FlexGrid>
 
           <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
         </FlexGrid>
 
         <Grid padding="30px 0px">
-          <Signuptext>아직 회원이 아니신가요? 지금 <span className="gosignup" onClick={() => {
-              history.push("/signup");
-            }}>가입</span>하세요</Signuptext>
+          <Signuptext>
+            아직 회원이 아니신가요? 지금{" "}
+            <span
+              className="gosignup"
+              onClick={() => {
+                history.push("/signup");
+              }}
+            >
+              가입
+            </span>
+            하세요
+          </Signuptext>
         </Grid>
       </FlexGrid>
     </>
@@ -129,7 +151,6 @@ const LogoImage = styled.img`
 const LoginInput = styled.input`
   width: 100%;
   height: 60px;
-
   border: none;
   border-radius: 10px;
   background-color: #f1f1f1;
@@ -141,9 +162,9 @@ const LoginInput = styled.input`
   }
 `;
 const Validation = styled.p`
-  margin-top: 5px;
-  font-size: 12px;
-  color: #FF5454;
+  margin-left: 10px;
+  font-size: 10px;
+  color: #ff5454;
 `;
 
 const LoginBtn = styled.button`
@@ -162,9 +183,25 @@ const Signuptext = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   text-decoration: underline;
-  .gosignup{
+  .gosignup {
     color: ${(props) => props.theme.color.orange};
     cursor: pointer;
   }
-`
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 54px;
+  width: 100%;
+`;
+
+const VisiblePw = styled.div`
+  cursor: pointer;
+  position: absolute;
+  width: 22px;
+  height: 20px;
+  right: 20px;
+`;
+
 export default Login;

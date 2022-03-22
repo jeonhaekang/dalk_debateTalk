@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { history } from '../../redux/configStore'
-import { actionCreators as commentActions } from '../../redux/modules/comment'
-import OneComment from './OneComment'
-
-import Button from '../../elements/Button'
-
 import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators as commentActions } from '../../redux/modules/comment'
+import { actionCreators as alertAction} from '../../redux/modules/alert'
+
+import OneComment from './OneComment'
 
 const CommentList = ({ debate }) => {
   const boardId = debate.boardId;
@@ -30,8 +29,10 @@ const CommentList = ({ debate }) => {
   const tokenCheck = token.split("=")[1]
   const addComment = () => {
     if (!tokenCheck) {
-      alert("로그인 해주세요!")
-      history.replace('/login');
+      dispatch(alertAction.open({
+        message : "로그인 해주세요!"
+      }))
+      history.push('/login');
     } else {
       dispatch(commentActions.addCommentDB(boardId, comment))
       setComment("");
@@ -52,6 +53,7 @@ const CommentList = ({ debate }) => {
             value={comment}
             onChange={onChangeComment}
             onKeyDown={onKeyDown}
+            style={{padding: "10px"}}
           ></input>
         </ImgInput>
         <SendBtn onClick={addComment}>등록</SendBtn>
@@ -71,34 +73,26 @@ const CommentWriteContainer = styled.div`
 `
 const ImgInput = styled.div`
   width: 100%;
-  display: flex;
-  align-items: center;
   .writebox {
     border: 1px solid #D2D2D2;
     height: 44px;
     border-radius: 10px;
-    font-size: 16px;
-    padding: 0px 20px 0px 0px;
     width: calc(100% - 10px);
     &::placeholder {
       color: #D9D9D9;
       font-size: ${(props) => (props.theme.fontSizes.body2)};
-      padding: 5px;
-    }
-    :focus{
-      padding: 5px;
     }
   }
 `
 const SendBtn = styled.button`
   background-color: ${(props) => (props.theme.color.orange)};
+  font-size: ${(props) => (props.theme.fontSizes.subtitle1)};
+  font-weight: ${(props) => (props.theme.fontWeight.medium)};
   color: white;
   width: 55px;
   height: 44px;
   border: none;
   border-radius: 10px;
-  font-size: ${(props) => (props.theme.fontSizes.subtitle1)};
-  font-weight: ${(props) => (props.theme.fontWeight.medium)};
 
 `
 export default CommentList;
