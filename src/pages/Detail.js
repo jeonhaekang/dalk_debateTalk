@@ -314,14 +314,18 @@ const Detail = (props) => {
         {/* 댓글 전체 */}
         {<CommentList debate={debate} />}
       </Grid>
-
-      <Modal modalState={createModalState} setModalState={setCreateModalState}>
-        {/* 공유하기 기능 */}
-        <ShareLink
-          createModalState={createModalState}
-          setCreateModalState={setCreateModalState}
-        />
-      </Modal>
+      {createModalState && (
+        <Modal
+          modalState={createModalState}
+          setModalState={setCreateModalState}
+        >
+          {/* 공유하기 기능 */}
+          <ShareLink
+            createModalState={createModalState}
+            setCreateModalState={setCreateModalState}
+          />
+        </Modal>
+      )}
     </>
   );
 };

@@ -9,7 +9,8 @@ const Modal = (props) => {
   const modalRef = React.useRef();
   const closeRef = React.useRef();
 
-  const handleClickOutSide = (event) => {
+  const handleClickOutSide = React.useCallback((event) => {
+    console.log("ddd");
     // ModalLayout부분 클릭시 모달창 닫힘
     const layout = modalRef.current === event.target;
     const close = closeRef.current === event.target;
@@ -21,7 +22,22 @@ const Modal = (props) => {
         setModalState(false);
       }, 200);
     }
-  };
+  }, []);
+
+  // const handleClickOutSide = (event) => {
+  //   console.log("ddd");
+  //   // ModalLayout부분 클릭시 모달창 닫힘
+  //   const layout = modalRef.current === event.target;
+  //   const close = closeRef.current === event.target;
+
+  //   if (layout || close) {
+  //     setAniState(true);
+
+  //     setTimeout(() => {
+  //       setModalState(false);
+  //     }, 200);
+  //   }
+  // };
 
   // click이벤트 연결
   React.useEffect(() => {

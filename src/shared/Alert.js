@@ -8,14 +8,14 @@ import Portal from "./Portal";
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert);
-
+  console.log(alert);
   const close = () => {
     alert.history();
     dispatch(actionCreators.close());
   };
 
   const action = () => {
-    console.log(alert.action());
+    console.log(alert.action);
     alert.action();
     dispatch(actionCreators.close());
   };
