@@ -11,6 +11,8 @@ import third from "../../image/rank/third.png"
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
 
 const UserRanking = () => {
     const user = useSelector(state => state.user.user);
@@ -65,8 +67,13 @@ const UserRanking = () => {
                 </Third>
             </TopThree>
 
+            <FlexGrid between padding="12px 28px 0px 28px">
+                <Text>랭킹</Text>
+                <Text>닉네임</Text>
+                <Text marginRight="10px">EXP</Text>
+            </FlexGrid>
 
-            <Grid padding="20px">
+            <Grid padding="12px 24px 24px 24px">
                 {SliceRankingList.map((r, idx) => {
                     return <div key={idx}>
                         <ListWrap>
@@ -210,7 +217,7 @@ const GradeLevel = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 24px 0px 36px;
+    margin: 10px 12px 0px 36px;
     padding-bottom: 8px;
     border-bottom : 2px solid #E7E7E7;
     width: 290px;
