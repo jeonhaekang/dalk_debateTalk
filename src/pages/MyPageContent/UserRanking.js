@@ -18,11 +18,11 @@ const UserRanking = () => {
 
     const userRank = rank[discriminant(user?.ex, user?.rank)];
 
-    const first = rank[discriminant(null, RankingList[0].rank)];
-    const second = rank[discriminant(null, RankingList[1].rank)];
-    const third = rank[discriminant(null, RankingList[2].rank)];
+    const first = rank[discriminant(null, RankingList[0]?.rank)];
+    const second = rank[discriminant(null, RankingList[1]?.rank)];
+    const third = rank[discriminant(null, RankingList[2]?.rank)];
 
-    const topUser = [RankingList[1], RankingList[0], RankingList[2]];
+    // const topUser = [RankingList[1], RankingList[0], RankingList[2]];
 
     useEffect(() => {
         apis.rank()
@@ -45,27 +45,27 @@ const UserRanking = () => {
             <TopThree>
                 <Second>
                     <FadeIn>
-                        <div className="ranknumber">2등</div>
-                        <LevelImg src={second.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[1]?.ex} EXP</div>
+                        <LevelImg className="secondImg" src={second.img} />
                     </FadeIn>
-                    <SecondBar></SecondBar>
+                    <SecondBar />
                 </Second>
                 <First>
                     <FadeIn>
-                        <div className="ranknumber">1등</div>
-                        <LevelImg src={first.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[0]?.ex} EXP</div>
+                        <LevelImg clssName="firstImg" src={first.img} />
                     </FadeIn>
-                    <FirstBar></FirstBar>
+                    <FirstBar />
                 </First>
                 <Third>
                     <FadeIn>
-                        <div className="ranknumber">3등</div>
-                        <LevelImg src={third.img} ></LevelImg>
                         <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[2]?.ex} EXP</div>
+                        <LevelImg className="thirdImg" src={third.img} />
                     </FadeIn>
-                    <ThirdBar></ThirdBar>
+                    <ThirdBar />
                 </Third>
             </TopThree>
 
@@ -118,6 +118,7 @@ const First = styled.div`
     align-items: center;
     padding-top: 38px;
     text-align: center;
+    margin: 0px 40px;
 `
 const Second = styled.div`
     display: flex;
@@ -158,7 +159,7 @@ const pullUp = keyframes`
 `
 const SecondBar = styled.div`
     background-color: #FED4A3;
-    width: 80px;
+    width: 55px;
     height: 96px;
     border: none;
     animation: ${pullUp};
@@ -168,7 +169,7 @@ const SecondBar = styled.div`
 `
 const FirstBar = styled.div`
     background-color: rgba(241, 145, 33, 0.7);
-    width: 80px;
+    width: 55px;
     height: 160px;
     border: none;
     animation: ${pullUp};
@@ -178,7 +179,7 @@ const FirstBar = styled.div`
 `
 const ThirdBar = styled.div`
     background-color: #FAEDE1;
-    width: 80px;
+    width: 55px;
     height: 64px;
     border: none;
     animation: ${pullUp};
@@ -186,6 +187,7 @@ const ThirdBar = styled.div`
     animation-timing-function: ease-out;
     transform-origin: 50% 100%;
 `
+
 const rankingMove = keyframes`
     0% {
         opacity: 0;
@@ -197,6 +199,7 @@ const rankingMove = keyframes`
         opacity: 1;
     }
 `
+
 const FadeIn = styled.div`
     animation: ${rankingMove} 2s;
     animation-duration: 4s;
@@ -214,6 +217,7 @@ const ListWrap = styled.div`
     display: flex;
     align-items: center;
 `
+
 const GradeLevel = styled.div`
     display: flex;
     justify-content: space-between;
@@ -223,6 +227,7 @@ const GradeLevel = styled.div`
     border-bottom : 2px solid #E7E7E7;
     width: 290px;
 `
+
 const RankingBox = styled.div`
     display: flex;
     justify-content: center;
@@ -235,14 +240,12 @@ const RankingBox = styled.div`
 `
 
 const LevelImg = styled.img`
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
+    width: 50px;
+    height: 50px;
 `
 
 const LevelImgList = styled.img`
     width: 23px;
-    height: auto;
     margin-right: 10px;
 `
 

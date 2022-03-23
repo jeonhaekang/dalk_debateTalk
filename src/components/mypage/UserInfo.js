@@ -30,9 +30,9 @@ const UserInfo = (props) => {
           <MypageUser>
             <Text size="headline2" weight="medium" color="black">
               {user?.nickname}
-              <Text size="body2">님</Text>
+              <Text size="body2">{" "}님</Text>
             </Text>
-            <Text size="subtitle1" color="black">
+            <Text size="subtitle1" color="black" weight="medium">
               {userRank.name}
             </Text>
           </MypageUser>
@@ -81,9 +81,9 @@ const Radius = styled.div`
 
 const LevelImg = styled.img`
   position: absolute;
-  width: 100px;
+  width: 78px;
   height: 100px;
-  transform: translate(15px, 15px);
+  transform: translate(27px, 15px);
 `;
 
 const MypageUser = styled.div`

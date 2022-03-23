@@ -155,6 +155,7 @@ const Detail = (props) => {
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DebateWrap>
           {winnerRate !== loserRate ? (
+            
             // 무승부가 아닌 승리, 패배 결과가 나왔을 때
             <>
               <DebateWinnerBox>
@@ -226,6 +227,7 @@ const Detail = (props) => {
               </DebateLoserBox>
             </>
           ) : (
+
             // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
             <>
               <DebateWinnerBox>
@@ -310,18 +312,14 @@ const Detail = (props) => {
         {/* 댓글 전체 */}
         {<CommentList debate={debate} />}
       </Grid>
-      {createModalState && (
-        <Modal
-          modalState={createModalState}
-          setModalState={setCreateModalState}
-        >
-          {/* 공유하기 기능 */}
-          <ShareLink
-            createModalState={createModalState}
-            setCreateModalState={setCreateModalState}
-          />
-        </Modal>
-      )}
+
+      <Modal modalState={createModalState} setModalState={setCreateModalState}>
+        {/* 공유하기 기능 */}
+        <ShareLink
+          createModalState={createModalState}
+          setCreateModalState={setCreateModalState}
+        />
+      </Modal>
     </>
   );
 };

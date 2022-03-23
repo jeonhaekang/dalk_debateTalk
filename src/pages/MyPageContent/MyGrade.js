@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import NewHeader from "../../shared/NewHeader";
-import { rank, RankInfo } from "../../data/rank";
-import { discriminant } from "../../data/rank";
 import { useSelector } from "react-redux";
+
+import NewHeader from "../../shared/NewHeader";
+import { rank, RankInfo, discriminant } from "../../data/rank";
+
 import point from "../../image/mypage/point.svg"
+
 import FlexGrid from "../../elements/FlexGrid"
 import Grid from "../../elements/Grid";
+import Text from "../../elements/Text";
 
 const MyGrade = () => {
     const user = useSelector(state => state.user.user);
@@ -27,11 +30,11 @@ const MyGrade = () => {
     const announceScore = nextScore();
 
     return (
-        <Grid height="100vh" overflow="scroll">
+        <MyGradeWrap>
             <NewHeader page="등급안내" />
             <FlexGrid is_column center gap="0px" textAlign="center" padding="100px 80px">
-                <Radius>
-                    <img className="mygradeimg" src={userRank.img}></img>
+                <Radius center>
+                    <img className="mygradeimg" src={userRank.img} alt="mygradeimg" />
                 </Radius>
                 <IsMyGrade>
                     나의 등급은 <br />
@@ -40,10 +43,10 @@ const MyGrade = () => {
                 <NextGrade>다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
             </FlexGrid>
 
-            <GradeInfo>
-                <GradeTitle>알포인트 등급</GradeTitle>
+            <FlexGrid is_column gap="8px" borderTop="16px solid #F1F1F1" padding="24px">
+                <Text size="headline2" weight="medium">알포인트 등급</Text>
 
-                <GradeWrap>
+                <FlexGrid is_column gap="4px">
                     {RankInfo.map((el, i) => {
                         return <FlexGrid key={i}>
                             <div><GradeImg src={el.img} /></div>
@@ -54,29 +57,32 @@ const MyGrade = () => {
                                 </Grid>
                                 <Grid display="flex">
                                     <PointImg src={point} />
-                                    <div className="ExpBox">{el.exp}</div>
+                                    <Text size="body1" weight="light">{el.exp}</Text>
                                 </Grid>
                             </RankList>
                         </FlexGrid>
                     })
                     }
-                </GradeWrap>
-            </GradeInfo>
-        </Grid>
+                </FlexGrid>
+            </FlexGrid>
+        </MyGradeWrap>
     )
 };
 
-const Radius = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const MyGradeWrap = styled.div`
+    height: 100%; 
+    overflow: scroll;
+    background-color: #FFF;
+`
+
+const Radius = styled(FlexGrid)`
     border: none;
     border-radius: 100%;
     width: 184px;
     height: 184px;
     background-color: #F5F5F5;
     .mygradeimg{
-        width: 130px;
+        width: 100px;
         height: 130px;
     }
 `
@@ -97,17 +103,7 @@ const NextGrade = styled.div`
         color: #E9C718;
     }
 `
-const GradeInfo = styled.div`
-    border-top: 16px solid #F1F1F1;
-`
-const GradeTitle = styled.div`
-    padding: 14px 24px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    font-size: ${(props) => props.theme.fontSizes.headline2};
-`
-const GradeWrap = styled.div`
-    padding: 2px 24px;
-`
+
 const RankList = styled(FlexGrid)`
     justify-content: space-between;
     font-size: ${(props) => props.theme.fontSizes.subtitle1};
@@ -125,14 +121,10 @@ const RankList = styled(FlexGrid)`
         font-weight: ${(props) => props.theme.fontWeight.medium};
         margin-bottom: 4px;
     }
-    .ExpBox {
-        font-size: ${(props) => props.theme.fontSizes.body1};
-        font-weight: ${(props) => props.theme.fontWeight.light};
-    }
 `
 const GradeImg = styled.img`
-    width: 66px;
-    height: 68px;
+    width: 46px;
+    height: 63px;
 `
 const PointImg = styled.img`
     width: 18px;
