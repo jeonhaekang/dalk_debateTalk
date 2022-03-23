@@ -10,7 +10,6 @@ const Modal = (props) => {
   const closeRef = React.useRef();
 
   const handleClickOutSide = React.useCallback((event) => {
-    console.log("ddd");
     // ModalLayout부분 클릭시 모달창 닫힘
     const layout = modalRef.current === event.target;
     const close = closeRef.current === event.target;

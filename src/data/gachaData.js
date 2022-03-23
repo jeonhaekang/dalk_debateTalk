@@ -1,13 +1,11 @@
-import gacha1 from "../image/gacha/gacha1.png";
-import gacha2 from "../image/gacha/gacha2.png";
-import gacha3 from "../image/gacha/gacha3.png";
-import gacha4 from "../image/gacha/gacha4.png";
-import gacha5 from "../image/gacha/gacha5.png";
-import gacha6 from "../image/gacha/gacha6.png";
+import Text from "../elements/Text";
+import egg from "../image/gacha/egg.svg";
+import fail from "../image/gacha/fail.svg";
+import success from "../image/gacha/success.svg";
 
 const gachaData = {
   first: {
-    img: gacha1,
+    img: egg,
     rank: -1,
     message: (
       <div>
@@ -17,63 +15,63 @@ const gachaData = {
     ),
   },
   1: {
-    img: gacha1,
+    img: success,
     rank: 1,
     point: 1000000,
     message: (
       <div>
-        축하합니다 1등 입니다!! <br />
-        1,000,000 알포인트 당첨!!
+        축하합니다! <br />
+        <Text color="orange">1,000,000알포인트</Text> 당첨!!
       </div>
     ),
   },
   2: {
-    img: gacha2,
+    img: success,
     rank: 2,
     point: 100000,
     message: (
       <div>
         축하합니다 2등 입니다!! <br />
-        100,000 알포인트 당첨!!
+        <Text color="orange">100,000알포인트</Text> 당첨!
       </div>
     ),
   },
   3: {
-    img: gacha3,
+    img: success,
     rank: 3,
     point: 10000,
     message: (
       <div>
-        축하합니다 3등 입니다!! <br />
-        10,000 알포인트 당첨!!
+        축하합니다! <br />
+        <Text color="orange">10,000 알포인트</Text> 당첨!
       </div>
     ),
   },
   4: {
-    img: gacha4,
+    img: success,
     rank: 4,
     point: 1000,
     message: (
       <div>
-        축하합니다 4등 입니다!! <br />
-        1,000 알포인트 당첨!!
+        축하합니다! <br />
+        <Text color="orange">1,000알포인트</Text> 당첨!
       </div>
     ),
   },
   5: {
-    img: gacha5,
+    img: success,
     rank: 5,
     point: 500,
     message: (
       <div>
-        축하합니다 5등 입니다!! <br />
-        500 알포인트 당첨!!
+        축하합니다! <br />
+        <Text color="orange">500알포인트</Text> 당첨!
       </div>
     ),
   },
-  0: {
-    img: gacha6,
-    rank: 0,
+  6: {
+    img: fail,
+    rank: 6,
     point: 0,
     message: (
       <div>

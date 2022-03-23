@@ -35,8 +35,6 @@ import Alert from "./Alert";
 import SearchPost from "../pages/SearchPost";
 
 function App() {
-  console.log(process.env.REACT_APP_SERVERIP);
-
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
   const handleResize = () => {
     const vh = window.innerHeight * 0.01;
@@ -52,7 +50,6 @@ function App() {
 
   // loginCheck
   const user = useSelector((state) => state.user.user);
-  console.log(user);
 
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
