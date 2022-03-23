@@ -13,9 +13,9 @@ const Convenience = () => {
 
   return (
     <>
-      <ConvinienceContent is_column>
+      <ConvinienceContent is_column gap="0px">
         <Title>토론정보</Title>
-        <FlexGrid flexWrap="wrap" gap="20px">
+        <FlexGrid is_column gap="0px">
           <Content
             onClick={() => {
               history.push("/more");
@@ -23,7 +23,9 @@ const Convenience = () => {
           >
             토론리스트
           </Content>
-          <Content>토론 안내</Content>
+          <Content>
+            토론 안내
+            </Content>
 
           <Content
             onClick={() => {
@@ -42,11 +44,11 @@ const Convenience = () => {
         </FlexGrid>
       </ConvinienceContent>
 
-      <ConvinienceContent is_column>
+      <ConvinienceContent is_column gap="0px">
         <Title>고객센터</Title>
-        <UserOutTitle onClick={() => setCreateModalState(true)}>
+        <Content onClick={() => setCreateModalState(true)}>
           회원탈퇴
-        </UserOutTitle>
+        </Content>
       </ConvinienceContent>
 
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
@@ -61,28 +63,26 @@ const Convenience = () => {
 
 const ConvinienceContent = styled(FlexGrid)`
   background-color: white;
-  padding: 24px;
 `;
 
 const Title = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.bold};
-  color: #cdcdcd;
+  color: #333333;
+  background-color: #FAEDE1;
+  padding: 16px 27px;
 `;
 
 const Content = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
-  font-weight: ${(props) => props.theme.fontWeight.regular};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   color: ${(props) => props.theme.color.black};
   cursor: pointer;
-  width: calc(100% / 2 - 20px);
-`;
-
-const UserOutTitle = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.gnb};
-  font-weight: ${(props) => props.theme.fontWeight.regular};
-  color: ${(props) => props.theme.color.black};
-  cursor: pointer;
+  padding: 16px 27px;
+  border-bottom: 1px solid #C4C4C4;
+  :last-child {
+    border: none;
+  }
 `;
 
 export default Convenience;

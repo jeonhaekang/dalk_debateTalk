@@ -57,7 +57,7 @@ const UserInfo = (props) => {
           }}
           style={{ cursor: "pointer", display: "flex" }}
         >
-          자세히보기{" "}
+          자세히 보기{" "}
           <img src={arrowright} style={{ margin: "2px 0px 0px 4px" }} />
         </div>
       </MyEggPoint>

@@ -12,8 +12,8 @@ const MyPage = (props) => {
   return (
     <>
       <NewHeader page="마이 페이지" />
-      <ContentContainer Xfooter backgroundColor="#f1f1f1">
-        <FlexGrid is_column gap="16px">
+      <ContentContainer Xfooter>
+        <FlexGrid is_column gap="0px">
           <UserInfo />
           <ShopGachaAnnounce />
           <Convenience />
