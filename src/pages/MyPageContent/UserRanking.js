@@ -4,10 +4,6 @@ import { useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
 import apis from "../../shared/apis";
 
-import first from "../../image/rank/first.png";
-import second from "../../image/rank/second.png";
-import third from "../../image/rank/third.png";
-
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
@@ -20,7 +16,14 @@ const UserRanking = () => {
   //4등부터 보여주기
   const SliceRankingList = RankingList.slice(3);
 
-  const userRank = rank[discriminant(user?.ex, user?.rank)];
+    const userRank = rank[discriminant(user?.ex, user?.rank)];
+
+    const first = rank[discriminant(null, RankingList[0]?.rank)];
+    const second = rank[discriminant(null, RankingList[1]?.rank)];
+    const third = rank[discriminant(null, RankingList[2]?.rank)];
+
+    // const topUser = [RankingList[1], RankingList[0], RankingList[2]];
+
 
   useEffect(() => {
     apis
@@ -74,11 +77,42 @@ const UserRanking = () => {
         </Third>
       </TopThree>
 
+    return (
+        <ContentContainer Xfooter >
+            <NewHeader page="유저랭킹" />
+            <TopThree>
+                <Second>
+                    <FadeIn>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[1]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[1]?.ex} EXP</div>
+                        <LevelImg className="secondImg" src={second.img} />
+                    </FadeIn>
+                    <SecondBar />
+                </Second>
+                <First>
+                    <FadeIn>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[0]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[0]?.ex} EXP</div>
+                        <LevelImg clssName="firstImg" src={first.img} />
+                    </FadeIn>
+                    <FirstBar />
+                </First>
+                <Third>
+                    <FadeIn>
+                        <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>{RankingList[2]?.nickname}</div>
+                        <div className="ranknumber">{RankingList[2]?.ex} EXP</div>
+                        <LevelImg className="thirdImg" src={third.img} />
+                    </FadeIn>
+                    <ThirdBar />
+                </Third>
+            </TopThree>
+
       <FlexGrid between padding="12px 28px 0px 28px">
         <Text>랭킹</Text>
         <Text>닉네임</Text>
         <Text marginRight="10px">EXP</Text>
       </FlexGrid>
+
 
       <Grid padding="12px 24px 24px 24px">
         {SliceRankingList.map((r, idx) => {
@@ -127,13 +161,14 @@ const TopThree = styled.div`
   justify-content: center;
 `;
 const First = styled.div`
-  margin: 0px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 38px;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 38px;
+    text-align: center;
+    margin: 0px 40px;
 `;
+
 const Second = styled.div`
   display: flex;
   flex-direction: column;
@@ -172,35 +207,36 @@ const pullUp = keyframes`
 	}							
 `;
 const SecondBar = styled.div`
-  background-color: #fed4a3;
-  width: 80px;
-  height: 96px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 3s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
+    background-color: #FED4A3;
+    width: 55px;
+    height: 96px;
+    border: none;
+    animation: ${pullUp};
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    transform-origin: 50% 100%;
+`
 const FirstBar = styled.div`
-  background-color: rgba(241, 145, 33, 0.7);
-  width: 80px;
-  height: 160px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 3.5s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
+    background-color: rgba(241, 145, 33, 0.7);
+    width: 55px;
+    height: 160px;
+    border: none;
+    animation: ${pullUp};
+    animation-duration: 3.5s;
+    animation-timing-function: ease-out;
+    transform-origin: 50% 100%;
+`
 const ThirdBar = styled.div`
-  background-color: #faede1;
-  width: 80px;
-  height: 64px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 2s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
+    background-color: #FAEDE1;
+    width: 55px;
+    height: 64px;
+    border: none;
+    animation: ${pullUp};
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    transform-origin: 50% 100%;
+`
+
 const rankingMove = keyframes`
     0% {
         opacity: 0;
@@ -211,7 +247,8 @@ const rankingMove = keyframes`
     100% {
         opacity: 1;
     }
-`;
+`
+
 const FadeIn = styled.div`
   animation: ${rankingMove} 2s;
   animation-duration: 4s;
@@ -226,18 +263,20 @@ const FadeIn = styled.div`
 `;
 
 const ListWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
+    display: flex;
+    align-items: center;
+`
+
 const GradeLevel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 12px 0px 36px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #e7e7e7;
-  width: 290px;
-`;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 12px 0px 36px;
+    padding-bottom: 8px;
+    border-bottom : 2px solid #E7E7E7;
+    width: 290px;
+`
+
 const RankingBox = styled.div`
   display: flex;
   justify-content: center;
@@ -250,16 +289,14 @@ const RankingBox = styled.div`
 `;
 
 const LevelImg = styled.img`
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-`;
+    width: 50px;
+    height: 50px;
+`
 
 const LevelImgList = styled.img`
-  width: 23px;
-  height: auto;
-  margin-right: 10px;
-`;
+    width: 23px;
+    margin-right: 10px;
+`
 
 const MyGradeLevel = styled.div`
   display: flex;

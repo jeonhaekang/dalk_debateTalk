@@ -5,7 +5,7 @@ import { actionCreators as userAction } from "../../redux/modules/user";
 import FlexGrid from "../../elements/FlexGrid";
 import Badge from "../../elements/Badge";
 import Text from "../../elements/Text";
-import bronze from "../../image/rank/bronze.png";
+import bronze from "../../image/rank/bronze.svg";
 
 const TopRank = (props) => {
   const dispatch = useDispatch();

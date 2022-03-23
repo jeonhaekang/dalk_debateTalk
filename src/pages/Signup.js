@@ -115,7 +115,7 @@ const Signup = (props) => {
       {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
       <FlexGrid is_column center gap="20px">
         {/* 아이디 입력 */}
-        <FlexGrid is_column gap="0px">
+        <FlexGrid is_column gap="8px">
           <Text size="body1" weight="medium">
             아이디 입력
           </Text>
@@ -132,7 +132,7 @@ const Signup = (props) => {
         </FlexGrid>
 
         {/* 닉네임 입력 */}
-        <FlexGrid is_column gap="0px">
+        <FlexGrid is_column gap="8px">
           <Text size="body1" weight="medium">
             닉네임 입력
           </Text>
@@ -149,7 +149,7 @@ const Signup = (props) => {
         </FlexGrid>
 
         {/* 패스워드 입력 */}
-        <FlexGrid is_column gap="0px">
+        <FlexGrid is_column gap="8px">
           <Text size="body1" weight="medium">
             패스워드 입력
           </Text>
@@ -167,7 +167,7 @@ const Signup = (props) => {
         </FlexGrid>
 
         {/* 패스워드 재확인 */}
-        <FlexGrid is_column gap="0px">
+        <FlexGrid is_column gap="8px">
           <Text size="body1" weight="medium">
             패스워드 재확인
           </Text>
@@ -223,10 +223,6 @@ const LoginInput = styled.input`
   border-radius: 10px;
   background-color: #f1f1f1;
   padding: 16px;
-  // ::placeholder {
-  //   color: #CACACA;
-  //   font-size: 16px;
-  // }
 `;
 
 const Validation = styled.p`

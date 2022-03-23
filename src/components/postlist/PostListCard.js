@@ -140,6 +140,6 @@ const DebateInfo = styled.div`
   border-radius: 10px;
   height: 30px;
   padding: 0px 30px;
-`;
+`
 
 export default React.memo(PostListCard);

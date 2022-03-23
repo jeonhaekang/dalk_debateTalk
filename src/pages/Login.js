@@ -5,6 +5,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 
 import noon from "../image/noon.svg";
+import opennoon from "../image/opennoon.svg";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
@@ -85,12 +86,14 @@ const Login = (props) => {
   return (
     <>
       <FlexGrid is_column center height="100%" padding="16px" gap="20px">
-        <Text size="headline1" weight="black" color="orange">
-          LET'S DALKING
-        </Text>
+        <FlexGrid center margin="80px 0px">
+          <Text size="headline1" weight="black" color="orange">
+            LET'S DALKING
+          </Text>
+        </FlexGrid>
         {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
         <FlexGrid is_column gap="20px">
-          <FlexGrid is_column gap="0px">
+          <FlexGrid is_column gap="8px">
             <LoginInput
               type="text"
               placeholder={"아이디 입력"}
@@ -101,7 +104,7 @@ const Login = (props) => {
               <Validation>올바른 아이디 형식을 입력해주세요.</Validation>
             )}
           </FlexGrid>
-          <FlexGrid is_column gap="0px">
+          <FlexGrid is_column gap="8px">
             <InputContainer>
               <LoginInput
                 type={passwordType.type}
@@ -113,13 +116,13 @@ const Login = (props) => {
                 {passwordType.visible ? (
                   <img src={noon} alt="noon" />
                 ) : (
-                  <span>보이기</span>
+                  <img src={opennoon} alt="opennoon" />
                 )}
               </VisiblePw>
-              </InputContainer>
-              {password.length > 0 && !isPassword && (
-                <Validation>다시 입력해주세요</Validation>
-              )}
+            </InputContainer>
+            {password.length > 0 && !isPassword && (
+              <Validation>다시 입력해주세요</Validation>
+            )}
           </FlexGrid>
 
           <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
