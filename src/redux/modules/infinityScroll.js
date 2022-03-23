@@ -74,9 +74,17 @@ export default handleActions(
     [GET_ROOM]: (state, action) =>
       produce(state, (draft) => {
         const { keyword, data } = action.payload;
-        draft[keyword].list.push(...data.list);
-        draft[keyword].page = data.page;
-        draft[keyword].has_next = data.next;
+        if (draft[keyword]) {
+          draft[keyword].list.push(...data.list);
+          draft[keyword].page = data.page;
+          draft[keyword].has_next = data.next;
+        } else {
+          draft[keyword] = {
+            list: data.list,
+            page: data.page,
+            has_next: data.next,
+          };
+        }
       }),
     [CLEAR]: (state, action) =>
       produce(state, (draft) => {

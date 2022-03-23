@@ -33,8 +33,6 @@ const ChatRoom = (props) => {
 
   const userList = useSelector((state) => state.chat.currentRoom.users);
 
-  console.log(roomInfo);
-
   const reportRoom = () => {
     dispatch(chatAction.reportRoomDB(data.roomId));
   };
@@ -68,7 +66,12 @@ const ChatRoom = (props) => {
         </NewHeader>
 
         {roomInfo && (
-          <ContentContainer Xfooter display="flex" flexDirection="column" height="100%">
+          <ContentContainer
+            Xfooter
+            display="flex"
+            flexDirection="column"
+            height="100%"
+          >
             <ChatHeader {...roomInfo} />
             <ChatBox {...data} />
             <ChatInput {...data} />
