@@ -6,13 +6,21 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 
-import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
+
 import check from "../image/check.svg";
+
+import Modal from "../components/shared/Modal";
+import MemberPolicy from "../components/shared/MemberPolicy";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+  //약관 체크
+  const [useCheck, setUseCheck] = useState(false);
+
+  //약관보기 모달
+  const [createModalState, setCreateModalState] = useState(false);
 
   //아이디, 닉네임, 비밀번호 상태관리
   const [username, setUsername] = useState("");
@@ -76,6 +84,14 @@ const Signup = (props) => {
     }
   };
 
+  const useBtnEvent = () => {
+    if (useCheck === false) {
+      setUseCheck(true);
+    } else {
+      setUseCheck(false);
+    }
+  };
+
   //회원가입 하면 자동로그인하게 만들기
   //signDB redux에 자동으로 로그인되게 함
   const clickSignUp = () => {
@@ -103,6 +119,13 @@ const Signup = (props) => {
         })
       );
       return;
+    } else if (useCheck === false) {
+      dispatch(
+        alertAction.open({
+          message: "이용약관에 동의해주세요!",
+        })
+      );
+      return;
     } else {
       dispatch(
         userActions.signUpDB(username, password, nickname, passwordCheck)
@@ -111,95 +134,132 @@ const Signup = (props) => {
   };
 
   return (
-    <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
-      {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
-      <FlexGrid is_column center gap="20px">
-        {/* 아이디 입력 */}
-        <FlexGrid is_column gap="8px">
-          <Text size="body1" weight="medium">
-            아이디 입력
-          </Text>
-          <InputContainer>
-            <LoginInput
-              defaultValue={username}
-              onChange={onChangeUsername}
-            ></LoginInput>
-            {isUsername === true && <CheckImg src={check} alt="check" />}
-          </InputContainer>
-          {username.length > 0 && !isUsername && (
-            <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
-          )}
-        </FlexGrid>
+    <>
+      <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
+        {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
+        <FlexGrid is_column center gap="20px">
+          {/* 아이디 입력 */}
+          <FlexGrid is_column gap="8px">
+            <Text size="body1" weight="medium">
+              아이디 입력
+            </Text>
+            <InputContainer>
+              <LoginInput
+                defaultValue={username}
+                onChange={onChangeUsername}
+              ></LoginInput>
+              {isUsername === true && <CheckImg src={check} alt="check" />}
+            </InputContainer>
+            {username.length > 0 && !isUsername && (
+              <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
+            )}
+          </FlexGrid>
 
-        {/* 닉네임 입력 */}
-        <FlexGrid is_column gap="8px">
-          <Text size="body1" weight="medium">
-            닉네임 입력
-          </Text>
-          <InputContainer>
-            <LoginInput
-              defaultValue={nickname}
-              onChange={onChangeNickname}
-            ></LoginInput>
-            {isNickname === true && <CheckImg src={check} alt="check" />}
-          </InputContainer>
-          {nickname.length > 0 && !isNickname && (
-            <Validation>닉네임은 2자리 이상 8자리 이하로 해주세요.</Validation>
-          )}
-        </FlexGrid>
+          {/* 닉네임 입력 */}
+          <FlexGrid is_column gap="8px">
+            <Text size="body1" weight="medium">
+              닉네임 입력
+            </Text>
+            <InputContainer>
+              <LoginInput
+                defaultValue={nickname}
+                onChange={onChangeNickname}
+              ></LoginInput>
+              {isNickname === true && <CheckImg src={check} alt="check" />}
+            </InputContainer>
+            {nickname.length > 0 && !isNickname && (
+              <Validation>
+                닉네임은 2자리 이상 8자리 이하로 해주세요.
+              </Validation>
+            )}
+          </FlexGrid>
 
-        {/* 패스워드 입력 */}
-        <FlexGrid is_column gap="8px">
-          <Text size="body1" weight="medium">
-            패스워드 입력
-          </Text>
-          <InputContainer>
-            <LoginInput
-              type="password"
-              defaultValue={password}
-              onChange={onChangePassword}
-            ></LoginInput>
-            {isPassword === true && <CheckImg src={check} alt="check" />}
-          </InputContainer>
-          {password.length > 0 && !isPassword && (
-            <Validation>8자 이상의 영문과 숫자조합을 입력해주세요.</Validation>
-          )}
-        </FlexGrid>
+          {/* 패스워드 입력 */}
+          <FlexGrid is_column gap="8px">
+            <Text size="body1" weight="medium">
+              패스워드 입력
+            </Text>
+            <InputContainer>
+              <LoginInput
+                type="password"
+                defaultValue={password}
+                onChange={onChangePassword}
+              ></LoginInput>
+              {isPassword === true && <CheckImg src={check} alt="check" />}
+            </InputContainer>
+            {password.length > 0 && !isPassword && (
+              <Validation>
+                8자 이상의 영문과 숫자조합을 입력해주세요.
+              </Validation>
+            )}
+          </FlexGrid>
 
-        {/* 패스워드 재확인 */}
-        <FlexGrid is_column gap="8px">
-          <Text size="body1" weight="medium">
-            패스워드 재확인
-          </Text>
-          <InputContainer>
-            <LoginInput
-              type="password"
-              defaultValue={passwordCheck}
-              onChange={onChangePasswordCheck}
-            ></LoginInput>
-            {isPasswordCheck === true && <CheckImg src={check} alt="check" />}
-          </InputContainer>
-          {passwordCheck.length > 0 && !isPasswordCheck && (
-            <Validation>비밀번호가 다릅니다.</Validation>
-          )}
-        </FlexGrid>
+          {/* 패스워드 재확인 */}
+          <FlexGrid is_column gap="8px">
+            <Text size="body1" weight="medium">
+              패스워드 재확인
+            </Text>
+            <InputContainer>
+              <LoginInput
+                type="password"
+                defaultValue={passwordCheck}
+                onChange={onChangePasswordCheck}
+              ></LoginInput>
+              {isPasswordCheck === true && <CheckImg src={check} alt="check" />}
+            </InputContainer>
+            {passwordCheck.length > 0 && !isPasswordCheck && (
+              <Validation>비밀번호가 다릅니다.</Validation>
+            )}
+          </FlexGrid>
 
-        <Text>
-          이미 계정이 있으신가요?{" "}
-          <Text
-            color="orange"
-            weight="medium"
-            cursor="pointer"
-            onClick={() => {
-              history.push("/login");
-            }}
-          >
-            로그인
+          <FlexGrid center gap="4px">
+            <input
+              type="checkbox"
+              id="check1"
+              checked={useCheck}
+              onChange={useBtnEvent}
+              style={{margin:"2px 0 0 3px"}}
+            />
+            <label for="check1">
+              이용약관 동의{" "}
+              <Text weight="medium">(필수)</Text>{" "}
+            </label>
+              <Text 
+              color="orange" 
+              onClick={() => setCreateModalState(true)}
+              cursor="pointer"
+              >약관보기</Text>
+          </FlexGrid>
+
+          <Text>
+            이미 계정이 있으신가요?{" "}
+            <Text
+              color="orange"
+              weight="medium"
+              cursor="pointer"
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              로그인
+            </Text>
           </Text>
-        </Text>
+        </FlexGrid>
+        <SignupBox onClick={clickSignUp}>가입하기</SignupBox>
       </FlexGrid>
-      <SignupBox onClick={clickSignUp}>가입하기</SignupBox>
-    </FlexGrid>
+
+      {createModalState && (
+        <Modal
+          modalState={createModalState}
+          setModalState={setCreateModalState}
+        >
+          <MemberPolicy
+            createModalState={createModalState}
+            setCreateModalState={setCreateModalState}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

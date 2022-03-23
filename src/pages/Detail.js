@@ -359,7 +359,7 @@ const DetailLogo = styled(FlexGrid)`
 
 const TitleBox = styled.div`
   font-size: ${(props) => props.win ? "28px" : "24px"}; 
-  padding-bottom: 20px;
+  padding: 8px;
   text-align: center;
   color: ${(props) => props.win ? props.theme.color.orange : ""};
 `;
