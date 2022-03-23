@@ -182,12 +182,12 @@ const pullUp = keyframes`
 	0% {
 		transform: scaleY(0.1);
 	}
-	40% {
-		transform: scaleY(1.02);
-	}
-	60% {
-		transform: scaleY(0.98);
-	}
+	// 40% {
+	// 	transform: scaleY(1.02);
+	// }
+	// 60% {
+	// 	transform: scaleY(0.98);
+	// }
 	100% {
 		transform: scaleY(1.00);
   }					
@@ -198,7 +198,7 @@ const SecondBar = styled.div`
   height: 96px;
   border: none;
   animation: ${pullUp};
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-timing-function: ease-out;
   transform-origin: 50% 100%;
 `;
@@ -208,7 +208,7 @@ const FirstBar = styled.div`
   height: 160px;
   border: none;
   animation: ${pullUp};
-  animation-duration: 2.5s;
+  animation-duration: 2s;
   animation-timing-function: ease-out;
   transform-origin: 50% 100%;
 `;
