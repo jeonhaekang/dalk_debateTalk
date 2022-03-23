@@ -21,15 +21,19 @@ const BestContent = ({ category, time, refresh }) => {
   }, [time]);
 
   return (
-    <BestBox is_column>
-      <FlexGrid between>
-        <Text size="headline1" weight="medium" lineHeight="38px">
-          실시간 베스트 토론
-        </Text>
-        <img alt="reset" src={pinkReset} onClick={refresh} />
-      </FlexGrid>
-      {most && <MainCard key={most.roomId} {...most} page="main" />}
-    </BestBox>
+    <>
+      {most && (
+        <BestBox is_column>
+          <FlexGrid between>
+            <Text size="headline1" weight="medium" lineHeight="38px">
+              실시간 베스트 토론
+            </Text>
+            <img alt="reset" src={pinkReset} onClick={refresh} />
+          </FlexGrid>
+          {most && <MainCard key={most.roomId} {...most} page="main" />}
+        </BestBox>
+      )}
+    </>
   );
 };
 
