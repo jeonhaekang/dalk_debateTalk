@@ -6,8 +6,9 @@ import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import apis from "../shared/apis";
 import gachaData from "../data/gachaData";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/user";
+import { actionCreators as alertAction } from "../redux/modules/alert";
 import { shake, zoomIn, zoomOut } from "../animation/gacha";
 
 const Gacha = (props) => {
@@ -19,7 +20,14 @@ const Gacha = (props) => {
     infinite: "infinite",
   });
 
+  const user = useSelector((props) => props.user.user);
+  console.log(user);
+
   const cacha = () => {
+    if (user.point < 200) {
+      dispatch(alertAction.open({ message: "포인트가 부족합니다." }));
+      return;
+    }
     dispatch(actionCreators.setPoint(-200));
     setAnimation({ animation: zoomIn, duration: 600, infinite: "unset" });
     setTimeout(() => {
