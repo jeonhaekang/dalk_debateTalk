@@ -55,15 +55,11 @@ const Gacha = (props) => {
         <FlexGrid center height="100%">
           <FlexGrid center is_column>
             <ResultImg src={data.img} animation={animation} />
-            <FlexGrid
-              is_column
-              textAlign="center"
-              size="headline1"
-              weight="regular"
-            >
-              <Text>{data.message}</Text>
-              <Text>{data.rank === 6 && `${data.count}번 연속 꽝`}</Text>
-            </FlexGrid>
+
+            <Text size="headline1" weight="regular" textAlign="center">
+              {data.message}
+            </Text>
+            {/* <Text>{data.rank === 6 && `${data.count}번 연속 꽝`}</Text> */}
           </FlexGrid>
         </FlexGrid>
       </ContentContainer>
@@ -80,8 +76,6 @@ const ResultImg = styled.img`
   animation-duration: ${(props) => props.animation.duration}ms;
   animation-iteration-count: ${(props) => props.animation.infinite};
   animation-fill-mode: forwards;
-
-  z-index: 1;
 `;
 
 const Button = styled.button`
