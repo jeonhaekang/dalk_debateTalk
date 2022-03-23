@@ -15,7 +15,7 @@ import Textsms from "../../image/post/textsms.svg";
 import Notification from "../../image/post/notification.svg";
 
 const PostListCard = (props) => {
-  const userRank = rank[discriminant(props.userInfo.ex)];
+  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
   const boardId = props.boardId;
 
   return (
@@ -101,6 +101,7 @@ const CardBox = styled(FlexGrid)`
   background-color: white;
   overflow: hidden;
   margin-bottom: 8px;
+  cursor: zoom-in;
 `;
 
 const VS = styled(FlexGrid)`

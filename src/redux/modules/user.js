@@ -117,7 +117,7 @@ const logincheckDB = () => {
         dispatch(setUser(res.data));
       })
       .catch((err) => {
-        useDispatch(alertAction.open({
+        dispatch(alertAction.open({
           message: '다시 로그인 해주세요!'
         }));
         history.push("/login");
