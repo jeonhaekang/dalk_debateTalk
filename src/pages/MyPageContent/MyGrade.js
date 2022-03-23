@@ -108,6 +108,7 @@ const RankList = styled(FlexGrid)`
     justify-content: space-between;
     font-size: ${(props) => props.theme.fontSizes.subtitle1};
     align-items: center;
+    margin-left: 10px;
     .LevelBox {
         background-color: #FAA94C;
         font-size: 12px;

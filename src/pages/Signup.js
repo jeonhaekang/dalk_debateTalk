@@ -9,7 +9,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
 
-import check from "../image/check.svg";
+import check from "../image/login/check.svg";
 
 import Modal from "../components/shared/Modal";
 import MemberPolicy from "../components/shared/MemberPolicy";

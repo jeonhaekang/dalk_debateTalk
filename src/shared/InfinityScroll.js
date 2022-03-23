@@ -34,7 +34,6 @@ const InfinityScroll = ({ children, callNext, paging }) => {
     <>
       {children}
       {paging.next && (
-        //배포때는 진짜 스피너 넣어야합니다!
         <LoadingSpinner ref={spinnerRef}>
           <img className="loading" src={loadingSpinner} alt="loadingSpinner"/>
         </LoadingSpinner>

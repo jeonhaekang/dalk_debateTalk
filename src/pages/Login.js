@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 
-import noon from "../image/noon.svg";
-import opennoon from "../image/opennoon.svg";
+import noon from "../image/login/noon.svg";
+import opennoon from "../image/login/opennoon.svg";
 
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";

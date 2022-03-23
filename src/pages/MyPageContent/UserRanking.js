@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
 import apis from "../../shared/apis";
 
+import rankfirst from "../../image/rank/rankfirst.svg"
+import ranksecond from "../../image/rank/ranksecond.svg"
+import rankthird from "../../image/rank/rankthird.svg"
+
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
@@ -46,31 +50,52 @@ const UserRanking = () => {
       <TopThree>
         <Second>
           <FadeIn>
-            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
-              {RankingList[1]?.nickname}
-            </div>
-            <div className="ranknumber">{RankingList[1]?.ex} EXP</div>
-            <LevelImg className="secondImg" src={second.img} />
+            <FlexGrid is_column gap="0px" paddingBottom="80px">
+              <FlexGrid is_flex gap="4px" center>
+                <img
+                  src={second.img}
+                  style={{ width: "20px", marginTop: "2px" }}
+                  alt="secondImg"
+                />
+                <div className="rankname">{RankingList[1]?.nickname}</div>
+              </FlexGrid>
+              <div className="ranknumber">EXP {RankingList[1]?.ex}</div>
+            </FlexGrid>
+            <SecondImg src={ranksecond} />
           </FadeIn>
           <SecondBar />
         </Second>
         <First>
           <FadeIn>
-            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
-              {RankingList[0]?.nickname}
-            </div>
-            <div className="ranknumber">{RankingList[0]?.ex} EXP</div>
-            <LevelImg clssName="firstImg" src={first.img} />
+            <FlexGrid is_column gap="0px" paddingBottom="80px">
+              <FlexGrid is_flex gap="4px" center>
+                <img
+                  src={first.img}
+                  style={{ width: "20px", marginTop: "2px" }}
+                  alt="firstImg"
+                />
+                <div className="rankname">{RankingList[0]?.nickname}</div>
+              </FlexGrid>
+              <div className="ranknumber">EXP {RankingList[0]?.ex}</div>
+            </FlexGrid>
+            <FirstImg src={rankfirst} />
           </FadeIn>
           <FirstBar />
         </First>
         <Third>
           <FadeIn>
-            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
-              {RankingList[2]?.nickname}
-            </div>
-            <div className="ranknumber">{RankingList[2]?.ex} EXP</div>
-            <LevelImg className="thirdImg" src={third.img} />
+            <FlexGrid is_column gap="0px" paddingBottom="80px">
+              <FlexGrid is_flex gap="4px" center>
+                <img
+                  src={third.img}
+                  style={{ width: "20px", marginTop: "2px" }}
+                  alt="thirdimg"
+                />
+                <div className="rankname">{RankingList[2]?.nickname}</div>
+              </FlexGrid>
+              <div className="ranknumber">EXP {RankingList[2]?.ex}</div>
+            </FlexGrid>
+            <ThirdImg src={rankthird} />
           </FadeIn>
           <ThirdBar />
         </Third>
@@ -123,6 +148,7 @@ const UserRanking = () => {
     </ContentContainer>
   );
 };
+
 const TopThree = styled.div`
   display: flex;
   border-bottom: 4px solid ${(props) => props.theme.color.orange};
@@ -134,15 +160,15 @@ const First = styled.div`
   align-items: center;
   padding-top: 38px;
   text-align: center;
-  margin: 0px 40px;
+  margin: 0px 16px;
 `;
-
 const Second = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 102px;
   text-align: center;
+  margin: 0px 16px;
 `;
 const Third = styled.div`
   display: flex;
@@ -150,6 +176,7 @@ const Third = styled.div`
   align-items: center;
   padding-top: 134px;
   text-align: center;
+  margin: 0px 16px;
 `;
 const pullUp = keyframes`
 	0% {
@@ -161,18 +188,9 @@ const pullUp = keyframes`
 	60% {
 		transform: scaleY(0.98);
 	}
-	80% {
-		transform: scaleY(1.01);
-	}
 	100% {
-		transform: scaleY(0.98);
-	}				
-	80% {
-		transform: scaleY(1.01);
-	}
-	100% {
-		transform: scaleY(1);
-	}							
+		transform: scaleY(1.00);
+  }					
 `;
 const SecondBar = styled.div`
   background-color: #fed4a3;
@@ -180,7 +198,7 @@ const SecondBar = styled.div`
   height: 96px;
   border: none;
   animation: ${pullUp};
-  animation-duration: 3s;
+  animation-duration: 2s;
   animation-timing-function: ease-out;
   transform-origin: 50% 100%;
 `;
@@ -190,7 +208,7 @@ const FirstBar = styled.div`
   height: 160px;
   border: none;
   animation: ${pullUp};
-  animation-duration: 3.5s;
+  animation-duration: 2.5s;
   animation-timing-function: ease-out;
   transform-origin: 50% 100%;
 `;
@@ -200,7 +218,7 @@ const ThirdBar = styled.div`
   height: 64px;
   border: none;
   animation: ${pullUp};
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-timing-function: ease-out;
   transform-origin: 50% 100%;
 `;
@@ -218,11 +236,12 @@ const rankingMove = keyframes`
 `;
 
 const FadeIn = styled.div`
-  animation: ${rankingMove} 2s;
-  animation-duration: 4s;
+  animation: ${rankingMove} 1s;
+  animation-duration: 2.8s;
+  position: relative;
   .ranknumber {
-    font-size: 18px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
+    font-size: 14px;
+    font-weight: ${(props) => props.theme.fontWeight.light};
   }
   .rankname {
     font-size: 18px;
@@ -256,9 +275,22 @@ const RankingBox = styled.div`
   font-weight: bolder;
 `;
 
-const LevelImg = styled.img`
-  width: 50px;
-  height: 50px;
+const FirstImg = styled.img`
+  position: absolute;
+  width: 90px;
+  transform: translate(-45px, -65px);
+`;
+
+const SecondImg = styled.img`
+  position: absolute;
+  width: 80px;
+  transform: translate(-40px, -60px);
+`;
+
+const ThirdImg = styled.img`
+  position: absolute;
+  width: 70px;
+  transform: translate(-34px, -55px);
 `;
 
 const LevelImgList = styled.img`
