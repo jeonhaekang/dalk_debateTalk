@@ -10,6 +10,7 @@ import MoreContent from "../components/more/MoreContent";
 import MoreHeader from "../components/more/MoreHeader";
 import styled from "styled-components";
 import { actionCreators } from "../redux/modules/infinityScroll";
+import reset from "../image/shared/reset.svg";
 
 const More = () => {
   const dispatch = useDispatch();
@@ -26,13 +27,14 @@ const More = () => {
     <>
       <NewHeader page="토론리스트" line />
       <ContentContainer>
-        <FlexGrid padding="16px" height="108px">
+        <FlexGrid padding="16px" between alignItems="flex-end">
           <Text size="headline1" weight="medium" lineHeight="38px">
             실시간 HOT한 토론에
             <br />
             참여해보세요
           </Text>
-          <button onClick={refresh}>새로고침</button>
+          <img alt="reset" onClick={refresh} src={reset} />
+          {/* <button onClick={refresh}>새로고침</button> */}
         </FlexGrid>
 
         <MoreHeader

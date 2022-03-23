@@ -32,8 +32,6 @@ const MoreCard = (props) => {
 
   return (
     <CardBox is_column _onClick={enterRoom} className="moreBox">
-      {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
-      {timeState && <Blind>종료된 채팅방</Blind>}
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
           {props.category.map((el, i) => {
@@ -74,6 +72,8 @@ const MoreCard = (props) => {
           </FlexGrid>
         </FlexGrid>
       </FlexGrid>
+      {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
+      {timeState && <Blind>종료된 채팅방</Blind>}
     </CardBox>
   );
 };

@@ -11,10 +11,10 @@ import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 
 const UserRanking = () => {
-    const user = useSelector(state => state.user.user);
-    const [RankingList, setRankingList] = useState([]);
-    //4등부터 보여주기
-    const SliceRankingList = RankingList.slice(3);
+  const user = useSelector((state) => state.user.user);
+  const [RankingList, setRankingList] = useState([]);
+  //4등부터 보여주기
+  const SliceRankingList = RankingList.slice(3);
 
     const userRank = rank[discriminant(user?.ex, user?.rank)];
 
@@ -24,20 +24,58 @@ const UserRanking = () => {
 
     // const topUser = [RankingList[1], RankingList[0], RankingList[2]];
 
-    useEffect(() => {
-        apis.rank()
-            .then((res) => {
-                console.log("랭킹 조회 완료", res.data)
-                setRankingList(res.data);
-            })
-            .catch((err) => {
-                console.log("랭킹 조회 실패", err)
-            })
-    }, []);
 
-    // 내 등수 찾기
-    const _myrank = (nickname) => nickname == user?.nickname;
-    const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
+  useEffect(() => {
+    apis
+      .rank()
+      .then((res) => {
+        console.log("랭킹 조회 완료", res.data);
+        setRankingList(res.data);
+      })
+      .catch((err) => {
+        console.log("랭킹 조회 실패", err);
+      });
+  }, []);
+
+  // 내 등수 찾기
+  const _myrank = (nickname) => nickname == user?.nickname;
+  const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
+  console.log(RankingList);
+  return (
+    <ContentContainer Xfooter>
+      <NewHeader page="유저랭킹" />
+      <TopThree>
+        <Second>
+          <FadeIn>
+            <div className="ranknumber">2등</div>
+            <LevelImg src={second.img}></LevelImg>
+            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
+              {RankingList[1]?.nickname}
+            </div>
+          </FadeIn>
+          <SecondBar></SecondBar>
+        </Second>
+        <First>
+          <FadeIn>
+            <div className="ranknumber">1등</div>
+            <LevelImg src={first.img}></LevelImg>
+            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
+              {RankingList[0]?.nickname}
+            </div>
+          </FadeIn>
+          <FirstBar></FirstBar>
+        </First>
+        <Third>
+          <FadeIn>
+            <div className="ranknumber">3등</div>
+            <LevelImg src={third.img}></LevelImg>
+            <div className="rankname" style={{ margin: "4px 0px 14px 0px" }}>
+              {RankingList[2]?.nickname}
+            </div>
+          </FadeIn>
+          <ThirdBar></ThirdBar>
+        </Third>
+      </TopThree>
 
     return (
         <ContentContainer Xfooter >
@@ -69,49 +107,59 @@ const UserRanking = () => {
                 </Third>
             </TopThree>
 
-            <FlexGrid between padding="12px 28px 0px 28px">
-                <Text>랭킹</Text>
-                <Text>닉네임</Text>
-                <Text marginRight="10px">EXP</Text>
-            </FlexGrid>
+      <FlexGrid between padding="12px 28px 0px 28px">
+        <Text>랭킹</Text>
+        <Text>닉네임</Text>
+        <Text marginRight="10px">EXP</Text>
+      </FlexGrid>
 
-            <Grid padding="12px 24px 24px 24px">
-                {SliceRankingList.map((r, idx) => {
-                    return <div key={idx}>
-                        <ListWrap>
-                            <RankingBox>{idx + 4}</RankingBox>
-                            <GradeLevel>
-                                <Grid display="flex">
-                                    <LevelImgList src={rank[discriminant(r.ex)].img}></LevelImgList>
-                                    <div style={{ fontSize: '16px', fontWeight: '400' }}>{r.nickname}</div>
-                                </Grid>
 
-                                <div style={{ fontSize: '16px', fontWeight: '400' }}>{r.ex}</div>
-                            </GradeLevel>
-                        </ListWrap>
+      <Grid padding="12px 24px 24px 24px">
+        {SliceRankingList.map((r, idx) => {
+          return (
+            <div key={idx}>
+              <ListWrap>
+                <RankingBox>{idx + 4}</RankingBox>
+                <GradeLevel>
+                  <Grid display="flex">
+                    <LevelImgList
+                      src={rank[discriminant(r.ex)].img}
+                    ></LevelImgList>
+                    <div style={{ fontSize: "16px", fontWeight: "400" }}>
+                      {r.nickname}
                     </div>
-                })}
-            </Grid>
+                  </Grid>
 
-            <Me>
-                <MyGradeLevel style={{ backgroundColor: "#fff" }}>
-                    <RankingBox>{myrank + 1}</RankingBox>
-                    <Grid display="flex">
-                        <LevelImgList src={userRank.img}></LevelImgList>
-                        <div style={{ fontSize: '16px', fontWeight: '400' }}>{user?.nickname}</div>
-                    </Grid>
-                    <div style={{ fontSize: '16px', fontWeight: '400' }}>{user?.ex}</div>
-                </MyGradeLevel>
-            </Me>
+                  <div style={{ fontSize: "16px", fontWeight: "400" }}>
+                    {r.ex}
+                  </div>
+                </GradeLevel>
+              </ListWrap>
+            </div>
+          );
+        })}
+      </Grid>
 
-        </ContentContainer>
-    )
+      <Me>
+        <MyGradeLevel style={{ backgroundColor: "#fff" }}>
+          <RankingBox>{myrank + 1}</RankingBox>
+          <Grid display="flex">
+            <LevelImgList src={userRank.img}></LevelImgList>
+            <div style={{ fontSize: "16px", fontWeight: "400" }}>
+              {user?.nickname}
+            </div>
+          </Grid>
+          <div style={{ fontSize: "16px", fontWeight: "400" }}>{user?.ex}</div>
+        </MyGradeLevel>
+      </Me>
+    </ContentContainer>
+  );
 };
 const TopThree = styled.div`
-    display: flex;
-    border-bottom: 4px solid ${(props) => props.theme.color.orange};
-    justify-content: center;
-`
+  display: flex;
+  border-bottom: 4px solid ${(props) => props.theme.color.orange};
+  justify-content: center;
+`;
 const First = styled.div`
     display: flex;
     flex-direction: column;
@@ -119,21 +167,22 @@ const First = styled.div`
     padding-top: 38px;
     text-align: center;
     margin: 0px 40px;
-`
+`;
+
 const Second = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 102px;
-    text-align: center;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 102px;
+  text-align: center;
+`;
 const Third = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 134px;
-    text-align: center;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 134px;
+  text-align: center;
+`;
 const pullUp = keyframes`
 	0% {
 		transform: scaleY(0.1);
@@ -156,7 +205,7 @@ const pullUp = keyframes`
 	100% {
 		transform: scaleY(1);
 	}							
-`
+`;
 const SecondBar = styled.div`
     background-color: #FED4A3;
     width: 55px;
@@ -201,17 +250,17 @@ const rankingMove = keyframes`
 `
 
 const FadeIn = styled.div`
-    animation: ${rankingMove} 2s;
-    animation-duration: 4s;
-    .ranknumber{
-        font-size: 18px;
-        font-weight: ${(props) => props.theme.fontWeight.medium};
-    }
-    .rankname{
-        font-size: 18px;
-        font-weight: ${(props) => props.theme.fontWeight.medium};
-    }
-`
+  animation: ${rankingMove} 2s;
+  animation-duration: 4s;
+  .ranknumber {
+    font-size: 18px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+  .rankname {
+    font-size: 18px;
+    font-weight: ${(props) => props.theme.fontWeight.medium};
+  }
+`;
 
 const ListWrap = styled.div`
     display: flex;
@@ -229,15 +278,15 @@ const GradeLevel = styled.div`
 `
 
 const RankingBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    background-color: #FDB178;
-    font-size: 18px;
-    font-weight: bolder;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: #fdb178;
+  font-size: 18px;
+  font-weight: bolder;
+`;
 
 const LevelImg = styled.img`
     width: 50px;
@@ -250,22 +299,22 @@ const LevelImgList = styled.img`
 `
 
 const MyGradeLevel = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 11px 16px;
-    height: 54px;
-    border-radius: 15px;
-    background-color: #fff;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 16px;
+  height: 54px;
+  border-radius: 15px;
+  background-color: #fff;
+`;
 
 const Me = styled.div`
-    position: fixed;
-    bottom: 0;
-    padding: 14px 16px;
-    width: 100%;
-    max-width: 420px;
-    height: 84px;
-    background-color: #F0F0F0;
-`
+  position: fixed;
+  bottom: 0;
+  padding: 14px 16px;
+  width: 100%;
+  max-width: 420px;
+  height: 84px;
+  background-color: #f0f0f0;
+`;
 export default UserRanking;

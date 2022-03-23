@@ -9,13 +9,10 @@ import third from "../image/rank/third.svg";
 
 // 유저 등급 판별
 export const discriminant = (ex, rank) => {
-  if(rank === 1){
-    return 6
-  } else if(rank === 2){
-    return 7
-  } else if(rank === 3){
-    return 8
-  }
+  if (rank === 1) return 6;
+  else if (rank === 2) return 7;
+  else if (rank === 3) return 8;
+
   if (ex < 1000) return 1;
   else if (1000 <= ex && ex < 2000) return 2;
   else if (2000 <= ex && ex < 3000) return 3;
@@ -63,37 +60,36 @@ export const RankInfo = [
     name: "랭커",
     img: first,
     level: "Lv 6",
-    exp: "TOP 1,2,3"
+    exp: "TOP 1,2,3",
   },
   {
     name: "다이아몬드",
     img: diamond,
     level: "Lv 5",
-    exp: "~ 5,000 EXP"
+    exp: "~ 5,000 EXP",
   },
   {
     name: "플레티넘",
     img: platinum,
     level: "Lv 4",
-    exp: "~ 4,000 EXP"
+    exp: "~ 4,000 EXP",
   },
   {
     name: "골드",
     img: gold,
     level: "Lv 3",
-    exp: "~ 3,000 EXP"
+    exp: "~ 3,000 EXP",
   },
   {
     name: "실버",
     img: silver,
     level: "Lv 2",
-    exp: "~ 2,000 EXP"
+    exp: "~ 2,000 EXP",
   },
   {
     name: "브론즈",
     img: bronze,
     level: "Lv 1",
-    exp: "~ 1,000 EXP"
+    exp: "~ 1,000 EXP",
   },
 ];
-
