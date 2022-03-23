@@ -32,9 +32,12 @@ const MoreContent = ({ category }) => {
               })}
             </MoreBox>
           ) : (
-            <FlexGrid is_column center padding="50px 0">
+            <FlexGrid is_column center padding="50px 0" textAlign="center">
               <img alt="empty" src={empty} />
-              <Text size="subtitle1">채팅방이 없습니다.</Text>
+              <Text size="body2">
+                아직 방이 없어요 <br />
+                방을 생성해주세요!
+              </Text>
             </FlexGrid>
           )}
         </InfinityScroll>
