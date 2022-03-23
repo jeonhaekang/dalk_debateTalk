@@ -29,7 +29,7 @@ const MyGrade = () => {
     return (
         <Grid height="100vh" overflow="scroll">
             <NewHeader page="등급안내" />
-            <MyGradeInfo>
+            <FlexGrid is_column center gap="0px" textAlign="center" padding="100px 80px">
                 <Radius>
                     <img className="mygradeimg" src={userRank.img}></img>
                 </Radius>
@@ -38,7 +38,7 @@ const MyGrade = () => {
                     <span className="GradeColor">{userRank.name}</span> 입니다
                 </IsMyGrade>
                 <NextGrade>다음 등급까지 <span className="RP">{announceScore.toLocaleString('ko-KR')} EXP</span> 남았습니다</NextGrade>
-            </MyGradeInfo>
+            </FlexGrid>
 
             <GradeInfo>
                 <GradeTitle>알포인트 등급</GradeTitle>
@@ -66,14 +66,6 @@ const MyGrade = () => {
     )
 };
 
-const MyGradeInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 100px 110px;
-`
 const Radius = styled.div`
     display: flex;
     align-items: center;
@@ -90,7 +82,6 @@ const Radius = styled.div`
 `
 
 const IsMyGrade = styled.div`
-    padding-top: 50px;
     font-size: 28px;
     font-weight: ${(props) => props.theme.fontWeight.medium};
     .GradeColor{
