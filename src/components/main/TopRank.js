@@ -5,7 +5,7 @@ import { actionCreators as userAction } from "../../redux/modules/user";
 import FlexGrid from "../../elements/FlexGrid";
 import Badge from "../../elements/Badge";
 import Text from "../../elements/Text";
-import bronze from "../../image/rank/bronze.svg";
+import { rank as rank2, discriminant } from "../../data/rank";
 
 const TopRank = (props) => {
   const dispatch = useDispatch();
@@ -13,6 +13,8 @@ const TopRank = (props) => {
   const [nickName, setNickName] = React.useState();
 
   const rankList = useSelector((state) => state.user.rankList);
+
+  const rankBadge = rank2[discriminant(0, rank)];
 
   // rankList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
@@ -47,7 +49,7 @@ const TopRank = (props) => {
         <FlexGrid gap="17px">
           <FlexGrid>{rank}위</FlexGrid>
           <FlexGrid gap="3px" center>
-            <Badge src={bronze} />
+            <Badge src={rankBadge.img} />
             <Text>{nickName}</Text>
           </FlexGrid>
         </FlexGrid>

@@ -34,9 +34,10 @@ const Upload = () => {
 };
 
 const File = styled.input`
-  width: 100px;
-  height: 100px;
-  border-radius: 30px;
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  background-color: #f3f3f3;
   background-image: url("${(props) => props.src}");
   background-position: center;
   background-size: cover;
@@ -44,7 +45,6 @@ const File = styled.input`
     display: none;
   }
   font-size: 0;
-  border: 2px solid black;
 `;
 
 export default Upload;

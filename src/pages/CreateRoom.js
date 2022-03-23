@@ -9,6 +9,8 @@ import styled from "styled-components";
 import Upload from "../components/shared/Upload";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
+import short from "../image/shared/shortTime.svg";
+import long from "../image/shared/longTime.svg";
 
 const CreateRoom = () => {
   const dispatch = useDispatch();
@@ -49,6 +51,7 @@ const CreateRoom = () => {
 
   const onChange = (e) => {
     const { value, name } = e.target;
+
     setRoomInfo({
       ...roomInfo,
       [name]: value,
@@ -58,7 +61,6 @@ const CreateRoom = () => {
   const [btnState, setBtnState] = useState(true);
   // 생성버튼 중복 클릭 방지
   const createRoom = () => {
-    console.log("dddd");
     for (const value in roomInfo) {
       if (!roomInfo[value] || cateCount === 0) {
         alert("모든 항목을 입력해주세요.");
@@ -69,7 +71,7 @@ const CreateRoom = () => {
     for (const [key, value] of Object.entries(category)) {
       value && cate.push(key);
     } // 선택한 카테고리만 배열로 만들어서 넘겨줌
-    // setBtnState(false);
+    setBtnState(false);
     dispatch(actionCreators.createRoomDB({ ...roomInfo, category: cate }));
   };
 
@@ -78,19 +80,27 @@ const CreateRoom = () => {
       <NewHeader page="토론방 만들기" />
       <ContentContainer padding="16px">
         <FlexGrid is_column gap="30px">
-          <FlexGrid is_column border="1px solid red">
-            <Text size="headline2" weight="medium">
-              토론 주제는 무엇인가요?
-            </Text>
-            <Input name="topicA" value={topicA} onChange={onChange} />
-            <Input name="topicB" value={topicB} onChange={onChange} />
+          <FlexGrid is_column gap="24px">
+            <FlexGrid is_column gap="0">
+              <Text size="headline2" weight="medium">
+                토론 주제는 무엇인가요?
+              </Text>
+              <Text>14자 미만으로 작성해주세요</Text>
+            </FlexGrid>
+            <FlexGrid is_column>
+              <TopicInput name="topicA" value={topicA} onChange={onChange} />
+              <TopicInput name="topicB" value={topicB} onChange={onChange} />
+            </FlexGrid>
           </FlexGrid>
 
-          <FlexGrid is_column border="1px solid red">
-            <Text size="headline2" weight="medium">
-              카테고리를 선택해주세요.
-            </Text>
-            <FlexGrid flexWrap="wrap">
+          <FlexGrid is_column gap="24px">
+            <FlexGrid is_column gap="0">
+              <Text size="headline2" weight="medium">
+                카테고리를 선택해주세요.
+              </Text>
+              <Text>최대 3개</Text>
+            </FlexGrid>
+            <FlexGrid flexWrap="wrap" center padding="0 68px">
               {Object.keys(category).map((el) => {
                 return (
                   <Chip
@@ -107,33 +117,38 @@ const CreateRoom = () => {
             </FlexGrid>
           </FlexGrid>
 
-          <FlexGrid is_column border="1px solid red">
+          <FlexGrid is_column gap="24px">
             <Text size="headline2" weight="medium">
               토론참가 시간 선택해주세요
             </Text>
-            <Grid>
-              <Input
-                name="time"
-                type="radio"
-                value={true}
-                onChange={onChange}
-              />
-              짧은 토론 시간
-            </Grid>
-            <Grid>
-              <Input
-                name="time"
-                type="radio"
-                value={false}
-                onChange={onChange}
-              />
-              긴 토론 시간
-            </Grid>
+            <FlexGrid center>
+              <TimeBox name="time" value={true} onClick={onChange}>
+                <TimerBox center is_column gap="7px">
+                  <img src={short} alt="short" />
+                  20m
+                </TimerBox>
+                <TextBox center state={roomInfo.time === "true"}>
+                  스몰 토크
+                </TextBox>
+              </TimeBox>
+              <TimeBox name="time" value={false} onClick={onChange}>
+                <TimerBox center is_column gap="7px">
+                  <img src={long} alt="long" />
+                  1h
+                </TimerBox>
+                <TextBox center state={roomInfo.time === "false"}>
+                  길게 토크
+                </TextBox>
+              </TimeBox>
+            </FlexGrid>
           </FlexGrid>
-          <FlexGrid is_column border="1px solid red">
-            <Text size="headline2" weight="medium">
-              사진을 첨부해주세요
-            </Text>
+          <FlexGrid is_column gap="24px">
+            <FlexGrid is_column gap="0">
+              <Text size="headline2" weight="medium">
+                썸네일
+              </Text>
+              <Text>최대 1장 업로드 가능해요</Text>
+            </FlexGrid>
             <Upload />
           </FlexGrid>
         </FlexGrid>
@@ -150,17 +165,48 @@ const CreateRoom = () => {
 };
 
 const Chip = styled.button`
-  background-color: #c4c4c4;
-  height: 25px;
+  background-color: ${(props) =>
+    props.state ? props.theme.color.orange : "#f3f3f3"};
+  color: ${(props) => (props.state ? "white" : props.theme.color.black)};
+  height: 34px;
   border-radius: 10px;
   width: calc(100% / 3 - 10px);
 
-  border: ${(props) => (props.state ? "2px solid black" : "none")};
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+
   box-sizing: border-box;
+  border: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const TimeBox = styled.button`
+  width: 117px;
+  height: 133px;
+  background-color: #faede1;
+  border-radius: 10px;
+  border: none;
+  overflow: hidden;
+
+  & * {
+    pointer-events: none;
+  }
+`;
+
+const TimerBox = styled(FlexGrid)`
+  height: 80px;
+`;
+
+const TextBox = styled(FlexGrid)`
+  height: 53px;
+  background-color: #f19121;
+
+  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
+  color: ${(props) => (props.state ? "white" : "black")};
 `;
 
 const CreateButton = styled(FlexGrid)`
@@ -172,6 +218,14 @@ const CreateButton = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   color: white;
+`;
+
+const TopicInput = styled.input`
+  height: 41px;
+  border-radius: 10px;
+  border: none;
+  background-color: #f3f3f3;
+  padding: 0 24px;
 `;
 
 export default CreateRoom;

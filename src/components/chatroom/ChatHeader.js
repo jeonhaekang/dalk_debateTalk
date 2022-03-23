@@ -119,7 +119,7 @@ const ChatHeader = (props) => {
       )}
       {modalState && (
         <Modal modalState={modalState} setModalState={setModalState}>
-          <Vote {...data} />
+          <Vote {...data} setModalState={setModalState} />
         </Modal>
       )}
     </div>

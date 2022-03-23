@@ -50,7 +50,7 @@ const Chat = (props) => {
     );
   }
 
-  const userRank = rank[discriminant(userInfo.ex)];
+  const userRank = rank[discriminant(userInfo.ex, userInfo.rank)];
 
   return (
     <>

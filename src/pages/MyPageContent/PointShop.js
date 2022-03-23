@@ -119,7 +119,7 @@ const Dot = styled.div`
 
 const BuyBtn = styled.button`
   width: 100%;
-  height: 70px;
+  height: 76px;
   position: absolute;
   bottom: 0;
   font-size: ${(props) => props.theme.fontSizes.headline2};
