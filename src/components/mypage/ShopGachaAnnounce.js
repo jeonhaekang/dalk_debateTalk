@@ -12,7 +12,7 @@ const ShopGachaAnnounce = (props) => {
   return (
     <Wrap>
       <FlexGrid center is_column gap="0">
-        <ContentImage
+        <ContentImage center
           onClick={() => {
             history.push("/mypage/pointshop");
           }}
@@ -23,14 +23,15 @@ const ShopGachaAnnounce = (props) => {
       </FlexGrid>
 
       <FlexGrid center is_column gap="0">
-        <ContentImage onClick={() => history.push("/mypage/gacha")}>
+        <ContentImage center
+        onClick={() => history.push("/mypage/gacha")}>
           <ImgSrc src={gacha} />
         </ContentImage>
         <ContentTitle>행운뽑기</ContentTitle>
       </FlexGrid>
 
       <FlexGrid center is_column gap="0">
-        <ContentImage
+        <ContentImage center
           onClick={() => {
             history.push("/announcement");
           }}
@@ -51,11 +52,10 @@ const Wrap = styled.div`
 `;
 
 const ImgSrc = styled.img`
-  padding-top : 30px;
   width: 30px;
 `;
 
-const ContentImage = styled.div`
+const ContentImage = styled(FlexGrid)`
   width: 84px;
   height: 84px;
   background-color: #faede1;

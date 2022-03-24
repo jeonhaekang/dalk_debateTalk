@@ -7,9 +7,15 @@ import Text from "../../elements/Text";
 
 import Modal from "../shared/Modal";
 import UserOut from "./UserOut";
+import { deleteCookie } from "../../shared/Cookie";
 
 const Convenience = () => {
   const [createModalState, setCreateModalState] = useState(false);
+
+  const handleLogout = () => {
+    deleteCookie("authorization");
+    history.replace("/");
+  };
 
   return (
     <>
@@ -23,9 +29,7 @@ const Convenience = () => {
           >
             토론리스트
           </Content>
-          <Content>
-            토론 안내
-            </Content>
+          <Content>토론 안내</Content>
 
           <Content
             onClick={() => {
@@ -46,9 +50,8 @@ const Convenience = () => {
 
       <ConvinienceContent is_column gap="0px">
         <Title>고객센터</Title>
-        <Content onClick={() => setCreateModalState(true)}>
-          회원탈퇴
-        </Content>
+        <Content onClick={handleLogout}>로그아웃</Content>
+        <Content onClick={() => setCreateModalState(true)}>회원탈퇴</Content>
       </ConvinienceContent>
 
       <Modal modalState={createModalState} setModalState={setCreateModalState}>
@@ -69,7 +72,7 @@ const Title = styled.div`
   font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.bold};
   color: #333333;
-  background-color: #FAEDE1;
+  background-color: #faede1;
   padding: 16px 27px;
 `;
 
@@ -79,7 +82,7 @@ const Content = styled.div`
   color: ${(props) => props.theme.color.black};
   cursor: pointer;
   padding: 16px 27px;
-  border-bottom: 1px solid #C4C4C4;
+  border-bottom: 1px solid #c4c4c4;
   :last-child {
     border: none;
   }

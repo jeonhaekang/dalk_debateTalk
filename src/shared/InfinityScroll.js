@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import loadingSpinner from "../image/loadingSpinner.svg"
 
 const InfinityScroll = ({ children, callNext, paging }) => {
   //스피너 Ref
@@ -33,9 +34,8 @@ const InfinityScroll = ({ children, callNext, paging }) => {
     <>
       {children}
       {paging.next && (
-        //배포때는 진짜 스피너 넣어야합니다!
         <LoadingSpinner ref={spinnerRef}>
-          LOADING... LOADING... LOADING... LOADING... LOADING... LOADING...
+          <img className="loading" src={loadingSpinner} alt="loadingSpinner"/>
         </LoadingSpinner>
       )}
     </>
@@ -47,9 +47,25 @@ InfinityScroll.defaultProps = {
   callNext: () => {},
 };
 
+const rotator =keyframes`
+  0% {
+      transform: rotate(-45deg) translateZ(0);
+  }
+  100% {
+      transform: rotate(315deg) translateZ(0);
+  }
+`;
+
 const LoadingSpinner = styled.div`
   width: 100%;
   text-align: center;
+  .loading{
+    width: 50px;
+    height: 50px;
+    animation: ${rotator};
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+  }
 `;
 
 export default InfinityScroll;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
@@ -8,6 +8,7 @@ import Badge from "../../elements/Badge";
 import Grid from "../../elements/Grid";
 import Image from "../../elements/Image";
 
+import Blind from "../shared/Blind";
 import { rank, discriminant } from "../../data/rank";
 
 import Person from "../../image/post/person.svg";
@@ -15,15 +16,30 @@ import Textsms from "../../image/post/textsms.svg";
 import Notification from "../../image/post/notification.svg";
 
 const PostListCard = (props) => {
-  const userRank = rank[discriminant(props.userInfo.ex)];
+  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
   const boardId = props.boardId;
+
+  const [blindState, setBlindState] = useState(false);
+
+  const enterDetail = () => {
+    if (blindState) {
+      return;
+    }
+    history.push(`/detail/${boardId}`);
+  };
+
+  useEffect(() => {
+    if (props.warnCnt >= 3) {
+      setBlindState(true);
+    }
+  }, []);
 
   return (
     <>
       <CardBox
         className="test"
         is_column
-        _onClick={() => history.push(`/detail/${boardId}`)}
+        _onClick={enterDetail}
       >
         <FlexGrid is_flex between>
           <FlexGrid is_flex gap="8px">
@@ -91,6 +107,7 @@ const PostListCard = (props) => {
             </DebateInfo>
           </FlexGrid>
         </FlexGrid>
+        {blindState && <Blind>블라인드 처리된 게시물</Blind>}
       </CardBox>
     </>
   );
@@ -101,6 +118,7 @@ const CardBox = styled(FlexGrid)`
   background-color: white;
   overflow: hidden;
   margin-bottom: 8px;
+  cursor: zoom-in;
 `;
 
 const VS = styled(FlexGrid)`

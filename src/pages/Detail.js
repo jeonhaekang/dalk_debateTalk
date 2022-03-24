@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import apis from "../shared/apis";
 import { history } from "../redux/configStore";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 
@@ -31,7 +31,6 @@ const Detail = (props) => {
   //유저, 토큰 정보
   const token = document.cookie;
   const tokenCheck = token.split("=")[1];
-  const user = useSelector((state) => state.user.user);
 
   // 결과창 리스트에 있는 boardId 값
   const boardId = props.match.params.boardId;
@@ -155,16 +154,15 @@ const Detail = (props) => {
       <Grid height="calc(100% - 130px)" overflow="scroll">
         <DebateWrap>
           {winnerRate !== loserRate ? (
-            
             // 무승부가 아닌 승리, 패배 결과가 나왔을 때
             <>
-              <DebateWinnerBox>
-                <DetailLogo>
+              <DebateBox win={true} is_column center gap="0px">
+                <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> WIN </div>
                 </DetailLogo>
-                <WinnerTitleBox>{debate.winnerResponse?.topic}</WinnerTitleBox>
-                <DetailBox1>
+                <TitleBox win={true}>{debate.winnerResponse?.topic}</TitleBox>
+                <DetailBox section={true}>
                   <Box>
                     <DetailImg src={eggFill} />
                     <div style={{ color: "#F19121" }}>
@@ -177,8 +175,8 @@ const Detail = (props) => {
                       최고 {debate.winnerResponse?.topPoint} RP
                     </div>
                   </Box>
-                </DetailBox1>
-                <DetailBox2>
+                </DetailBox>
+                <DetailBox section={false}>
                   <Box>
                     <DetailImg src={personFill} />
                     <div style={{ color: "#F19121" }}>
@@ -191,18 +189,18 @@ const Detail = (props) => {
                       배당 : {debate.winnerResponse?.rate}
                     </div>
                   </Box>
-                </DetailBox2>
+                </DetailBox>
 
                 <GrapGauge which={true} rate={winnerRate} />
-              </DebateWinnerBox>
-              <Versus>VS</Versus>
-              <DebateLoserBox>
-                <DetailLogo>
+              </DebateBox>
+              <Versus center>VS</Versus>
+              <DebateBox win={false} is_column center gap="0px">
+                <DetailLogo center gap="4px">
                   <img src={detailLogo} alt="detaillogo" />
                   <div style={{ fontSize: "14px" }}> LOSE </div>
                 </DetailLogo>
-                <LoserTitleBox>{debate.loserResponse?.topic}</LoserTitleBox>
-                <LoserDetailBox1>
+                <TitleBox win={false}>{debate.loserResponse?.topic}</TitleBox>
+                <LoserDetailBox section={true}>
                   <Box>
                     <DetailImg src={egg} />
                     <div>총 {debate.loserResponse?.totalPoint} RP</div>
@@ -211,8 +209,8 @@ const Detail = (props) => {
                     <DetailImg src={thumbUp} />
                     <div>최고 {debate.loserResponse?.topPoint} RP</div>
                   </Box>
-                </LoserDetailBox1>
-                <LoserDetailBox2>
+                </LoserDetailBox>
+                <LoserDetailBox section={false}>
                   <Box>
                     <DetailImg src={person} />
                     <div>{debate.loserResponse?.cnt}명 선택</div>
@@ -221,22 +219,21 @@ const Detail = (props) => {
                     <DetailImg src={trendingUp} />
                     <div>배당 : {debate.loserResponse?.rate}</div>
                   </Box>
-                </LoserDetailBox2>
+                </LoserDetailBox>
 
                 <GrapGauge which={false} rate={loserRate} />
-              </DebateLoserBox>
+              </DebateBox>
             </>
           ) : (
-
             // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
             <>
-              <DebateWinnerBox>
-                <DetailLogo>
+              <DebateBox win={true} is_column center gap="0px">
+                <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
-                <WinnerTitleBox>{debate.winnerResponse?.topic}</WinnerTitleBox>
-                <DetailBox1>
+                <TitleBox win={true}>{debate.winnerResponse?.topic}</TitleBox>
+                <DetailBox section={true}>
                   <Box>
                     <DetailImg src={eggFill} />
                     <div style={{ color: "#F19121" }}>
@@ -249,8 +246,8 @@ const Detail = (props) => {
                       최고 {debate.winnerResponse?.topPoint} RP
                     </div>
                   </Box>
-                </DetailBox1>
-                <DetailBox2>
+                </DetailBox>
+                <DetailBox section={false}>
                   <Box>
                     <DetailImg src={personFill} />
                     <div style={{ color: "#F19121" }}>
@@ -263,18 +260,18 @@ const Detail = (props) => {
                       배당 : {debate.winnerResponse?.rate}
                     </div>
                   </Box>
-                </DetailBox2>
+                </DetailBox>
 
                 <GrapGauge which={true} rate={winnerRate} />
-              </DebateWinnerBox>
-              <Versus>VS</Versus>
-              <DebateWinnerBox>
-                <DetailLogo>
+              </DebateBox>
+              <Versus center>VS</Versus>
+              <DebateBox win={true} is_column center gap="0px">
+                <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
                   <div style={{ color: "#f19121" }}> DRAW </div>
                 </DetailLogo>
-                <WinnerTitleBox>{debate.loserResponse?.topic}</WinnerTitleBox>
-                <DetailBox1>
+                <TitleBox win={true}>{debate.loserResponse?.topic}</TitleBox>
+                <DetailBox section={true}>
                   <Box>
                     <DetailImg src={eggFill} />
                     <div style={{ color: "#F19121" }}>
@@ -287,8 +284,8 @@ const Detail = (props) => {
                       최고 {debate.loserResponse?.topPoint}RP
                     </div>
                   </Box>
-                </DetailBox1>
-                <DetailBox2>
+                </DetailBox>
+                <DetailBox section={false}>
                   <Box>
                     <DetailImg src={personFill} />
                     <div style={{ color: "#F19121" }}>
@@ -301,10 +298,10 @@ const Detail = (props) => {
                       배당 : {debate.loserResponse?.rate}
                     </div>
                   </Box>
-                </DetailBox2>
+                </DetailBox>
 
                 <GrapGauge which={false} rate={loserRate} />
-              </DebateWinnerBox>
+              </DebateBox>
             </>
           )}
         </DebateWrap>
@@ -313,41 +310,31 @@ const Detail = (props) => {
         {<CommentList debate={debate} />}
       </Grid>
 
-      <Modal modalState={createModalState} setModalState={setCreateModalState}>
-        {/* 공유하기 기능 */}
-        <ShareLink
-          createModalState={createModalState}
-          setCreateModalState={setCreateModalState}
-        />
-      </Modal>
+      {createModalState && (
+        <Modal
+          modalState={createModalState}
+          setModalState={setCreateModalState}
+        >
+          {/* 공유하기 기능 */}
+          <ShareLink
+            createModalState={createModalState}
+            setCreateModalState={setCreateModalState}
+          />
+        </Modal>
+      )}
     </>
   );
 };
+
 const DebateWrap = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
 `;
 
-const DebateLoserBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(196, 196, 196, 0.1);
-  border: none;
-  width: 50%;
-  height: 232px;
-  position: relative;
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-`;
-
-const Versus = styled.div`
+const Versus = styled(FlexGrid)`
   position: absolute;
   transform: translate(0px, 88px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: ${(props) => props.theme.color.orange};
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
@@ -355,12 +342,9 @@ const Versus = styled.div`
   height: 55px;
 `;
 
-const DebateWinnerBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #fefefe;
+const DebateBox = styled(FlexGrid)`
+  background-color: ${(props) =>
+    props.win ? "#fefefe": "rgba(196, 196, 196, 0.1)"};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   border: none;
   width: 50%;
@@ -368,49 +352,29 @@ const DebateWinnerBox = styled.div`
   position: relative;
 `;
 
-const DetailLogo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const DetailLogo = styled(FlexGrid)`
   position: absolute;
   transform: translate(0px, -76px);
-  gap: 4px;
 `;
 
-const WinnerTitleBox = styled.div`
-  font-size: 28px;
-  padding-bottom: 20px;
+const TitleBox = styled.div`
+  font-size: ${(props) => props.win ? "28px" : "24px"}; 
+  padding: 8px;
   text-align: center;
-  color: ${(props) => props.theme.color.orange};
+  color: ${(props) => props.win ? props.theme.color.orange : ""};
 `;
 
-const LoserTitleBox = styled.div`
-  font-size: 24px;
-  padding-bottom: 20px;
-  text-align: center;
-`;
-
-const DetailBox1 = styled.div`
+const DetailBox = styled.div`
   position: absolute;
-  transform: translate(-10px, 66px);
+  transform: ${(props) =>
+    props.section ? "translate(-10px, 66px)" : "translate(84px, 66px)"}; 
   font-size: 12px;
 `;
 
-const DetailBox2 = styled.div`
+const LoserDetailBox = styled.div`
   position: absolute;
-  transform: translate(84px, 66px);
-  font-size: 12px;
-`;
-
-const LoserDetailBox1 = styled.div`
-  position: absolute;
-  transform: translate(0px, 66px);
-  font-size: 12px;
-`;
-
-const LoserDetailBox2 = styled.div`
-  position: absolute;
-  transform: translate(90px, 66px);
+  transform: ${(props) =>
+    props.section ? "translate(0px, 66px)" : "translate(90px, 66px)"};
   font-size: 12px;
 `;
 
@@ -437,7 +401,7 @@ const GrapGauge = styled.div`
   position: absolute;
   bottom: 0;
 
-  ${(props) => (props.which ? "right:0" : "left:0")}
+  ${(props) => (props.which ? "right:0" : "left:0")};
 `;
 
 export default Detail;

@@ -14,7 +14,7 @@ import Text from "../../elements/Text";
 const UserInfo = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const userRank = rank[discriminant(user?.ex)];
+  const userRank = rank[discriminant(user?.ex, user?.rank)];
 
   useEffect(() => {
     dispatch(actionCreators.logincheckDB());
@@ -24,7 +24,7 @@ const UserInfo = (props) => {
     <UserInfoWrap>
       {user && (
         <FlexGrid padding="30px 0 0 0" gap="0">
-          <Radius>
+          <Radius center>
             <LevelImg src={userRank.img} />
           </Radius>
           <MypageUser>
@@ -69,8 +69,7 @@ const UserInfoWrap = styled.div`
   background-color: #fff;
 `;
 
-const Radius = styled.div`
-  position: relative;
+const Radius = styled(FlexGrid)`
   width: 130px;
   height: 130px;
   background-color: #fafafa;
@@ -80,10 +79,8 @@ const Radius = styled.div`
 `;
 
 const LevelImg = styled.img`
-  position: absolute;
   width: 78px;
   height: 100px;
-  transform: translate(27px, 15px);
 `;
 
 const MypageUser = styled.div`

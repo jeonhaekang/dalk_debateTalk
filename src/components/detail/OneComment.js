@@ -19,7 +19,7 @@ import Grid from "../../elements/Grid";
 
 const OneComment = (props) => {
   //댓글 유저 뱃지
-  const userRank = rank[discriminant(props.userInfo.ex)];
+  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
 
   //삭제 기능을 위해
   const user = useSelector((state) => state.user.user);
