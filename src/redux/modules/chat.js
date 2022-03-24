@@ -108,6 +108,7 @@ const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
     const image = getState().image.image;
+    console.log("chatJS:", image);
 
     const formdata = new FormData();
     image.file && formdata.append("image", image.file);

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { imageResize } from "../../modules/imageResize";
+import { actionCreators } from "../../redux/modules/alert";
 import { actionCreators as imageAction } from "../../redux/modules/image";
 
 const Upload = () => {
@@ -18,7 +20,24 @@ const Upload = () => {
     const reader = new FileReader();
     let file = fileInput.current.files[0];
 
+    if (file.name.length > 20) {
+      dispatch(actionCreators.open({ message: "파일명이 너무 깁니다." }));
+      return;
+    }
+
     reader.readAsDataURL(file);
+
+    reader.onload = (e) => {
+      const image = new Image();
+      image.src = e.target.result;
+
+      image.onload = (e) => {
+        const test = imageResize(image);
+        // dispatch(imageAction.setFile(test));
+        // dispatch(imageAction.setPreview(test));
+        console.log("uploadJS:", test);
+      };
+    };
 
     reader.onloadend = () => {
       dispatch(imageAction.setPreview(reader.result));
@@ -28,7 +47,13 @@ const Upload = () => {
   };
   return (
     <>
-      <File type="file" onChange={select} ref={fileInput} src={preview} />
+      <File
+        type="file"
+        accept=".gif, .jpg, .png"
+        onChange={select}
+        ref={fileInput}
+        src={preview}
+      />
     </>
   );
 };
