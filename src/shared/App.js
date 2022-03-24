@@ -63,6 +63,7 @@ function App() {
     <ConnectedRouter history={history}>
       <GlobalStyle />
       <Alert />
+      <Spinner />
       <Route path="/" exact component={Main} />
       <Route path="/createroom" exact component={CreateRoom} />
       <Route path="/search/:keyword" exact component={SearchRoom} />
