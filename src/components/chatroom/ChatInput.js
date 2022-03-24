@@ -4,13 +4,15 @@ import styled from "styled-components";
 import itemData from "../../data/itemData";
 import { actionCreators } from "../../redux/modules/user";
 import FlexGrid from "../../elements/FlexGrid";
-import Text from "../../elements/Text";
-import Center from "../../elements/Center";
 import XScrollDrag from "../shared/XScrollDrag";
+import sendIcon from "../../image/chatRoom/sendButton.svg";
+import itemBuy from "../../image/chatRoom/itemBuy.svg";
+import { history } from "../../redux/configStore";
 
 const ChatInput = (props) => {
   const dispatch = useDispatch();
-  const message = React.useRef();
+  // const message = React.useRef();
+  const [message, setMessage] = React.useState("");
   const { client, roomId, headers } = props;
   const [fontState, setFontState] = React.useState(false);
   const [state, setState] = React.useState(false);
@@ -24,13 +26,13 @@ const ChatInput = (props) => {
       console.log("나만 말하기 발동!!!");
       return;
     }
-    if (!message.current.value) {
+    if (message === "") {
       return;
     }
     const data = {
       type: "TALK",
       roomId: roomId,
-      message: message.current.value,
+      message: message,
       bigFont: fontState ? true : false,
       papago: itemList.papago,
       reverse: itemList.reverse,
@@ -38,7 +40,7 @@ const ChatInput = (props) => {
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
     // send(url(destination), headers, body)
-    message.current.value = "";
+    setMessage("");
   };
 
   const MessageEnter = (e) => {
@@ -86,14 +88,20 @@ const ChatInput = (props) => {
             />
           </svg>
         </FlexGrid>
-        <MessageInput onKeyPress={MessageEnter} ref={message} />
-        <EnterBtn onClick={sendMessage}>송신</EnterBtn>
+        <MessageInput
+          value={message}
+          onKeyPress={MessageEnter}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <EnterBtn onClick={sendMessage} message={message}>
+          <img src={sendIcon} alt="send" />
+        </EnterBtn>
       </InputWrap>
 
       <ItemWrap state={state}>
         <XScrollDrag gap="15px">
           {itemData.map((el) => {
-            if (el.itemCode !== "exBuy") {
+            if (user.item[el.itemCode] !== 0 && el.itemCode !== "exBuy") {
               return (
                 <ItemButton
                   {...el}
@@ -107,6 +115,11 @@ const ChatInput = (props) => {
               );
             }
           })}
+          <img
+            src={itemBuy}
+            alt="itemBuy"
+            onClick={() => history.push("/mypage/pointshop")}
+          />
         </XScrollDrag>
       </ItemWrap>
     </div>
@@ -141,13 +154,13 @@ const ItemText = styled.div`
 const EnterBtn = styled.button`
   width: 55px;
   height: 44px;
-  background-color: ${(props) => props.theme.color.orange};
+  background-color: ${(props) => props.message === "" ? "#dddddd" :props.theme.color.orange};
   border-radius: 10px;
   border: none;
-  color: white;
 
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MessageInput = styled.input`

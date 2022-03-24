@@ -73,8 +73,8 @@ const Timer = styled.div`
   justify-content: center;
   align-items: center;
 
-  & * {
-    color: ${(props) => props.color && "#FF5454"};
+  & div {
+    color: ${(props) => props.restTime && "#FF5454"};
   }
 `;
 
@@ -84,7 +84,7 @@ const Minutes = styled.div`
   justify-content: flex-end;
 `;
 
-const Seconds = styled.label`
+const Seconds = styled.div`
   width: 40px;
   display: flex;
   justify-content: flex-start;

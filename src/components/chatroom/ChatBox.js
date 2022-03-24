@@ -7,6 +7,7 @@ import Chat from "./Chat";
 import { history } from "../../redux/configStore";
 import _ from "lodash";
 import FlexGrid from "../../elements/FlexGrid";
+import downButton from "../../image/chatRoom/downButton.svg";
 
 const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
@@ -119,10 +120,6 @@ const ChatBox = ({ roomId, headers, client }) => {
     boxRef.current.addEventListener("scroll", scroll);
   });
 
-  // useBeforeunload((event) =>
-  //   client.disconnect(() => client.unsubscribe("sub-0"), headers)
-  // );
-
   return (
     <>
       <ShowChat ref={boxRef}>
@@ -130,22 +127,18 @@ const ChatBox = ({ roomId, headers, client }) => {
           return <Chat {...el} key={i} boxRef={boxRef} />;
         })}
         <div ref={scrollRef} />
-        {endState && (
-          <FlexGrid center position="sticky" bottom="0">
-            <EndScroll onClick={endScroll}>아래로</EndScroll>
-          </FlexGrid>
-        )}
       </ShowChat>
+      {endState && (
+        <EndScroll src={downButton} alt="down" onClick={endScroll} />
+      )}
     </>
   );
 };
 
-const EndScroll = styled.div`
-  padding: 3px 10px;
-  color: white;
-  font-weight: bold;
-  background-color: orange;
-  border-radius: 20px;
+const EndScroll = styled.img`
+  position: absolute;
+  bottom: 76px;
+  right: 16px;
 `;
 
 const ShowChat = styled.div`
@@ -156,7 +149,6 @@ const ShowChat = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-
   padding: 10px;
   /* 스크롤바 표시 */
   &::-webkit-scrollbar {
