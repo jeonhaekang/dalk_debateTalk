@@ -13,7 +13,7 @@ const ShopGachaAnnounce = (props) => {
     <Wrap>
       <FlexGrid center is_column gap="0">
         <ContentImage center
-          onClick={() => {
+          _onClick={() => {
             history.push("/mypage/pointshop");
           }}
         >
@@ -24,7 +24,7 @@ const ShopGachaAnnounce = (props) => {
 
       <FlexGrid center is_column gap="0">
         <ContentImage center
-        onClick={() => history.push("/mypage/gacha")}>
+        _onClick={() => history.push("/mypage/gacha")}>
           <ImgSrc src={gacha} />
         </ContentImage>
         <ContentTitle>행운뽑기</ContentTitle>
@@ -32,7 +32,7 @@ const ShopGachaAnnounce = (props) => {
 
       <FlexGrid center is_column gap="0">
         <ContentImage center
-          onClick={() => {
+          _onClick={() => {
             history.push("/announcement");
           }}
         >

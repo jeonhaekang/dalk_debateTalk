@@ -17,10 +17,11 @@ const ItemButton = ({
     border,
     active,
   };
+
   return (
     <FlexGrid center>
       <ItemBox {...style} key={itemCode} onClick={onClick}>
-        <ItemCount>{count}</ItemCount>
+        {itemCode !== "exBuy" && <ItemCount>{count}</ItemCount>}
         <ItemImg src={img} />
         <ItemText>{name}</ItemText>
       </ItemBox>
