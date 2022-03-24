@@ -17,6 +17,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   const connectCallback = () => {
+    console.log("연결시도");
     // 연결 성공시 호출함수
     client.subscribe(`/sub/chat/rooms/${roomId}`, subCallback, headers);
     // subscribe("url", callback, headers)
@@ -29,6 +30,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   };
 
   const subCallback = (log) => {
+    console.log("연결성공 구독시도", log);
     // 구독 콜백함수
     const newMessage = JSON.parse(log.body);
 

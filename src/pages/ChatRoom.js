@@ -17,7 +17,8 @@ import Text from "../elements/Text";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
-  const sock = SockJS("http://3.35.150.108:8080/ws-stomp");
+  const sock = SockJS("http://3.38.84.47:8080/ws-stomp"); //동석님
+  // const sock = SockJS("http://3.35.150.108:8080/ws-stomp");//영민님
   // const sock = SockJS("https://raddas.site/ws-stomp");
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
@@ -31,6 +32,8 @@ const ChatRoom = (props) => {
   };
 
   const roomInfo = useSelector((props) => props.chat.currentRoom.roomInfo);
+
+  console.log(roomInfo);
 
   const userList = useSelector((state) => state.chat.currentRoom.users);
 
