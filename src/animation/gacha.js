@@ -32,18 +32,18 @@ export const shake = keyframes`
 
 export const zoomIn = keyframes`
   from {
-    transform: scale(100%);
+    transform: scale(1);
   }
   to {
-    transform: scale(3000%);
+    transform: scale(30);
   }
 `;
 
 export const zoomOut = keyframes`
   from {
-    transform: scale(3000%);
+    transform: scale(30);
   }
   to {
-    transform: scale(100%);
+    transform: scale(1);
   }
 `;

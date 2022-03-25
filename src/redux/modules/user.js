@@ -82,7 +82,7 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
       })
       .catch((err) => {
         dispatch(alertAction.open({
-          message: "아이디 또는 닉네임을 확인해주세요"
+          message: "아이디 또는 닉네임이 중복입니다."
         }));
       });
   };

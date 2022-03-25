@@ -173,7 +173,7 @@ const EnterBtn = styled.button`
 `;
 
 const MessageInput = styled.input`
-  flex-grow: 1;
+  width: 100%;
   font-size: 16px;
   height: 44px;
   border-radius: 10px;
