@@ -31,7 +31,7 @@ const KakaoShareButton = (props) => {
         content: {
           title: "Debate Talk, Dalk",
           description: "자유롭게 이야기할 수 있는 우리의 토론공간",
-          imageUrl: "https://t1.daumcdn.net/cfile/tistory/9914524C5F20BFFB1B",
+          imageUrl: "https://ifh.cc/v-wwKdPV",
           link: {
             mobileWebUrl: debateTalkUrl,
             webUrl: debateTalkUrl,
