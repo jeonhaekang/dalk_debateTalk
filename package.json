@@ -34,7 +34,6 @@
     "styled-components": "^5.3.3",
     "sweetalert2": "^11.4.4",
     "swiper": "^6.8.4",
-    "time-counting": "^2.0.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
