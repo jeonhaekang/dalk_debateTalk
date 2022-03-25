@@ -17,55 +17,55 @@ const gachaData = {
   1: {
     img: success,
     rank: 1,
-    point: 1000000,
+    point: 40000,
     message: (
       <div>
         축하합니다! <br />
-        <Text color="orange">1,000,000알포인트</Text> 당첨!!
+        <Text color="orange">40,000알포인트</Text> 당첨!!
       </div>
     ),
   },
   2: {
     img: success,
     rank: 2,
-    point: 100000,
+    point: 20000,
     message: (
       <div>
-        축하합니다 2등 입니다!! <br />
-        <Text color="orange">100,000알포인트</Text> 당첨!
+        축하합니다!! <br />
+        <Text color="orange">20,000알포인트</Text> 당첨!
       </div>
     ),
   },
   3: {
     img: success,
     rank: 3,
-    point: 10000,
+    point: 6000,
     message: (
       <div>
         축하합니다! <br />
-        <Text color="orange">10,000 알포인트</Text> 당첨!
+        <Text color="orange">6,000 알포인트</Text> 당첨!
       </div>
     ),
   },
   4: {
     img: success,
     rank: 4,
-    point: 1000,
+    point: 2000,
     message: (
       <div>
         축하합니다! <br />
-        <Text color="orange">1,000알포인트</Text> 당첨!
+        <Text color="orange">2,000알포인트</Text> 당첨!
       </div>
     ),
   },
   5: {
     img: success,
     rank: 5,
-    point: 500,
+    point: 1000,
     message: (
       <div>
         축하합니다! <br />
-        <Text color="orange">500알포인트</Text> 당첨!
+        <Text color="orange">1,000알포인트</Text> 당첨!
       </div>
     ),
   },

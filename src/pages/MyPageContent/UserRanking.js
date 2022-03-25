@@ -99,7 +99,7 @@ const UserRanking = () => {
 const TopThree = styled.div`
   display: flex;
   border-bottom: 4px solid ${(props) => props.theme.color.orange};
-  justify-content: center;
+  /* justify-content: center; */
 `;
 const First = styled.div`
   display: flex;
