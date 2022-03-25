@@ -44,14 +44,20 @@ export const rank = {
   6: {
     name: "1등",
     img: first,
+    color: "#F19121",
+    height: "160px",
   },
   7: {
     name: "2등",
     img: second,
+    color: "#FED4A3",
+    height: "85px",
   },
   8: {
     name: "3등",
     img: third,
+    color: "#FAEDE1",
+    height: "60px",
   },
 };
 

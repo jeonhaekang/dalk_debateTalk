@@ -10,6 +10,7 @@ import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
+import RankingBar from "../../components/mypage/RankingBar";
 
 const UserRanking = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const UserRanking = () => {
 
   const userRank = rank[discriminant(user?.ex, user?.rank)];
 
-
+  const topUser = [RankingList[1], RankingList[0], RankingList[2]];
 
   useEffect(() => {
     apis
@@ -45,8 +46,8 @@ const UserRanking = () => {
     <ContentContainer Xfooter>
       <NewHeader page="유저랭킹" />
 
-
-    {/* 랭킹바 부분 */}
+      {/* 랭킹바 부분 */}
+      {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
 
       <FlexGrid between padding="12px 28px 0px 28px">
         <Text>랭킹</Text>
@@ -96,106 +97,6 @@ const UserRanking = () => {
   );
 };
 
-const TopThree = styled.div`
-  display: flex;
-  border-bottom: 4px solid ${(props) => props.theme.color.orange};
-  /* justify-content: center; */
-`;
-const First = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 38px;
-  text-align: center;
-  margin: 0px 16px;
-`;
-const Second = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 102px;
-  text-align: center;
-  margin: 0px 16px;
-`;
-const Third = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 134px;
-  text-align: center;
-  margin: 0px 16px;
-`;
-const pullUp = keyframes`
-	0% {
-		transform: scaleY(0.1);
-	}
-	// 40% {
-	// 	transform: scaleY(1.02);
-	// }
-	// 60% {
-	// 	transform: scaleY(0.98);
-	// }
-	100% {
-		transform: scaleY(1.00);
-  }					
-`;
-const SecondBar = styled.div`
-  background-color: #fed4a3;
-  width: 55px;
-  height: 96px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
-const FirstBar = styled.div`
-  background-color: rgba(241, 145, 33, 0.7);
-  width: 55px;
-  height: 160px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 2s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
-const ThirdBar = styled.div`
-  background-color: #faede1;
-  width: 55px;
-  height: 64px;
-  border: none;
-  animation: ${pullUp};
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  transform-origin: 50% 100%;
-`;
-
-const rankingMove = keyframes`
-    0% {
-        opacity: 0;
-    }
-    70%{
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-`;
-
-const FadeIn = styled.div`
-  animation: ${rankingMove} 1s;
-  animation-duration: 2.8s;
-  position: relative;
-  .ranknumber {
-    font-size: 14px;
-    font-weight: ${(props) => props.theme.fontWeight.light};
-  }
-  .rankname {
-    font-size: 18px;
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-  }
-`;
-
 const ListWrap = styled.div`
   display: flex;
   align-items: center;
@@ -220,24 +121,6 @@ const RankingBox = styled.div`
   background-color: #fdb178;
   font-size: 18px;
   font-weight: bolder;
-`;
-
-const FirstImg = styled.img`
-  position: absolute;
-  width: 90px;
-  transform: translate(-45px, -65px);
-`;
-
-const SecondImg = styled.img`
-  position: absolute;
-  width: 80px;
-  transform: translate(-40px, -60px);
-`;
-
-const ThirdImg = styled.img`
-  position: absolute;
-  width: 70px;
-  transform: translate(-34px, -55px);
 `;
 
 const LevelImgList = styled.img`
