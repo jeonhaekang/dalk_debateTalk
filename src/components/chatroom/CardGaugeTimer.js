@@ -55,18 +55,17 @@ const GaugeOuter = styled.div`
   height: 4px;
   width: 100%;
   background-color: #c4c4c4;
-
-  overflow: hidden;
 `;
 
 const GaugeInner = styled.div.attrs((props) => ({
   style: {
-    width: `${props.width}%`,
+    transform: `scaleX(${props.width / 100})`,
   },
 }))`
   height: 100%;
 
-  transition: 0.3s;
+  transform-origin: left;
+  // transform 생성 기준 위치
   background-color: ${(props) =>
     props.restTime ? "#FF5454" : props.theme.color.orange};
 `;

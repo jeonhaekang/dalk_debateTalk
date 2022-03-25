@@ -69,14 +69,13 @@ const GaugeOuter = styled.div`
 
 const GaugeInner = styled.div.attrs((props) => ({
   style: {
-    transform: `scaleX(${props.width}%)`,
+    transform: `scaleX(${props.width / 100})`,
   },
 }))`
   height: 100%;
 
   transform-origin: left;
   // transform 생성 기준 위치
-  transition: 0.3s;
   background-color: ${(props) =>
     props.restTime ? "#FF5454" : props.theme.color.orange};
 `;

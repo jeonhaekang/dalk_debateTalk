@@ -123,7 +123,6 @@ const OneComment = (props) => {
   return (
     <Container>
       <FlexGrid between>
-
         <FlexAlign>
           <LevelImg src={userRank.img} />
           <FlexGrid is_column center>
@@ -136,9 +135,9 @@ const OneComment = (props) => {
         <AgreeBtn>
           <Number className="agree-count" onClick={handleClickAgree}>
             {agreeList.includes(user?.userId) ? (
-              <img src={ThumbsUpFill} alt="ThumbsUpfill"/>
+              <img src={ThumbsUpFill} alt="ThumbsUpfill" />
             ) : (
-              <img src={ThumbsUp} alt="ThumbsUp"/>
+              <img src={ThumbsUp} alt="ThumbsUp" />
             )}{" "}
             <div
               style={{ margin: "0px 4px", fontWeight: "400", color: "#8E8E8E" }}
@@ -148,9 +147,13 @@ const OneComment = (props) => {
           </Number>
           <Number className="disagree-count" onClick={handleClickDisagree}>
             {disagreeList.includes(user?.userId) ? (
-              <img src={ThumbsDownFill} style={{ backgroudColor: "#F19121" }} alt="ThumbsDownfill"/>
+              <img
+                src={ThumbsDownFill}
+                style={{ backgroudColor: "#F19121" }}
+                alt="ThumbsDownfill"
+              />
             ) : (
-              <img src={ThumbsDown} alt="ThumbsDown"/>
+              <img src={ThumbsDown} alt="ThumbsDown" />
             )}{" "}
             <div
               style={{ marginLeft: "4px", fontWeight: "400", color: "#8E8E8E" }}
@@ -230,8 +233,8 @@ const CreatedAt = styled.div`
 `;
 
 const Content = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.body1}
-  font-weight: ${(props) => props.theme.fontWeight.regular}
+  font-size: ${(props) => props.theme.fontSizes.body1};
+  font-weight: ${(props) => props.theme.fontWeight.regular};
   line-height: 16px;
   display: flex;
   padding: 12px 0px;
