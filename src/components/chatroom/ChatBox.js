@@ -10,27 +10,62 @@ import FlexGrid from "../../elements/FlexGrid";
 import downButton from "../../image/chatRoom/downButton.svg";
 
 const ChatBox = ({ roomId, headers, client }) => {
+  const [sub, setSub] = useState(false);
+
+  // React.useEffect(() => {
+  //   console.log("subscriptions:", client.subscriptions);
+
+  // }, [client.subscriptions]);
+
+  React.useEffect(() => {
+    client.connect(headers, connectCallback, errorCallback);
+    // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
+
+    dispatch(chatAction.loadMessageLogDB(roomId));
+
+    window.addEventListener("beforeunload", (event) => {
+      client.disconnect(() => client.unsubscribe("sub-0"), headers);
+    });
+
+    return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
+  }, []);
+
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
+  const EnterMessage = () => {
+    console.log(client.subscriptions);
+    setTimeout(() => {
+      if (client.subscriptions["sub-0"]) {
+        client.send(
+          "/pub/chat/enter",
+          headers,
+          JSON.stringify({ type: "ENTER", roomId: roomId })
+        );
+      } else {
+        EnterMessage();
+      }
+    }, 100);
+  };
+
   const connectCallback = () => {
-    console.log("연결시도");
     // 연결 성공시 호출함수
-    client.subscribe(`/sub/chat/rooms/${roomId}`, subCallback, headers);
+    client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
     // subscribe("url", callback, headers)
+
+    EnterMessage();
   };
 
   const errorCallback = () => {
     // 연결 실패시 호출함수
-    alert("채팅방 연결에 실패하였습니다.");
-    history.replace("/");
+    // alert("채팅방 연결에 실패하였습니다.");
+    // history.replace("/");
   };
 
   const subCallback = (log) => {
-    console.log("연결성공 구독시도", log);
     // 구독 콜백함수
     const newMessage = JSON.parse(log.body);
 
@@ -104,19 +139,6 @@ const ChatBox = ({ roomId, headers, client }) => {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
   }, [messageLog]);
-
-  React.useEffect(() => {
-    client.connect(headers, connectCallback, errorCallback);
-    // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
-
-    dispatch(chatAction.loadMessageLogDB(roomId));
-
-    window.addEventListener("beforeunload", (event) => {
-      client.disconnect(() => client.unsubscribe("sub-0"), headers);
-    });
-
-    return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
-  }, []);
 
   React.useEffect(() => {
     boxRef.current.addEventListener("scroll", scroll);

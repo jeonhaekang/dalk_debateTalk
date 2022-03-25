@@ -5,9 +5,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  // baseURL: "https://raddas.site",
-  baseURL: "http://3.38.84.47:8080",//동석님
-  // baseURL: "http://3.35.150.108:8080",// 영민님
+  baseURL: "https://raddas.site",
 });
 
 instance.interceptors.request.use((config) => {

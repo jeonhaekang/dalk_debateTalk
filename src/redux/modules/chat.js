@@ -135,6 +135,7 @@ const createRoomDB = (data) => {
         dispatch(createRoom(setData));
         dispatch(imageAction.clear());
         history.replace("/chatroom/" + res.data.roomId);
+
         console.log(res);
       })
       .catch((err) => {
@@ -180,6 +181,7 @@ const loadUserListDB = (roomId) => {
     apis
       .roomUsers(roomId)
       .then((res) => {
+        console.log(res);
         dispatch(loadUserList(res.data));
       })
       .catch((err) => {
@@ -194,6 +196,7 @@ const reportRoomDB = (roomId) => {
       .reportRoom(roomId)
       .then((res) => {
         console.log(res);
+        dispatch(alertAction.open({ message: "채팅방을 신고하였습니다" }));
       })
       .catch((err) => {
         console.log(err.response);
