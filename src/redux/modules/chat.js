@@ -60,7 +60,11 @@ const loadMainRoomDB = () => {
         dispatch(setRoom(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };
@@ -74,7 +78,11 @@ const loadCategoryRoomDB = (category) => {
         dispatch(setRoom(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };
@@ -91,11 +99,8 @@ const voteDB = (roomId, topic, point) => {
           userPoint: point,
         };
         dispatch(vote(data));
-
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         dispatch(
           alertAction.open({
             message: err.response.data.message,
@@ -110,7 +115,6 @@ const createRoomDB = (data) => {
   return function (dispatch, getState, { history }) {
     dispatch(spinnerAction.start());
     const image = getState().image.image;
-    console.log("chatJS:", image);
 
     const formdata = new FormData();
     image.file && formdata.append("image", image.file);
@@ -119,7 +123,7 @@ const createRoomDB = (data) => {
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
 
-   apis
+    apis
       .createRoom(formdata)
       .then((res) => {
         const user = getState().user.user;
@@ -132,17 +136,18 @@ const createRoomDB = (data) => {
           createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
           restTime: data.time ? 1200 : 3600,
         };
-        dispatch(createRoom(setData)) 
+        dispatch(createRoom(setData));
         dispatch(imageAction.clear());
         history.replace("/chatroom/" + res.data.roomId);
-
-        console.log(res);
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
-          console.log(err.message);
+          dispatch(
+            alertAction.open({
+              message: err.message,
+            })
+          );
         }
-        console.log(err.response);
       });
   };
 };
@@ -157,7 +162,11 @@ const getOneRoomDB = (roomId) => {
         dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };
@@ -171,7 +180,11 @@ const loadMessageLogDB = (roomId) => {
         dispatch(spinnerAction.end());
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };
@@ -181,11 +194,14 @@ const loadUserListDB = (roomId) => {
     apis
       .roomUsers(roomId)
       .then((res) => {
-        console.log(res);
         dispatch(loadUserList(res.data));
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };
@@ -194,12 +210,10 @@ const reportRoomDB = (roomId) => {
   return function (dispatch) {
     apis
       .reportRoom(roomId)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         dispatch(alertAction.open({ message: "채팅방을 신고하였습니다" }));
       })
       .catch((err) => {
-        console.log(err.response);
         dispatch(alertAction.open({ message: err.response.data.message }));
       });
   };

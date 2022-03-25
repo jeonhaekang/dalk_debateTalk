@@ -16,7 +16,6 @@ function ProjectMember() {
       <NewHeader page="개발멤버" />
       <FlexGrid is_column gap="16px" padding="24px" center>
         <Text size="headline2" weight="medium" color="orange">
-          {" "}
           DALK 멤버들을 소개합니다!
         </Text>
 

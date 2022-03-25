@@ -8,6 +8,7 @@ import XScrollDrag from "../shared/XScrollDrag";
 import sendIcon from "../../image/chatRoom/sendButton.svg";
 import itemBuy from "../../image/chatRoom/itemBuy.svg";
 import { history } from "../../redux/configStore";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const ChatInput = (props) => {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ const ChatInput = (props) => {
 
   const sendMessage = () => {
     if (itemList.onlyMe && itemList.onlyMe !== user.nickname) {
-      console.log("나만 말하기 발동!!!");
+      dispatch(
+        alertAction.open({
+          message: "나만 말하기 발동 중입니다",
+        })
+      );
       return;
     }
     if (message === "") {
@@ -52,7 +57,6 @@ const ChatInput = (props) => {
   const itemUse = (item) => {
     // 빅폰트사용
     if (user.item[item] > 0 && item === "bigFont") {
-      console.log("bigFont");
       setFontState(true);
 
       setTimeout(() => {
@@ -64,7 +68,11 @@ const ChatInput = (props) => {
     }
     // 그 외 아이템 사용
     if (user.item[item] <= 0 || !itemState) {
-      console.log("아이템을 사용할 수 없습니다.");
+      dispatch(
+        alertAction.open({
+          message: "아이템을 사용할 수 없습니다",
+        })
+      );
       return;
     }
     dispatch(actionCreators.useItemDB(item));

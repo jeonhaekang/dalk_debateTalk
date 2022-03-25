@@ -5,8 +5,11 @@ import styled from "styled-components";
 import TestLogo from "../../image/testlogo.jpeg";
 import Modal from "../shared/Modal";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { useDispatch } from "react-redux";
 
 const MainCarousel = (props) => {
+  const dispatch = useDispatch();
   const [imageList, setImageList] = useState([TestLogo, TestLogo, TestLogo]);
   const [noticeModalState, setNoticeModalState] = React.useState(false);
 
@@ -26,7 +29,11 @@ const MainCarousel = (props) => {
         setImageList(res.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   }, []);
 

@@ -21,7 +21,6 @@ const Gacha = (props) => {
   });
 
   const user = useSelector((props) => props.user.user);
-  console.log(user);
 
   const cacha = () => {
     if (user.point < 200) {
@@ -34,7 +33,6 @@ const Gacha = (props) => {
       apis
         .Gacha()
         .then((res) => {
-          console.log(res.data);
           setData({ ...gachaData[res.data.rank], count: res.data.count });
           dispatch(actionCreators.setPoint(gachaData[res.data.rank].point));
           setAnimation({
@@ -44,7 +42,11 @@ const Gacha = (props) => {
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          dispatch(
+            alertAction.open({
+              message: "에러가 발생하였습니다",
+            })
+          );
         });
     }, animation.duration);
   };

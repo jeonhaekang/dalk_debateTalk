@@ -7,7 +7,6 @@ import Portal from "./Portal";
 
 const Spinner = () => {
   const is_loaded = useSelector((props) => props.spinner.is_loaded);
-  console.log(is_loaded);
 
   if (is_loaded)
     return (

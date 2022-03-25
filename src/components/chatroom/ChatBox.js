@@ -10,13 +10,6 @@ import FlexGrid from "../../elements/FlexGrid";
 import downButton from "../../image/chatRoom/downButton.svg";
 
 const ChatBox = ({ roomId, headers, client }) => {
-  const [sub, setSub] = useState(false);
-
-  // React.useEffect(() => {
-  //   console.log("subscriptions:", client.subscriptions);
-
-  // }, [client.subscriptions]);
-
   React.useEffect(() => {
     client.connect(headers, connectCallback, errorCallback);
     // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
@@ -31,14 +24,14 @@ const ChatBox = ({ roomId, headers, client }) => {
   }, []);
 
   const dispatch = useDispatch();
-  console.log(client)
+
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   const EnterMessage = () => {
-    console.log(client.subscriptions);
+
     setTimeout(() => {
       if (client.subscriptions["sub-0"]) {
         client.send(
@@ -95,7 +88,6 @@ const ChatBox = ({ roomId, headers, client }) => {
       const reverse = newMessage.reverse; // onlyMe를 사용중인 유저
 
       if (myName || onlyMe || papago || reverse) {
-        console.log("입장");
         // 사용중인 유저가 있을시 유저를 셋팅하고 아이템 사용을 막음
         myName && dispatch(actionCreators.setUser("myName", myName));
         onlyMe && dispatch(actionCreators.setUser("onlyMe", onlyMe));

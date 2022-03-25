@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_ROOM = "infinityScroll/GET_ROOM";
@@ -56,7 +57,11 @@ const loadListDB = (page, api, keyword) => {
         dispatch(getRoom(keyword, data));
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(
+          alertAction.open({
+            message: "에러가 발생하였습니다",
+          })
+        );
       });
   };
 };

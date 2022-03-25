@@ -22,7 +22,6 @@ const initialState = {
   },
 };
 
-//MiddleWare
 export default handleActions(
   {
     [SET_ITEM_STATE]: (state, action) =>
