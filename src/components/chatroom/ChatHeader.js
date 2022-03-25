@@ -28,7 +28,7 @@ const ChatHeader = (props) => {
     setData({ topic: topic });
     setModalState(true);
   };
-
+  console.log(props);
   return (
     <div>
       {roomInfo && (

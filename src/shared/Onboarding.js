@@ -126,6 +126,7 @@ const OnboardingWrap = styled(FlexGrid)`
   position: absolute;
   top: 0;
 
+  z-index: 5;
   padding: 16px;
 `;
 

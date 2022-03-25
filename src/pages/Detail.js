@@ -25,6 +25,7 @@ import eggFill from "../image/detailElement/egg_fill.svg";
 import personFill from "../image/detailElement/person_fill.svg";
 import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
 import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
+import Center from "../elements/Center";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -228,7 +229,7 @@ const Detail = (props) => {
             </>
           ) : (
             // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
-            <>
+            <FlexGrid gap="0">
               <DebateBox win={true} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
@@ -266,7 +267,6 @@ const Detail = (props) => {
 
                 <GrapGauge which={true} rate={winnerRate} />
               </DebateBox>
-              <Versus center>VS</Versus>
               <DebateBox win={true} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
@@ -304,7 +304,8 @@ const Detail = (props) => {
 
                 <GrapGauge which={false} rate={loserRate} />
               </DebateBox>
-            </>
+              <Versus>VS</Versus>
+            </FlexGrid>
           )}
         </DebateWrap>
 
@@ -334,19 +335,20 @@ const DebateWrap = styled.div`
   overflow: hidden;
 `;
 
-const Versus = styled(FlexGrid)`
+const Versus = styled.div`
   position: absolute;
-  transform: translate(0px, 88px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   color: ${(props) => props.theme.color.orange};
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.black};
-  width: 55px;
-  height: 55px;
 `;
 
 const DebateBox = styled(FlexGrid)`
   background-color: ${(props) =>
-    props.win ? "#fefefe": "rgba(196, 196, 196, 0.1)"};
+    props.win ? "#fefefe" : "rgba(196, 196, 196, 0.1)"};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   border: none;
   width: 50%;
@@ -360,16 +362,16 @@ const DetailLogo = styled(FlexGrid)`
 `;
 
 const TitleBox = styled.div`
-  font-size: ${(props) => props.win ? "28px" : "24px"}; 
+  font-size: ${(props) => (props.win ? "28px" : "24px")};
   padding: 8px;
   text-align: center;
-  color: ${(props) => props.win ? props.theme.color.orange : ""};
+  color: ${(props) => (props.win ? props.theme.color.orange : "")};
 `;
 
 const DetailBox = styled.div`
   position: absolute;
   transform: ${(props) =>
-    props.section ? "translate(-10px, 66px)" : "translate(84px, 66px)"}; 
+    props.section ? "translate(-10px, 66px)" : "translate(84px, 66px)"};
   font-size: 12px;
 `;
 

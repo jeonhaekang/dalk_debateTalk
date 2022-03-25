@@ -38,12 +38,12 @@ const Alert = () => {
               )}
               {alert.type === "confirm" && (
                 <>
-                  <Yes center _onClick={action}>
-                    확인
-                  </Yes>
                   <No center _onClick={close}>
                     취소
                   </No>
+                  <Yes center _onClick={action}>
+                    확인
+                  </Yes>
                 </>
               )}
             </FlexGrid>

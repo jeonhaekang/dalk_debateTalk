@@ -23,11 +23,11 @@ const Gacha = (props) => {
   const user = useSelector((props) => props.user.user);
 
   const cacha = () => {
-    if (user.point < 200) {
+    if (user.point < 500) {
       dispatch(alertAction.open({ message: "포인트가 부족합니다." }));
       return;
     }
-    dispatch(actionCreators.setPoint(-200));
+    dispatch(actionCreators.setPoint(-500));
     setAnimation({ animation: zoomIn, duration: 600, infinite: "unset" });
     setTimeout(() => {
       apis
@@ -61,11 +61,10 @@ const Gacha = (props) => {
             <Text size="headline1" weight="regular" textAlign="center">
               {data.message}
             </Text>
-            {/* <Text>{data.rank === 6 && `${data.count}번 연속 꽝`}</Text> */}
           </FlexGrid>
         </FlexGrid>
       </ContentContainer>
-      <Button onClick={cacha}>200RP로 행운뽑기</Button>
+      <Button onClick={cacha}>500RP로 행운뽑기</Button>
     </>
   );
 };

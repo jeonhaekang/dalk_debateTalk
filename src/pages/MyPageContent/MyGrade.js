@@ -17,14 +17,14 @@ const MyGrade = () => {
 
     const nowExp = user?.ex;
     const nextScore = () => {
-        if (nowExp < 1000) {
-            return 1000 - nowExp
-        } else if (1000 <= nowExp && nowExp < 2000) {
-            return 2000 - nowExp
-        } else if (2000 <= nowExp && nowExp < 3000) {
-            return 3000 - nowExp
-        } else if (3000 <= nowExp && nowExp < 4000) {
-            return 4000 - nowExp
+        if (nowExp < 5000) {
+            return 5000 - nowExp
+        } else if (5000 <= nowExp && nowExp < 15000) {
+            return 15000 - nowExp
+        } else if (15000 <= nowExp && nowExp < 30000) {
+            return 30000 - nowExp
+        } else if (30000 <= nowExp && nowExp < 50000) {
+            return 50000 - nowExp
         } else return 0
     };
     const announceScore = nextScore();
