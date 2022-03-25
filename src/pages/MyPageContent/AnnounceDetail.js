@@ -36,6 +36,7 @@ function AnnounceDetail(props) {
     </>
   );
 }
+
 const Wrap = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 20px;

@@ -50,6 +50,7 @@ const Convenience = () => {
 
       <ConvinienceContent is_column gap="0px">
         <Title>고객센터</Title>
+        <Content onClick={() => {history.push('/projectmembers')}}>개발멤버</Content>
         <Content onClick={handleLogout}>로그아웃</Content>
         <Content onClick={() => setCreateModalState(true)}>회원탈퇴</Content>
       </ConvinienceContent>
