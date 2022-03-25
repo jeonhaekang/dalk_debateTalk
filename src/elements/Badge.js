@@ -6,7 +6,7 @@ const Badge = ({ src }) => {
 };
 
 const BadgeBox = styled.img`
-  width: 20px;
+  width: 25px;
 `;
 
 export default Badge;

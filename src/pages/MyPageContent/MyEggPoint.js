@@ -12,6 +12,7 @@ import bank from "../../image/mypage/moneybag.svg";
 
 import NewHeader from "../../shared/NewHeader";
 import { history } from "../../redux/configStore";
+import ContentContainer from "../../elements/Container";
 
 const MyEggPoint = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const MyEggPoint = () => {
     apis
       .pointcheck()
       .then((res) => {
-
         const dict = res.data.reduce((acc, el) => {
           const date = el.createdAt.split(" ")[0];
 
@@ -43,57 +43,59 @@ const MyEggPoint = () => {
   }, []);
 
   return (
-    <Grid height="100vh" overflow="scroll">
+    <>
       <NewHeader page="알포인트 내역" />
-      <FlexGrid
-        is_column
-        center
-        borderBottom="8px solid #f1f1f1"
-        weight="medium"
-        padding="40px"
-      >
-        <EggImg src={bank} />
-        <RPBox center>
-          <Text size="headline2" color="orange">
-            {user?.point.toLocaleString("ko-KR")} RP
-          </Text>
-        </RPBox>
-        <Text
-          size="subtitle1"
-          onClick={() => history.replace("/mypage/pointshop")}
+      <ContentContainer Xfooter>
+        <FlexGrid
+          is_column
+          center
+          borderBottom="8px solid #f1f1f1"
+          weight="medium"
+          padding="40px"
         >
-          사용하기
-        </Text>
-      </FlexGrid>
-
-      <Flag>
-        <div className="title">내 활동 내역</div>
-      </Flag>
-
-      <FlexGrid padding="40px 30px 0 30px">
-        <FlexGrid is_column gap="30px">
-          {Object.entries(pointCheck).map(([el, value], idx) => {
-            return (
-              <FlexGrid is_column key={idx} gap="20px">
-                <Text size="body2">{el}</Text>
-                {value.map((el) => {
-                  return (
-                    <FlexGrid between>
-                      <Text size="subtitle1" weight="medium" color="black">
-                        {el.content}
-                      </Text>
-                      <Text size="subtitle1" weight="medium" color="orange">
-                        {el.changePoint}
-                      </Text>
-                    </FlexGrid>
-                  );
-                })}
-              </FlexGrid>
-            );
-          })}
+          <EggImg src={bank} />
+          <RPBox center>
+            <Text size="headline2" color="orange">
+              {user?.point.toLocaleString("ko-KR")} RP
+            </Text>
+          </RPBox>
+          <Text
+            size="subtitle1"
+            onClick={() => history.replace("/mypage/pointshop")}
+          >
+            사용하기
+          </Text>
         </FlexGrid>
-      </FlexGrid>
-    </Grid>
+
+        <Flag>
+          <div className="title">내 활동 내역</div>
+        </Flag>
+
+        <FlexGrid padding="40px 30px 0 30px">
+          <FlexGrid is_column gap="30px">
+            {Object.entries(pointCheck).map(([el, value], idx) => {
+              return (
+                <FlexGrid is_column key={idx} gap="20px">
+                  <Text size="body2">{el}</Text>
+                  {value.map((el) => {
+                    return (
+                      <FlexGrid between>
+                        <Text size="subtitle1" weight="medium" color="black">
+                          {el.content}
+                        </Text>
+                        <Text size="subtitle1" weight="medium" color="orange">
+                          {el.changePoint}
+                        </Text>
+                      </FlexGrid>
+                    );
+                  })}
+                </FlexGrid>
+              );
+            })}
+          </FlexGrid>
+        </FlexGrid>
+      </ContentContainer>
+    </>
   );
 };
 

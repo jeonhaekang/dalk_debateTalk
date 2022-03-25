@@ -43,57 +43,60 @@ const UserRanking = () => {
   const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
 
   return (
-    <ContentContainer Xfooter>
+    <>
       <NewHeader page="유저랭킹" />
+      <ContentContainer Xfooter>
+        {/* 랭킹바 부분 */}
+        {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
 
-      {/* 랭킹바 부분 */}
-      {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
+        <FlexGrid between padding="12px 28px 0px 28px">
+          <Text>랭킹</Text>
+          <Text>닉네임</Text>
+          <Text marginRight="10px">EXP</Text>
+        </FlexGrid>
 
-      <FlexGrid between padding="12px 28px 0px 28px">
-        <Text>랭킹</Text>
-        <Text>닉네임</Text>
-        <Text marginRight="10px">EXP</Text>
-      </FlexGrid>
+        <Grid padding="12px 24px 24px 24px">
+          {SliceRankingList.map((r, idx) => {
+            return (
+              <div key={idx}>
+                <ListWrap>
+                  <RankingBox>{idx + 4}</RankingBox>
+                  <GradeLevel>
+                    <Grid display="flex">
+                      <LevelImgList
+                        src={rank[discriminant(r.ex)].img}
+                      ></LevelImgList>
+                      <div style={{ fontSize: "16px", fontWeight: "400" }}>
+                        {r.nickname}
+                      </div>
+                    </Grid>
 
-      <Grid padding="12px 24px 24px 24px">
-        {SliceRankingList.map((r, idx) => {
-          return (
-            <div key={idx}>
-              <ListWrap>
-                <RankingBox>{idx + 4}</RankingBox>
-                <GradeLevel>
-                  <Grid display="flex">
-                    <LevelImgList
-                      src={rank[discriminant(r.ex)].img}
-                    ></LevelImgList>
                     <div style={{ fontSize: "16px", fontWeight: "400" }}>
-                      {r.nickname}
+                      {r.ex}
                     </div>
-                  </Grid>
+                  </GradeLevel>
+                </ListWrap>
+              </div>
+            );
+          })}
+        </Grid>
 
-                  <div style={{ fontSize: "16px", fontWeight: "400" }}>
-                    {r.ex}
-                  </div>
-                </GradeLevel>
-              </ListWrap>
-            </div>
-          );
-        })}
-      </Grid>
-
-      <Me>
-        <MyGradeLevel style={{ backgroundColor: "#fff" }}>
-          <RankingBox>{myrank + 1}</RankingBox>
-          <Grid display="flex">
-            <LevelImgList src={userRank.img}></LevelImgList>
+        <Me>
+          <MyGradeLevel style={{ backgroundColor: "#fff" }}>
+            <RankingBox>{myrank + 1}</RankingBox>
+            <Grid display="flex">
+              <LevelImgList src={userRank.img}></LevelImgList>
+              <div style={{ fontSize: "16px", fontWeight: "400" }}>
+                {user?.nickname}
+              </div>
+            </Grid>
             <div style={{ fontSize: "16px", fontWeight: "400" }}>
-              {user?.nickname}
+              {user?.ex}
             </div>
-          </Grid>
-          <div style={{ fontSize: "16px", fontWeight: "400" }}>{user?.ex}</div>
-        </MyGradeLevel>
-      </Me>
-    </ContentContainer>
+          </MyGradeLevel>
+        </Me>
+      </ContentContainer>
+    </>
   );
 };
 
