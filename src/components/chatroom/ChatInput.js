@@ -185,6 +185,7 @@ const InputWrap = styled.div`
   gap: 8px;
   padding: 8px 16px;
   background-color: #f3f3f3;
+  width: 100%;
 `;
 
 const ItemWrap = styled(FlexGrid)`
