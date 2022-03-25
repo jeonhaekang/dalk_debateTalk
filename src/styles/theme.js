@@ -5,6 +5,7 @@ const fontSizes = {
   subtitle1: "18px",
   body1: "16px",
   body2: "14px",
+  body3: "12px",
 };
 
 const fontWeight = {

@@ -113,7 +113,7 @@ const OneComment = (props) => {
   //타임 카운팅
   const timeForToday = (value) => {
     const today = new Date();
-    const timeValue = new Date(value);
+    const timeValue = new Date(value.replaceAll("-", "/"));
 
     const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
     if (betweenTime < 1) return '방금 전';

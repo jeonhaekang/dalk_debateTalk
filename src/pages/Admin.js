@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as bannerActions } from "../redux/modules/banner";
+
 import Grid from "../elements/Grid"
+
 import WarnUser from "../components/admin/WarnUser";
 import BlindRoom from "../components/admin/BlindRoom";
 import BlindBoard from "../components/admin/BlindBoard";
-import { actionCreators as bannerActions } from "../redux/modules/banner";
-import { useEffect } from "react";
 import Notice from "../components/admin/Notice";
+import GivePoint from "../components/admin/GivePoint";
 
 const Admin = () => {
   const BannerList = useSelector(state => state.banner.BannerList)
@@ -41,6 +43,7 @@ const Admin = () => {
         <BlindRoom />
         <WarnUser />
         <Notice />
+        <GivePoint />
 
         <Grid>
           <Title>메인 배너 리스트</Title>

@@ -5,10 +5,6 @@ import { rank, discriminant } from "../../data/rank";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import apis from "../../shared/apis";
 
-import rankfirst from "../../image/rank/rankfirst.svg"
-import ranksecond from "../../image/rank/ranksecond.svg"
-import rankthird from "../../image/rank/rankthird.svg"
-
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
 import ContentContainer from "../../elements/Container";
@@ -24,11 +20,7 @@ const UserRanking = () => {
 
   const userRank = rank[discriminant(user?.ex, user?.rank)];
 
-  const first = rank[discriminant(null, RankingList[0]?.rank)];
-  const second = rank[discriminant(null, RankingList[1]?.rank)];
-  const third = rank[discriminant(null, RankingList[2]?.rank)];
 
-  // const topUser = [RankingList[1], RankingList[0], RankingList[2]];
 
   useEffect(() => {
     apis
@@ -52,59 +44,9 @@ const UserRanking = () => {
   return (
     <ContentContainer Xfooter>
       <NewHeader page="유저랭킹" />
-      <TopThree>
-        <Second>
-          <FadeIn>
-            <FlexGrid is_column gap="0px" paddingBottom="80px">
-              <FlexGrid is_flex gap="4px" center>
-                <img
-                  src={second.img}
-                  style={{ width: "20px", marginTop: "2px" }}
-                  alt="secondImg"
-                />
-                <div className="rankname">{RankingList[1]?.nickname}</div>
-              </FlexGrid>
-              <div className="ranknumber">EXP {RankingList[1]?.ex}</div>
-            </FlexGrid>
-            <SecondImg src={ranksecond} />
-          </FadeIn>
-          <SecondBar />
-        </Second>
-        <First>
-          <FadeIn>
-            <FlexGrid is_column gap="0px" paddingBottom="80px">
-              <FlexGrid is_flex gap="4px" center>
-                <img
-                  src={first.img}
-                  style={{ width: "20px", marginTop: "2px" }}
-                  alt="firstImg"
-                />
-                <div className="rankname">{RankingList[0]?.nickname}</div>
-              </FlexGrid>
-              <div className="ranknumber">EXP {RankingList[0]?.ex}</div>
-            </FlexGrid>
-            <FirstImg src={rankfirst} />
-          </FadeIn>
-          <FirstBar />
-        </First>
-        <Third>
-          <FadeIn>
-            <FlexGrid is_column gap="0px" paddingBottom="80px">
-              <FlexGrid is_flex gap="4px" center>
-                <img
-                  src={third.img}
-                  style={{ width: "20px", marginTop: "2px" }}
-                  alt="thirdimg"
-                />
-                <div className="rankname">{RankingList[2]?.nickname}</div>
-              </FlexGrid>
-              <div className="ranknumber">EXP {RankingList[2]?.ex}</div>
-            </FlexGrid>
-            <ThirdImg src={rankthird} />
-          </FadeIn>
-          <ThirdBar />
-        </Third>
-      </TopThree>
+
+
+    {/* 랭킹바 부분 */}
 
       <FlexGrid between padding="12px 28px 0px 28px">
         <Text>랭킹</Text>
@@ -322,4 +264,5 @@ const Me = styled.div`
   height: 84px;
   background-color: #f0f0f0;
 `;
+
 export default UserRanking;
