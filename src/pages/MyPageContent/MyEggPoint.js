@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import apis from "../../shared/apis";
-import FlexGrid from "../../elements/FlexGrid";
-
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
+
+import apis from "../../shared/apis";
+
+import FlexGrid from "../../elements/FlexGrid";
 import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
@@ -12,6 +14,7 @@ import NewHeader from "../../shared/NewHeader";
 import { history } from "../../redux/configStore";
 
 const MyEggPoint = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
   const [pointCheck, setPointCheck] = useState([]);
@@ -20,7 +23,6 @@ const MyEggPoint = () => {
     apis
       .pointcheck()
       .then((res) => {
-        console.log("포인트 내역 조회 완료", res.data);
 
         const dict = res.data.reduce((acc, el) => {
           const date = el.createdAt.split(" ")[0];
@@ -32,7 +34,11 @@ const MyEggPoint = () => {
         setPointCheck(dict);
       })
       .catch((err) => {
-        console.log("포인트 내역 조회 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "배너목록 가져오기 실패",
+          })
+        );
       });
   }, []);
 
@@ -67,7 +73,6 @@ const MyEggPoint = () => {
       <FlexGrid padding="40px 30px 0 30px">
         <FlexGrid is_column gap="30px">
           {Object.entries(pointCheck).map(([el, value], idx) => {
-            console.log(el, value);
             return (
               <FlexGrid is_column key={idx} gap="20px">
                 <Text size="body2">{el}</Text>

@@ -40,7 +40,6 @@ const OneComment = (props) => {
   const tokenCheck = token.split("=")[1];
 
   const handleClickAgree = () => {
-    console.log("찬성클릭");
     if (!tokenCheck) {
       dispatch(
         alertAction.open({
@@ -82,7 +81,6 @@ const OneComment = (props) => {
       await apis
         .warningComment(commentId)
         .then((res) => {
-          console.log("댓글 신고하기 성공", res);
           setIsWarn(true);
           dispatch(
             alertAction.open({
@@ -91,7 +89,6 @@ const OneComment = (props) => {
           );
         })
         .catch((err) => {
-          console.log("이미 신고한 유저입니다", err);
           dispatch(
             alertAction.open({
               message: "이미 신고를 하셨습니다",

@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_COMMENTS = "GET_COMMENTS";
@@ -71,11 +72,14 @@ const getCommentDB = (boardId) => {
     await apis
       .getComment(boardId)
       .then((res) => {
-        console.log(res);
         dispatch(getComment(res.data));
       })
       .catch((err) => {
-        console.log("댓글불러오기 에러", err);
+        dispatch(
+          alertAction.open({
+            message: "댓글 가져오기 실패",
+          })
+        );
       });
   };
 };
@@ -88,11 +92,14 @@ const addCommentDB = (boardId, comment) => {
     await apis
       .addComment(boardId, comment)
       .then((res) => {
-        console.log(res);
-        dispatch(getCommentDB(boardId)).then(console.log("댓글 로딩 완료"));
+        dispatch(getCommentDB(boardId));
       })
       .catch((err) => {
-        console.log("댓글 작성 에러", err);
+        dispatch(
+          alertAction.open({
+            message: "댓글 추가 실패",
+          })
+        );
       });
   };
 };
@@ -102,11 +109,14 @@ const delCommentDB = (commentId) => {
     await apis
       .deleteComment(commentId)
       .then((res) => {
-        console.log(res);
         dispatch(delComment(commentId));
       })
       .catch((err) => {
-        console.log("댓글 삭제 에러", err);
+        dispatch(
+          alertAction.open({
+            message: "댓글 삭제 실패",
+          })
+        );
       });
   };
 };
@@ -118,12 +128,14 @@ const pushAgreeDB = (commentId, index) => {
     apis
       .agreeComment(commentId)
       .then((res) => {
-        console.log("찬성 DB 받기 성공", res);
         dispatch(pushAgree(userId, index));
-        console.log("요청감");
       })
       .catch((err) => {
-        console.log("찬성 DB 받기 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "찬성 버튼 에러",
+          })
+        );
       });
   };
 };
@@ -135,11 +147,14 @@ const pushDisAgreeDB = (commentId, index) => {
     apis
       .disagreeComment(commentId)
       .then((res) => {
-        console.log("반대 DB 받기 성공", res);
         dispatch(pushDisAgree(userId, index));
       })
       .catch((err) => {
-        console.log("반대 DB 받기 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "반대 버튼 에러",
+          })
+        );
       });
   };
 };
@@ -178,23 +193,17 @@ export default handleActions(
       produce(state, (draft) => {
         const userId = action.payload.userId;
         const index = action.payload.index;
-        console.log("user:", userId, "comment:", index);
         const agree = draft.commentList[index].agreeUserList.findIndex((el) => {
-          console.log(el, userId);
           return el === userId;
         });
         const disagree = draft.commentList[index].disagreeUserList.findIndex(
           (el) => {
-            console.log(el, userId);
             return el === userId;
           }
         );
-        console.log("agree:", agree, "disagree:", disagree);
         if (agree !== -1) {
-          console.log("있음");
           draft.commentList[index].agreeUserList.splice(agree, 1);
         } else {
-          console.log("없음");
           if (disagree !== -1) {
             draft.commentList[index].disagreeUserList.splice(agree, 1);
           }
@@ -205,23 +214,17 @@ export default handleActions(
       produce(state, (draft) => {
         const userId = action.payload.userId;
         const index = action.payload.index;
-        console.log("user:", userId, "comment:", index);
         const agree = draft.commentList[index].agreeUserList.findIndex((el) => {
-          console.log(el, userId);
           return el === userId;
         });
         const disagree = draft.commentList[index].disagreeUserList.findIndex(
           (el) => {
-            console.log(el, userId);
             return el === userId;
           }
         );
-        console.log("agree:", agree, "disagree:", disagree);
         if (disagree !== -1) {
-          console.log("있음");
           draft.commentList[index].disagreeUserList.splice(agree, 1);
         } else {
-          console.log("없음");
           if (agree !== -1) {
             draft.commentList[index].agreeUserList.splice(agree, 1);
           }

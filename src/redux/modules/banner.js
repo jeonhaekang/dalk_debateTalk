@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_BANNER = "GET_BANNER";
@@ -27,7 +28,11 @@ const getBannerDB = () => {
           dispatch(getBanner(res.data));
         })
         .catch((err) => {
-          console.log("배너 목록 가져오기 실패!", err);
+          dispatch(
+            alertAction.open({
+              message: "배너목록 가져오기 실패",
+            })
+          );
         });
   };
 };
@@ -37,12 +42,15 @@ const addBannerDB = (image) => {
   return function (dispatch, getState, { history }) {
     apis.addBanner(image)
         .then((res) => {
-          console.log("배너 추가하기 완료", res)
           dispatch(addBanner(image))
           dispatch(getBannerDB())
         })
         .catch((err) => {
-          console.log("배너 추가하기 실패", err)
+          dispatch(
+            alertAction.open({
+              message: "배너 추가 실패",
+            })
+          );
         })
   };
 };
@@ -52,12 +60,15 @@ const delBannerDB = (carouselId) => {
   return function (dispatch, getState, { history }) {
     apis.delBannerList(carouselId)
         .then((res) => {
-          console.log("배너 삭제하기 성공", res);
           dispatch(delBanner(carouselId));
           dispatch(getBannerDB())
         })
         .catch((err) => {
-          console.log("배너 삭제 에러", err);
+          dispatch(
+            alertAction.open({
+              message: "배너 삭제 실패",
+            })
+          );
         });
   };
 };

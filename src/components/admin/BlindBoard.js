@@ -1,29 +1,39 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+
+import { useDispatch } from 'react-redux';
+import { actionCreators as alertAction } from '../../redux/modules/alert';
+
 import apis from '../../shared/apis';
 
+
 function BlindBoard() {
+    const dispatch = useDispatch();
     const [BlindBoardList, setBlindBoardList] = useState([]);
 
     useEffect(() => {
         apis.getblindboard()
             .then((res) => {
-                console.log("블라인드 게시물 가져오기 성공", res.data)
                 setBlindBoardList(res.data)
             })
             .catch((err) => {
-                console.log("블라인드 게시물 가져오기 실패", err)
+                dispatch(alertAction.open({
+                    message: "블라인드 게시물 불러오기 실패"
+                }))
             })
     }, [])
 
     const delBlindBoard = (boardId) => {
         apis.delblindboard(boardId)
             .then((res) => {
-                console.log("블라인드 게시물 삭제완료", res)
+                dispatch(alertAction.open({
+                    message: "블라인드 게시물 삭제 성공"
+                }))
             })
             .catch((err) => {
-                console.log("블라인드 게시물 삭제 실패", err)
+                dispatch(alertAction.open({
+                    message: "블라인드 게시물 삭제 실패"
+                }))
             })
     }
 

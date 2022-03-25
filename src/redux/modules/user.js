@@ -65,15 +65,22 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
                 history.replace("/");
               })
               .catch((err) => {
-                console.log("로그인체크 에러", err);
+                dispatch(
+                  alertAction.open({
+                    message: "로그인 체크 실패",
+                  })
+                );
               });
           })
           .catch((err) => {
-            console.log("로그인 에러", err);
+            dispatch(
+              alertAction.open({
+                message: "로그인 실패",
+              })
+            );
           });
       })
       .catch((err) => {
-        console.log("회원가입 에러", err);
         dispatch(alertAction.open({
           message: "아이디 또는 닉네임을 확인해주세요"
         }));
@@ -90,7 +97,6 @@ const logInDB = (username, password) => {
     await apis
       .login(user)
       .then(function (response) {
-        console.log(response);
         setCookie(response.headers.authorization, 7);
 
         apis
@@ -100,11 +106,19 @@ const logInDB = (username, password) => {
             history.replace("/");
           })
           .catch((err) => {
-            console.log("err", err.response);
+            dispatch(
+              alertAction.open({
+                message: "로그인 체크 실패",
+              })
+            );
           });
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(
+          alertAction.open({
+            message: "로그인 실패",
+          })
+        );
       });
   };
 };
@@ -121,7 +135,6 @@ const logincheckDB = () => {
           message: '다시 로그인 해주세요!'
         }));
         history.push("/login");
-        console.log("로그인 체크 에러",err);
       });
   };
 };
@@ -131,26 +144,31 @@ const buyItemDB = (item) => {
     apis
       .buyItem(item.itemCode)
       .then((res) => {
-        console.log(res);
         dispatch(buyItem(item));
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(
+          alertAction.open({
+            message: "아이템 구매 실패",
+          })
+        );
       });
   };
 };
 
 const useItemDB = (item) => {
   return function (dispatch, getState, { history }) {
-    console.log(item);
     apis
       .ItemUse(item)
       .then((res) => {
-        console.log(res);
         dispatch(ItemUse(item));
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "아이템 사용 실패",
+          })
+        );
       });
   };
 };
@@ -163,7 +181,11 @@ const setRankListDB = (item) => {
         dispatch(setRankList(res.data));
       })
       .catch((err) => {
-        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "랭크목록 불러오기 실패",
+          })
+        );
       });
   };
 };
@@ -173,13 +195,11 @@ const reportUserDB = (userId, message) => {
     apis
       .reportUser(userId, message)
       .then((res) => {
-        console.log(res);
         dispatch(
           alertAction.open({ type: "alert", message: "유저를 신고하였습니다." })
         );
       })
       .catch((err) => {
-        console.log(err.response);
         dispatch(
           alertAction.open({
             type: "alert",
