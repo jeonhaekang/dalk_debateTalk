@@ -1,32 +1,32 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Center from "../elements/Center";
 import FlexGrid from "../elements/FlexGrid";
-import Grid from "../elements/Grid";
+import logo from "../image/shared/spinnerLogo.svg";
+import Portal from "./Portal";
 
 const Spinner = () => {
-  return (
-    <Outter center is_flex>
-      <Img center is_flex>
-        debate
-      </Img>
-    </Outter>
-  );
+  const is_loaded = useSelector((props) => props.spinner.is_loaded);
+  console.log(is_loaded);
+
+  if (is_loaded)
+    return (
+      <Portal>
+        <SpinnerBox center is_flex>
+          <img src={logo} alt="spinner" />
+        </SpinnerBox>
+      </Portal>
+    );
+  else return null;
 };
 
-const Outter = styled(FlexGrid)`
+const SpinnerBox = styled(FlexGrid)`
   position: absolute;
   top: 0;
+  left: 0;
   height: 100vh;
-  z-index: 999;
+  z-index: 1;
   background-color: white;
-`;
-
-const Img = styled(FlexGrid)`
-  width: 70px;
-  height: 70px;
-  border-radius: 70px;
-  background-color: gray;
 `;
 
 export default Spinner;

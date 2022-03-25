@@ -16,9 +16,11 @@ const Upload = () => {
     setPreview(image);
   }, [image]);
 
-  const select = () => {
-    const reader = new FileReader();
+  const ImageSelect = () => {
     let file = fileInput.current.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
 
     if (file.name.length > 20) {
       dispatch(actionCreators.open({ message: "파일명이 너무 깁니다." }));
@@ -32,25 +34,20 @@ const Upload = () => {
       image.src = e.target.result;
 
       image.onload = (e) => {
-        const test = imageResize(image);
-        // dispatch(imageAction.setFile(test));
-        // dispatch(imageAction.setPreview(test));
-        console.log("uploadJS:", test);
+        dispatch(imageAction.setFile(imageResize(image)));
       };
     };
 
     reader.onloadend = () => {
       dispatch(imageAction.setPreview(reader.result));
     };
-
-    dispatch(imageAction.setFile(file));
   };
   return (
     <>
       <File
         type="file"
-        accept=".gif, .jpg, .png"
-        onChange={select}
+        accept=".jpg, .png"
+        onChange={ImageSelect}
         ref={fileInput}
         src={preview}
       />

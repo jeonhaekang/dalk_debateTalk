@@ -4,6 +4,7 @@ import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
 import user, { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
+import { actionCreators as spinnerAction } from "./spinner";
 import moment from "moment";
 import axios from "axios";
 import { history } from "../configStore";
@@ -107,6 +108,7 @@ const voteDB = (roomId, topic, point) => {
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
+    dispatch(spinnerAction.start());
     const image = getState().image.image;
     console.log("chatJS:", image);
 
@@ -133,6 +135,8 @@ const createRoomDB = (data) => {
         dispatch(createRoom(setData)) 
         dispatch(imageAction.clear());
         history.replace("/chatroom/" + res.data.roomId);
+
+        console.log(res);
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
@@ -146,6 +150,7 @@ const createRoomDB = (data) => {
 const getOneRoomDB = (roomId) => {
   // 방 상세정보 가져오기
   return function (dispatch) {
+    dispatch(spinnerAction.start());
     apis
       .getOneRoom(roomId)
       .then((res) => {
@@ -163,6 +168,7 @@ const loadMessageLogDB = (roomId) => {
       .messageLog(roomId)
       .then((res) => {
         dispatch(setMessage(res.data));
+        dispatch(spinnerAction.end());
       })
       .catch((err) => {
         console.log(err.response);
@@ -175,6 +181,7 @@ const loadUserListDB = (roomId) => {
     apis
       .roomUsers(roomId)
       .then((res) => {
+        console.log(res);
         dispatch(loadUserList(res.data));
       })
       .catch((err) => {
@@ -189,6 +196,7 @@ const reportRoomDB = (roomId) => {
       .reportRoom(roomId)
       .then((res) => {
         console.log(res);
+        dispatch(alertAction.open({ message: "채팅방을 신고하였습니다" }));
       })
       .catch((err) => {
         console.log(err.response);

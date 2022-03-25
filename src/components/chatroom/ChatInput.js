@@ -101,7 +101,7 @@ const ChatInput = (props) => {
       <ItemWrap state={state}>
         <XScrollDrag gap="15px">
           {itemData.map((el) => {
-            if (user.item[el.itemCode] !== 0 && el.itemCode !== "exBuy") {
+            if (user?.item[el.itemCode] !== 0 && el.itemCode !== "exBuy") {
               return (
                 <ItemButton
                   {...el}
@@ -154,7 +154,8 @@ const ItemText = styled.div`
 const EnterBtn = styled.button`
   width: 55px;
   height: 44px;
-  background-color: ${(props) => props.message === "" ? "#dddddd" :props.theme.color.orange};
+  background-color: ${(props) =>
+    props.message === "" ? "#dddddd" : props.theme.color.orange};
   border-radius: 10px;
   border: none;
 
