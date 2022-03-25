@@ -1,8 +1,8 @@
-import minjae from '../image/member/minjae.png'
-import youngmin from '../image/member/youngmin.jpg'
-import jihoon from '../image/member/jihoon.jpg'
-// import haekang from '../image/member/haekang.png'
-import dongseok from '../image/member/dongseok.png'
+import minjae from "../image/member/minjae.png";
+import youngmin from "../image/member/youngmin.jpg";
+import jihoon from "../image/member/jihoon.jpg";
+import haekang from "../image/member/haekang.jpeg";
+import dongseok from "../image/member/dongseok.png";
 // import dahye from '../image/member/dahye.png'
 // import gyuri from '../image/member/gyuri.png'
 
@@ -18,12 +18,12 @@ export const MemberInfo = [
   },
   {
     name: "전해강",
-    //   img: haekang,
+    img: haekang,
     position: "FrontEnd Leader",
-    email: "",
+    email: "1003gorkd@naver.com",
     github: "https://github.com/jeonhaekang/",
     blog: "https://haekang.notion.site/haekang-s-wiki-bfa0e27446654d4eb8495dadd5bfd231",
-    content: "",
+    content: "꽉",
   },
   {
     name: "신동석",
