@@ -1,14 +1,20 @@
 import minjae from '../image/member/minjae.png'
+import youngmin from '../image/member/youngmin.jpg'
+import jihoon from '../image/member/jihoon.jpg'
+// import haekang from '../image/member/haekang.png'
+import dongseok from '../image/member/dongseok.png'
+// import dahye from '../image/member/dahye.png'
+// import gyuri from '../image/member/gyuri.png'
 
 export const MemberInfo = [
   {
     name: "김영민",
-    //   img: youngmin,
+    img: youngmin,
     position: "Project Leader / BackEnd Leader",
-    email: "",
-    github: "https://github.com/rladudals/",
+    email: "raddaslul@naver.com",
+    github: "https://github.com/raddaslul/",
     blog: "https://velog.io/@raddaslul",
-    content: "",
+    content: "Developing Developer",
   },
   {
     name: "전해강",
@@ -21,18 +27,18 @@ export const MemberInfo = [
   },
   {
     name: "신동석",
-    // img: dongseok,
+    img: dongseok,
     position: "BackEnd Developer",
-    email: "",
+    email: "dss122247@naver.com",
     github: "https://github.com/dss1222",
     blog: "https://dongseokstudy2.tistory.com/",
-    content: "",
+    content: "얘들아 3년동안 수고했고 나중에 웃으면서 보자",
   },
   {
     name: "현지훈",
-    //   img: jihoon,
+    img: jihoon,
     position: "BackEnd Developer",
-    email: "",
+    email: "jhoon3697@gmail.com",
     github: "https://github.com/hyeonjh",
     blog: "https://hyeonjh.tistory.com/",
     content: "",

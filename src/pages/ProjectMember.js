@@ -14,7 +14,7 @@ function ProjectMember() {
   return (
     <MemberWrap>
       <NewHeader page="개발멤버" />
-      <FlexGrid is_column padding="24px" center>
+      <FlexGrid is_column gap="16px" padding="24px" center>
         <Text size="headline2" weight="medium" color="orange">
           {" "}
           DALK 멤버들을 소개합니다!
@@ -22,8 +22,9 @@ function ProjectMember() {
 
         {MemberInfo.map((member, idx) => {
           return (
-            <FlexGrid is_flex gap="10px" center key={idx}>
+            <FlexGrid is_flex gap="10px" key={idx} center>
               <MemberImg src={member.img} alt="memberimg" />
+
               <FlexGrid is_column gap="0">
                 <Text size="subtitle1" weight="medium">
                   {member.name}
@@ -71,14 +72,15 @@ const MemberWrap = styled.div`
 `;
 
 const MemberImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 10px;
 `;
 
 const ContactImg = styled.img`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 `;
 
 export default ProjectMember;
