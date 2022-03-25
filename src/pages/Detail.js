@@ -342,6 +342,7 @@ const Versus = styled(FlexGrid)`
   font-weight: ${(props) => props.theme.fontWeight.black};
   width: 55px;
   height: 55px;
+  z-index: 1;
 `;
 
 const DebateBox = styled(FlexGrid)`
