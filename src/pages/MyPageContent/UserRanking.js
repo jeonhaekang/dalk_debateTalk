@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import apis from "../../shared/apis";
 
 import rankfirst from "../../image/rank/rankfirst.svg"
@@ -15,6 +16,7 @@ import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 
 const UserRanking = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const [RankingList, setRankingList] = useState([]);
   //4등부터 보여주기
@@ -32,18 +34,21 @@ const UserRanking = () => {
     apis
       .rank()
       .then((res) => {
-        console.log("랭킹 조회 완료", res.data);
         setRankingList(res.data);
       })
       .catch((err) => {
-        console.log("랭킹 조회 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "랭킹 조회 실패",
+          })
+        );
       });
   }, []);
 
   // 내 등수 찾기
   const _myrank = (nickname) => nickname == user?.nickname;
   const myrank = RankingList.map((r) => r.nickname).findIndex(_myrank);
-  console.log(RankingList);
+
   return (
     <ContentContainer Xfooter>
       <NewHeader page="유저랭킹" />

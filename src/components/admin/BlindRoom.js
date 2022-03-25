@@ -1,31 +1,38 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators } from '../../redux/modules/chat';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+
+import { useDispatch } from 'react-redux';
+import { actionCreators as alertAction } from '../../redux/modules/alert';
+
 import apis from '../../shared/apis';
 
 function BlindRoom() {
+    const dispatch = useDispatch();
     const [BlindRoomList, setBlindRoomList] = useState([]);
 
     useEffect(() => {
         apis.getblindroom()
             .then((res) => {
-                console.log("블라인드 채팅방 가져오기 성공", res.data)
                 setBlindRoomList(res.data)
             })
             .catch((err) => {
-                console.log("블라인드 채팅방 가져오기 실패", err)
+                dispatch(alertAction.open({
+                    message: "불량유저 불러오기 실패"
+                }))
             })
     }, [])
 
     const delBlindRoom = (roomId) => {
         apis.delblindroom(roomId)
             .then((res) => {
-                console.log("블라인드 채팅방 삭제완료", res)
+                dispatch(alertAction.open({
+                    message: "블라인드 채팅방 삭제 성공"
+                }))
             })
             .catch((err) => {
-                console.log("블라인드 채팅방 삭제 실패", err)
+                dispatch(alertAction.open({
+                    message: "블라인드 채팅방 삭제 실패"
+                }))
             })
     }
 

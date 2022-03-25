@@ -1,29 +1,39 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+
+import { useDispatch } from 'react-redux';
+import { actionCreators as alertAction } from '../../redux/modules/alert';
+
 import apis from '../../shared/apis';
 
+
 function WarnUser() {
+    const dispatch = useDispatch();
     const [WarnUserList, setWarnUserList] = useState([]);
 
     useEffect(() => {
         apis.getWarnUser()
             .then((res) => {
-                console.log("불량유저 가져오기 성공", res)
                 setWarnUserList(res.data)
             })
             .catch((err) => {
-                console.log("불량유저 가져오기 실패", err)
+                dispatch(alertAction.open({
+                    message: "불량유저 정보 불러오기 실패"
+                }))
             })
     }, [])
 
     const delWarnUser = (userId) => {
         apis.delWarnUser(userId)
             .then((res) => {
-                console.log("불량유저 삭제 성공", res)
+                dispatch(alertAction.open({
+                    message: "불량유저 삭제 성공"
+                }))
             })
             .catch((err) => {
-                console.log("불량유저 삭제 실패", err)
+                dispatch(alertAction.open({
+                    message: "불량유저 삭제 실패"
+                }))
             })
     }
 

@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_POST = "GET_POST";
@@ -41,11 +42,14 @@ const getPostDB = (page) => {
           page: page + 1,
           next: is_next,
         };
-        console.log("결과방 목록 가져오기 성공", Data);
         dispatch(getPost(Data));
       })
       .catch((err) => {
-        console.log("결과창 목록 가져오기 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "결과창 가져오기 실패",
+          })
+        );
       });
   };
 };

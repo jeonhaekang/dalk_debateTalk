@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import styled from "styled-components";
 import apis from "../../shared/apis";
 import NewHeader from "../../shared/NewHeader";
 
 function AnnounceDetail(props) {
+  const dispatch = useDispatch();
   const noticeId = props.match.params.noticeId;
 
   const [detailNotice, setDetailNotice] = useState({});
@@ -17,11 +20,14 @@ function AnnounceDetail(props) {
     apis
       .getDetailNotice(noticeId)
       .then((res) => {
-        console.log("공지 상세 받기 성공", res.data);
         setDetailNotice(res.data);
       })
       .catch((err) => {
-        console.log("공지 상세 받기 실패", err);
+        dispatch(
+          alertAction.open({
+            message: "배너목록 가져오기 실패",
+          })
+        );
       });
   };
 

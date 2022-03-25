@@ -13,7 +13,6 @@ function UserOut(props) {
     const HandleUserOut = () => {
         apis.userOut()
             .then((res) => {
-                console.log("회원탈퇴 완료", res)
                 dispatch(alertAction.open({
                     message: "정상적으로 탈퇴되었습니다"
                 }))
@@ -21,7 +20,9 @@ function UserOut(props) {
                 history.replace('/')
             })
             .catch((err) => {
-                console.log("회원탈퇴 실패", err)
+                dispatch(alertAction.open({
+                    message: "탈퇴에 실패하였습니다"
+                }))
             })
     }
 
