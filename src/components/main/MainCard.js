@@ -10,8 +10,10 @@ import Badge from "../../elements/Badge";
 import { loginCheck } from "../../modules/loginCheck";
 import short from "../../image/shared/short.svg";
 import long from "../../image/shared/long.svg";
+import noImage from "../../image/shared/noImage.png";
 
 const MainCard = (props) => {
+  console.log(props);
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
   const [blindState, setBlindState] = useState(false);
   const [timeState, setTimeState] = useState(false);
@@ -46,7 +48,7 @@ const MainCard = (props) => {
 
       <FlexGrid is_flex between center>
         <FlexGrid>
-          <Image src={props.filePath} borderRadius="15px" />
+          <Image src={props.filePath ? props.filePath : noImage} />
           <Time src={props.time ? short : long}></Time>
         </FlexGrid>
 
