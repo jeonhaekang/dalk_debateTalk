@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as noticeActions } from "../../redux/modules/notice";
 import styled from "styled-components";
-import NewHeader from "../../shared/NewHeader";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configStore";
+import { actionCreators as noticeActions } from "../../redux/modules/notice";
+
+import NewHeader from "../../shared/NewHeader";
+
 import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
 
 const Announcement = () => {
   const dispatch = useDispatch();
@@ -19,26 +22,29 @@ const Announcement = () => {
   };
 
   return (
-    <>
+    <AnnouncementWrap>
       <NewHeader page="공지사항" />
       {noticeList.map((el, idx) => {
         return (
           <ContentTop key={idx} onClick={() => handleDetail(el.noticeId)}>
-            <FlexGrid is_column>
-              <div style={{ fontSize: "14px" }}>
-              <div style={{ fontSize: "16px" }}>{el.title}</div>
-                {el.createdAt.split("T")[0]}
-              </div>
+            <FlexGrid is_column gap="0px">
+                <Text size="body1" weight="medium">{el.title}</Text>
+                <Text size="body3" weight="light">{el.createdAt.split("T")[0]}</Text>
             </FlexGrid>
           </ContentTop>
         );
       })}
-    </>
+    </AnnouncementWrap>
   );
 };
 
+const AnnouncementWrap = styled.div`
+  height: 100%;
+  background-color: #fff;
+  overflow: scroll;
+`;
+
 const ContentTop = styled.div`
-  font-size: 20px;
   color: #686868;
   display: flex;
   justify-content: space-between;
