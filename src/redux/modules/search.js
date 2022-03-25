@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
+import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_SEARCHPOST = "GET_SEARCHPOST";
@@ -43,11 +44,14 @@ const getSearchPostDB = (keyword, page) => {
                     page: page + 1,
                     next: is_next,
                 }
-                console.log("검색 성공", SearchData)
                 dispatch(getSearchPost(SearchData));
             })
             .catch((err) => {
-                console.log("검색 실패", err);
+                dispatch(
+                    alertAction.open({
+                      message: "검색 실패",
+                    })
+                  );
             })
     };
 }

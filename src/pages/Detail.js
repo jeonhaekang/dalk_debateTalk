@@ -46,7 +46,11 @@ const Detail = (props) => {
         setDebate(res.data);
       })
       .catch((err) => {
-        console.log("게시글 상세정보 에러", err);
+        dispatch(
+          alertAction.open({
+            message: "상세창 가져오기 실패",
+          })
+        );
       });
   };
 
@@ -89,7 +93,6 @@ const Detail = (props) => {
       await apis
         .warningDebate(boardId)
         .then((res) => {
-          console.log("상세페이지 신고 성공", res);
           setIsWarn(true);
           dispatch(
             alertAction.open({
@@ -98,7 +101,6 @@ const Detail = (props) => {
           );
         })
         .catch((err) => {
-          console.log("이미 신고한 유저입니다", err);
           dispatch(
             alertAction.open({
               message: "이미 신고를 하셨습니다",
