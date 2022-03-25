@@ -72,19 +72,29 @@ const PostListCard = (props) => {
             height="100%"
             gap="8px"
           >
-            {props.winner?.includes(props.topicA) ? (
+            {props.winner?.includes("무승부") ? 
+              <>
+                <Topic>{props.topicA}</Topic>
+                <VS center>VS</VS>
+                <Topic>{props.topicB}</Topic>
+              </> 
+            :
+            (
+              props.winner?.includes(props.topicA) ? 
               <>
                 <WinnerTopic>{props.topicA}</WinnerTopic>
                 <VS center>VS</VS>
                 <Topic>{props.topicB}</Topic>
-              </>
-            ) : (
+              </> 
+              : 
               <>
                 <Topic>{props.topicA}</Topic>
                 <VS center>VS</VS>
                 <WinnerTopic>{props.topicB}</WinnerTopic>
               </>
-            )}
+            )
+            }
+
             <DebateInfo>
               <Grid display="flex">
                 <img src={Person} style={{ padding: "0px 5px 0px 0px" }} alt="person"/>
