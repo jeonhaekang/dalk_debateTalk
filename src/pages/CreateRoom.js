@@ -11,6 +11,7 @@ import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import short from "../image/shared/shortTime.svg";
 import long from "../image/shared/longTime.svg";
+import { history } from "../redux/configStore";
 
 const CreateRoom = () => {
   const dispatch = useDispatch();

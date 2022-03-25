@@ -117,7 +117,7 @@ const createRoomDB = (data) => {
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
 
-    apis
+   apis
       .createRoom(formdata)
       .then((res) => {
         const user = getState().user.user;
@@ -130,8 +130,7 @@ const createRoomDB = (data) => {
           createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
           restTime: data.time ? 1200 : 3600,
         };
-
-        dispatch(createRoom(setData));
+        dispatch(createRoom(setData)) 
         dispatch(imageAction.clear());
         history.replace("/chatroom/" + res.data.roomId);
       })

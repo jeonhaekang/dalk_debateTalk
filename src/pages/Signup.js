@@ -215,12 +215,11 @@ const Signup = (props) => {
           <FlexGrid center gap="4px">
             <input
               type="checkbox"
-              id="check1"
               checked={useCheck}
               onChange={useBtnEvent}
               style={{margin:"2px 0 0 3px"}}
             />
-            <label for="check1">
+            <label>
               이용약관 동의{" "}
               <Text weight="medium">(필수)</Text>{" "}
             </label>

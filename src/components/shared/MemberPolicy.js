@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
 
-function MemberPolicy(props) {
+function MemberPolicy() {
   return (
     <>
       <Content is_column gap="0px">
@@ -128,10 +128,12 @@ function MemberPolicy(props) {
           <br /> 갑은 서비스의 게시물 또는 내용물이 제10조의 규정에 위반되는경우
           사전 통지나 동의 없이 이를 삭제할 수 있습니다.
           <br />
-          <br /> 제12조 (게시물에 대한 권리·의무) 게시물에 대한 저작권을 포함한
+          <br /> 제12조 (게시물에 대한 권리·의무)
+          <br />게시물에 대한 저작권을 포함한
           모든 권리 및 책임은 이를 게시한 회원에게 있습니다.
           <br />
-          <br /> 제13조 (양도금지) 회원이 서비스의 이용권한, 기타 이용계약상
+          <br /> 제13조 (양도금지)
+          <br /> 회원이 서비스의 이용권한, 기타 이용계약상
           지위를 타인에게 양도, 증여할 수 없으며, 이를 담보로 제공할 수
           없습니다.
           <br />

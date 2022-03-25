@@ -128,7 +128,7 @@ const Login = (props) => {
           <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
         </FlexGrid>
 
-        <Grid padding="30px 0px">
+        <Grid padding="20px 0px">
           <Signuptext>
             아직 회원이 아니신가요? 지금{" "}
             <span
@@ -142,6 +142,8 @@ const Login = (props) => {
             하세요
           </Signuptext>
         </Grid>
+
+        <Text onClick={() => history.push('/')} cursor="pointer">한번 둘러볼래요</Text>
       </FlexGrid>
     </>
   );

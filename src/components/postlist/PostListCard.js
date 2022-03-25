@@ -29,7 +29,7 @@ const PostListCard = (props) => {
   };
 
   useEffect(() => {
-    if (props.warnCnt >= 3) {
+    if (props.warnCnt >= 5) {
       setBlindState(true);
     }
   }, []);

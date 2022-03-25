@@ -11,6 +11,7 @@ import downButton from "../../image/chatRoom/downButton.svg";
 
 const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
+  console.log(client)
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 

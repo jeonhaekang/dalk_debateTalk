@@ -33,6 +33,7 @@ import Onboarding from "./Onboarding";
 import SearchCategory from "../pages/SearchCategory";
 import Alert from "./Alert";
 import SearchPost from "../pages/SearchPost";
+import ProjectMember from "../pages/ProjectMember";
 
 function App() {
   // 모바일 환경에서 100vh가 적용이 안될때가 있음, 오류 해결을 위한 함수
@@ -84,6 +85,7 @@ function App() {
       <Route path="/detail/:boardId" exact component={Detail} />
       <Route path="/more" exact component={More} />
       <Route path="/more/:category" exact component={Category} />
+      <Route path="/projectmembers" exact component={ProjectMember} />
       <Onboarding />
     </ConnectedRouter>
   );
