@@ -15,8 +15,6 @@ const SearchRoom = (props) => {
 
   const roomList = useSelector((props) => props.infinityScroll[keyword]);
 
-  console.log(roomList);
-
   useEffect(() => {
     dispatch(infinityAction.loadListDB(0, "searchRoom", keyword));
 
