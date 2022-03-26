@@ -15,7 +15,7 @@ const RankingBar = ({ topUser }) => {
               <Text size="subtitle1" weight="medium" width="100px">
                 {el.nickname}
               </Text>
-              <Text size="body3">EXP{el.ex}</Text>
+              <Text size="body3">EXP{el.ex.toLocaleString()}</Text>
               <Img src={userRank.img} rank={el.rank} />
             </Info>
             <Bar

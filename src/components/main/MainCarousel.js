@@ -42,7 +42,7 @@ const MainCarousel = (props) => {
       <Carousel {...style}>
         {imageList.map((el, i) => {
           return (
-            <a href={el.url} key={i}>
+            <a href={el.url} target="_blank" key={i}>
               <Image src={el.image} />
             </a>
           );
