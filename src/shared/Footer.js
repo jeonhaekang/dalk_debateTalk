@@ -27,7 +27,7 @@ const Footer = () => {
           />
         </svg>
 
-        <Text>채팅방</Text>
+        <Text>토론방</Text>
       </Icon>
 
       <Icon onClick={() => history.push("/postlist")}>

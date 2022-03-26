@@ -20,14 +20,14 @@ const Chat = (props) => {
   const myName = useSelector((state) => state.item.itemList.myName);
 
   const togleShow = (e) => {
-    if (userInfo.id !== user.id) setTogleState(!togleState);
+    if (userInfo.userId !== user.userId) setTogleState(!togleState);
     setTimeout(() => {
       setTogleState(false);
     }, 3000);
   };
 
   const reportUser = (e) => {
-    if (userInfo.id === user.id) {
+    if (userInfo.userId === user.userId) {
       return;
     }
     dispatch(
@@ -35,7 +35,7 @@ const Chat = (props) => {
         type: "confirm",
         message: "정말로 신고하시겠습니까?",
         action: () => {
-          dispatch(userAction.reportUserDB(userInfo.id, message));
+          dispatch(userAction.reportUserDB(userInfo.userId, message));
         },
       })
     );
@@ -78,7 +78,7 @@ const NickName = styled.div`
 `;
 
 const Report = styled.div`
-  background-color: pink;
+  background-color: #eeeeee;
   width: 70px;
 
   display: flex;

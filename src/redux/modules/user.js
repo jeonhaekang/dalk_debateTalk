@@ -6,8 +6,6 @@ import { instance } from "../../shared/apis";
 import { actionCreators as alertAction } from "./alert";
 import { useDispatch } from "react-redux";
 //Action
-// const LOGIN = 'LOGIN'
-const LOGOUT = "LOGOUT";
 const SETUSER = "SETUSER";
 const BUY_ITEM = "BUY_ITEM";
 const ITEM_USE = "ITEM_USE";
@@ -17,11 +15,9 @@ const SET_RANK_LIST = "SET_RANK_LIST";
 const LOTTO_COUNT = "LOTTO_COUNT";
 //Action Creator
 // const logIn = createAction(LOGIN, (user) => ({ user }));
-const logOut = createAction(LOGOUT, () => ({}));
 const setUser = createAction(SETUSER, (user) => ({ user }));
 const buyItem = createAction(BUY_ITEM, (item) => ({ item }));
 const ItemUse = createAction(ITEM_USE, (item) => ({ item }));
-const buyExp = createAction(BUY_EXP, (item) => ({ item }));
 const setPoint = createAction(SET_POINT, (point) => ({ point }));
 const setRankList = createAction(SET_RANK_LIST, (list) => ({ list }));
 const lottoCount = createAction(LOTTO_COUNT, () => ({}));
@@ -222,19 +218,9 @@ const reportUserDB = (userId, message) => {
 //Reducer
 export default handleActions(
   {
-    // [LOGIN]: (state, action) =>
-    // produce(state, (draft) => {
-    //         draft.user = action.payload.user
-    //     }),
     [LOTTO_COUNT]: (state, action) =>
       produce(state, (draft) => {
         draft.user.lottoCount -= 1;
-      }),
-    [LOGOUT]: (state, action) =>
-      produce(state, (draft) => {
-        deleteCookie("authorization");
-        draft.user = null;
-        window.location.replace("/login");
       }),
     [SETUSER]: (state, action) =>
       produce(state, (draft) => {
@@ -268,8 +254,6 @@ export default handleActions(
 
 //Export Action Creator
 const actionCreators = {
-  // logIn,
-  logOut,
   signUpDB,
   logInDB,
   logincheckDB,
