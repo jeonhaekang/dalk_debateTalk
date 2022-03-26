@@ -15,8 +15,8 @@ import ContentContainer from "../../elements/Container";
 
 const MyGrade = () => {
   const user = useSelector((state) => state.user.user);
-  const userRank = rank[discriminant(user?.ex)];
-
+  const userRank = rank[discriminant(user?.ex, user?.rank)];
+  console.log(userRank, user);
   const nowExp = user?.ex;
   const nextScore = () => {
     if (nowExp < 5000) {
@@ -49,13 +49,15 @@ const MyGrade = () => {
             나의 등급은 <br />
             <span className="GradeColor">{userRank.name}</span> 입니다
           </IsMyGrade>
-          <NextGrade>
-            다음 등급까지{" "}
-            <span className="RP">
-              {announceScore.toLocaleString("ko-KR")} EXP
-            </span>{" "}
-            남았습니다
-          </NextGrade>
+          {!user.rank && (
+            <NextGrade>
+              다음 등급까지
+              <span className="RP">
+                {announceScore.toLocaleString("ko-KR")} EXP
+              </span>
+              남았습니다
+            </NextGrade>
+          )}
         </FlexGrid>
 
         <FlexGrid

@@ -6,7 +6,6 @@ import { actionCreators as alertAction } from "../../redux/modules/alert";
 import apis from "../../shared/apis";
 
 import FlexGrid from "../../elements/FlexGrid";
-import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
 
@@ -27,7 +26,7 @@ const MyEggPoint = () => {
         const dict = res.data.reduce((acc, el) => {
           const date = el.createdAt.split(" ")[0];
 
-          acc[date] = acc[date] ? [...acc[date], el] : [];
+          acc[date] = acc[date] ? [...acc[date], el] : [el];
           return acc;
         }, {});
 
@@ -77,9 +76,9 @@ const MyEggPoint = () => {
               return (
                 <FlexGrid is_column key={idx} gap="20px">
                   <Text size="body2">{el}</Text>
-                  {value.map((el) => {
+                  {value.map((el, i) => {
                     return (
-                      <FlexGrid between>
+                      <FlexGrid between key={el.createdAt + i}>
                         <Text size="subtitle1" weight="medium" color="black">
                           {el.content}
                         </Text>

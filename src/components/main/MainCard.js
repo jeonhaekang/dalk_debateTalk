@@ -40,7 +40,7 @@ const MainCard = (props) => {
         </FlexGrid>
 
         <FlexGrid center justifyContent="flex-end" gap="4px">
-          <Badge src={userRank.img}></Badge>
+          <Badge src={userRank.img} />
           {props.userInfo.nickname}
         </FlexGrid>
       </FlexGrid>

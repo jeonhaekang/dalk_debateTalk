@@ -142,11 +142,10 @@ const MyGradeLevel = styled.div`
 `;
 
 const Me = styled.div`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   padding: 14px 16px;
   width: 100%;
-  max-width: 420px;
   height: 84px;
   background-color: #f0f0f0;
 `;

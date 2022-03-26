@@ -18,12 +18,16 @@ const SearchRoom = ({ state, setState }) => {
   }, [keywords]);
 
   const searchEnter = (e) => {
-    if (e.key === "Enter" && keyword) {
+    if (e.key === "Enter") {
       search();
     }
   };
 
   const search = () => {
+    if (!keyword) {
+      return;
+    }
+
     const data = {
       id: Date.now(),
       keyword: keyword,

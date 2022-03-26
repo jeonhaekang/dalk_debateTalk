@@ -3,17 +3,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
 import TestLogo from "../../image/testlogo.jpeg";
-import Modal from "../shared/Modal";
 import apis from "../../shared/apis";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { useDispatch } from "react-redux";
+import { history } from "../../redux/configStore";
+import { Link } from "react-router-dom";
 
 const MainCarousel = (props) => {
   const dispatch = useDispatch();
-  const [imageList, setImageList] = useState([TestLogo, TestLogo, TestLogo]);
-  const [noticeModalState, setNoticeModalState] = React.useState(false);
-
-  console.log(imageList)
+  const [imageList, setImageList] = useState([]);
 
   const style = {
     showArrows: true, // 화살표 표시
@@ -44,19 +42,12 @@ const MainCarousel = (props) => {
       <Carousel {...style}>
         {imageList.map((el, i) => {
           return (
-            <Image
-              src={el.image}
-              key={i}
-              onClick={() => setNoticeModalState(true)}
-            />
+            <a href={el.url} key={i}>
+              <Image src={el.image} />
+            </a>
           );
         })}
       </Carousel>
-
-      <Modal
-        modalState={noticeModalState}
-        setModalState={setNoticeModalState}
-      ></Modal>
     </>
   );
 };
