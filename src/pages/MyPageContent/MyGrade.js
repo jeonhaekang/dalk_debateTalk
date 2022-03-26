@@ -61,15 +61,15 @@ const MyGrade = () => {
             )}
           </FlexGrid>
 
-          <FlexGrid
-            is_column
-            gap="8px"
-            borderTop="16px solid #F1F1F1"
-            padding="24px"
-          >
-            <Text size="headline2" weight="medium">
-              알포인트 등급
-            </Text>
+        <FlexGrid
+          is_column
+          gap="8px"
+          borderTop="16px solid #F1F1F1"
+          padding="20px"
+        >
+          <Text size="headline2" weight="medium">
+            알포인트 등급
+          </Text>
 
             <FlexGrid is_column gap="4px">
               {RankInfo.map((el, i) => {
@@ -100,12 +100,6 @@ const MyGrade = () => {
     </>
   );
 };
-
-const MyGradeWrap = styled.div`
-  height: 100%;
-  overflow: scroll;
-  background-color: #fff;
-`;
 
 const Radius = styled(FlexGrid)`
   border: none;
@@ -139,7 +133,6 @@ const RankList = styled(FlexGrid)`
   justify-content: space-between;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
   align-items: center;
-  margin-left: 10px;
   .LevelBox {
     background-color: #faa94c;
     font-size: 12px;

@@ -7,7 +7,6 @@ import apis from "../../shared/apis";
 
 import Grid from "../../elements/Grid";
 import NewHeader from "../../shared/NewHeader";
-import ContentContainer from "../../elements/Container";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import RankingBar from "../../components/mypage/RankingBar";
