@@ -45,7 +45,7 @@ const UserRanking = () => {
   return (
     <>
       <NewHeader page="유저랭킹" />
-      <ContentContainer Xfooter>
+      <RankingWrap>
         {/* 랭킹바 부분 */}
         {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
 
@@ -95,7 +95,7 @@ const UserRanking = () => {
             </div>
           </MyGradeLevel>
         </Me>
-      </ContentContainer>
+      </RankingWrap>
     </>
   );
 };
@@ -104,6 +104,13 @@ const ListWrap = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const RankingWrap = styled.div`
+  height: calc(100% - 90px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: white;
+`
 
 const GradeLevel = styled.div`
   display: flex;
@@ -127,7 +134,7 @@ const RankingBox = styled.div`
 `;
 
 const LevelImgList = styled.img`
-  width: 23px;
+  width: 30px;
   margin-right: 10px;
 `;
 

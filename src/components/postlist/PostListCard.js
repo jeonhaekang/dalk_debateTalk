@@ -7,6 +7,7 @@ import Chip from "../../elements/Chip";
 import Badge from "../../elements/Badge";
 import Grid from "../../elements/Grid";
 import Image from "../../elements/Image";
+import noImage from "../../image/shared/noImage.png";
 
 import Blind from "../shared/Blind";
 import { rank, discriminant } from "../../data/rank";
@@ -63,7 +64,7 @@ const PostListCard = (props) => {
 
         <FlexGrid is_flex between center>
           <FlexGrid width="200px">
-            <Image src={props.filePath} borderRadius="15px" />
+            <Image src={props.filePath ? props.filePath : noImage} borderRadius="15px" />
           </FlexGrid>
 
           <FlexGrid
