@@ -102,7 +102,7 @@ const ModalLayout = styled.div`
   height: 100%;
   background: rgba(238, 238, 238, 0.8);
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
-  z-index: 1;
+  z-index: 10;
   overflow: hidden;
 `;
 
