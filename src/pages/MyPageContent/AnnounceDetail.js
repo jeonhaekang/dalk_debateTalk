@@ -25,23 +25,29 @@ function AnnounceDetail(props) {
       .catch((err) => {
         dispatch(
           alertAction.open({
-            message: "배너목록 가져오기 실패",
+            message: "공지사항 상세가져오기 실패",
           })
         );
       });
   };
 
   return (
-    <>
+    <AnnouncementDetailWrap>
       <NewHeader page="공지사항" />
       <Wrap>
         <Title>{detailNotice.title}</Title>
         <CreatedAt>{createdAt}</CreatedAt>
       </Wrap>
       <Content>{detailNotice.content}</Content>
-    </>
+    </AnnouncementDetailWrap>
   );
 }
+
+const AnnouncementDetailWrap = styled.div`
+  height: 100%;
+  background-color: #fff;
+  overflow: scroll;
+`
 
 const Wrap = styled.div`
   border-bottom: 1px solid #ccc;
