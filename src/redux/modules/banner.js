@@ -37,15 +37,22 @@ const getBannerDB = () => {
   };
 };
 
-const addBannerDB = (image) => {
+const addBannerDB = (image, url) => {
   //배너 추가하기
   return function (dispatch, getState, { history }) {
-    apis.addBanner(image)
+    const data = new FormData();
+    data.append("image", image);
+    data.append("url", new Blob([JSON.stringify(url)],{type:"application/json"}))
+    console.log(image, url)
+
+    apis.addBanner(data)
         .then((res) => {
-          dispatch(addBanner(image))
-          dispatch(getBannerDB())
+          console.log(res)
+          // dispatch(addBanner(data))
+          // dispatch(getBannerDB())
         })
         .catch((err) => {
+          console.log(err.response)
           dispatch(
             alertAction.open({
               message: "배너 추가 실패",
