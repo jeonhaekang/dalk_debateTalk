@@ -211,7 +211,8 @@ const TextBox = styled(FlexGrid)`
 `;
 
 const CreateButton = styled(FlexGrid)`
-  position: absolute;
+  position: fixed;
+  max-width: 430px;
   bottom: 0;
   height: 76px;
 
