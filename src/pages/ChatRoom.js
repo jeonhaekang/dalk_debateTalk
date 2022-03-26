@@ -50,34 +50,27 @@ const ChatRoom = (props) => {
 
   return (
     <>
-      <FlexGrid is_column height="100%" gap="0">
-        <NewHeader page="토론방" users={userList.length} meatball>
-          <FlexGrid _onClick={reportRoom}>
-            <svg width="28" height="28" viewBox="0 0 28 28">
-              <path
-                d="M21.5 19.8621V12.9656C21.5 8.73109 19.45 5.18628 15.875 4.24835C15.875 4.24835 15.0375 4 14 4C12.9625 4 12.125 4.24824 12.125 4.24824C8.5375 5.18617 6.5 8.7173 6.5 12.9656V19.8621H4V24H24V19.8621H21.5ZM15.25 19.8621H12.75V17.1035H15.25V19.8621ZM15.25 14.3449H12.75V8.82764H15.25V14.3449Z"
-                fill="#FF6969"
-              />
-            </svg>
-            <Text marginBottom="3px" color="alert">
-              신고하기
-            </Text>
-          </FlexGrid>
-        </NewHeader>
+      <NewHeader page="토론방" users={userList.length} meatball>
+        <FlexGrid _onClick={reportRoom}>
+          <svg width="28" height="28" viewBox="0 0 28 28">
+            <path
+              d="M21.5 19.8621V12.9656C21.5 8.73109 19.45 5.18628 15.875 4.24835C15.875 4.24835 15.0375 4 14 4C12.9625 4 12.125 4.24824 12.125 4.24824C8.5375 5.18617 6.5 8.7173 6.5 12.9656V19.8621H4V24H24V19.8621H21.5ZM15.25 19.8621H12.75V17.1035H15.25V19.8621ZM15.25 14.3449H12.75V8.82764H15.25V14.3449Z"
+              fill="#FF6969"
+            />
+          </svg>
+          <Text marginBottom="3px" color="alert">
+            신고하기
+          </Text>
+        </FlexGrid>
+      </NewHeader>
 
-        {roomInfo && (
-          <ContentContainer
-            Xfooter
-            display="flex"
-            flexDirection="column"
-            height="100%"
-          >
-            <ChatHeader {...roomInfo} />
-            <ChatBox {...data} />
-            <ChatInput {...data} />
-          </ContentContainer>
-        )}
-      </FlexGrid>
+      {roomInfo && (
+        <>
+          <ChatHeader {...roomInfo} />
+          <ChatBox {...data} />
+          <ChatInput {...data} />
+        </>
+      )}
     </>
   );
 };

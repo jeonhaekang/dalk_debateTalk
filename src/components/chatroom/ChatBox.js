@@ -31,7 +31,6 @@ const ChatBox = ({ roomId, headers, client }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   const EnterMessage = () => {
-
     setTimeout(() => {
       if (client.subscriptions["sub-0"]) {
         client.send(
@@ -159,14 +158,13 @@ const EndScroll = styled.img`
 `;
 
 const ShowChat = styled.div`
-  position: relative;
   flex-grow: 1;
   overflow: scroll;
 
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 10px;
+  padding: 0 10px;
   /* 스크롤바 표시 */
   &::-webkit-scrollbar {
     display: block;

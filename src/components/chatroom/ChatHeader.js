@@ -30,9 +30,9 @@ const ChatHeader = (props) => {
   };
   console.log(props);
   return (
-    <div>
+    <>
       {roomInfo && (
-        <>
+        <Wrap>
           <GaugeTimer {...roomInfo} page="chatRoom" />
           <FlexGrid height="60px" padding="16px">
             <Center>
@@ -115,16 +115,23 @@ const ChatHeader = (props) => {
               )}
             </DefaultTopic>
           </InfoWrap>
-        </>
+        </Wrap>
       )}
       {modalState && (
         <Modal modalState={modalState} setModalState={setModalState}>
           <Vote {...data} setModalState={setModalState} />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
+const Wrap = styled.div`
+  position: sticky;
+  width: 100%;
+  top: 70px;
+  z-index: 1;
+  background-color: white;
+`;
 
 const Open = styled.div`
   transform: ${(props) => props.state && "rotate(180deg)"};

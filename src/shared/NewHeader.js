@@ -123,10 +123,7 @@ const HeaderContainer = styled.div`
   background-color: white;
   padding: 16px;
 
-  position: relative;
-  display: flex;
-  align-items: center;
-
+  z-index: 5;
   border-bottom: ${(props) => props.line && "1px solid #c4c4c4"};
 `;
 

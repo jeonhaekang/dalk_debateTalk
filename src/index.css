@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
+  height: calc(var(--vh) * 100);
 
   background-color: #f6f6f6;
   background-image: url(./image/shared/background.jpg);
@@ -14,11 +14,12 @@
 
 .wrap {
   width: 100%;
-  max-width: 420px;
-  height: calc(var(--vh) * 100);
+  max-width: 430px;
+  height: 100%;
+  background-color: white;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 @media screen and (min-width: 1024px) {
