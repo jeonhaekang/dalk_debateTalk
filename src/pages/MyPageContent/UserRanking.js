@@ -105,7 +105,7 @@ const ListWrap = styled.div`
 `;
 
 const RankingWrap = styled.div`
-  height: calc(100% - 90px);
+  height: calc(100% - 154px);
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
