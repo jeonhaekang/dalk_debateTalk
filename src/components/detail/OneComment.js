@@ -76,7 +76,7 @@ const OneComment = (props) => {
       );
       history.replace("/login");
     }
-    if (isWarn === false) {
+    else if (isWarn === false) {
       await apis
         .warningComment(commentId)
         .then((res) => {

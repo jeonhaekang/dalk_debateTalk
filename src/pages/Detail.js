@@ -89,7 +89,7 @@ const Detail = (props) => {
       );
       history.replace("/login");
     }
-    if (isWarn === false) {
+    else if (isWarn === false) {
       await apis
         .warningDebate(boardId)
         .then((res) => {

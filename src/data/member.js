@@ -4,7 +4,7 @@ import jihoon from "../image/member/jihoon.jpg";
 import haekang from "../image/member/haekang.jpg";
 import dongseok from "../image/member/dongseok.png";
 import dahye from '../image/member/dahye.png'
-// import gyuri from '../image/member/gyuri.png'
+import gyuri from '../image/member/gyuri.png'
 
 export const MemberInfo = [
   {
@@ -63,11 +63,11 @@ export const MemberInfo = [
   },
   {
     name: "이규리",
-    // img: gyuri,
+    img: gyuri,
     position: "Designer",
-    email: "",
+    email: "jjlee0901899@gmail.com",
     github: null,
     blog: null,
-    content: "",
+    content: "덕킹 많이 사랑해주세요🐣",
   },
 ];
