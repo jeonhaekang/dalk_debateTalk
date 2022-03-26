@@ -13,6 +13,8 @@ const MainCarousel = (props) => {
   const [imageList, setImageList] = useState([TestLogo, TestLogo, TestLogo]);
   const [noticeModalState, setNoticeModalState] = React.useState(false);
 
+  console.log(imageList)
+
   const style = {
     showArrows: true, // 화살표 표시
     showThumbs: false,
