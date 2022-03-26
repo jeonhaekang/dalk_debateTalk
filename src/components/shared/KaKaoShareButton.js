@@ -29,9 +29,9 @@ const KakaoShareButton = (props) => {
         container: "#kakao-link-btn",
         objectType: "feed",
         content: {
-          title: "Debate Talk, Dalk",
-          description: "자유롭게 이야기할 수 있는 우리의 토론공간",
-          imageUrl: "https://ifh.cc/v-wwKdPV",
+          title: "Debate Talk, DALK",
+          description: "깻잎논쟁, 이제는 종결내자! 밸런스게임 토론 플랫폼, DALKING 입니다",
+          imageUrl: "https://ibb.co/M6M1vyz",
           link: {
             mobileWebUrl: debateTalkUrl,
             webUrl: debateTalkUrl,

@@ -25,7 +25,7 @@ const Login = (props) => {
         })
       );
     }
-  },[]);
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -89,7 +89,7 @@ const Login = (props) => {
             LET'S DALKING
           </Text>
         </FlexGrid>
-        {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
+
         <FlexGrid is_column gap="20px">
           <FlexGrid is_column gap="8px">
             <LoginInput
@@ -121,16 +121,12 @@ const Login = (props) => {
         </FlexGrid>
 
         <Grid padding="20px 0px">
-          <Signuptext>
-            아직 회원이 아니신가요? 지금{" "}
-            <span
-              className="gosignup"
-              onClick={() => {
-                history.push("/signup");
-              }}
-            >
-              가입
-            </span>
+          <Signuptext
+            onClick={() => {
+              history.push("/signup");
+            }}
+          >
+            아직 회원이 아니신가요? 지금 <span className="gosignup">가입</span>
             하세요
           </Signuptext>
         </Grid>
@@ -142,10 +138,6 @@ const Login = (props) => {
     </>
   );
 };
-
-const LogoImage = styled.img`
-  width: 196px;
-`;
 
 const LoginInput = styled.input`
   width: 100%;
@@ -159,11 +151,6 @@ const LoginInput = styled.input`
     font-size: 16px;
     font-weight: ${(props) => props.theme.fontWeight.light};
   }
-`;
-const Validation = styled.p`
-  margin-left: 10px;
-  font-size: 10px;
-  color: #ff5454;
 `;
 
 const LoginBtn = styled.button`
@@ -182,9 +169,9 @@ const Signuptext = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   text-decoration: underline;
+  cursor: pointer;
   .gosignup {
     color: ${(props) => props.theme.color.orange};
-    cursor: pointer;
   }
 `;
 
