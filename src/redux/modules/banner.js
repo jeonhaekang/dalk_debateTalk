@@ -48,8 +48,8 @@ const addBannerDB = (image, url) => {
     apis.addBanner(data)
         .then((res) => {
           console.log(res)
-          // dispatch(addBanner(data))
-          // dispatch(getBannerDB())
+          dispatch(addBanner(data))
+          dispatch(getBannerDB())
         })
         .catch((err) => {
           console.log(err.response)
