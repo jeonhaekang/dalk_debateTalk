@@ -158,7 +158,7 @@ const Detail = (props) => {
         <DebateWrap>
           {winnerRate !== loserRate ? (
             // 무승부가 아닌 승리, 패배 결과가 나왔을 때
-            <>
+            <FlexGrid gap="0">
               <DebateBox win={true} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
@@ -195,8 +195,7 @@ const Detail = (props) => {
                 </DetailBox>
 
                 <GrapGauge which={true} rate={winnerRate} />
-              </DebateBox>
-              <Versus center>VS</Versus>
+              </DebateBox>            
               <DebateBox win={false} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogo} alt="detaillogo" />
@@ -226,7 +225,8 @@ const Detail = (props) => {
 
                 <GrapGauge which={false} rate={loserRate} />
               </DebateBox>
-            </>
+              <Versus center>VS</Versus>
+            </FlexGrid>
           ) : (
             // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
             <FlexGrid gap="0">
@@ -304,7 +304,7 @@ const Detail = (props) => {
 
                 <GrapGauge which={false} rate={loserRate} />
               </DebateBox>
-              <Versus>VS</Versus>
+              <Versus center>VS</Versus>
             </FlexGrid>
           )}
         </DebateWrap>
@@ -333,6 +333,7 @@ const DebateWrap = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
+  background-color: #fff;
 `;
 
 const Versus = styled.div`
