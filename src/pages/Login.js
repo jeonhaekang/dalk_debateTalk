@@ -11,17 +11,27 @@ import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 import FlexGrid from "../elements/FlexGrid";
+import { getCookie } from "../shared/Cookie";
 
 const Login = (props) => {
+  React.useEffect(() => {
+    const token = getCookie("authorization");
+
+    if (token) {
+      dispatch(
+        alertAction.open({
+          message: "비정상적인 접근입니다.",
+          history: () => history.replace("/"),
+        })
+      );
+    }
+  });
+
   const dispatch = useDispatch();
 
   // 유저ID, PW 상태관리
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  // 유효성검사
-  const [isUsername, setIsUsername] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
 
   //로그인 onchange
   const onChangeUsername = (e) => {

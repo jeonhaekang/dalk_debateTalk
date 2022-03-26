@@ -13,8 +13,21 @@ import check from "../image/login/check.svg";
 
 import Modal from "../components/shared/Modal";
 import MemberPolicy from "../components/shared/MemberPolicy";
+import { getCookie } from "../shared/Cookie";
 
 const Signup = (props) => {
+  React.useEffect(() => {
+    const token = getCookie("authorization");
+
+    if (token) {
+      dispatch(
+        alertAction.open({
+          message: "비정상적인 접근입니다.",
+          history: () => history.replace("/"),
+        })
+      );
+    }
+  });
   const dispatch = useDispatch();
   //약관 체크
   const [useCheck, setUseCheck] = useState(false);
@@ -217,17 +230,18 @@ const Signup = (props) => {
               type="checkbox"
               checked={useCheck}
               onChange={useBtnEvent}
-              style={{margin:"2px 0 0 3px"}}
+              style={{ margin: "2px 0 0 3px" }}
             />
             <label>
-              이용약관 동의{" "}
-              <Text weight="medium">(필수)</Text>{" "}
+              이용약관 동의 <Text weight="medium">(필수)</Text>{" "}
             </label>
-              <Text 
-              color="orange" 
+            <Text
+              color="orange"
               onClick={() => setCreateModalState(true)}
               cursor="pointer"
-              >약관보기</Text>
+            >
+              약관보기
+            </Text>
           </FlexGrid>
 
           <Text>

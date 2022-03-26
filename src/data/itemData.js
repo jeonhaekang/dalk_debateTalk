@@ -4,6 +4,12 @@ import myNameIMG from "../image/itemImage/myName.svg";
 import exBuyIMG from "../image/itemImage/exBuy.svg";
 import reverseIMG from "../image/itemImage/reverse.svg";
 import papagoIMG from "../image/itemImage/papago.svg";
+import previewBigFont from "../image/itemImage/previewBigFont.svg";
+import previewExBuy from "../image/itemImage/previewExBuy.svg";
+import previewMyName from "../image/itemImage/previewMyName.svg";
+import previewOnlyMe from "../image/itemImage/previewOnlyMe.svg";
+import previewPapago from "../image/itemImage/previewPapago.svg";
+import previewReverse from "../image/itemImage/previewReverse.svg";
 
 const itemData = [
   {
@@ -14,6 +20,7 @@ const itemData = [
     itemCode: "onlyMe",
     price: 1000,
     content: "나만 말하는 아이템 입니다. 진짜 나만 말해요.",
+    preview: previewOnlyMe,
   },
   {
     img: bigFontIMG,
@@ -23,6 +30,7 @@ const itemData = [
     itemCode: "bigFont",
     price: 1000,
     content: "다른 의견은 작아보이게 내 채팅이 커져요.",
+    preview: previewBigFont,
   },
   {
     img: myNameIMG,
@@ -32,6 +40,7 @@ const itemData = [
     itemCode: "myName",
     price: 1000,
     content: "누가 누군지? 모두 내 이름으로 바뀌어요.",
+    preview: previewMyName,
   },
   {
     img: papagoIMG,
@@ -41,6 +50,7 @@ const itemData = [
     itemCode: "papago",
     price: 2000,
     content: "상대방이 외국어로 말해요.",
+    preview: previewPapago,
   },
   {
     img: reverseIMG,
@@ -50,6 +60,7 @@ const itemData = [
     itemCode: "reverse",
     price: 1500,
     content: "상대방이 거꾸로 말해요.",
+    preview: previewReverse,
   },
   {
     img: exBuyIMG,
@@ -59,6 +70,7 @@ const itemData = [
     itemCode: "exBuy",
     price: 500,
     content: "경험치를 구매해서 배지모양 바꿔봐요.",
+    preview: previewExBuy,
   },
 ];
 

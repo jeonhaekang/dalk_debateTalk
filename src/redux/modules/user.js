@@ -118,7 +118,7 @@ const logInDB = (username, password) => {
       .catch((err) => {
         dispatch(
           alertAction.open({
-            message: "로그인 실패",
+            message: "아이디나 비밀번호가 틀렸습니다.",
           })
         );
       });
