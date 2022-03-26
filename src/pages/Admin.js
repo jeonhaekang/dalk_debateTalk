@@ -33,7 +33,7 @@ const Admin = () => {
   };
 
   const handleAddBanner = () => {
-    dispatch(bannerActions.addBannerDB(selectedFile, url));
+    dispatch(bannerActions.addBannerDB(selectedFile, {url : url}));
   };
 
   const handleDelBanner = (carouselId) => {

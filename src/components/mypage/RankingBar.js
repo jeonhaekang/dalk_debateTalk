@@ -12,7 +12,7 @@ const RankingBar = ({ topUser }) => {
         return (
           <Frame is_column center key={el.rank}>
             <Info is_column center>
-              <Text size="subtitle1" weight="medium" width="70px">
+              <Text size="subtitle1" weight="medium" width="100px">
                 {el.nickname}
               </Text>
               <Text size="body3">EXP{el.ex}</Text>

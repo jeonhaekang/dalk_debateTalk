@@ -56,7 +56,7 @@ export const MemberInfo = [
     name: "박다혜",
     img: dahye,
     position: "Designer",
-    email: "",
+    email: "doohwaji@naver.com",
     github: null,
     blog: null,
     content: "덕킹 디자이너 입니다🐤",
