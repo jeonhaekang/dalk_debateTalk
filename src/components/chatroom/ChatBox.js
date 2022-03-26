@@ -168,7 +168,7 @@ const ShowChat = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 0 10px;
+  padding: 10px 10px;
   /* 스크롤바 표시 */
   &::-webkit-scrollbar {
     display: block;
