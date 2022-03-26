@@ -15,6 +15,7 @@ import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import Grid from "../../elements/Grid";
+import { getCookie } from "../../shared/Cookie";
 
 const OneComment = (props) => {
   //댓글 유저 뱃지

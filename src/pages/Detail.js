@@ -25,7 +25,7 @@ import eggFill from "../image/detailElement/egg_fill.svg";
 import personFill from "../image/detailElement/person_fill.svg";
 import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
 import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
-import Center from "../elements/Center";
+import { getCookie } from "../shared/Cookie";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
