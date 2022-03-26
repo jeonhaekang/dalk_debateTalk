@@ -84,7 +84,7 @@ const MyEggPoint = () => {
                           {el.content}
                         </Text>
                         <Text size="subtitle1" weight="medium" color="orange">
-                          {el.changePoint}
+                          {el.changePoint.toLocaleString("ko-KR")}
                         </Text>
                       </FlexGrid>
                     );

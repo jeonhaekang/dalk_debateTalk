@@ -77,15 +77,15 @@ const PointShop = () => {
             </FlexGrid>
 
             <FlexGrid is_column padding="0 24px">
-              <ItemInfo>
-                <FlexGrid center>{item.name}</FlexGrid>
+              <ItemInfo center>
+                <Text>{item.name}</Text>
                 <Text color="white">|</Text>
-                <FlexGrid center gap="3px">
+                <Text center gap="3px">
                   <Text weight="medium" color="orange">
-                    {item.price}
+                    {item.price.toLocaleString("ko-KR")}
                   </Text>
                   RP
-                </FlexGrid>
+                </Text>
               </ItemInfo>
 
               {/* 프리뷰 부분 */}

@@ -14,6 +14,7 @@ const ITEM_USE = "ITEM_USE";
 const BUY_EXP = "BUY_EXP";
 const SET_POINT = "SET_POINT";
 const SET_RANK_LIST = "SET_RANK_LIST";
+const LOTTO_COUNT = "LOTTO_COUNT";
 //Action Creator
 // const logIn = createAction(LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, () => ({}));
@@ -23,6 +24,7 @@ const ItemUse = createAction(ITEM_USE, (item) => ({ item }));
 const buyExp = createAction(BUY_EXP, (item) => ({ item }));
 const setPoint = createAction(SET_POINT, (point) => ({ point }));
 const setRankList = createAction(SET_RANK_LIST, (list) => ({ list }));
+const lottoCount = createAction(LOTTO_COUNT, () => ({}));
 
 //initialState
 const initialState = {
@@ -81,9 +83,11 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
           });
       })
       .catch((err) => {
-        dispatch(alertAction.open({
-          message: "아이디 또는 닉네임이 중복입니다."
-        }));
+        dispatch(
+          alertAction.open({
+            message: "아이디 또는 닉네임이 중복입니다.",
+          })
+        );
       });
   };
 };
@@ -131,9 +135,11 @@ const logincheckDB = () => {
         dispatch(setUser(res.data));
       })
       .catch((err) => {
-        dispatch(alertAction.open({
-          message: '다시 로그인 해주세요!'
-        }));
+        dispatch(
+          alertAction.open({
+            message: "다시 로그인 해주세요!",
+          })
+        );
         history.push("/login");
       });
   };
@@ -217,10 +223,14 @@ export default handleActions(
     // produce(state, (draft) => {
     //         draft.user = action.payload.user
     //     }),
+    [LOTTO_COUNT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.lottoCount -= 1;
+      }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("authorization");
-        draft.user = "";
+        draft.user = null;
         window.location.replace("/login");
       }),
     [SETUSER]: (state, action) =>
@@ -265,6 +275,7 @@ const actionCreators = {
   setPoint,
   setRankListDB,
   reportUserDB,
+  lottoCount,
 };
 
 export { actionCreators };
