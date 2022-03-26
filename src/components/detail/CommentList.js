@@ -41,7 +41,7 @@ const CommentList = ({ debate }) => {
 
   return (
     <>
-      {commentList.map((c, idx) => {
+     {commentList.map((c, idx) => {
         return <OneComment index={idx} {...c} key={idx} boardId={boardId} />
       })}
 
