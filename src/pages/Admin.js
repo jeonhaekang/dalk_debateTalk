@@ -33,8 +33,6 @@ const Admin = () => {
   };
 
   const handleAddBanner = () => {
-    // const image = new FormData();
-    // image.append("image", selectedFile);
     dispatch(bannerActions.addBannerDB(selectedFile, url));
   };
 
