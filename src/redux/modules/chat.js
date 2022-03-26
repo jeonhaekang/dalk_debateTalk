@@ -122,7 +122,7 @@ const createRoomDB = (data) => {
       "debate",
       new Blob([JSON.stringify(data)], { type: "application/json" })
     );
-
+    console.log(formdata);
     apis
       .createRoom(formdata)
       .then((res) => {

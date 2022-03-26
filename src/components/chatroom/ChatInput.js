@@ -86,7 +86,7 @@ const ChatInput = (props) => {
     client.send("/pub/chat/message", headers, JSON.stringify(data));
   };
   return (
-    <div>
+    <Wrap>
       <InputWrap>
         <FlexGrid center width="28px">
           <svg height="28" onClick={() => setState(!state)}>
@@ -130,9 +130,15 @@ const ChatInput = (props) => {
           />
         </XScrollDrag>
       </ItemWrap>
-    </div>
+    </Wrap>
   );
 };
+const Wrap = styled.div`
+  position: sticky;
+  bottom: 0;
+  max-width: 430px;
+`;
+
 const ItemCount = styled.div`
   position: absolute;
   top: 5px;
@@ -182,8 +188,11 @@ const MessageInput = styled.input`
 `;
 const InputWrap = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  height: 60px;
+  padding: 0px 16px;
   background-color: #f3f3f3;
   width: 100%;
 `;

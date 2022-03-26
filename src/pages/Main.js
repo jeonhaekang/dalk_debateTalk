@@ -38,63 +38,61 @@ const Main = (props) => {
     <>
       <NewHeader page="메인" />
 
-      <ContentContainer backgroundColor="#fbfbfb">
-        <FlexGrid is_column>
-          {/* 캐러셀 */}
-          <MainCarousel />
-          {/* 1,2,3등 */}
-          <TopRank />
+      <ContentContainer>
+        {/* 캐러셀 */}
+        <MainCarousel />
+        {/* 1,2,3등 */}
+        <TopRank />
 
-          {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
-          <FlexGrid is_column padding="24px" gap="22px">
-            <FlexGrid paddingBottom="58px" between alignItems="flex-start">
-              <Text size="headline1" weight="medium" lineHeight="38px">
-                실시간 HOT한
-                <br /> 토론에 참여해보세요!
-              </Text>
-              <img alt="reset" onClick={refresh} src={reset} />
-            </FlexGrid>
-
-            {roomList.length !== 0 ? (
-              <FlexGrid is_column gap="24px">
-                <FireDalk src={fireDalk} />
-                {roomList.map((el, i) => {
-                  if (i < 3)
-                    return <MainCard key={el.roomId} {...el} page="main" />;
-                })}
-
-                {/* 추천 카테고리 */}
-                <CategoryTap is_column>
-                  <FlexGrid is_column padding="0 24px">
-                    <Text size="body1">일상토론 찾아보기</Text>
-                    <Text size="headline2" weight="medium">
-                      다양한 주제로 토론에 참여해보세요!
-                    </Text>
-                  </FlexGrid>
-                  <XScrollDrag gap="16px" padding="0 24px">
-                    <MainCategoryCard />
-                  </XScrollDrag>
-                </CategoryTap>
-
-                {roomList.map((el, i) => {
-                  if (i >= 3) return <MainCard key={i} {...el} page="main" />;
-                })}
-                {/* 더보기 버튼 */}
-                <MoreButton onClick={() => history.push("/more")}>
-                  더 많은 토론보기 &gt;
-                </MoreButton>
-              </FlexGrid>
-            ) : (
-              <FlexGrid center is_column textAlign="center">
-                <img alt="empty" src={empty} />
-                <Text>
-                  아직 방이 없어요
-                  <br />
-                  방을 생성해주세요!
-                </Text>
-              </FlexGrid>
-            )}
+        {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
+        <FlexGrid is_column padding="24px" gap="22px">
+          <FlexGrid paddingBottom="58px" between alignItems="flex-start">
+            <Text size="headline1" weight="medium" lineHeight="38px">
+              실시간 HOT한
+              <br /> 토론에 참여해보세요!
+            </Text>
+            <img alt="reset" onClick={refresh} src={reset} />
           </FlexGrid>
+
+          {roomList.length !== 0 ? (
+            <FlexGrid is_column gap="24px">
+              <FireDalk src={fireDalk} />
+              {roomList.map((el, i) => {
+                if (i < 3)
+                  return <MainCard key={el.roomId} {...el} page="main" />;
+              })}
+
+              {/* 추천 카테고리 */}
+              <CategoryTap is_column>
+                <FlexGrid is_column padding="0 24px">
+                  <Text size="body1">일상토론 찾아보기</Text>
+                  <Text size="headline2" weight="medium">
+                    다양한 주제로 토론에 참여해보세요!
+                  </Text>
+                </FlexGrid>
+                <XScrollDrag gap="16px" padding="0 24px">
+                  <MainCategoryCard />
+                </XScrollDrag>
+              </CategoryTap>
+
+              {roomList.map((el, i) => {
+                if (i >= 3) return <MainCard key={i} {...el} page="main" />;
+              })}
+              {/* 더보기 버튼 */}
+              <MoreButton onClick={() => history.push("/more")}>
+                더 많은 토론보기 &gt;
+              </MoreButton>
+            </FlexGrid>
+          ) : (
+            <FlexGrid center is_column textAlign="center">
+              <img alt="empty" src={empty} />
+              <Text>
+                아직 방이 없어요
+                <br />
+                방을 생성해주세요!
+              </Text>
+            </FlexGrid>
+          )}
         </FlexGrid>
       </ContentContainer>
 
