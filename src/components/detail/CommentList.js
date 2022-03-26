@@ -6,6 +6,7 @@ import { actionCreators as commentActions } from '../../redux/modules/comment'
 import { actionCreators as alertAction} from '../../redux/modules/alert'
 
 import OneComment from './OneComment'
+import { getCookie } from '../../shared/Cookie'
 
 const CommentList = ({ debate }) => {
   const boardId = debate.boardId;
@@ -25,10 +26,10 @@ const CommentList = ({ debate }) => {
     }
   }
 
-  const token = document.cookie;
-  const tokenCheck = token.split("=")[1]
+
+  const token = getCookie("authorization");
   const addComment = () => {
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(alertAction.open({
         message : "로그인 해주세요!"
       }))

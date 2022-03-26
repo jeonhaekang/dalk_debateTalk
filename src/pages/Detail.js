@@ -25,13 +25,12 @@ import eggFill from "../image/detailElement/egg_fill.svg";
 import personFill from "../image/detailElement/person_fill.svg";
 import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
 import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
-import Center from "../elements/Center";
+import { getCookie } from "../shared/Cookie";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
   //유저, 토큰 정보
-  const token = document.cookie;
-  const tokenCheck = token.split("=")[1];
+  const token = getCookie("authorization");
 
   // 결과창 리스트에 있는 boardId 값
   const boardId = props.match.params.boardId;
@@ -82,7 +81,7 @@ const Detail = (props) => {
   const handleClickWarning = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(
         alertAction.open({
           message: "로그인이 필요한 서비스입니다",
@@ -90,7 +89,7 @@ const Detail = (props) => {
       );
       history.replace("/login");
     }
-    if (isWarn === false) {
+    else if (isWarn === false) {
       await apis
         .warningDebate(boardId)
         .then((res) => {
