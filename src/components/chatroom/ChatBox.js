@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators } from "../../redux/modules/item";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 import Chat from "./Chat";
 import { history } from "../../redux/configStore";
 import _ from "lodash";
@@ -54,8 +55,12 @@ const ChatBox = ({ roomId, headers, client }) => {
 
   const errorCallback = () => {
     // 연결 실패시 호출함수
-    // alert("채팅방 연결에 실패하였습니다.");
-    // history.replace("/");
+    dispatch(
+      alertAction.open({
+        message: "채팅방 연결에 실패하였습니다.",
+        history: () => history.replace("/"),
+      })
+    );
   };
 
   const subCallback = (log) => {

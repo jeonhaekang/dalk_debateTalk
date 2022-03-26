@@ -34,67 +34,69 @@ const MyGrade = () => {
   return (
     <>
       <NewHeader page="등급안내" />
-      <ContentContainer Xfooter>
-        <FlexGrid
-          is_column
-          center
-          gap="0px"
-          textAlign="center"
-          padding="100px 80px"
-        >
-          <Radius center>
-            <img className="mygradeimg" src={userRank.img} alt="mygradeimg" />
-          </Radius>
-          <IsMyGrade>
-            나의 등급은 <br />
-            <span className="GradeColor">{userRank.name}</span> 입니다
-          </IsMyGrade>
-          {!user.rank && (
-            <NextGrade>
-              다음 등급까지
-              <span className="RP">
-                {announceScore.toLocaleString("ko-KR")} EXP
-              </span>
-              남았습니다
-            </NextGrade>
-          )}
-        </FlexGrid>
-
-        <FlexGrid
-          is_column
-          gap="8px"
-          borderTop="16px solid #F1F1F1"
-          padding="24px"
-        >
-          <Text size="headline2" weight="medium">
-            알포인트 등급
-          </Text>
-
-          <FlexGrid is_column gap="4px">
-            {RankInfo.map((el, i) => {
-              return (
-                <FlexGrid key={i}>
-                  <div>
-                    <GradeImg src={el.img} />
-                  </div>
-                  <RankList>
-                    <Grid display="flex">
-                      <div className="LevelBox">{el.level}</div>
-                      <div className="NameBox">{el.name}</div>
-                    </Grid>
-                    <Grid display="flex">
-                      <PointImg src={point} />
-                      <Text size="body1" weight="light">
-                        {el.exp}
-                      </Text>
-                    </Grid>
-                  </RankList>
-                </FlexGrid>
-              );
-            })}
+      {user && (
+        <ContentContainer Xfooter>
+          <FlexGrid
+            is_column
+            center
+            gap="0px"
+            textAlign="center"
+            padding="100px 80px"
+          >
+            <Radius center>
+              <img className="mygradeimg" src={userRank.img} alt="mygradeimg" />
+            </Radius>
+            <IsMyGrade>
+              나의 등급은 <br />
+              <span className="GradeColor">{userRank.name}</span> 입니다
+            </IsMyGrade>
+            {!user.rank && (
+              <NextGrade>
+                다음 등급까지
+                <span className="RP">
+                  {announceScore.toLocaleString("ko-KR")} EXP
+                </span>
+                남았습니다
+              </NextGrade>
+            )}
           </FlexGrid>
-        </FlexGrid>
-      </ContentContainer>
+
+          <FlexGrid
+            is_column
+            gap="8px"
+            borderTop="16px solid #F1F1F1"
+            padding="24px"
+          >
+            <Text size="headline2" weight="medium">
+              알포인트 등급
+            </Text>
+
+            <FlexGrid is_column gap="4px">
+              {RankInfo.map((el, i) => {
+                return (
+                  <FlexGrid key={i}>
+                    <div>
+                      <GradeImg src={el.img} />
+                    </div>
+                    <RankList>
+                      <Grid display="flex">
+                        <div className="LevelBox">{el.level}</div>
+                        <div className="NameBox">{el.name}</div>
+                      </Grid>
+                      <Grid display="flex">
+                        <PointImg src={point} />
+                        <Text size="body1" weight="light">
+                          {el.exp}
+                        </Text>
+                      </Grid>
+                    </RankList>
+                  </FlexGrid>
+                );
+              })}
+            </FlexGrid>
+          </FlexGrid>
+        </ContentContainer>
+      )}
     </>
   );
 };
