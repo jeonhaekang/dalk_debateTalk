@@ -43,7 +43,7 @@ const UserRanking = () => {
 
   return (
     <>
-      <NewHeader page="유저랭킹" />
+      <NewHeader page="유저랭킹" line />
       <RankingWrap>
         {/* 랭킹바 부분 */}
         {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
@@ -109,7 +109,7 @@ const RankingWrap = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
-`
+`;
 
 const GradeLevel = styled.div`
   display: flex;

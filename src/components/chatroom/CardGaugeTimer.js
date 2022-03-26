@@ -32,11 +32,11 @@ const GaugeTimer = (props) => {
 
   // 게이지 퍼센트
   let per = (restTime / (props.time ? 1200 : 3600)) * 100;
+
   if (restTime < 60) {
     per = (restTime / 60) * 100;
   }
-
-  //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
+  if (per < 0) per = 0;
 
   return (
     <GaugeOuter {...props} style={{ ...props }}>

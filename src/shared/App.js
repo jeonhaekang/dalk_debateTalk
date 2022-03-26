@@ -19,6 +19,7 @@ import {
   Gacha,
   SearchRoom,
   CreateRoom,
+  Guide,
 } from "../pages/Index";
 import Announcement from "../pages/MyPageContent/Announcement";
 import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
@@ -73,6 +74,7 @@ function App() {
       <Route path="/signup" exact component={Signup} />
       <Route path="/mypage" exact component={MyPage} />
       <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
+      <Route path="/mypage/guide" exact component={Guide} />
       <Route path="/mypage/grade" exact component={MyGrade} />
       <Route path="/mypage/pointshop" exact component={PointShop} />
       <Route path="/mypage/gacha" exact component={Gacha} />

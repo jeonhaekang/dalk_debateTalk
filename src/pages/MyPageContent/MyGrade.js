@@ -33,7 +33,7 @@ const MyGrade = () => {
 
   return (
     <>
-      <NewHeader page="등급안내" />
+      <NewHeader page="등급안내" line/>
       {user && (
         <ContentContainer Xfooter>
           <FlexGrid

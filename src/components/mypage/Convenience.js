@@ -29,7 +29,13 @@ const Convenience = () => {
           >
             토론리스트
           </Content>
-          <Content>토론 안내</Content>
+          <Content
+            onClick={() => {
+              history.push("/mypage/guide");
+            }}
+          >
+            토론 안내
+          </Content>
 
           <Content
             onClick={() => {

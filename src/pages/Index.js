@@ -11,8 +11,10 @@ import Category from "./Category";
 import Gacha from "./Gacha";
 import SearchRoom from "./SearchRoom";
 import CreateRoom from "./CreateRoom";
+import Guide from "./MyPageContent/Guide";
 
 export {
+  Guide,
   Admin,
   ChatRoom,
   Detail,

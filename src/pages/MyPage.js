@@ -11,7 +11,7 @@ import ContentContainer from "../elements/Container";
 const MyPage = (props) => {
   return (
     <>
-      <NewHeader page="마이 페이지" />
+      <NewHeader line page="마이 페이지" />
       <ContentContainer Xfooter>
         <FlexGrid is_column gap="0px">
           <UserInfo />

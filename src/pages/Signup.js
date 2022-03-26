@@ -27,7 +27,7 @@ const Signup = (props) => {
         })
       );
     }
-  });
+  }, []);
   const dispatch = useDispatch();
   //약관 체크
   const [useCheck, setUseCheck] = useState(false);

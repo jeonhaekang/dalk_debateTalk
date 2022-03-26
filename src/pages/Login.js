@@ -25,7 +25,7 @@ const Login = (props) => {
         })
       );
     }
-  });
+  },[]);
 
   const dispatch = useDispatch();
 
