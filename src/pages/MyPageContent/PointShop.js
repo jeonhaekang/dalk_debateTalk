@@ -91,11 +91,7 @@ const PointShop = () => {
               {/* 프리뷰 부분 */}
               <FlexGrid is_column>
                 <Text>예시 view</Text>
-                <FlexGrid
-                  height="215px"
-                  backgroundColor="#F5f5f5"
-                  borderRadius="15px"
-                ></FlexGrid>
+                <img src={item.preview} alt="preview" />
               </FlexGrid>
             </FlexGrid>
           </FlexGrid>
