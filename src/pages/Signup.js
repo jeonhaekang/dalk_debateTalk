@@ -149,7 +149,6 @@ const Signup = (props) => {
   return (
     <>
       <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
-        {/* <LogoImage src="https://img.sbs.co.kr/newsnet/etv/upload/2014/02/04/30000353984_1280.jpg" /> */}
         <FlexGrid is_column center gap="20px">
           {/* 아이디 입력 */}
           <FlexGrid is_column gap="8px">
@@ -275,19 +274,6 @@ const Signup = (props) => {
     </>
   );
 };
-
-const LogoImage = styled.img`
-  display: flex;
-  width: 150px;
-  height: 150px;
-  border: none;
-  border-radius: 15px;
-  color: #fff;
-  font-size: 32px;
-  justify-content: center;
-  align-items: center;
-  background-color: #cfcfcf;
-`;
 
 const LoginInput = styled.input`
   width: 100%;

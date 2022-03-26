@@ -32,7 +32,7 @@ export const MemberInfo = [
     email: "dss122247@naver.com",
     github: "https://github.com/dss1222",
     blog: "https://dongseokstudy2.tistory.com/",
-    content: "얘들아 3년동안 수고했고 나중에 웃으면서 보자",
+    content: "같이 일하고 싶은 개발자가 되겠습니다😊😊😊",
   },
   {
     name: "현지훈",
