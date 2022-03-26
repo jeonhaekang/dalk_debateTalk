@@ -332,7 +332,7 @@ const Detail = (props) => {
 const DetailWrap = styled.div`
   height: calc(100% - 130px);
   overflow: scroll;
-  background-color: #FFF;
+  background-color: #f0f0f0;
 `
 
 const DebateWrap = styled.div`

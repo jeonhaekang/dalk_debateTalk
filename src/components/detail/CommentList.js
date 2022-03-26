@@ -63,7 +63,7 @@ const CommentList = ({ debate }) => {
 };
 
 const CommentListWrap = styled.div`
-  background-color: #fff;
+  background-color: #f0f0f0;
 `
 
 const CommentWriteContainer = styled.div`
