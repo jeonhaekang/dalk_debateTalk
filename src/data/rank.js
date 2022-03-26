@@ -1,11 +1,11 @@
-import bronze from "../image/rank/bronze.svg";
-import silver from "../image/rank/silver.svg";
-import gold from "../image/rank/gold.svg";
-import platinum from "../image/rank/platinum.svg";
-import diamond from "../image/rank/diamond.svg";
-import first from "../image/rank/first.svg";
-import second from "../image/rank/second.svg";
-import third from "../image/rank/third.svg";
+import bronze from "../image/rank/bronze.png";
+import silver from "../image/rank/silver.png";
+import gold from "../image/rank/gold.png";
+import platinum from "../image/rank/platinum.png";
+import diamond from "../image/rank/diamond.png";
+import first from "../image/rank/first.png";
+import second from "../image/rank/second.png";
+import third from "../image/rank/third.png";
 
 // 유저 등급 판별
 export const discriminant = (ex, rank) => {

@@ -30,7 +30,7 @@ const UserInfo = (props) => {
           <MypageUser>
             <Text size="headline2" weight="medium" color="black">
               {user?.nickname}
-              <Text size="body2">{" "}님</Text>
+              <Text size="body2">님</Text>
             </Text>
             <Text size="subtitle1" color="black" weight="medium">
               {userRank.name}
@@ -79,8 +79,7 @@ const Radius = styled(FlexGrid)`
 `;
 
 const LevelImg = styled.img`
-  width: 78px;
-  height: 100px;
+  width: 120px;
 `;
 
 const MypageUser = styled.div`

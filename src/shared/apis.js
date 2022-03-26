@@ -172,6 +172,8 @@ const apis = {
     }),
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
+  sendPoint : (username, point, content) => 
+    instance.post('/admin/eventpoint', { username: username, point: point, content: content}),
 };
 
 export default apis;
