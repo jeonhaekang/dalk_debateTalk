@@ -14,6 +14,7 @@ import FlexGrid from "../elements/FlexGrid";
 import ContentContainer from "../elements/Container";
 import { actionCreators as chatAction } from "../redux/modules/chat";
 import Text from "../elements/Text";
+import styled from "styled-components";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
@@ -65,16 +66,18 @@ const ChatRoom = (props) => {
       </NewHeader>
 
       {roomInfo && (
-        <>
+        <Container is_column gap="0">
           <ChatHeader {...roomInfo} />
           <ChatBox {...data} />
           <ChatInput {...data} />
-        </>
+        </Container>
       )}
     </>
   );
 };
 
-ChatRoom.defaultProps = {};
+const Container = styled(FlexGrid)`
+  height: calc(100% - 70px);
+`;
 
 export default ChatRoom;
