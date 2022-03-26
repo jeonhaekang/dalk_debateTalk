@@ -25,26 +25,14 @@ const Login = (props) => {
 
   //로그인 onchange
   const onChangeUsername = (e) => {
-    let userNameReg = /^[A-za-z0-9]{5,15}/g;
     const currentUsername = e.target.value;
     setUsername(currentUsername);
-    if (!userNameReg.test(currentUsername)) {
-      setIsUsername(false);
-    } else {
-      setIsUsername(true);
-    }
   };
 
   //패스워드 onchange
   const onChangePassword = (e) => {
-    let pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const currentPassword = e.target.value;
     setPassword(currentPassword);
-    if (!pwReg.test(currentPassword)) {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
-    }
   };
 
   //로그인 버튼 onClick
@@ -100,9 +88,6 @@ const Login = (props) => {
               onKeyDown={handleKeyDown}
               onChange={onChangeUsername}
             ></LoginInput>
-            {username.length > 0 && !isUsername && (
-              <Validation>올바른 아이디 형식을 입력해주세요.</Validation>
-            )}
           </FlexGrid>
           <FlexGrid is_column gap="8px">
             <InputContainer>
@@ -120,9 +105,6 @@ const Login = (props) => {
                 )}
               </VisiblePw>
             </InputContainer>
-            {password.length > 0 && !isPassword && (
-              <Validation>다시 입력해주세요</Validation>
-            )}
           </FlexGrid>
 
           <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
@@ -143,7 +125,9 @@ const Login = (props) => {
           </Signuptext>
         </Grid>
 
-        <Text onClick={() => history.push('/')} cursor="pointer">한번 둘러볼래요</Text>
+        <Text onClick={() => history.push("/")} cursor="pointer">
+          한번 둘러볼래요
+        </Text>
       </FlexGrid>
     </>
   );

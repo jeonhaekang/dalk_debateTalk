@@ -153,6 +153,7 @@ const buyItemDB = (item) => {
       .buyItem(item.itemCode)
       .then((res) => {
         dispatch(buyItem(item));
+        dispatch(alertAction.open({ message: "아이템을 구매하였습니다" }));
       })
       .catch((err) => {
         dispatch(
