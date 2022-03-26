@@ -35,11 +35,10 @@ const OneComment = (props) => {
   const dispatch = useDispatch();
 
   //찬성, 반대 기능을 위해
-  const token = document.cookie;
-  const tokenCheck = token.split("=")[1];
+  const token = getCookie("authorization");
 
   const handleClickAgree = () => {
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(
         alertAction.open({
           message: "로그인을 해주세요!",
@@ -51,7 +50,7 @@ const OneComment = (props) => {
   };
 
   const handleClickDisagree = () => {
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(
         alertAction.open({
           message: "로그인을 해주세요!",
@@ -68,7 +67,7 @@ const OneComment = (props) => {
   const handleClickWarning = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(
         alertAction.open({
           message: "로그인을 해주세요!",

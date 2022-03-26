@@ -30,8 +30,7 @@ import Center from "../elements/Center";
 const Detail = (props) => {
   const dispatch = useDispatch();
   //유저, 토큰 정보
-  const token = document.cookie;
-  const tokenCheck = token.split("=")[1];
+  const token = getCookie("authorization");
 
   // 결과창 리스트에 있는 boardId 값
   const boardId = props.match.params.boardId;
@@ -82,7 +81,7 @@ const Detail = (props) => {
   const handleClickWarning = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!tokenCheck) {
+    if (!token) {
       dispatch(
         alertAction.open({
           message: "로그인이 필요한 서비스입니다",
