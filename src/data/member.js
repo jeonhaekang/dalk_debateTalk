@@ -65,9 +65,9 @@ export const MemberInfo = [
     name: "이규리",
     img: gyuri,
     position: "Designer",
-    email: "jjlee0901899@gmail.com",
+    email: "jjlee090189@naver.com",
     github: null,
-    blog: null,
+    blog: "https://www.behance.net/jjlee090183e24",
     content: "덕킹 많이 사랑해주세요🐣",
   },
 ];
