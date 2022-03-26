@@ -31,6 +31,7 @@ const Main = (props) => {
   }, []);
 
   const refresh = () => {
+    console.log("refresh");
     dispatch(actionCreators.loadMainRoomDB());
   };
 
@@ -51,7 +52,12 @@ const Main = (props) => {
               실시간 HOT한
               <br /> 토론에 참여해보세요!
             </Text>
-            <img alt="reset" onClick={refresh} src={reset} />
+            <img
+              alt="reset"
+              onClick={refresh}
+              src={reset}
+              style={{ zIndex: 1 }}
+            />
           </FlexGrid>
 
           {roomList.length !== 0 ? (

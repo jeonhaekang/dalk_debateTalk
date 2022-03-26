@@ -5,7 +5,6 @@ import Text from "../../elements/Text";
 import { grow, fade } from "../../animation/ranking";
 
 const RankingBar = ({ topUser }) => {
-  console.log(topUser);
   return (
     <FlexGrid gap="0" borderBottom="4px solid #EAEAEA" padding="0 40px">
       {topUser.map((el) => {

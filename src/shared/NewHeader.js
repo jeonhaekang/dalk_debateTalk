@@ -125,6 +125,8 @@ const HeaderContainer = styled.div`
 
   z-index: 5;
   border-bottom: ${(props) => props.line && "1px solid #c4c4c4"};
+
+  display: flex;
 `;
 
 const Logo = styled.div`

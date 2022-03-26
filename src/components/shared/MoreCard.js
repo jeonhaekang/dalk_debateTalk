@@ -13,7 +13,7 @@ import long from "../../image/shared/long.svg";
 import noImage from "../../image/shared/noImage.png";
 
 const MoreCard = (props) => {
-  const userRank = rank[discriminant(props.userInfo.ex)];
+  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
 
   const [blindState, setBlindState] = React.useState(false);
   const [timeState, setTimeState] = React.useState(false);
@@ -41,7 +41,7 @@ const MoreCard = (props) => {
         </FlexGrid>
 
         <FlexGrid center justifyContent="flex-end" gap="4px">
-          <Badge src={userRank.img}></Badge>
+          <Badge src={userRank.img} />
           {props.userInfo.nickname}
         </FlexGrid>
       </FlexGrid>

@@ -101,6 +101,7 @@ const logInDB = (username, password) => {
     await apis
       .login(user)
       .then(function (response) {
+        console.log(response);
         setCookie(response.headers.authorization, 7);
 
         apis
@@ -110,6 +111,7 @@ const logInDB = (username, password) => {
             history.replace("/");
           })
           .catch((err) => {
+            console.log(err.response);
             dispatch(
               alertAction.open({
                 message: "로그인 체크 실패",
@@ -151,6 +153,7 @@ const buyItemDB = (item) => {
       .buyItem(item.itemCode)
       .then((res) => {
         dispatch(buyItem(item));
+        dispatch(alertAction.open({ message: "아이템을 구매하였습니다" }));
       })
       .catch((err) => {
         dispatch(

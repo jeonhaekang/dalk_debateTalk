@@ -118,10 +118,9 @@ const Dot = styled.div`
 `;
 
 const BuyBtn = styled.button`
-  max-width: 430px;
   width: 100%;
   height: 76px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   color: white;

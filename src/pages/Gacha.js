@@ -53,56 +53,60 @@ const Gacha = (props) => {
     }, animation.duration);
   };
   return (
-    <FlexGrid is_column height="100%" justifyContent="space-between">
+    <>
       <NewHeader page="행운뽑기" />
       {user && (
         <ContentContainer overflow="visible" padding="54px">
-          <FlexGrid center is_column>
-            <ResultImg src={data.img} animation={animation} />
+          <FlexGrid center height="100%">
+            <FlexGrid center is_column>
+              <ResultImg src={data.img} animation={animation} />
 
-            <FlexGrid
-              is_column
-              center
-              size="headline1"
-              weight="regular"
-              textAlign="center"
-            >
-              {data.rank === 0 ? (
-                <>
+              <FlexGrid
+                is_column
+                center
+                size="headline1"
+                weight="regular"
+                textAlign="center"
+              >
+                {data.rank === 0 ? (
+                  <>
+                    <Text>
+                      {user.lottoCount < 1
+                        ? "오늘은 모두 소진되었어요"
+                        : "행운뽑기"}
+                      <br />
+                      <Text color="gray">{user.lottoCount}회 남음</Text>
+                    </Text>
+                  </>
+                ) : data.rank === 6 ? (
+                  <Text color="gray">
+                    꽉.. <br />
+                    아쉬워요
+                  </Text>
+                ) : (
                   <Text>
-                    {user.lottoCount < 1
-                      ? "오늘은 모두 소진되었어요"
-                      : "행운뽑기"}
-                    <br />
-                    <Text color="gray">{user.lottoCount}회 남음</Text>
+                    축하합니다! <br />
+                    <Text color="orange">
+                      {data.point.toLocaleString("ko-KR")}알포인트
+                    </Text>
+                    당첨!
                   </Text>
-                </>
-              ) : data.rank === 6 ? (
-                <Text color="gray">
-                  꽉.. <br />
-                  아쉬워요
-                </Text>
-              ) : (
-                <Text>
-                  축하합니다! <br />
-                  <Text color="orange">
-                    {data.point.toLocaleString("ko-KR")}알포인트
-                  </Text>
-                  당첨!
-                </Text>
-              )}
+                )}
+              </FlexGrid>
             </FlexGrid>
           </FlexGrid>
         </ContentContainer>
       )}
-      <Button onClick={cacha} state={user.lottoCount}>
-        {data.rank === 0
-          ? "행운뽑기"
-          : data.rank === 6
-          ? "다시뽑기"
-          : "한번 더 뽑기"}
-      </Button>
-    </FlexGrid>
+      {user && (
+        <Button onClick={cacha} state={user.lottoCount}>
+          {data.rank === 0
+            ? "행운뽑기"
+            : data.rank === 6
+            ? "다시뽑기"
+            : "한번 더 뽑기"}
+        </Button>
+      )}
+    </>
   );
 };
 
@@ -117,6 +121,8 @@ const ResultImg = styled.img`
 `;
 
 const Button = styled.button`
+  position: absolute;
+  bottom: 0;
   height: 76px;
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.headline2};
