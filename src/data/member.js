@@ -3,7 +3,7 @@ import youngmin from "../image/member/youngmin.jpg";
 import jihoon from "../image/member/jihoon.jpg";
 import haekang from "../image/member/haekang.jpg";
 import dongseok from "../image/member/dongseok.png";
-// import dahye from '../image/member/dahye.png'
+import dahye from '../image/member/dahye.png'
 // import gyuri from '../image/member/gyuri.png'
 
 export const MemberInfo = [
@@ -54,12 +54,12 @@ export const MemberInfo = [
   },
   {
     name: "박다혜",
-    // img: dahye,
+    img: dahye,
     position: "Designer",
     email: "",
     github: null,
-    blog: "",
-    content: "",
+    blog: null,
+    content: "덕킹 디자이너 입니다🐤",
   },
   {
     name: "이규리",
@@ -67,7 +67,7 @@ export const MemberInfo = [
     position: "Designer",
     email: "",
     github: null,
-    blog: "",
+    blog: null,
     content: "",
   },
 ];

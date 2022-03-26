@@ -40,9 +40,11 @@ function ProjectMember() {
                         <ContactImg src={github} />
                       </a>
                     )}
-                    <a href={member.blog} target="#">
-                      <ContactImg src={blog} />
-                    </a>
+                    {member.blog === null ? null : (
+                      <a href={member.blog} target="#">
+                        <ContactImg src={blog} />
+                      </a>
+                    )}
                   </FlexGrid>
                   <Text>Contact : {member.email}</Text>
                 </FlexGrid>
