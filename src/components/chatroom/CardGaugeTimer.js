@@ -36,8 +36,6 @@ const GaugeTimer = (props) => {
     per = (restTime / 60) * 100;
   }
 
-  console.log(per)
-
   //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
 
   return (
