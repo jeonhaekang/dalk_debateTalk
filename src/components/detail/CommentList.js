@@ -40,8 +40,8 @@ const CommentList = ({ debate }) => {
   }
 
   return (
-    <>
-     {commentList.map((c, idx) => {
+    <CommentListWrap>
+      {commentList.map((c, idx) => {
         return <OneComment index={idx} {...c} key={idx} boardId={boardId} />
       })}
 
@@ -58,9 +58,13 @@ const CommentList = ({ debate }) => {
         </ImgInput>
         <SendBtn onClick={addComment}>등록</SendBtn>
       </CommentWriteContainer>
-    </>
+    </CommentListWrap>
   )
 };
+
+const CommentListWrap = styled.div`
+  background-color: #fff;
+`
 
 const CommentWriteContainer = styled.div`
   position: absolute;

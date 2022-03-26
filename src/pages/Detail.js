@@ -154,7 +154,7 @@ const Detail = (props) => {
       </NewHeader>
 
       {/* 무승부일때, 승부가 났을 때 두가지 케이스 */}
-      <Grid height="calc(100% - 130px)" overflow="scroll">
+      <DetailWrap>
         <DebateWrap>
           {winnerRate !== loserRate ? (
             // 무승부가 아닌 승리, 패배 결과가 나왔을 때
@@ -229,7 +229,7 @@ const Detail = (props) => {
             </FlexGrid>
           ) : (
             // 무승부일때: DRAW 표시 되면서 둘다 색깔 불 들어옴
-            <FlexGrid gap="0">
+            <FlexGrid gap="0" backgroundColor="#fff">
               <DebateBox win={true} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogoFill} alt="detaillogofill" />
@@ -311,7 +311,7 @@ const Detail = (props) => {
 
         {/* 댓글 전체 */}
         {<CommentList debate={debate} />}
-      </Grid>
+      </DetailWrap>
 
       {createModalState && (
         <Modal
@@ -328,6 +328,12 @@ const Detail = (props) => {
     </>
   );
 };
+
+const DetailWrap = styled.div`
+  height: calc(100% - 130px);
+  overflow: scroll;
+  background-color: #FFF;
+`
 
 const DebateWrap = styled.div`
   display: flex;
