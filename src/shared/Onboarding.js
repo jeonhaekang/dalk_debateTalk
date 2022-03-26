@@ -14,6 +14,9 @@ const Onboarding = () => {
   );
 
   const nextPage = () => {
+    if (page === 2) {
+      start();
+    }
     setPage(page < onbordingData.length - 1 ? page + 1 : 0);
   };
 
@@ -76,7 +79,7 @@ const Onboarding = () => {
           <FlexGrid is_column>
             <Button center _onClick={nextPage}>
               <Text size="headline2" weight="bold" color="white">
-                다음으로
+                {page !== 2 ? "다음으로" : "시작하기"}
               </Text>
             </Button>
             <PassBtn center _onClick={start}>

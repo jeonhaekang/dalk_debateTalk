@@ -79,9 +79,11 @@ const Icon = styled.div`
 `;
 
 const FixedNav = styled.div`
-  position: absolute;
-  bottom: 0;
+  position: fixed;
   width: 100%;
+  max-width: 430px;
+  bottom: 0;
+
   height: 76px;
   border-top: 1px solid #c4c4c4;
   background-color: white;
@@ -89,5 +91,7 @@ const FixedNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+
+  z-index: 5;
 `;
 export default Footer;

@@ -13,7 +13,7 @@ import { shake, zoomIn, zoomOut } from "../animation/gacha";
 
 const Gacha = (props) => {
   const dispatch = useDispatch();
-  const [data, setData] = React.useState(gachaData.first);
+  const [data, setData] = React.useState(gachaData[0]);
   const [animation, setAnimation] = React.useState({
     animation: shake,
     duration: 2000,
@@ -21,13 +21,15 @@ const Gacha = (props) => {
   });
 
   const user = useSelector((props) => props.user.user);
+  console.log(user);
 
   const cacha = () => {
-    if (user.point < 500) {
-      dispatch(alertAction.open({ message: "포인트가 부족합니다." }));
+    if (user.lottoCount < 1) {
+      dispatch(alertAction.open({ message: "모두 소진되었습니다." }));
       return;
     }
-    dispatch(actionCreators.setPoint(-500));
+    dispatch(actionCreators.lottoCount());
+
     setAnimation({ animation: zoomIn, duration: 600, infinite: "unset" });
     setTimeout(() => {
       apis
@@ -51,27 +53,62 @@ const Gacha = (props) => {
     }, animation.duration);
   };
   return (
-    <>
+    <FlexGrid is_column height="100%" justifyContent="space-between">
       <NewHeader page="행운뽑기" />
-      <ContentContainer overflow="visible" padding="54px">
-        <FlexGrid center height="100%">
+      {user && (
+        <ContentContainer overflow="visible" padding="54px">
           <FlexGrid center is_column>
             <ResultImg src={data.img} animation={animation} />
 
-            <Text size="headline1" weight="regular" textAlign="center">
-              {data.message}
-            </Text>
+            <FlexGrid
+              is_column
+              center
+              size="headline1"
+              weight="regular"
+              textAlign="center"
+            >
+              {data.rank === 0 ? (
+                <>
+                  <Text>
+                    {user.lottoCount < 1
+                      ? "오늘은 모두 소진되었어요"
+                      : "행운뽑기"}
+                    <br />
+                    <Text color="gray">{user.lottoCount}회 남음</Text>
+                  </Text>
+                </>
+              ) : data.rank === 6 ? (
+                <Text color="gray">
+                  꽉.. <br />
+                  아쉬워요
+                </Text>
+              ) : (
+                <Text>
+                  축하합니다! <br />
+                  <Text color="orange">
+                    {data.point.toLocaleString("ko-KR")}알포인트
+                  </Text>
+                  당첨!
+                </Text>
+              )}
+            </FlexGrid>
           </FlexGrid>
-        </FlexGrid>
-      </ContentContainer>
-      <Button onClick={cacha}>500RP로 행운뽑기</Button>
-    </>
+        </ContentContainer>
+      )}
+      <Button onClick={cacha} state={user.lottoCount}>
+        {data.rank === 0
+          ? "행운뽑기"
+          : data.rank === 6
+          ? "다시뽑기"
+          : "한번 더 뽑기"}
+      </Button>
+    </FlexGrid>
   );
 };
 
 const ResultImg = styled.img`
   width: 100%;
-
+  z-index: 5;
   transform-origin: center;
   animation-name: ${(props) => props.animation.animation};
   animation-duration: ${(props) => props.animation.duration}ms;
@@ -84,10 +121,10 @@ const Button = styled.button`
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.bold};
-  background-color: ${(props) => props.theme.color.orange};
+  background-color: ${(props) =>
+    props.state !== 0 ? props.theme.color.orange : "#CBCBCB"};
   color: white;
   border: none;
-
   cursor: pointer;
 `;
 

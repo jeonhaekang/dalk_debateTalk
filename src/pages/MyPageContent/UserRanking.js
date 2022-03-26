@@ -72,7 +72,7 @@ const UserRanking = () => {
                     </Grid>
 
                     <div style={{ fontSize: "16px", fontWeight: "400" }}>
-                      {r.ex}
+                      {r.ex.toLocaleString("ko-KR")}
                     </div>
                   </GradeLevel>
                 </ListWrap>
