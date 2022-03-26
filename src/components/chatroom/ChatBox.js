@@ -160,7 +160,6 @@ const EndScroll = styled.img`
 const ShowChat = styled.div`
   flex-grow: 1;
   overflow: scroll;
-
   display: flex;
   flex-direction: column;
   gap: 15px;

@@ -5,13 +5,13 @@ import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_BANNER = "GET_BANNER";
-const ADD_BANNER = 'ADD_BANNER';
+const ADD_BANNER = "ADD_BANNER";
 const DEL_BANNER = "DEL_BANNER";
 
 //Action Creator
 const getBanner = createAction(GET_BANNER, (banners) => ({ banners }));
-const addBanner = createAction(ADD_BANNER, (banner) => ({banner}));
-const delBanner = createAction(DEL_BANNER, (carouselId) => ({carouselId}));
+const addBanner = createAction(ADD_BANNER, (banner) => ({ banner }));
+const delBanner = createAction(DEL_BANNER, (carouselId) => ({ carouselId }));
 
 //initialState
 const initialState = {
@@ -22,54 +22,67 @@ const initialState = {
 //MiddleWare
 const getBannerDB = () => {
   //배너 목록 가져오기
-  return function (dispatch, getState, {history}) {
-    apis.getBannerList()
-        .then((res) => {
-          dispatch(getBanner(res.data));
-        })
-        .catch((err) => {
-          dispatch(
-            alertAction.open({
-              message: "배너목록 가져오기 실패",
-            })
-          );
-        });
+  return function (dispatch, getState, { history }) {
+    apis
+      .getBannerList()
+      .then((res) => {
+        dispatch(getBanner(res.data));
+      })
+      .catch((err) => {
+        dispatch(
+          alertAction.open({
+            message: "배너목록 가져오기 실패",
+          })
+        );
+      });
   };
 };
 
-const addBannerDB = (image) => {
+const addBannerDB = (image, url) => {
   //배너 추가하기
   return function (dispatch, getState, { history }) {
-    apis.addBanner(image)
-        .then((res) => {
-          dispatch(addBanner(image))
-          dispatch(getBannerDB())
-        })
-        .catch((err) => {
-          dispatch(
-            alertAction.open({
-              message: "배너 추가 실패",
-            })
-          );
-        })
+    const data = new FormData();
+    console.log(image, url);
+    data.append("image", image);
+    data.append(
+      "url",
+      new Blob([JSON.stringify(url)], { type: "application/json" })
+    );
+
+    apis
+      .addBanner(data)
+      .then((res) => {
+        console.log(res);
+        // dispatch(addBanner(data))
+        // dispatch(getBannerDB())
+      })
+      .catch((err) => {
+        console.log(err.response);
+        dispatch(
+          alertAction.open({
+            message: "배너 추가 실패",
+          })
+        );
+      });
   };
 };
 
 const delBannerDB = (carouselId) => {
   //배너 삭제하기
   return function (dispatch, getState, { history }) {
-    apis.delBannerList(carouselId)
-        .then((res) => {
-          dispatch(delBanner(carouselId));
-          dispatch(getBannerDB())
-        })
-        .catch((err) => {
-          dispatch(
-            alertAction.open({
-              message: "배너 삭제 실패",
-            })
-          );
-        });
+    apis
+      .delBannerList(carouselId)
+      .then((res) => {
+        dispatch(delBanner(carouselId));
+        dispatch(getBannerDB());
+      })
+      .catch((err) => {
+        dispatch(
+          alertAction.open({
+            message: "배너 삭제 실패",
+          })
+        );
+      });
   };
 };
 
@@ -90,7 +103,7 @@ export default handleActions(
           if (el.carouselId === action.payload.carouselId) {
             return false;
           } else return true;
-        })
+        });
       }),
   },
   initialState

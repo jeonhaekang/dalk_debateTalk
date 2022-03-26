@@ -158,7 +158,7 @@ const apis = {
   delWarnUser: (userId) => instance.delete(`admin/users/${userId}`),
   //배너
   getBannerList: () => instance.get(`admin/carousels`),
-  addBanner: (image) => instance.post(`admin/carousels`, image),
+  addBanner: (data) => instance.post(`admin/carousels`, data),
   delBannerList: (carouselId) =>
     instance.delete(`admin/carousels/${carouselId}`),
   //공지사항

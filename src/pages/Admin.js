@@ -16,6 +16,12 @@ const Admin = () => {
 
   const dispatch = useDispatch();
 
+  const [url, setUrl] = useState("");
+
+  const handleUrl = (e) => {
+    setUrl(e.target.value);
+  };
+
   useEffect(() => {
     dispatch(bannerActions.getBannerDB());
   }, []);
@@ -27,9 +33,7 @@ const Admin = () => {
   };
 
   const handleAddBanner = () => {
-    const image = new FormData();
-    image.append("image", selectedFile);
-    dispatch(bannerActions.addBannerDB(image));
+    dispatch(bannerActions.addBannerDB(selectedFile, url));
   };
 
   const handleDelBanner = (carouselId) => {
@@ -51,8 +55,12 @@ const Admin = () => {
             <AdminList>
               <div>배너 파일</div>
               <input type="file" onChange={handleFileInput}></input>
-              <AddBannerBtn onClick={handleAddBanner}>등록</AddBannerBtn>
             </AdminList>
+            <div>
+              Url 경로
+              <input type="text" onChange={handleUrl} value={url} />
+              <AddBannerBtn onClick={handleAddBanner}>등록</AddBannerBtn>
+            </div>
             {BannerList.map((b, idx) => {
               return (
                 <Log key={idx}>

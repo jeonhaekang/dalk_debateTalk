@@ -126,10 +126,7 @@ const ChatHeader = (props) => {
   );
 };
 const Wrap = styled.div`
-  position: sticky;
   width: 100%;
-  top: 70px;
-  z-index: 1;
   background-color: white;
 `;
 
