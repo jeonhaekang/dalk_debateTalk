@@ -2,12 +2,11 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as imageAction } from "./image";
-import user, { actionCreators as userAction } from "./user";
+import { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
 import { actionCreators as spinnerAction } from "./spinner";
 import moment from "moment";
 import axios from "axios";
-import { history } from "../configStore";
 
 //Action
 const SET_ROOM = "SET_ROOM";
@@ -113,7 +112,7 @@ const voteDB = (roomId, topic, point) => {
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
-    dispatch(spinnerAction.start());
+    // dispatch(spinnerAction.start());
     const image = getState().image.image;
 
     const formdata = new FormData();
@@ -155,7 +154,7 @@ const createRoomDB = (data) => {
 const getOneRoomDB = (roomId) => {
   // 방 상세정보 가져오기
   return function (dispatch) {
-    dispatch(spinnerAction.start());
+    // dispatch(spinnerAction.start());
     apis
       .getOneRoom(roomId)
       .then((res) => {

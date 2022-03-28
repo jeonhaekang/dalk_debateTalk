@@ -17,11 +17,11 @@ const Vote = ({ topic, setModalState }) => {
 
   const vote = () => {
     if (point > user.point) {
-      dispatch(alertAction.open({ message: "까불지 말고 적당히 배팅하십쇼" }));
+      dispatch(alertAction.open({ message: "보유 포인트를 초과하였습니다." }));
       return;
     }
-    if (point === 0) {
-      dispatch(alertAction.open({ message: "돈 없으면 가서 자라" }));
+    if (point === "0") {
+      dispatch(alertAction.open({ message: "포인트를 다시 입력해주세요." }));
       return;
     }
     dispatch(chatAction.voteDB(roomInfo.roomId, topic, point));

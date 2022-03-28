@@ -50,6 +50,15 @@ const MoreCard = (props) => {
         <FlexGrid width="35%">
           <Image src={props.filePath ? props.filePath : noImage} />
           <Time src={props.time ? short : long}></Time>
+          <Users>
+            <svg width="22" height="22" viewBox="0 0 22 22">
+              <path
+                d="M10.9998 11C13.0257 11 14.6665 9.35913 14.6665 7.33329C14.6665 5.30746 13.0257 3.66663 10.9998 3.66663C8.974 3.66663 7.33317 5.30746 7.33317 7.33329C7.33317 9.35913 8.974 11 10.9998 11ZM10.9998 12.8333C8.55234 12.8333 3.6665 14.0616 3.6665 16.5V17.4166C3.6665 17.9208 4.079 18.3333 4.58317 18.3333H17.4165C17.9207 18.3333 18.3332 17.9208 18.3332 17.4166V16.5C18.3332 14.0616 13.4473 12.8333 10.9998 12.8333Z"
+                fill="rgba(0,0,0,0.2)"
+              />
+            </svg>
+            {props.userCnt}
+          </Users>
         </FlexGrid>
 
         <FlexGrid is_column between gap="0" width="65%">
@@ -85,6 +94,19 @@ const Time = styled.img`
   position: absolute;
   bottom: 8px;
   left: 8px;
+`;
+
+const Users = styled.div`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2px 5px;
+  border-radius: 15px;
+
+  display: flex;
 `;
 
 const VS = styled(FlexGrid)`

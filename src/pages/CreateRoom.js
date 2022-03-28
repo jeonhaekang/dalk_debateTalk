@@ -89,8 +89,18 @@ const CreateRoom = () => {
               <Text>14자 미만으로 작성해주세요</Text>
             </FlexGrid>
             <FlexGrid is_column>
-              <TopicInput name="topicA" value={topicA} onChange={onChange} />
-              <TopicInput name="topicB" value={topicB} onChange={onChange} />
+              <TopicInput
+                name="topicA"
+                value={topicA}
+                onChange={onChange}
+                maxLength="14"
+              />
+              <TopicInput
+                name="topicB"
+                value={topicB}
+                onChange={onChange}
+                maxLength="14"
+              />
             </FlexGrid>
           </FlexGrid>
 
