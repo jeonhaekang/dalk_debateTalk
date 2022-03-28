@@ -13,7 +13,6 @@ import long from "../../image/shared/long.svg";
 import noImage from "../../image/shared/noImage.png";
 
 const MainCard = (props) => {
-  console.log(props);
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
   const [blindState, setBlindState] = useState(false);
   const [timeState, setTimeState] = useState(false);
