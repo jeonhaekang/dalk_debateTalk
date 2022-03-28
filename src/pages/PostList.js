@@ -15,25 +15,27 @@ import Footer from "../shared/Footer";
 
 import SearchBlack from "../image/post/search_black.png";
 import Arrow from "../image/post/arrow_upward_black.png";
-
+import FlexGrid from "../elements/FlexGrid";
+import categoryDate from "../data/categoryData";
+import PostContent from "../components/postlist/PostContent";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  // 전체 목록 조회
-  const debateList = useSelector((state) => state.post);
+  // // 전체 목록 조회
+  // const debateList = useSelector((state) => state.post);
 
-  // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
-  // InfinityScroll.js의 handleobserver와 연결
-  const getDebateList = () => {
-    dispatch(postActions.getPostDB(debateList.page));
-  };
+  // // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
+  // // InfinityScroll.js의 handleobserver와 연결
+  // const getDebateList = () => {
+  //   dispatch(postActions.getPostDB(debateList.page));
+  // };
 
-  // 0번부터 결과창 리스트 불러오기
-  // dispatch 될때마다 포스트가 업데이트 됩니다.
-  useEffect(() => {
-    dispatch(postActions.getPostDB(0));
-    return () => dispatch(postActions.clear());
-  }, []);
+  // // 0번부터 결과창 리스트 불러오기
+  // // dispatch 될때마다 포스트가 업데이트 됩니다.
+  // useEffect(() => {
+  //   dispatch(postActions.getPostDB(0));
+  //   return () => dispatch(postActions.clear());
+  // }, []);
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러, Top 버튼
   const boxref = useRef();
@@ -66,11 +68,14 @@ const PostList = (props) => {
     history.push(`/postlist/search/${keyword}`);
   };
 
+  const [category, setCategory] = React.useState("전체");
+  const api = category === "전체" ? "getDebate" : "getDebateCategory";
+  const [idx, setIdx] = React.useState(0);
+
   return (
     <>
-      <ContentContainer Xfooter ref={boxref}>
-        <NewHeader page="토론 결과방" />
-
+      <NewHeader page="토론 결과방" line />
+      <ContentContainer>
         <Grid>
           <Container>
             <InputContainer className="searchbox">
@@ -88,19 +93,22 @@ const PostList = (props) => {
             </InputContainer>
           </Container>
 
-          <PostListCategory debateList={debateList} />
+          <PostListCategory
+            category={category}
+            setCategory={setCategory}
+            idx={idx}
+            setIdx={setIdx}
+          />
 
-          <ContentBox>
-            {/* props로 리덕스post의 page(callnext)와 리덕스post의 hasnext(paging)를 줍니다 */}
-            <InfinityScroll
-              callNext={getDebateList}
-              paging={{ next: debateList.has_next }}
-            >
-              {debateList.postList.map((d, idx) => {
-                return <PostListCard {...d} key={idx} />;
-              })}
-            </InfinityScroll>
-          </ContentBox>
+          <FlexGrid gap="0">
+            {categoryDate.map((el, i) => {
+              return (
+                <Test idx={idx} key={i}>
+                  <PostContent category={el.name} />
+                </Test>
+              );
+            })}
+          </FlexGrid>
         </Grid>
       </ContentContainer>
 
@@ -151,15 +159,6 @@ const SearchImg = styled.img`
   cursor: pointer;
 `;
 
-const ContentBox = styled.div`
-  .test {
-    border-bottom: 1px solid #c4c4c4;
-  }
-  .test:last-child {
-    border: none;
-  }
-`;
-
 const TopBtn = styled.img`
   position: absolute;
   right: 16px;
@@ -169,6 +168,22 @@ const TopBtn = styled.img`
   width: 60px;
   height: 60px;
   cursor: pointer;
+`;
+
+const Test = styled.div`
+  --idx: ${(props) => props.idx * -100}%;
+  transform: translateX(var(--idx));
+  transition: 0.3s;
+
+  width: 100%;
+  height: calc((var(--vh) * 100) - 252px);
+
+  background-color: ${(props) => props.color};
+
+  box-sizing: border-box;
+  overflow-y: scroll;
+
+  flex: 0 0 auto;
 `;
 
 export default PostList;
