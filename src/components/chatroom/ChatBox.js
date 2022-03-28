@@ -6,18 +6,35 @@ import _ from "lodash";
 import downButton from "../../image/chatRoom/downButton.svg";
 import { connectSocket } from "../../modules/chatSocket";
 import { history } from "../../redux/configStore";
+import { mobileCheck } from "../../modules/mobileCheck";
+import { actionCreators as chatAction } from "../../redux/modules/chat";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
 
 const ChatBox = ({ roomId, headers, client }) => {
+  const dispatch = useDispatch();
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
-  React.useEffect(() => {
-    connectSocket({ roomId, headers, client });
+  const visibleHendler = (e) => {
+    const state = document.visibilityState === "hidden";
+    const mobile = mobileCheck();
 
-    const visibleHendler = (e) => {
+    if (state && mobile) {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
       history.replace("/");
-    };
+      dispatch(
+        alertAction.open({
+          type: "confirm",
+          message: "채팅방에 다시 입장하시겠습니까?",
+          action: () => history.push("/chatroom/" + roomId),
+        })
+      );
+    }
+  };
+
+  React.useEffect(() => {
+    dispatch(chatAction.loadMessageLogDB(roomId));
+    connectSocket({ roomId, headers, client });
 
     window.addEventListener("visibilitychange", visibleHendler);
 
@@ -25,7 +42,10 @@ const ChatBox = ({ roomId, headers, client }) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
     });
 
-    return () => client.disconnect(() => client.unsubscribe("sub-0"), headers);
+    return () => {
+      window.removeEventListener("visibilitychange", visibleHendler);
+      client.disconnect(() => client.unsubscribe("sub-0"), headers);
+    };
   }, []);
 
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);

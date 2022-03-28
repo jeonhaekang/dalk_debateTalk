@@ -97,7 +97,6 @@ const logInDB = (username, password) => {
     await apis
       .login(user)
       .then(function (response) {
-        console.log(response);
         setCookie(response.headers.authorization, 7);
 
         apis
@@ -107,7 +106,6 @@ const logInDB = (username, password) => {
             history.replace("/");
           })
           .catch((err) => {
-            console.log(err.response);
             dispatch(
               alertAction.open({
                 message: "로그인 체크 실패",

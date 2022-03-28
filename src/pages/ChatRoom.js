@@ -2,7 +2,7 @@ import React from "react";
 import NewHeader from "../shared/NewHeader";
 import Grid from "../elements/Grid";
 import SockJS from "sockjs-client";
-import Stomp, { client } from "stompjs";
+import Stomp from "stompjs";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getCookie } from "../shared/Cookie";
@@ -11,7 +11,6 @@ import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators } from "../redux/modules/chat";
 import FlexGrid from "../elements/FlexGrid";
-import ContentContainer from "../elements/Container";
 import { actionCreators as chatAction } from "../redux/modules/chat";
 import Text from "../elements/Text";
 import styled from "styled-components";
@@ -49,8 +48,6 @@ const ChatRoom = (props) => {
       // 방에서 나갈 때 정보 초기화
     };
   }, []);
-
-  console.log(userList);
 
   return (
     <>

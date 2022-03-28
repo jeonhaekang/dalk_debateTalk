@@ -42,7 +42,6 @@ const addBannerDB = (image, url) => {
   //배너 추가하기
   return function (dispatch, getState, { history }) {
     const data = new FormData();
-    console.log(image, url);
     data.append("image", image);
     data.append(
       "url",
