@@ -49,6 +49,8 @@ const ChatRoom = (props) => {
     };
   }, []);
 
+  console.log(userList);
+
   return (
     <>
       <NewHeader page="토론방" users={userList.length} meatball>
