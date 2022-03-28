@@ -44,7 +44,7 @@ function WarnUser() {
                 return <List key={idx}>
                 <div> ID : {u.username} </div>
                 <div> 닉네임 : {u.nickname} </div>
-                <div> 신고수 : {u.warnUserCnt} </div>
+                <div> 신고수 : {u.userWarnCnt} </div>
                 <button onClick={()=>delWarnUser(u.userId)}> 삭제 </button>
             </List>
         })}

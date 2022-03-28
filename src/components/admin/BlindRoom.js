@@ -42,7 +42,7 @@ function BlindRoom() {
             {BlindRoomList.map((r, idx) => {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
-                    <div> 신고수 : {r.warnCnt} </div>
+                    <div> 신고수 : {r.chatRoomWarnCnt} </div>
                     <button onClick={()=>delBlindRoom(r.roomId)}> 삭제 </button>
                 </List>
             })}

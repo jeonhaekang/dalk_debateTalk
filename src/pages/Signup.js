@@ -14,6 +14,7 @@ import check from "../image/login/check.svg";
 import Modal from "../components/shared/Modal";
 import MemberPolicy from "../components/shared/MemberPolicy";
 import { getCookie } from "../shared/Cookie";
+import apis from "../shared/apis";
 
 const Signup = (props) => {
   React.useEffect(() => {
@@ -46,6 +47,8 @@ const Signup = (props) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
+  const [idVal, setIdVal] = useState(false);
+  const [nicknameVal, setNicknameVal] = useState(false);
 
   //5자이상 15자 이하 아이디
   const onChangeUsername = (e) => {
@@ -97,12 +100,54 @@ const Signup = (props) => {
     }
   };
 
+  // 올바르게 되었으면 체크표시
   const useBtnEvent = () => {
     if (useCheck === false) {
       setUseCheck(true);
     } else {
       setUseCheck(false);
     }
+  };
+
+  //아이디 닉네임 중복검사
+  const handleIdVal = () => {
+    apis
+      .idValidate(username)
+      .then((res) => {
+        setIdVal(true);
+        dispatch(
+          alertAction.open({
+            message: "사용가능한 아이디입니다",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          alertAction.open({
+            message: "이미 사용중인 아이디입니다",
+          })
+        );
+      });
+  };
+
+  const handleNicknameVal = () => {
+    apis
+      .nicknameValidate(nickname)
+      .then((res) => {
+        setNicknameVal(true);
+        dispatch(
+          alertAction.open({
+            message: "사용가능한 닉네임입니다",
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          alertAction.open({
+            message: "이미 사용중인 닉네임입니다",
+          })
+        );
+      });
   };
 
   //회원가입 하면 자동로그인하게 만들기
@@ -139,6 +184,20 @@ const Signup = (props) => {
         })
       );
       return;
+    } else if (idVal === false) {
+      dispatch(
+        alertAction.open({
+          message: "아이디 중복검사를 해주세요!",
+        })
+      );
+      return;
+    } else if (nicknameVal === false) {
+      dispatch(
+        alertAction.open({
+          message: "닉네임 중복검사를 해주세요!",
+        })
+      );
+      return;
     } else {
       dispatch(
         userActions.signUpDB(username, password, nickname, passwordCheck)
@@ -152,9 +211,12 @@ const Signup = (props) => {
         <FlexGrid is_column center gap="20px">
           {/* 아이디 입력 */}
           <FlexGrid is_column gap="8px">
-            <Text size="body1" weight="medium">
-              아이디 입력
-            </Text>
+            <FlexGrid is_flex>
+              <Text size="body1" weight="medium">
+                아이디 입력
+              </Text>
+              <ValBtn onClick={handleIdVal}>중복검사</ValBtn>
+            </FlexGrid>
             <InputContainer>
               <LoginInput
                 defaultValue={username}
@@ -169,9 +231,12 @@ const Signup = (props) => {
 
           {/* 닉네임 입력 */}
           <FlexGrid is_column gap="8px">
-            <Text size="body1" weight="medium">
-              닉네임 입력
-            </Text>
+            <FlexGrid is_flex>
+              <Text size="body1" weight="medium">
+                닉네임 입력
+              </Text>
+              <ValBtn onClick={handleNicknameVal}>중복검사</ValBtn>
+            </FlexGrid>
             <InputContainer>
               <LoginInput
                 defaultValue={nickname}
@@ -282,11 +347,12 @@ const LoginInput = styled.input`
   border-radius: 10px;
   background-color: #f1f1f1;
   padding: 16px;
+  font-size: 16px;
 `;
 
 const Validation = styled.p`
   margin-top: 5px;
-  font-size: 5px;
+  font-size: 12px;
 `;
 
 const SignupBox = styled.div`
@@ -319,5 +385,15 @@ const CheckImg = styled.img`
   position: absolute;
   right: 20px;
 `;
+
+const ValBtn = styled.button`
+  background-color: ${(props) => props.theme.color.orange};
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: none;
+  font-size: 10px;
+  color: #fff;
+  cursor: pointer;
+`
 
 export default Signup;

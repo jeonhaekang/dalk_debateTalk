@@ -5,7 +5,8 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  baseURL: "https://raddas.site",
+  // baseURL: "https://raddas.site",
+  baseURL: "https://dongseok.shop",
 });
 
 instance.interceptors.request.use((config) => {
@@ -49,10 +50,10 @@ const apis = {
   signup: (user) => instance.post("/users/signup", user),
 
   //아이디 중복검사
-  idValidate: (username) => instance.post("/users/signup/usernamecheck", username),
+  idValidate: (username) => instance.post("/users/signup/usernamecheck", {username: username}),
   
   //닉네임 중복검사
-  nicknameValidate : (nickname) => instance.post("/users/signup/nicknamecheck", nickname),
+  nicknameValidate : (nickname) => instance.post("/users/signup/nicknamecheck", {nickname : nickname}),
   
   //로그인 체크
   check: () => instance.get("/loginCheck"),
