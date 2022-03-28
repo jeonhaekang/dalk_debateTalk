@@ -392,7 +392,7 @@ const ValBtn = styled.button`
   border-radius: 10px;
   border: none;
   font-size: 10px;
-  color: #fff;
+  color: #FFFFFF;
   cursor: pointer;
 `
 
