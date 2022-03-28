@@ -5,8 +5,8 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  // baseURL: "https://raddas.site",
-  baseURL: "https://dongseok.shop",
+  baseURL: "https://raddas.site",
+  // baseURL: "https://dongseok.shop",
 });
 
 instance.interceptors.request.use((config) => {
@@ -173,8 +173,12 @@ const apis = {
     }),
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
-  sendPoint : (username, point, content) => 
-    instance.post('/admin/eventpoint', { username: username, point: point, content: content}),
+  sendPoint: (username, point, content) =>
+    instance.post("/admin/eventpoint", {
+      username: username,
+      point: point,
+      content: content,
+    }),
 };
 
 export default apis;

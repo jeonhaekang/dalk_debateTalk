@@ -14,16 +14,6 @@ const ChatBox = ({ roomId, headers, client }) => {
   React.useEffect(() => {
     connectSocket({ roomId, headers, client });
 
-    const isOnIOS =
-      navigator.userAgent.match(/iPad/i) ||
-      navigator.userAgent.match(/iPhone/i) ||
-      navigator.userAgent.match(/Mac/i);
-    const eventName = isOnIOS ? "pagehide" : "beforeunload";
-
-    window.addEventListener("orientationchange", () => {
-      console.log("체인지");
-    });
-
     const visibleHendler = (e) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
       history.replace("/");
