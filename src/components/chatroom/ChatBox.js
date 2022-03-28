@@ -6,8 +6,12 @@ import _ from "lodash";
 import downButton from "../../image/chatRoom/downButton.svg";
 import { connectSocket } from "../../modules/chatSocket";
 import { history } from "../../redux/configStore";
+import { mobileCheck } from "../../modules/mobileCheck";
+import { actionCreators } from "../../redux/modules/alert";
 
 const ChatBox = ({ roomId, headers, client }) => {
+  console.log("렌더링");
+  const dispatch = useDispatch();
   const scrollRef = React.useRef();
   const boxRef = React.useRef(null);
 
@@ -15,8 +19,13 @@ const ChatBox = ({ roomId, headers, client }) => {
     connectSocket({ roomId, headers, client });
 
     const visibleHendler = (e) => {
-      client.disconnect(() => client.unsubscribe("sub-0"), headers);
-      history.replace("/");
+      const state = document.visibilityState === "hidden";
+      const mobile = mobileCheck();
+
+      if (state && mobile) {
+        client.disconnect(() => client.unsubscribe("sub-0"), headers);
+        history.replace("/");
+      }
     };
 
     window.addEventListener("visibilitychange", visibleHendler);
