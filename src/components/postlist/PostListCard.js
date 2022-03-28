@@ -38,7 +38,7 @@ const PostListCard = (props) => {
   return (
     <>
       <CardBox
-        className="test"
+        className="moreBox"
         is_column
         _onClick={enterDetail}
       >

@@ -10,6 +10,7 @@ import BlindRoom from "../components/admin/BlindRoom";
 import BlindBoard from "../components/admin/BlindBoard";
 import Notice from "../components/admin/Notice";
 import GivePoint from "../components/admin/GivePoint";
+import WarnComment from "../components/admin/WarnComment";
 
 const Admin = () => {
   const BannerList = useSelector((state) => state.banner.BannerList);
@@ -48,6 +49,7 @@ const Admin = () => {
         <WarnUser />
         <Notice />
         <GivePoint />
+        <WarnComment />
 
         <Grid>
           <Title>메인 배너 리스트</Title>

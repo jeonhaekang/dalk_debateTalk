@@ -43,7 +43,7 @@ function BlindBoard() {
             {BlindBoardList.map((r, idx) => {
                 return <List key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
-                    <div> 신고수 : {r.warnCnt} </div>
+                    <div> 신고수 : {r.boardWarnCnt} </div>
                     <button onClick={()=>delBlindBoard(r.boardId)}> 삭제 </button>
                 </List>
             })}
