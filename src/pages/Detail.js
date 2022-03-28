@@ -11,7 +11,6 @@ import Modal from "../components/shared/Modal";
 import ShareLink from "../components/shared/ShareLink";
 import CommentList from "../components/detail/CommentList";
 
-import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
 

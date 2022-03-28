@@ -117,7 +117,7 @@ const InputContainer = styled.div`
 const Input = styled.input`
   width: 100%;
   height: 44px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   font-size: ${(props) => props.theme.fontWeight.body1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   border: 1px solid #d2d2d2;

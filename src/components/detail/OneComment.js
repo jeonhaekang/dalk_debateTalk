@@ -75,17 +75,17 @@ const OneComment = (props) => {
         })
       );
       history.replace("/login");
-    }
-    else if (isWarn === false) {
+    } else if (isWarn === false) {
       await apis
         .warningComment(commentId)
         .then((res) => {
-          setIsWarn(true);
           dispatch(
             alertAction.open({
-              message: "신고처리가 완료되었습니다",
+              type: "confirm",
+              message: "정말로 신고하시겠어요?",
             })
           );
+          setIsWarn(true);
         })
         .catch((err) => {
           dispatch(
