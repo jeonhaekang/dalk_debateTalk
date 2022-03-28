@@ -5,8 +5,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  // baseURL: "https://raddas.site",
-  baseURL: "https://dongseok.shop",
+  baseURL: "https://raddas.site",
 });
 
 instance.interceptors.request.use((config) => {
@@ -182,8 +181,12 @@ const apis = {
     }),
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
+  //포인트 보내기
   sendPoint : (username, point, content) => 
     instance.post('/admin/eventpoint', { username: username, point: point, content: content}),
+  //불량댓글
+  getWarnComment : () => instance.get('/admin/comments'),
+  delWarnComment : (commentId) => instance.delete(`/admin/comments/${commentId}`),
 };
 
 export default apis;
