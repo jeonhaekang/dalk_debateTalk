@@ -7,7 +7,6 @@ import { history } from "../redux/configStore";
 export const connectSocket = ({ roomId, headers, client }) => {
   // 연결 성공시 호출함수
   const connectCallback = () => {
-    console.log("연결 성공");
     client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
     // subscribe("url", callback, headers)
     EnterMessage({ client, headers, roomId });

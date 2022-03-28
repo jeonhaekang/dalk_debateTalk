@@ -21,7 +21,6 @@ const Gacha = (props) => {
   });
 
   const user = useSelector((props) => props.user.user);
-  console.log(user);
 
   const cacha = () => {
     if (user.lottoCount < 1) {

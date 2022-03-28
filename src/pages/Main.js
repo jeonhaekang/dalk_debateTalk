@@ -31,7 +31,6 @@ const Main = (props) => {
   }, []);
 
   const refresh = () => {
-    console.log("refresh");
     dispatch(actionCreators.loadMainRoomDB());
   };
 

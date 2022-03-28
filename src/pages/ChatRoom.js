@@ -2,7 +2,7 @@ import React from "react";
 import NewHeader from "../shared/NewHeader";
 import Grid from "../elements/Grid";
 import SockJS from "sockjs-client";
-import Stomp, { client } from "stompjs";
+import Stomp from "stompjs";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getCookie } from "../shared/Cookie";
@@ -11,16 +11,13 @@ import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators } from "../redux/modules/chat";
 import FlexGrid from "../elements/FlexGrid";
-import ContentContainer from "../elements/Container";
 import { actionCreators as chatAction } from "../redux/modules/chat";
 import Text from "../elements/Text";
 import styled from "styled-components";
 
 const ChatRoom = (props) => {
-  console.log("챗룸 렌더링");
   const dispatch = useDispatch();
-  // const sock = SockJS("https://raddas.site/ws-stomp");
-  const sock = SockJS("http://raddas.site:8080/ws-stomp");
+  const sock = SockJS("https://raddas.site/ws-stomp");
   // const sock = SockJS("https://dongseok.shop/ws-stomp");
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
@@ -51,8 +48,6 @@ const ChatRoom = (props) => {
       // 방에서 나갈 때 정보 초기화
     };
   }, []);
-
-  console.log(userList);
 
   return (
     <>
