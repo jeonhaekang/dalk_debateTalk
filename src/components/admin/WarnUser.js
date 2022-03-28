@@ -42,8 +42,9 @@ function WarnUser() {
             <Title>다신고 유저 목록</Title>
             {WarnUserList.map((u, idx) => {
                 return <List key={idx}>
-                <div> 유저 아이디 : {u.username} </div>
-                <div> 신고수 : {u.warnUserCnt} </div>
+                <div> ID : {u.username} </div>
+                <div> 닉네임 : {u.nickname} </div>
+                <div> 신고수 : {u.userWarnCnt} </div>
                 <button onClick={()=>delWarnUser(u.userId)}> 삭제 </button>
             </List>
         })}
@@ -61,7 +62,7 @@ const Title = styled.div`
 const List = styled.div`
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 8px;
     padding: 10px 0px;
 `
 

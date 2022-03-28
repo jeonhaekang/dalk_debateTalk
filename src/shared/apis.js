@@ -49,6 +49,12 @@ const apis = {
   //유저 회원가입 api
   signup: (user) => instance.post("/users/signup", user),
 
+  //아이디 중복검사
+  idValidate: (username) => instance.post("/users/signup/usernamecheck", {username: username}),
+  
+  //닉네임 중복검사
+  nicknameValidate : (nickname) => instance.post("/users/signup/nicknamecheck", {nickname : nickname}),
+  
   //로그인 체크
   check: () => instance.get("/loginCheck"),
 
@@ -133,11 +139,14 @@ const apis = {
   // 게시글 상세조회
   getOneDebate: (boardId) => instance.get(`/api/boards/${boardId}`),
   // 게시글 결과조회
-  getDebate: (page, size) =>
+  getDebate: (size, page) =>
     instance.get(`/api/boards?size=${size}&page=${page}`),
   // ---------게시글 검색------------
   getDebateKeyword: (keyword, size, page) =>
     instance.get(`/api/keywords/${keyword}?size=${size}&page=${page}`),
+  // ---------게시글 카테고리 조회------------
+  getDebateCategory: (size, page, category) =>
+    instance.get(`/api/boards/category/${category}?size=${size}&page=${page}`),
   // ---------게시글 신고------------
   warningDebate: (boardId) => instance.get(`/warnings/boards/${boardId}`),
 
@@ -173,12 +182,12 @@ const apis = {
     }),
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
-  sendPoint: (username, point, content) =>
-    instance.post("/admin/eventpoint", {
-      username: username,
-      point: point,
-      content: content,
-    }),
+  //포인트 보내기
+  sendPoint : (username, point, content) => 
+    instance.post('/admin/eventpoint', { username: username, point: point, content: content}),
+  //불량댓글
+  getWarnComment : () => instance.get('/admin/comments'),
+  delWarnComment : (commentId) => instance.delete(`/admin/comments/${commentId}`),
 };
 
 export default apis;
