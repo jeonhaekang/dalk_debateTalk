@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
 
 import Grid from "../elements/Grid";
 import ContentContainer from "../elements/Container";
 
 import NewHeader from "../shared/NewHeader";
 import PostListCategory from "../components/postlist/PostListCategory";
-import PostListCard from "../components/postlist/PostListCard";
-import InfinityScroll from "../shared/InfinityScroll";
 import Footer from "../shared/Footer";
 
 import SearchBlack from "../image/post/search_black.png";
@@ -19,28 +15,11 @@ import FlexGrid from "../elements/FlexGrid";
 import categoryDate from "../data/categoryData";
 import PostContent from "../components/postlist/PostContent";
 
-const PostList = (props) => {
-  const dispatch = useDispatch();
-  // // 전체 목록 조회
-  // const debateList = useSelector((state) => state.post);
-
-  // // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
-  // // InfinityScroll.js의 handleobserver와 연결
-  // const getDebateList = () => {
-  //   dispatch(postActions.getPostDB(debateList.page));
-  // };
-
-  // // 0번부터 결과창 리스트 불러오기
-  // // dispatch 될때마다 포스트가 업데이트 됩니다.
-  // useEffect(() => {
-  //   dispatch(postActions.getPostDB(0));
-  //   return () => dispatch(postActions.clear());
-  // }, []);
-
+const PostList = () => {
   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러, Top 버튼
-  const boxref = useRef();
+  const boxref = useRef({});
   const handleTop = () => {
-    boxref.current.scrollTo({
+    boxref.current[category].scrollTo({
       top: 0,
       behavior: "smooth",
     });
@@ -69,51 +48,45 @@ const PostList = (props) => {
   };
 
   const [category, setCategory] = React.useState("전체");
-  const api = category === "전체" ? "getDebate" : "getDebateCategory";
   const [idx, setIdx] = React.useState(0);
-
+  console.log(category);
   return (
     <>
       <NewHeader page="토론 결과방" line />
-      <ContentContainer>
-        <Grid>
-          <Container>
-            <InputContainer className="searchbox">
-              <Input
-                placeholder="검색어를 입력해주세요"
-                value={keyword}
-                onChange={handleKeyword}
-                onKeyDown={onKeyDown}
-              />
-              <SearchImg
-                src={SearchBlack}
-                onClick={searchDebate}
-                alt="돋보기"
-              />
-            </InputContainer>
-          </Container>
+      <ContentContainer mobile>
+        <Container>
+          <InputContainer className="searchbox">
+            <Input
+              placeholder="검색어를 입력해주세요"
+              value={keyword}
+              onChange={handleKeyword}
+              onKeyDown={onKeyDown}
+            />
+            <SearchImg src={SearchBlack} onClick={searchDebate} alt="돋보기" />
+          </InputContainer>
+        </Container>
 
-          <PostListCategory
-            category={category}
-            setCategory={setCategory}
-            idx={idx}
-            setIdx={setIdx}
-          />
-
-          <FlexGrid gap="0">
-            {categoryDate.map((el, i) => {
-              return (
-                <Test idx={idx} key={i}>
-                  <PostContent category={el.name} />
-                </Test>
-              );
-            })}
-          </FlexGrid>
-        </Grid>
+        <PostListCategory
+          category={category}
+          setCategory={setCategory}
+          idx={idx}
+          setIdx={setIdx}
+        />
+        <FlexGrid gap="0">
+          {categoryDate.map((el, i) => {
+            return (
+              <PostContentBox
+                idx={idx}
+                key={i}
+                ref={(ref) => (boxref.current[el.name] = ref)}
+              >
+                <PostContent category={el.name} />
+              </PostContentBox>
+            );
+          })}
+        </FlexGrid>
+        <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
       </ContentContainer>
-
-      <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
-
       <Footer />
     </>
   );
@@ -162,7 +135,7 @@ const SearchImg = styled.img`
 const TopBtn = styled.img`
   position: absolute;
   right: 16px;
-  bottom: 92px;
+  bottom: 16px;
   background-color: rgba(222, 222, 222, 0.8);
   border-radius: 100%;
   width: 60px;
@@ -170,13 +143,14 @@ const TopBtn = styled.img`
   cursor: pointer;
 `;
 
-const Test = styled.div`
+const PostContentBox = styled.div`
   --idx: ${(props) => props.idx * -100}%;
   transform: translateX(var(--idx));
   transition: 0.3s;
 
   width: 100%;
   height: calc((var(--vh) * 100) - 252px);
+  // height: 100%;
 
   background-color: ${(props) => props.color};
 

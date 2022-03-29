@@ -120,9 +120,10 @@ const ResultImg = styled.img`
 `;
 
 const Button = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 76px;
+  max-width: 430px;
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.bold};

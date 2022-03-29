@@ -79,7 +79,8 @@ const Icon = styled.div`
 `;
 
 const FixedNav = styled.div`
-  position: absolute;
+  position: fixed;
+  max-width: 430px;
   width: 100%;
   bottom: 0;
 

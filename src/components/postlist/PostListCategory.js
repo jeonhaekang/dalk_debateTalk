@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import categoryDate from "../../data/categoryData";
 import FlexGrid from "../../elements/FlexGrid";
-import { history } from "../../redux/configStore";
 import XScrollDrag from "../shared/XScrollDrag";
 
 const PostListCategory = ({ category, setCategory, idx, setIdx }) => {
