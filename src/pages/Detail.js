@@ -25,6 +25,7 @@ import personFill from "../image/detailElement/person_fill.svg";
 import thumbUpFill from "../image/detailElement/thumb_up_black_fill.svg";
 import trendingUpFill from "../image/detailElement/trending_up_fill.svg";
 import { getCookie } from "../shared/Cookie";
+import CommentWrite from "../components/detail/CommentWrite";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -87,8 +88,7 @@ const Detail = (props) => {
         })
       );
       history.replace("/login");
-    }
-    else if (isWarn === false) {
+    } else if (isWarn === false) {
       await apis
         .warningDebate(boardId)
         .then((res) => {
@@ -193,7 +193,7 @@ const Detail = (props) => {
                 </DetailBox>
 
                 <GrapGauge which={true} rate={winnerRate} />
-              </DebateBox>            
+              </DebateBox>
               <DebateBox win={false} is_column center gap="0px">
                 <DetailLogo center gap="4px">
                   <img src={detailLogo} alt="detaillogo" />
@@ -308,7 +308,8 @@ const Detail = (props) => {
         </DebateWrap>
 
         {/* 댓글 전체 */}
-        {<CommentList debate={debate} />}
+        <CommentList debate={debate} />
+        <CommentWrite debate={debate} />
       </DetailWrap>
 
       {createModalState && (
@@ -328,10 +329,11 @@ const Detail = (props) => {
 };
 
 const DetailWrap = styled.div`
-  height: calc(100% - 130px);
+  height: calc(var(--vh) * 100 - 130px);
+  /* height: calc(100% - 130px); */
   overflow: scroll;
   background-color: #f0f0f0;
-`
+`;
 
 const DebateWrap = styled.div`
   display: flex;

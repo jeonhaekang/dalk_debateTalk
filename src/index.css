@@ -4,6 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   height: 100vh;
+  /* height: calc(var(--vh) * 100); */
 
   background-color: #f6f6f6;
   background-image: url(./image/shared/background.jpg);
