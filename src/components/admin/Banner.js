@@ -28,7 +28,8 @@ function Banner() {
   };
 
   const handleAddBanner = () => {
-    dispatch(bannerActions.addBannerDB(selectedFile, {url : url}, status));
+      console.log(typeof(status))
+    dispatch(bannerActions.addBannerDB(selectedFile, {url : url, status : status}));
   };
 
   const handleDelBanner = (carouselId) => {
