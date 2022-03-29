@@ -10,6 +10,7 @@ import NewHeader from "../../shared/NewHeader";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import RankingBar from "../../components/mypage/RankingBar";
+import ContentContainer from "../../elements/Container";
 
 const UserRanking = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const UserRanking = () => {
   return (
     <>
       <NewHeader page="유저랭킹" line />
-      <RankingWrap>
+      <ContentContainer>
         {/* 랭킹바 부분 */}
         {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
 
@@ -94,7 +95,7 @@ const UserRanking = () => {
             </div>
           </MyGradeLevel>
         </Me>
-      </RankingWrap>
+      </ContentContainer>
     </>
   );
 };
@@ -148,10 +149,12 @@ const MyGradeLevel = styled.div`
 `;
 
 const Me = styled.div`
-  position: absolute;
+  position: fixed;
+  max-width: 430px;
+  width: 100%;
   bottom: 0;
   padding: 14px 16px;
-  width: 100%;
+
   height: 84px;
   background-color: #f0f0f0;
 `;

@@ -296,12 +296,13 @@ const SignupBox = styled.div`
   background-color: ${(props) => props.theme.color.orange};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   font-size: 24px;
-  width: 100%;
+
   border: none;
   color: #fff;
-  position: absolute;
+  position: fixed;
+  width: 100%;
+  max-width: 430px;
   bottom: 0;
-  left: 0;
   height: 74px;
   cursor: pointer;
 `;
