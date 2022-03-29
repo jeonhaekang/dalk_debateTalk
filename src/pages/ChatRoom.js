@@ -17,8 +17,8 @@ import Container from "../elements/Container";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
-  const sock = SockJS("http://ddanddan.shop/ws-stomp");
-  // const sock = SockJS("https://raddas.site/ws-stomp");
+  // const sock = SockJS("http://ddanddan.shop/ws-stomp");
+  const sock = SockJS("https://raddas.site/ws-stomp");
   // const sock = SockJS("https://dongseok.shop/ws-stomp");
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 

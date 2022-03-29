@@ -238,6 +238,8 @@ const TopicInput = styled.input`
   border: none;
   background-color: #f3f3f3;
   padding: 0 24px;
+
+  font-size: 16px;
 `;
 
 export default CreateRoom;
