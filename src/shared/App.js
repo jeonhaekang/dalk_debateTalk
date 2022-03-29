@@ -31,7 +31,6 @@ import { GlobalStyle } from "../styles/globalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "./Spinner";
 import Onboarding from "./Onboarding";
-import SearchCategory from "../pages/SearchCategory";
 import Alert from "./Alert";
 import SearchPost from "../pages/SearchPost";
 import ProjectMember from "../pages/ProjectMember";
@@ -85,7 +84,6 @@ function App() {
       <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
       <Route path="/postlist" exact component={PostList} />
       <Route path="/postlist/search/:keyword" exact component={SearchPost} />
-      <Route path="/postlist/:category" exact component={SearchCategory} />
       <Route path="/detail/:boardId" exact component={Detail} />
       <Route path="/more" exact component={More} />
       <Route path="/more/:category" exact component={Category} />

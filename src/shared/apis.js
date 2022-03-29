@@ -8,6 +8,7 @@ export const instance = axios.create({
   baseURL: "http://ddanddan.shop",
   // baseURL: "https://raddas.site",
   // baseURL: "https://dongseok.shop",
+  // baseURL: "http://ddanddan.shop/",
 });
 
 instance.interceptors.request.use((config) => {

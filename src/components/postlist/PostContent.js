@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import InfinityScroll from "../../shared/InfinityScroll";
 import Text from "../../elements/Text";
-import { actionCreators } from "../../redux/modules/infinityScroll";
+import { actionCreators } from "../../redux/modules/post";
 import FlexGrid from "../../elements/FlexGrid";
 import empty from "../../image/shared/emptyRoom.svg";
 import PostListCard from "./PostListCard";
@@ -11,7 +11,7 @@ import PostListCard from "./PostListCard";
 const PostContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "getDebate" : "getDebateCategory";
-  const data = useSelector((props) => props.infinityScroll[category]);
+  const data = useSelector((props) => props.post[category]);
 
   const getRoomList = () => {
     dispatch(actionCreators.loadListDB(data.page, api, category));

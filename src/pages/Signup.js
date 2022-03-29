@@ -16,7 +16,7 @@ import MemberPolicy from "../components/shared/MemberPolicy";
 import { getCookie } from "../shared/Cookie";
 import apis from "../shared/apis";
 
-const Signup = (props) => {
+const Signup = () => {
   React.useEffect(() => {
     const token = getCookie("authorization");
 
