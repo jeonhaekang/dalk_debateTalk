@@ -13,7 +13,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import FlexGrid from "../elements/FlexGrid";
 import { getCookie } from "../shared/Cookie";
 
-const Login = (props) => {
+const Login = () => {
   React.useEffect(() => {
     const token = getCookie("authorization");
 
@@ -117,7 +117,15 @@ const Login = (props) => {
             </InputContainer>
           </FlexGrid>
 
-          <LoginBtn onClick={handleLogin}>시작하기</LoginBtn>
+          {(password === "") ? (
+            <LoginBtn ok={false} onClick={handleLogin}>
+              시작하기
+            </LoginBtn>
+          ) : (
+            <LoginBtn ok={true} onClick={handleLogin}>
+              시작하기
+            </LoginBtn>
+          )}
         </FlexGrid>
 
         <Grid padding="20px 0px">
@@ -154,7 +162,8 @@ const LoginInput = styled.input`
 `;
 
 const LoginBtn = styled.button`
-  background-color: ${(props) => props.theme.color.orange};
+  background-color: ${(props) =>
+    props.ok ? props.theme.color.orange : "#CBCBCB"};
   border: none;
   border-radius: 10px;
   color: #fff;
@@ -163,6 +172,7 @@ const LoginBtn = styled.button`
   font-size: 24px;
   font-weight: ${(props) => props.theme.fontWeight.medium};
   cursor: pointer;
+  pointer-events: ${(props) => (props.ok ? null : "none")};
 `;
 
 const Signuptext = styled.div`

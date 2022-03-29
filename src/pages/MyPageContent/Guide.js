@@ -1,6 +1,6 @@
 import ContentContainer from "../../elements/Container";
 import NewHeader from "../../shared/NewHeader";
-import guide from "../../image/mypage/guied.jpg";
+import guide from "../../image/mypage/guide.jpg";
 import styled from "styled-components";
 
 const Guide = () => {

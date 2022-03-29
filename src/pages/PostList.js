@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 
-import Grid from "../elements/Grid";
 import ContentContainer from "../elements/Container";
 
 import NewHeader from "../shared/NewHeader";
@@ -49,7 +48,6 @@ const PostList = () => {
 
   const [category, setCategory] = React.useState("전체");
   const [idx, setIdx] = React.useState(0);
-  console.log(category);
   return (
     <>
       <NewHeader page="토론 결과방" line />

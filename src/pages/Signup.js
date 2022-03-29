@@ -29,6 +29,7 @@ const Signup = () => {
       );
     }
   }, []);
+
   const dispatch = useDispatch();
   //약관 체크
   const [useCheck, setUseCheck] = useState(false);
@@ -222,7 +223,9 @@ const Signup = () => {
                 defaultValue={username}
                 onChange={onChangeUsername}
               ></LoginInput>
-              {isUsername === true && <CheckImg src={check} alt="check" />}
+              {isUsername && idVal === true && (
+                <CheckImg src={check} alt="check" />
+              )}
             </InputContainer>
             {username.length > 0 && !isUsername && (
               <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
@@ -242,7 +245,9 @@ const Signup = () => {
                 defaultValue={nickname}
                 onChange={onChangeNickname}
               ></LoginInput>
-              {isNickname === true && <CheckImg src={check} alt="check" />}
+              {isNickname && nicknameVal === true && (
+                <CheckImg src={check} alt="check" />
+              )}
             </InputContainer>
             {nickname.length > 0 && !isNickname && (
               <Validation>
@@ -322,7 +327,18 @@ const Signup = () => {
             </Text>
           </Text>
         </FlexGrid>
-        <SignupBox onClick={clickSignUp}>가입하기</SignupBox>
+        {(isUsername === false ||
+        isNickname === false ||
+        isPassword === false ||
+        isPasswordCheck === false) ? (
+          <SignupBox ok={false} onClick={clickSignUp}>
+            가입하기
+          </SignupBox>
+        ) : (
+          <SignupBox ok={true} onClick={clickSignUp}>
+            가입하기
+          </SignupBox>
+        )}
       </FlexGrid>
 
       {createModalState && (
@@ -359,9 +375,12 @@ const SignupBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.theme.color.orange};
+  background-color: ${(props) =>
+    props.ok ? props.theme.color.orange : "#CBCBCB"};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   font-size: 24px;
+
+  pointer-events: ${(props) => (props.ok ? null : "none")};
 
   border: none;
   color: #fff;
@@ -393,8 +412,8 @@ const ValBtn = styled.button`
   border-radius: 10px;
   border: none;
   font-size: 10px;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
-`
+`;
 
 export default Signup;
