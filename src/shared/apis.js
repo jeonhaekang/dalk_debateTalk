@@ -7,12 +7,7 @@ import store from "../redux/configStore";
 export const instance = axios.create({
   // baseURL: "http://ddanddan.shop",
   baseURL: "https://raddas.site",
-<<<<<<< HEAD
   // baseURL: "https://dongseok.shop",
-  // baseURL: "http://ddanddan.shop/",
-=======
-  // baseURL: "https://dongseok.shop",,
->>>>>>> develop
 });
 
 instance.interceptors.request.use((config) => {
