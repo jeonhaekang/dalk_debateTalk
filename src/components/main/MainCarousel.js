@@ -26,6 +26,7 @@ const MainCarousel = (props) => {
     apis
       .carousels()
       .then((res) => {
+        console.log(res.data)
         setImageList(res.data);
       })
       .catch((err) => {
