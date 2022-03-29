@@ -6,11 +6,11 @@ import { actionCreators as alertAction } from "../../redux/modules/alert";
 import apis from "../../shared/apis";
 
 import Grid from "../../elements/Grid";
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import RankingBar from "../../components/mypage/RankingBar";
-import ContentContainer from "../../elements/Container";
+import Container from "../../elements/Container";
 
 const UserRanking = () => {
   const dispatch = useDispatch();
@@ -44,8 +44,8 @@ const UserRanking = () => {
 
   return (
     <>
-      <NewHeader page="유저랭킹" line />
-      <ContentContainer>
+      <Header page="유저랭킹" line />
+      <Container footer>
         {/* 랭킹바 부분 */}
         {RankingList.length !== 0 && <RankingBar topUser={topUser} />}
 
@@ -95,7 +95,7 @@ const UserRanking = () => {
             </div>
           </MyGradeLevel>
         </Me>
-      </ContentContainer>
+      </Container>
     </>
   );
 };

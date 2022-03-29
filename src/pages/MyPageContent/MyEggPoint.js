@@ -9,9 +9,9 @@ import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
 
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 import { history } from "../../redux/configStore";
-import ContentContainer from "../../elements/Container";
+import Container from "../../elements/Container";
 
 const MyEggPoint = () => {
   const dispatch = useDispatch();
@@ -43,8 +43,8 @@ const MyEggPoint = () => {
 
   return (
     <>
-      <NewHeader page="알포인트 내역" />
-      <ContentContainer Xfooter>
+      <Header page="알포인트 내역" />
+      <Container>
         <FlexGrid
           is_column
           center
@@ -93,7 +93,7 @@ const MyEggPoint = () => {
             })}
           </FlexGrid>
         </FlexGrid>
-      </ContentContainer>
+      </Container>
     </>
   );
 };

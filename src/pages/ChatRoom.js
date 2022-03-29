@@ -1,5 +1,5 @@
 import React from "react";
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import Grid from "../elements/Grid";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -13,7 +13,7 @@ import { actionCreators } from "../redux/modules/chat";
 import FlexGrid from "../elements/FlexGrid";
 import { actionCreators as chatAction } from "../redux/modules/chat";
 import Text from "../elements/Text";
-import styled from "styled-components";
+import Container from "../elements/Container";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const ChatRoom = (props) => {
 
   return (
     <>
-      <NewHeader page="토론방" users={userList.length} meatball>
+      <Header page="토론방" users={userList.length} meatball>
         <FlexGrid _onClick={reportRoom}>
           <svg width="28" height="28" viewBox="0 0 28 28">
             <path
@@ -64,10 +64,10 @@ const ChatRoom = (props) => {
             신고하기
           </Text>
         </FlexGrid>
-      </NewHeader>
+      </Header>
 
       {roomInfo && (
-        <Container is_column gap="0">
+        <Container>
           <ChatHeader {...roomInfo} />
           <ChatBox {...data} />
           <ChatInput {...data} />
@@ -76,9 +76,5 @@ const ChatRoom = (props) => {
     </>
   );
 };
-
-const Container = styled(FlexGrid)`
-  height: calc(var(--vh) * 100 - 70px);
-`;
 
 export default ChatRoom;

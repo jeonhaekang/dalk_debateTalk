@@ -1,5 +1,5 @@
 import React from "react";
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/chat";
@@ -18,6 +18,7 @@ import Text from "../elements/Text";
 import fireDalk from "../image/shared/fireDalk.svg";
 import reset from "../image/shared/reset.svg";
 import empty from "../image/shared/emptyRoom.svg";
+import Container from "../elements/Container";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -36,9 +37,8 @@ const Main = (props) => {
 
   return (
     <>
-      <NewHeader page="메인" />
-
-      <ContentContainer>
+      <Header />
+      <Container footer>
         {/* 캐러셀 */}
         <MainCarousel />
         {/* 1,2,3등 */}
@@ -99,8 +99,7 @@ const Main = (props) => {
             </FlexGrid>
           )}
         </FlexGrid>
-      </ContentContainer>
-
+      </Container>
       <Footer />
     </>
   );

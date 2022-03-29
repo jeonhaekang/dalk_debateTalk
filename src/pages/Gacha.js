@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import ContentContainer from "../elements/Container";
-import NewHeader from "../shared/NewHeader";
+import Container from "../elements/Container";
+import Header from "../shared/Header";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import apis from "../shared/apis";
@@ -53,9 +53,9 @@ const Gacha = (props) => {
   };
   return (
     <>
-      <NewHeader page="행운뽑기" />
+      <Header page="행운뽑기" />
       {user && (
-        <ContentContainer overflow="visible" padding="54px">
+        <Container footer overflow="visible" padding="54px">
           <FlexGrid center height="100%">
             <FlexGrid center is_column>
               <ResultImg src={data.img} animation={animation} />
@@ -94,7 +94,7 @@ const Gacha = (props) => {
               </FlexGrid>
             </FlexGrid>
           </FlexGrid>
-        </ContentContainer>
+        </Container>
       )}
       {user && (
         <Button onClick={cacha} state={user.lottoCount}>
@@ -120,10 +120,7 @@ const ResultImg = styled.img`
 `;
 
 const Button = styled.button`
-  position: fixed;
-  bottom: 0;
   height: 76px;
-  max-width: 430px;
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.bold};

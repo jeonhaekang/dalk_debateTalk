@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./shared/App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -19,11 +18,11 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <div className="container">
-          <div className="wrap" id="globalPortal">
-            <App />
-          </div>
-        </div>
+        {/* <div className="container">
+          <div className="wrap" id="globalPortal"> */}
+        <App />
+        {/* </div>
+        </div> */}
       </BrowserRouter>
     </ThemeProvider>
   </Provider>,

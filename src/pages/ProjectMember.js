@@ -1,6 +1,6 @@
 import React from "react";
 
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 
 import { MemberInfo } from "../data/member";
 import github from "../image/member/github.png";
@@ -9,13 +9,13 @@ import blog from "../image/member/blog.png";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import styled from "styled-components";
-import ContentContainer from "../elements/Container";
+import Container from "../elements/Container";
 
 function ProjectMember() {
   return (
     <>
-      <NewHeader page="개발멤버" />
-      <ContentContainer Xfooter>
+      <Header page="개발멤버" />
+      <Container Xfooter>
         <FlexGrid is_column gap="16px" padding="24px" center>
           <Text size="headline2" weight="medium" color="orange">
             DALK 멤버들을 소개합니다!
@@ -71,7 +71,7 @@ function ProjectMember() {
             </FlexGrid>
           </FlexGrid>
         </FlexGrid>
-      </ContentContainer>
+      </Container>
     </>
   );
 }

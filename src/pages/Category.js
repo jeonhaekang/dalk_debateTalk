@@ -3,12 +3,12 @@ import Footer from "../shared/Footer";
 
 import FlexGrid from "../elements/FlexGrid";
 
-import ContentContainer from "../elements/Container";
+import Container from "../elements/Container";
 import Text from "../elements/Text";
 
 import styled from "styled-components";
 
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import BestContent from "../components/category/BestContent";
 import CategoryContent from "../components/category/CategoryContent";
 import { actionCreators } from "../redux/modules/infinityScroll";
@@ -27,8 +27,8 @@ const Category = (props) => {
 
   return (
     <>
-      <NewHeader page={`#${category}`} color line />
-      <ContentContainer>
+      <Header page={`#${category}`} color line />
+      <Container footer>
         <BestContent category={category} time={time} refresh={refresh} />
         <ContentBox is_column>
           <FlexGrid
@@ -44,7 +44,7 @@ const Category = (props) => {
           </FlexGrid>
           <CategoryContent category={category} time={time} />
         </ContentBox>
-      </ContentContainer>
+      </Container>
       <Footer />
     </>
   );

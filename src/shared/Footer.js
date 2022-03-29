@@ -8,7 +8,7 @@ const Footer = () => {
   const path = window.location.pathname;
 
   return (
-    <FixedNav>
+    <FooterContainer>
       <Icon onClick={() => history.push("/")}>
         <svg width="30" height="30" viewBox="0 0 38 38">
           <path
@@ -66,7 +66,7 @@ const Footer = () => {
           />
         </svg>
       </Icon>
-    </FixedNav>
+    </FooterContainer>
   );
 };
 const Icon = styled.div`
@@ -78,10 +78,10 @@ const Icon = styled.div`
   gap: 0;
 `;
 
-const FixedNav = styled.div`
-  position: fixed;
-  max-width: 430px;
+const FooterContainer = styled.div`
+  position: absolute;
   width: 100%;
+  left: 0;
   bottom: 0;
 
   height: 76px;

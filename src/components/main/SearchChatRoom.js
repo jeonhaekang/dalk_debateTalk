@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import Text from "../../elements/Text";
 import { history } from "../../redux/configStore";
 
-const SearchRoom = ({ state, setState }) => {
+const SearchChatRoom = ({ state, setState }) => {
   const [aniState, setAniState] = React.useState(false);
   const [keyword, setKeyword] = React.useState("");
   const [keywords, setKeywords] = React.useState(
@@ -174,4 +174,4 @@ const Container = styled.div`
   /* animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.3s; */
 `;
 
-export default SearchRoom;
+export default SearchChatRoom;
