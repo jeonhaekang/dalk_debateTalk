@@ -38,7 +38,7 @@ const getBannerDB = () => {
   };
 };
 
-const addBannerDB = (image, url) => {
+const addBannerDB = (image, url, status) => {
   //배너 추가하기
   return function (dispatch, getState, { history }) {
     const data = new FormData();
@@ -47,6 +47,7 @@ const addBannerDB = (image, url) => {
       "url",
       new Blob([JSON.stringify(url)], { type: "application/json" })
     );
+    data.append("status", status);
 
     apis
       .addBanner(data)

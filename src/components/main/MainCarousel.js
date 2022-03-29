@@ -41,11 +41,20 @@ const MainCarousel = (props) => {
     <>
       <Carousel {...style}>
         {imageList.map((el, i) => {
-          return (
+          return el.status === true ? (
             <a href={el.url} target="_blank" key={i}>
               <Image src={el.image} />
             </a>
+          ) : (
+            <a href={el.url} key={i}>
+              <Image src={el.image} />
+            </a>
           );
+          // return (
+          //   <a href={el.url} target="_blank" key={i}>
+          //     <Image src={el.image} />
+          //   </a>
+          // );
         })}
       </Carousel>
     </>
