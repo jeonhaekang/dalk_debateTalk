@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
 
 import Grid from "../elements/Grid";
 import ContentContainer from "../elements/Container";
 
 import NewHeader from "../shared/NewHeader";
 import PostListCategory from "../components/postlist/PostListCategory";
-import PostListCard from "../components/postlist/PostListCard";
-import InfinityScroll from "../shared/InfinityScroll";
 import Footer from "../shared/Footer";
 
 import SearchBlack from "../image/post/search_black.png";
@@ -19,23 +15,7 @@ import FlexGrid from "../elements/FlexGrid";
 import categoryDate from "../data/categoryData";
 import PostContent from "../components/postlist/PostContent";
 
-const PostList = (props) => {
-  const dispatch = useDispatch();
-  // // 전체 목록 조회
-  // const debateList = useSelector((state) => state.post);
-
-  // // 무한 스크롤이 구현될때 page수를 callnext로 받아옵니다.
-  // // InfinityScroll.js의 handleobserver와 연결
-  // const getDebateList = () => {
-  //   dispatch(postActions.getPostDB(debateList.page));
-  // };
-
-  // // 0번부터 결과창 리스트 불러오기
-  // // dispatch 될때마다 포스트가 업데이트 됩니다.
-  // useEffect(() => {
-  //   dispatch(postActions.getPostDB(0));
-  //   return () => dispatch(postActions.clear());
-  // }, []);
+const PostList = () => {
 
   // 클릭하면 스크롤이 위로 올라가는 이벤트 핸들러, Top 버튼
   const boxref = useRef();
@@ -69,13 +49,12 @@ const PostList = (props) => {
   };
 
   const [category, setCategory] = React.useState("전체");
-  const api = category === "전체" ? "getDebate" : "getDebateCategory";
   const [idx, setIdx] = React.useState(0);
 
   return (
     <>
       <NewHeader page="토론 결과방" line />
-      <ContentContainer>
+      <ContentContainer ref={boxref}>
         <Grid>
           <Container>
             <InputContainer className="searchbox">
@@ -177,6 +156,7 @@ const Test = styled.div`
 
   width: 100%;
   height: calc((var(--vh) * 100) - 252px);
+  // height: 100%;
 
   background-color: ${(props) => props.color};
 

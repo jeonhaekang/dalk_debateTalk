@@ -4,69 +4,101 @@ import apis from "../../shared/apis";
 import { actionCreators as alertAction } from "./alert";
 
 //Action
-const GET_POST = "GET_POST";
-const CLEAR = "CLEAR";
+const GET_ROOM = "post/GET_ROOM";
+const CLEAR = "post/CLEAR";
+const REFRESH = "post/REFRESH";
 
 //Action Creator
-const getPost = createAction("GET_POST", (Data) => ({ Data }));
-const clear = createAction("CLEAR", () => ({}));
+const getRoom = createAction(GET_ROOM, (keyword, data) => ({ keyword, data }));
+const clear = createAction(CLEAR, () => ({}));
+const refresh = createAction(REFRESH, (keyword) => ({ keyword }));
 
 //initialState
 const initialState = {
-  postList: [],
-  // 무한스크롤 관련 초기값
-  page: 0, // 무한스크롤을 위한 페이지네이션 번호입니다
-  has_next: false, // 다음 페이지로 넘어갈건지에 대한 boolean값입니다.
-  is_loading: false, // 로딩이 중첩되어 똑같은 값이 넘어오지 않기위한 boolean값입니다.
+  전체: { list: [], page: 0, has_next: false },
+  음식: { list: [], page: 0, has_next: false },
+  운동: { list: [], page: 0, has_next: false },
+  게임: { list: [], page: 0, has_next: false },
+  연애: { list: [], page: 0, has_next: false },
+  유머: { list: [], page: 0, has_next: false },
+  헬프: { list: [], page: 0, has_next: false },
+  망상: { list: [], page: 0, has_next: false },
+  정치: { list: [], page: 0, has_next: false },
+  기타: { list: [], page: 0, has_next: false },
+  // page: 0 무한스크롤을 위한 페이지네이션 번호입니다
+  // has_next: false  다음 페이지로 넘어갈건지에 대한 boolean값입니다.
 };
 
-//MiddleWare
-const getPostDB = (page) => {
-  return function (dispatch, getstate, { history }) {
-    const size = 5; // 한 페이지에 몇개의 포스트를 불러올지 정합니다.
-    // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
-    apis
-      .getDebate(page, size)
+const initialData = {
+  list: [],
+  page: 0,
+  has_next: false,
+};
+
+//middleWare
+const loadListDB = (page, api, keyword) => {
+  return function (dispatch, getState, { history }) {
+    const size = 5;
+
+    apis[api](size, page, keyword)
       .then((res) => {
         let is_next = null;
-        // 마지막 끝단에서 데이터가 없을 때 페이지를 멈추는 if문입니다.
         if (res.data.length < size) {
           is_next = false;
         } else {
           is_next = true;
         }
-        // res.data 값을 새로운 배열로 지정해주기 위한 객체입니다.
-        const Data = {
-          postList: res.data,
-          // is_next가 true가 되면 page가 +1 됩니다.
+        const data = {
+          list: res.data,
           page: page + 1,
           next: is_next,
         };
-        dispatch(getPost(Data));
+
+        dispatch(getRoom(keyword, data));
       })
       .catch((err) => {
         dispatch(
           alertAction.open({
-            message: "결과창 가져오기 실패",
+            message: "에러가 발생하였습니다",
           })
         );
       });
   };
 };
 
+const refreshDB = (api, keyword) => {
+  return async function (dispatch, getState, { history }) {
+    dispatch(refresh(keyword));
+    dispatch(loadListDB(0, api, keyword));
+  };
+};
+
 //Reducer
 export default handleActions(
   {
-    [GET_POST]: (state, action) =>
+    [GET_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        // Data값을 push 해주어 page수를 +1 할 때마다 push가 됩니다.
-        draft.postList.push(...action.payload.Data.postList);
-        draft.page = action.payload.Data.page;
-        draft.has_next = action.payload.Data.next;
+        const { keyword, data } = action.payload;
+        if (draft[keyword]) {
+          draft[keyword].list.push(...data.list);
+          draft[keyword].page = data.page;
+          draft[keyword].has_next = data.next;
+        } else {
+          draft[keyword] = {
+            list: data.list,
+            page: data.page,
+            has_next: data.next,
+          };
+        }
       }),
-    [CLEAR]: (state) =>
+    [CLEAR]: (state, action) =>
       produce(state, (draft) => {
         return initialState;
+      }),
+    [REFRESH]: (state, action) =>
+      produce(state, (draft) => {
+        const { keyword } = action.payload;
+        draft[keyword] = initialData;
       }),
   },
   initialState
@@ -74,8 +106,9 @@ export default handleActions(
 
 //Export Action Creator
 const actionCreators = {
-  getPostDB,
+  loadListDB,
   clear,
+  refreshDB,
 };
 
 export { actionCreators };
