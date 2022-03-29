@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import styled from "styled-components";
 import apis from "../../shared/apis";
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 
 function AnnounceDetail(props) {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function AnnounceDetail(props) {
 
   return (
     <AnnouncementDetailWrap>
-      <NewHeader page="공지사항" />
+      <Header page="공지사항" />
       <Wrap>
         <Title>{detailNotice.title}</Title>
         <CreatedAt>{createdAt}</CreatedAt>

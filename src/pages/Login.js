@@ -146,6 +146,7 @@ const LoginInput = styled.input`
   border-radius: 10px;
   background-color: #f1f1f1;
   padding: 25px;
+  font-size: 16px;
   ::placeholder {
     color: #333333;
     font-size: 16px;

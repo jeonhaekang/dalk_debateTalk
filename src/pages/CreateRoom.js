@@ -1,5 +1,5 @@
 import ContentContainer from "../elements/Container";
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import React, { useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import Input from "../elements/Input";
@@ -78,7 +78,7 @@ const CreateRoom = () => {
 
   return (
     <>
-      <NewHeader page="토론방 만들기" />
+      <Header page="토론방 만들기" />
       <ContentContainer padding="16px">
         <FlexGrid is_column gap="30px">
           <FlexGrid is_column gap="24px">

@@ -35,6 +35,7 @@ import Alert from "./Alert";
 import SearchPost from "../pages/SearchPost";
 import ProjectMember from "../pages/ProjectMember";
 import { getCookie } from "./Cookie";
+import MobileFrame from "../components/shared/MobileFrame";
 
 function App() {
   // loginCheck
@@ -50,31 +51,37 @@ function App() {
   return (
     <ConnectedRouter history={history}>
       <GlobalStyle />
-      <Alert />
-      <Spinner />
-      <Route path="/" exact component={Main} />
-      <Route path="/createroom" exact component={CreateRoom} />
-      <Route path="/search/:keyword" exact component={SearchRoom} />
-      <Route path="/admin" exact component={Admin} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/signup" exact component={Signup} />
-      <Route path="/mypage" exact component={MyPage} />
-      <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
-      <Route path="/mypage/guide" exact component={Guide} />
-      <Route path="/mypage/grade" exact component={MyGrade} />
-      <Route path="/mypage/pointshop" exact component={PointShop} />
-      <Route path="/mypage/gacha" exact component={Gacha} />
-      <Route path="/announcement" exact component={Announcement} />
-      <Route path="/announcement/:noticeId" exact component={AnnounceDetail} />
-      <Route path="/ranking" exact component={UserRanking} />
-      <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
-      <Route path="/postlist" exact component={PostList} />
-      <Route path="/postlist/search/:keyword" exact component={SearchPost} />
-      <Route path="/detail/:boardId" exact component={Detail} />
-      <Route path="/more" exact component={More} />
-      <Route path="/more/:category" exact component={Category} />
-      <Route path="/projectmembers" exact component={ProjectMember} />
-      <Onboarding />
+      <MobileFrame>
+        <Alert />
+        <Spinner />
+        <Route path="/" exact component={Main} />
+        <Route path="/createroom" exact component={CreateRoom} />
+        <Route path="/search/:keyword" exact component={SearchRoom} />
+        <Route path="/admin" exact component={Admin} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/mypage" exact component={MyPage} />
+        <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
+        <Route path="/mypage/guide" exact component={Guide} />
+        <Route path="/mypage/grade" exact component={MyGrade} />
+        <Route path="/mypage/pointshop" exact component={PointShop} />
+        <Route path="/mypage/gacha" exact component={Gacha} />
+        <Route path="/announcement" exact component={Announcement} />
+        <Route
+          path="/announcement/:noticeId"
+          exact
+          component={AnnounceDetail}
+        />
+        <Route path="/ranking" exact component={UserRanking} />
+        <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
+        <Route path="/postlist" exact component={PostList} />
+        <Route path="/postlist/search/:keyword" exact component={SearchPost} />
+        <Route path="/detail/:boardId" exact component={Detail} />
+        <Route path="/more" exact component={More} />
+        <Route path="/more/:category" exact component={Category} />
+        <Route path="/projectmembers" exact component={ProjectMember} />
+        <Onboarding />
+      </MobileFrame>
     </ConnectedRouter>
   );
 }
