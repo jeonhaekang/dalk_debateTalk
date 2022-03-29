@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../redux/configStore";
 import { actionCreators as noticeActions } from "../../redux/modules/notice";
 
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
+import Container from "../../elements/Container";
 
 const Announcement = () => {
   const dispatch = useDispatch();
@@ -22,27 +23,27 @@ const Announcement = () => {
   };
 
   return (
-    <AnnouncementWrap>
-      <NewHeader page="공지사항" />
-      {noticeList.map((el, idx) => {
-        return (
-          <ContentTop key={idx} onClick={() => handleDetail(el.noticeId)}>
-            <FlexGrid is_column gap="0px">
-                <Text size="body1" weight="medium">{el.title}</Text>
-                <Text size="body3" weight="light">{el.createdAt.split("T")[0]}</Text>
-            </FlexGrid>
-          </ContentTop>
-        );
-      })}
-    </AnnouncementWrap>
+    <>
+      <Header page="공지사항" />
+      <Container>
+        {noticeList.map((el, idx) => {
+          return (
+            <ContentTop key={idx} onClick={() => handleDetail(el.noticeId)}>
+              <FlexGrid is_column gap="0px">
+                <Text size="body1" weight="medium">
+                  {el.title}
+                </Text>
+                <Text size="body3" weight="light">
+                  {el.createdAt.split("T")[0]}
+                </Text>
+              </FlexGrid>
+            </ContentTop>
+          );
+        })}
+      </Container>
+    </>
   );
 };
-
-const AnnouncementWrap = styled.div`
-  height: 100%;
-  background-color: #fff;
-  overflow: scroll;
-`;
 
 const ContentTop = styled.div`
   color: #686868;

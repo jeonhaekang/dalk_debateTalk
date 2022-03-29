@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
 import { actionCreators } from "../../redux/modules/user";
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 import itemData from "../../data/itemData";
-import ContentContainer from "../../elements/Container";
+import Container from "../../elements/Container";
 import Text from "../../elements/Text";
 import ItemButton from "../../elements/ItemButton";
 import XScrollDrag from "../../components/shared/XScrollDrag";
@@ -23,8 +23,8 @@ const PointShop = () => {
 
   return (
     <>
-      <NewHeader page="알포인트 상점" />
-      <ContentContainer padding="24px">
+      <Header page="알포인트 상점" />
+      <Container padding="24px" footer>
         <FlexGrid is_column gap="50px">
           <FlexGrid
             size="headline2"
@@ -96,7 +96,7 @@ const PointShop = () => {
             </FlexGrid>
           </FlexGrid>
         </FlexGrid>
-      </ContentContainer>
+      </Container>
       <BuyBtn onClick={buyItem}>알포인트 사용하기</BuyBtn>
     </>
   );
@@ -118,7 +118,7 @@ const BuyBtn = styled.button`
   max-width: 430px;
   height: 76px;
   position: fixed;
-  
+
   bottom: 0;
   font-size: ${(props) => props.theme.fontSizes.headline2};
   color: white;

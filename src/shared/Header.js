@@ -6,9 +6,10 @@ import Modal from "../components/shared/Modal";
 import Center from "../elements/Center";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
-import SearchRoom from "../components/main/SearchRoom";
+import SearchRoom from "../components/main/SearchChatRoom";
+import searchIcon from "../image/header/searchIcon.svg";
 
-const NewHeader = (props) => {
+const Header = (props) => {
   const { page, users, children, meatball, color, line } = props;
   const [modalState, setModalState] = React.useState(false);
   const [searchState, setSearchState] = React.useState(false);
@@ -16,22 +17,11 @@ const NewHeader = (props) => {
 
   if (path === "/") {
     return (
-      <HeaderContainer style={{ justifyContent: "flex-end" }}>
-        <Logo>DALKING</Logo>
-        <svg
-          width="34"
-          height="34"
-          viewBox="0 0 34 34"
-          onClick={() => {
-            setSearchState(true);
-          }}
-        >
-          <path
-            d="M21.9582 19.8332H20.8391L20.4424 19.4507C22.1424 17.4674 23.0207 14.7616 22.5391 11.8857C21.8732 7.94741 18.5866 4.80241 14.6199 4.32074C8.62741 3.58408 3.58408 8.62741 4.32074 14.6199C4.80241 18.5866 7.94741 21.8732 11.8857 22.5391C14.7616 23.0207 17.4674 22.1424 19.4507 20.4424L19.8332 20.8391V21.9582L25.8541 27.9791C26.4349 28.5599 27.3841 28.5599 27.9649 27.9791C28.5457 27.3982 28.5457 26.4491 27.9649 25.8682L21.9582 19.8332ZM13.4582 19.8332C9.93074 19.8332 7.08324 16.9857 7.08324 13.4582C7.08324 9.93074 9.93074 7.08324 13.4582 7.08324C16.9857 7.08324 19.8332 9.93074 19.8332 13.4582C19.8332 16.9857 16.9857 19.8332 13.4582 19.8332Z"
-            fill="#C5C5C5"
-          />
-        </svg>
-
+      <HeaderContainer>
+        <Text color="orange" size="logo" weight="black">
+          DALKING
+        </Text>
+        <SearchButton onClick={() => setSearchState(true)} src={searchIcon} />
         {searchState && (
           <SearchRoom state={searchState} setState={setSearchState} />
         )}
@@ -103,6 +93,12 @@ const NewHeader = (props) => {
     </>
   );
 };
+const SearchButton = styled.img`
+  position: absolute;
+  right: 16px;
+
+  cursor: pointer;
+`;
 
 const Left = styled.div`
   position: absolute;
@@ -115,28 +111,20 @@ const Right = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  width: 100%;
   position: sticky;
   top: 0;
+
+  width: 100%;
   height: 70px;
 
   background-color: white;
-  padding: 16px;
 
   z-index: 5;
   border-bottom: ${(props) => props.line && "1px solid #c4c4c4"};
 
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Logo = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 26px;
-  color: #f19121;
-  font-weight: 900;
-`;
-
-export default NewHeader;
+export default Header;

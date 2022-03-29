@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 
-import ContentContainer from "../elements/Container";
+import Container from "../elements/Container";
 
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import PostListCategory from "../components/postlist/PostListCategory";
 import Footer from "../shared/Footer";
 
@@ -50,9 +50,9 @@ const PostList = () => {
   const [idx, setIdx] = React.useState(0);
   return (
     <>
-      <NewHeader page="토론 결과방" line />
-      <ContentContainer mobile>
-        <Container>
+      <Header page="토론 결과방" line />
+      <Container footer>
+        <ContentContainer>
           <InputContainer className="searchbox">
             <Input
               placeholder="검색어를 입력해주세요"
@@ -62,7 +62,7 @@ const PostList = () => {
             />
             <SearchImg src={SearchBlack} onClick={searchDebate} alt="돋보기" />
           </InputContainer>
-        </Container>
+        </ContentContainer>
 
         <PostListCategory
           category={category}
@@ -84,13 +84,13 @@ const PostList = () => {
           })}
         </FlexGrid>
         <TopBtn onClick={handleTop} src={Arrow}></TopBtn>
-      </ContentContainer>
+      </Container>
       <Footer />
     </>
   );
 };
 
-const Container = styled.div`
+const ContentContainer = styled.div`
   position: relative;
   width: 100%;
   background-color: #efefef;

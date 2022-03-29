@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-import NewHeader from "../../shared/NewHeader";
+import Header from "../../shared/Header";
 import { rank, RankInfo, discriminant } from "../../data/rank";
 
 import point from "../../image/mypage/point.svg";
@@ -11,7 +11,7 @@ import FlexGrid from "../../elements/FlexGrid";
 import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 
-import ContentContainer from "../../elements/Container";
+import Container from "../../elements/Container";
 
 const MyGrade = () => {
   const user = useSelector((state) => state.user.user);
@@ -33,9 +33,9 @@ const MyGrade = () => {
 
   return (
     <>
-      <NewHeader page="등급안내" line/>
+      <Header page="등급안내" line/>
       {user && (
-        <ContentContainer Xfooter>
+        <Container>
           <FlexGrid
             is_column
             center
@@ -95,7 +95,7 @@ const MyGrade = () => {
               })}
             </FlexGrid>
           </FlexGrid>
-        </ContentContainer>
+        </Container>
       )}
     </>
   );

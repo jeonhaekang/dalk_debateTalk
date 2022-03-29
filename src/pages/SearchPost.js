@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import PostListCard from "../components/postlist/PostListCard";
 import InfinityScroll from "../shared/InfinityScroll";
 
@@ -26,7 +26,7 @@ function SearchPost(props) {
 
   return (
     <>
-      <NewHeader page="검색 결과" />
+      <Header page="검색 결과" />
       <FlexGrid padding="20px" gap="0px">
         <Text size="subtitle1" weight="medium">
           <Text color="orange">"{keyword}"</Text> {" "}

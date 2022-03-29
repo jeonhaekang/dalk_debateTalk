@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import Modal from "../components/shared/Modal";
 import ShareLink from "../components/shared/ShareLink";
 import CommentList from "../components/detail/CommentList";
@@ -125,7 +125,7 @@ const Detail = (props) => {
 
   return (
     <>
-      <NewHeader page="완료된 토론" meatball boardId={boardId} debate={debate}>
+      <Header page="완료된 토론" meatball boardId={boardId} debate={debate}>
         {/* 헤더 미트볼 관련 신고하기 + 공유하기 */}
         <FlexGrid _onClick={handleClickWarning}>
           <svg width="28" height="28" viewBox="0 0 28 28">
@@ -149,7 +149,7 @@ const Detail = (props) => {
             공유하기
           </Text>
         </FlexGrid>
-      </NewHeader>
+      </Header>
 
       {/* 무승부일때, 승부가 났을 때 두가지 케이스 */}
       <DetailWrap>

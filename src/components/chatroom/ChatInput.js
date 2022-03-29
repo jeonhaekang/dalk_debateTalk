@@ -134,9 +134,7 @@ const ChatInput = (props) => {
   );
 };
 const Wrap = styled.div`
-  position: sticky;
-  bottom: 0;
-  max-width: 430px;
+  width: 100%;
 `;
 
 const ItemCount = styled.div`

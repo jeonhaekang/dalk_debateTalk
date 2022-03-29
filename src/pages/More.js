@@ -1,9 +1,9 @@
-import NewHeader from "../shared/NewHeader";
+import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FlexGrid from "../elements/FlexGrid";
-import ContentContainer from "../elements/Container";
+import Container from "../elements/Container";
 import categoryDate from "../data/categoryData";
 import Text from "../elements/Text";
 import MoreContent from "../components/more/MoreContent";
@@ -25,8 +25,8 @@ const More = () => {
 
   return (
     <>
-      <NewHeader page="토론리스트" line />
-      <ContentContainer>
+      <Header page="토론리스트" line />
+      <Container footer>
         <FlexGrid padding="16px" between alignItems="flex-end">
           <Text size="headline1" weight="medium" lineHeight="38px">
             실시간 HOT한 토론에
@@ -52,7 +52,7 @@ const More = () => {
             );
           })}
         </FlexGrid>
-      </ContentContainer>
+      </Container>
       <Footer />
     </>
   );
