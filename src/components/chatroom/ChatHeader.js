@@ -10,6 +10,8 @@ import Vote from "./Vote";
 import GaugeTimer from "./GaugeTimer";
 import { useDispatch } from "react-redux";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { ReactComponent as Timer } from "../../image/chatRoom/timer.svg";
+import { ReactComponent as Unfold } from "../../image/chatRoom/unfold.svg";
 
 const ChatHeader = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const ChatHeader = (props) => {
   const [data, setData] = React.useState();
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
-  const { roomId, topicA, topicB } = roomInfo;
+  console.log(roomInfo);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {
@@ -32,7 +34,7 @@ const ChatHeader = (props) => {
   return (
     <>
       {roomInfo && (
-        <Wrap>
+        <>
           <GaugeTimer {...roomInfo} page="chatRoom" />
           <FlexGrid height="60px" padding="16px">
             <Center>
@@ -40,14 +42,7 @@ const ChatHeader = (props) => {
             </Center>
 
             <FlexGrid justifyContent="flex-end">
-              <Open state={state} onClick={() => setState(!state)}>
-                <svg width="30" height="30" viewBox="0 0 30 30">
-                  <path
-                    d="M20.7375 10.7375L15 16.4625L9.2625 10.7375L7.5 12.5L15 20L22.5 12.5L20.7375 10.7375Z"
-                    fill="#C5C5C5"
-                  />
-                </svg>
-              </Open>
+              <Open state={state} onClick={() => setState(!state)} />
             </FlexGrid>
           </FlexGrid>
 
@@ -57,7 +52,7 @@ const ChatHeader = (props) => {
               state={state}
               userVote={roomInfo.userVote?.userPick === true}
             >
-              <Topic>{topicA}</Topic>
+              <Topic>{roomInfo.topicA}</Topic>
               {state && roomInfo.userVote?.userPick === true && (
                 <Text
                   position="absolute"
@@ -90,7 +85,7 @@ const ChatHeader = (props) => {
               state={state}
               userVote={roomInfo.userVote?.userPick === false}
             >
-              <Topic>{topicB}</Topic>
+              <Topic>{roomInfo.topicB}</Topic>
               {state && roomInfo.userVote?.userPick === false && (
                 <Text
                   position="absolute"
@@ -115,7 +110,7 @@ const ChatHeader = (props) => {
               )}
             </DefaultTopic>
           </InfoWrap>
-        </Wrap>
+        </>
       )}
       {modalState && (
         <Modal modalState={modalState} setModalState={setModalState}>
@@ -125,12 +120,8 @@ const ChatHeader = (props) => {
     </>
   );
 };
-const Wrap = styled.div`
-  width: 100%;
-  background-color: white;
-`;
 
-const Open = styled.div`
+const Open = styled(Unfold)`
   transform: ${(props) => props.state && "rotate(180deg)"};
   transition: 0.2s;
 `;
