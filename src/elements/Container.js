@@ -19,17 +19,13 @@ const ContentContainer = React.forwardRef(
 );
 
 const XContainer = styled.div`
-  height: calc(100% - 70px);
-  overflow-x: hidden;
+  height: calc(var(--vh) * 100 - 70px);
   overflow-y: scroll;
-  background-color: white;
 `;
 
 const Container = styled.div`
-  height: calc(100% - 146px);
-  overflow-x: hidden;
+  height: calc(var(--vh) * 100 - 146px);
   overflow-y: scroll;
-  background-color: white;
 `;
 
 export default ContentContainer;
