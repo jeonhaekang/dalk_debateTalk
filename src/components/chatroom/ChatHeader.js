@@ -19,7 +19,7 @@ import { history } from "../../redux/configStore";
 
 const ChatHeader = (props) => {
   const dispatch = useDispatch();
-  const [foldState, setFoldState] = React.useState(false); // 펼침 여부
+  const [foldState, setFoldState] = React.useState(true); // 펼침 여부
   const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
   const [toggleModal, setToggleModal] = React.useState(false); // 신고하기 토글 모달
   const [data, setData] = React.useState();
@@ -89,8 +89,8 @@ const ChatHeader = (props) => {
               {foldState && !roomInfo.userVote && (
                 <div className="voteInfo">선택하기</div>
               )}
-              {foldState && roomInfo.userVote.userPick === true && (
-                <div className="voteInfo">{roomInfo.userVote.userPoint}</div>
+              {foldState && roomInfo.userVote?.userPick === true && (
+                <div className="voteInfo">{roomInfo.userVote.userPoint} RP</div>
               )}
             </TopicBox>
 
@@ -108,7 +108,7 @@ const ChatHeader = (props) => {
               {foldState && !roomInfo.userVote && (
                 <div className="voteInfo">선택하기</div>
               )}
-              {foldState && roomInfo.userVote.userPick === false && (
+              {foldState && roomInfo.userVote?.userPick === false && (
                 <div className="voteInfo">{roomInfo.userVote.userPoint} RP</div>
               )}
             </TopicBox>
@@ -182,6 +182,7 @@ const TopicBox = styled(FlexGrid).attrs(() => ({
 
   .voteInfo {
     position: absolute;
+    left: 0;
     bottom: 5px;
     font-size: 12px;
     font-weight: 400;

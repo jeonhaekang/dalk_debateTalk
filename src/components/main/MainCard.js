@@ -11,6 +11,8 @@ import { loginCheck } from "../../modules/loginCheck";
 import short from "../../image/shared/short.svg";
 import long from "../../image/shared/long.svg";
 import noImage from "../../image/shared/noImage.png";
+import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
+import Text from "../../elements/Text";
 
 const MainCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
@@ -50,19 +52,16 @@ const MainCard = (props) => {
           <Image src={props.filePath ? props.filePath : noImage} />
           <Time src={props.time ? short : long}></Time>
           <Users>
-            <svg width="22" height="22" viewBox="0 0 22 22">
-              <path
-                d="M10.9998 11C13.0257 11 14.6665 9.35913 14.6665 7.33329C14.6665 5.30746 13.0257 3.66663 10.9998 3.66663C8.974 3.66663 7.33317 5.30746 7.33317 7.33329C7.33317 9.35913 8.974 11 10.9998 11ZM10.9998 12.8333C8.55234 12.8333 3.6665 14.0616 3.6665 16.5V17.4166C3.6665 17.9208 4.079 18.3333 4.58317 18.3333H17.4165C17.9207 18.3333 18.3332 17.9208 18.3332 17.4166V16.5C18.3332 14.0616 13.4473 12.8333 10.9998 12.8333Z"
-                fill="rgba(0,0,0,0.2)"
-              />
-            </svg>
+            <PersonIcon />
             {props.userCnt}
           </Users>
         </FlexGrid>
 
-        <FlexGrid is_column justifyContent="space-between" height="100%">
+        <FlexGrid center is_column>
           <Topic>{props.topicA}</Topic>
-          <VS center>VS</VS>
+          <Text size="headline2" weight="black" color="orange">
+            VS
+          </Text>
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
@@ -77,7 +76,6 @@ const MainCard = (props) => {
   );
 };
 
-MainCard.defaultProps = {};
 const Time = styled.img`
   position: absolute;
   bottom: 8px;
@@ -97,12 +95,6 @@ const Users = styled.div`
   display: flex;
 `;
 
-const VS = styled(FlexGrid)`
-  font-size: ${(props) => props.theme.fontSizes.headline2};
-  font-weight: ${(props) => props.theme.fontWeight.black};
-  color: ${(props) => props.theme.color.orange};
-`;
-
 const CardBox = styled(FlexGrid)`
   padding: 16px;
   border-radius: 15px;
@@ -114,6 +106,7 @@ const CardBox = styled(FlexGrid)`
 
 const Topic = styled.div`
   width: 100%;
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;

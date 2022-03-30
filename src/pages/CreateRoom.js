@@ -1,17 +1,14 @@
-import ContentContainer from "../elements/Container";
+import Container from "../elements/Container";
 import Header from "../shared/Header";
 import React, { useEffect, useState } from "react";
-import Grid from "../elements/Grid";
-import Input from "../elements/Input";
 import { actionCreators } from "../redux/modules/chat";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Upload from "../components/shared/Upload";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
-import short from "../image/shared/shortTime.svg";
-import long from "../image/shared/longTime.svg";
-import { history } from "../redux/configStore";
+import { ReactComponent as Short } from "../image/shared/fill_shortTime.svg";
+import { ReactComponent as Long } from "../image/shared/fill_longTime.svg";
 
 const CreateRoom = () => {
   const dispatch = useDispatch();
@@ -79,91 +76,101 @@ const CreateRoom = () => {
   return (
     <>
       <Header page="토론방 만들기" />
-      <ContentContainer padding="16px">
-        <FlexGrid is_column gap="30px">
-          <FlexGrid is_column gap="24px">
-            <FlexGrid is_column gap="0">
-              <Text size="headline2" weight="medium">
-                토론 주제는 무엇인가요?
-              </Text>
-              <Text>14자 미만으로 작성해주세요</Text>
-            </FlexGrid>
-            <FlexGrid is_column>
-              <TopicInput
-                name="topicA"
-                value={topicA}
-                onChange={onChange}
-                maxLength="14"
-              />
-              <TopicInput
-                name="topicB"
-                value={topicB}
-                onChange={onChange}
-                maxLength="14"
-              />
-            </FlexGrid>
-          </FlexGrid>
-
-          <FlexGrid is_column gap="24px">
-            <FlexGrid is_column gap="0">
-              <Text size="headline2" weight="medium">
-                카테고리를 선택해주세요.
-              </Text>
-              <Text>최대 3개</Text>
-            </FlexGrid>
-            <FlexGrid flexWrap="wrap" center padding="0 68px">
-              {Object.keys(category).map((el) => {
-                return (
-                  <Chip
-                    state={category[el]}
-                    id="category"
-                    name={el}
-                    key={el}
-                    onClick={selectCategory}
-                  >
-                    {el}
-                  </Chip>
-                );
-              })}
-            </FlexGrid>
-          </FlexGrid>
-
-          <FlexGrid is_column gap="24px">
+      <Container padding="16px" gap="30px" footer>
+        {/* 주제 입력 */}
+        <FlexGrid is_column gap="24px">
+          <FlexGrid is_column gap="0">
             <Text size="headline2" weight="medium">
-              토론참가 시간 선택해주세요
+              토론 주제는 무엇인가요?
             </Text>
-            <FlexGrid center>
-              <TimeBox name="time" value={true} onClick={onChange}>
-                <TimerBox center is_column gap="7px">
-                  <img src={short} alt="short" />
-                  20m
-                </TimerBox>
-                <TextBox center state={roomInfo.time === "true"}>
-                  스몰 토크
-                </TextBox>
-              </TimeBox>
-              <TimeBox name="time" value={false} onClick={onChange}>
-                <TimerBox center is_column gap="7px">
-                  <img src={long} alt="long" />
-                  1h
-                </TimerBox>
-                <TextBox center state={roomInfo.time === "false"}>
-                  길게 토크
-                </TextBox>
-              </TimeBox>
-            </FlexGrid>
+            <Text>14자 미만으로 작성해주세요</Text>
           </FlexGrid>
-          <FlexGrid is_column gap="24px">
-            <FlexGrid is_column gap="0">
-              <Text size="headline2" weight="medium">
-                썸네일
-              </Text>
-              <Text>최대 1장 업로드 가능해요</Text>
-            </FlexGrid>
-            <Upload />
+
+          <FlexGrid is_column center gap="0">
+            <TopicInput
+              placeholder="ex) 민초좋아! 민초파"
+              name="topicA"
+              value={topicA}
+              onChange={onChange}
+              maxLength="14"
+            />
+            <Text size="headline2" weight="black" color="orange">
+              VS
+            </Text>
+            <TopicInput
+              placeholder="ex) 치약안돼! 반민초파"
+              name="topicB"
+              value={topicB}
+              onChange={onChange}
+              maxLength="14"
+            />
           </FlexGrid>
         </FlexGrid>
-      </ContentContainer>
+
+        {/* 카테고리 선택 */}
+        <FlexGrid is_column gap="24px">
+          <FlexGrid is_column gap="0">
+            <Text size="headline2" weight="medium">
+              카테고리를 선택해주세요.
+            </Text>
+            <Text>최대 3개</Text>
+          </FlexGrid>
+          <FlexGrid flexWrap="wrap" center padding="0 68px">
+            {Object.keys(category).map((el) => {
+              return (
+                <Chip
+                  state={category[el]}
+                  id="category"
+                  name={el}
+                  key={el}
+                  onClick={selectCategory}
+                >
+                  {el}
+                </Chip>
+              );
+            })}
+          </FlexGrid>
+        </FlexGrid>
+
+        {/* 토론시간 선택 */}
+        <FlexGrid is_column gap="24px">
+          <Text size="headline2" weight="medium">
+            토론참가 시간 선택해주세요
+          </Text>
+
+          <FlexGrid center>
+            <TimeBox name="time" value={true} onClick={onChange}>
+              <TimerBox center is_column gap="7px">
+                <Short />
+                20m
+              </TimerBox>
+              <TextBox center state={roomInfo.time === "true"}>
+                스몰 토크
+              </TextBox>
+            </TimeBox>
+            <TimeBox name="time" value={false} onClick={onChange}>
+              <TimerBox center is_column gap="7px">
+                <Long />
+                1h
+              </TimerBox>
+              <TextBox center state={roomInfo.time === "false"}>
+                길게 토크
+              </TextBox>
+            </TimeBox>
+          </FlexGrid>
+        </FlexGrid>
+
+        {/* 썸네일 등록 */}
+        <FlexGrid is_column gap="24px">
+          <FlexGrid is_column gap="0">
+            <Text size="headline2" weight="medium">
+              썸네일
+            </Text>
+            <Text>최대 1장 업로드 가능해요</Text>
+          </FlexGrid>
+          <Upload />
+        </FlexGrid>
+      </Container>
       <CreateButton
         _onClick={createRoom}
         disabled={!btnState ? true : false}
@@ -221,9 +228,6 @@ const TextBox = styled(FlexGrid)`
 `;
 
 const CreateButton = styled(FlexGrid)`
-  position: fixed;
-  max-width: 430px;
-  bottom: 0;
   height: 76px;
 
   background-color: ${(props) => props.theme.color.orange};
@@ -237,9 +241,11 @@ const TopicInput = styled.input`
   border-radius: 10px;
   border: none;
   background-color: #f3f3f3;
-  padding: 0 24px;
 
   font-size: 16px;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
 `;
 
 export default CreateRoom;
