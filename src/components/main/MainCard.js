@@ -65,6 +65,7 @@ const MainCard = (props) => {
           <Topic>{props.topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
+
       <CardGaugeTimer
         {...props}
         page={props.page}

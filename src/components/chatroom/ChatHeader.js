@@ -26,7 +26,6 @@ const ChatHeader = (props) => {
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
   const userList = useSelector((state) => state.chat.currentRoom.users);
-  console.log(roomInfo);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {
