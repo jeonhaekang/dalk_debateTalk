@@ -196,7 +196,7 @@ const TopicContainer = styled(FlexGrid).attrs(() => ({
   center: true,
   between: true,
 }))`
-  height: ${(props) => (props.foldstate ? 200 : 80)}px;
+  min-height: ${(props) => (props.foldstate ? 200 : 80)}px;
   padding: ${(props) => (props.foldstate ? "24px 28px" : "12px 28px")};
   transition: 0.2s;
   gap: 14px;
