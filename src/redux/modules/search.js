@@ -5,12 +5,10 @@ import { actionCreators as alertAction } from "./alert";
 
 //Action
 const GET_SEARCHPOST = "GET_SEARCHPOST";
-const LOADING = "LOADING";
 const CLEAR = "CLEAR";
 
 //Action Creator
 const getSearchPost = createAction("GET_SEARCHPOST", (SearchData) => ({ SearchData }));
-const loading = createAction("LOADING", (is_loading) => ({ is_loading }));
 const clear = createAction("CLEAR", () => ({}));
 
 //initialState
@@ -25,7 +23,6 @@ const initialState = {
 //MiddleWare
 const getSearchPostDB = (keyword, page) => {
     return function (dispatch, getstate, { history }) {
-        dispatch(loading(true));
         const size = 5 // 한 페이지에 몇개의 포스트를 불러올지 정합니다.
         // 파라미터로 page를 받아오고 size 변수값을 api로 받아옵니다.
         apis.getDebateKeyword(keyword, size, page)

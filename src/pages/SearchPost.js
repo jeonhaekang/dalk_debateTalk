@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as searchActions } from "../redux/modules/search";
 
@@ -27,22 +28,28 @@ function SearchPost(props) {
   return (
     <>
       <Header page="검색 결과" />
-      <FlexGrid padding="20px" gap="0px">
-        <Text size="subtitle1" weight="medium">
-          <Text color="orange">"{keyword}"</Text> {" "}
-          검색 결과
-        </Text>
-      </FlexGrid>
-      <InfinityScroll
-        callNext={getSearchDebateList}
-        paging={{ next: searchDebateList.has_next }}
-      >
-        {searchDebateList.SearchPostList.map((d, idx) => {
-          return <PostListCard {...d} key={idx} />;
-        })}
-      </InfinityScroll>
+      <SearchWrap>
+        <FlexGrid padding="20px" gap="0px">
+          <Text size="subtitle1" weight="medium">
+            <Text color="orange">"{keyword}"</Text> 검색 결과
+          </Text>
+        </FlexGrid>
+        <InfinityScroll
+          callNext={getSearchDebateList}
+          paging={{ next: searchDebateList.has_next }}
+        >
+          {searchDebateList.SearchPostList.map((d, idx) => {
+            return <PostListCard {...d} key={idx} />;
+          })}
+        </InfinityScroll>
+      </SearchWrap>
     </>
   );
 }
+
+const SearchWrap = styled.div`
+  height: calc(var(--vh) * 100 - 70px);
+  overflow: scroll;
+`;
 
 export default SearchPost;

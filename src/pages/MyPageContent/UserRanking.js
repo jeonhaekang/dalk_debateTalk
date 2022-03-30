@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
+import styled  from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
@@ -103,13 +103,6 @@ const UserRanking = () => {
 const ListWrap = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const RankingWrap = styled.div`
-  height: calc(100% - 154px);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: white;
 `;
 
 const GradeLevel = styled.div`

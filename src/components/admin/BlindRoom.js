@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as alertAction } from '../../redux/modules/alert';
 
 import apis from '../../shared/apis';
+import FlexGrid from '../../elements/FlexGrid';
 
 function BlindRoom() {
     const dispatch = useDispatch();
@@ -24,12 +25,12 @@ function BlindRoom() {
 
     const delBlindRoom = (roomId) => {
         apis.delblindroom(roomId)
-            .then((res) => {
+            .then(() => {
                 dispatch(alertAction.open({
                     message: "블라인드 채팅방 삭제 성공"
                 }))
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch(alertAction.open({
                     message: "블라인드 채팅방 삭제 실패"
                 }))
@@ -40,11 +41,11 @@ function BlindRoom() {
         <>
             <Title>현재 블라인드 토론방</Title>
             {BlindRoomList.map((r, idx) => {
-                return <List key={idx}>
+                return <FlexGrid center gap="20px" padding="10px 0px" key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
                     <div> 신고수 : {r.chatRoomWarnCnt} </div>
                     <button onClick={()=>delBlindRoom(r.roomId)}> 삭제 </button>
-                </List>
+                </FlexGrid>
             })}
         </>
     )
@@ -56,13 +57,6 @@ const Title = styled.div`
     padding: 10px;
     font-weight: bold;
     font-size: 20px;
-`
-
-const List = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px 0px;
 `
 
 export default BlindRoom

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import Grid from "../elements/Grid";
-
 import WarnUser from "../components/admin/WarnUser";
 import BlindRoom from "../components/admin/BlindRoom";
 import BlindBoard from "../components/admin/BlindBoard";

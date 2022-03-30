@@ -8,6 +8,7 @@ import apis from "../../shared/apis";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import bank from "../../image/mypage/moneybag.svg";
+import mypoint from "../../image/mypage/MyEggPoint.svg"
 
 import Header from "../../shared/Header";
 import { history } from "../../redux/configStore";
@@ -66,9 +67,7 @@ const MyEggPoint = () => {
           </Text>
         </FlexGrid>
 
-        <Flag>
-          <div className="title">내 활동 내역</div>
-        </Flag>
+        <Flag src={mypoint} alt="mypoint" />
 
         <FlexGrid padding="40px 30px 0 30px">
           <FlexGrid is_column gap="30px">
@@ -111,32 +110,10 @@ const EggImg = styled.img`
   padding-bottom: 10px;
 `;
 
-const Flag = styled.div`
+const Flag = styled.img`
   transform: translate(26px, -8px);
   display: inline-block;
-  width: 130px;
-  height: 40px;
-  background: ${(props) => props.theme.color.orange};
-  position: relative;
-  &:after {
-    border-top: 25px solid ${(props) => props.theme.color.orange};
-    border-left: 62.5px solid transparent;
-    border-right: 62.5px solid transparent;
-    content: "";
-    height: 0;
-    left: 0;
-    position: absolute;
-    top: 40px;
-    width: 0;
-  }
-  .title {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    font-size: ${(props) => props.theme.fontSizes.subtitle1};
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    color: #fff;
-  }
+  width: 125px;
 `;
 
 export default MyEggPoint;

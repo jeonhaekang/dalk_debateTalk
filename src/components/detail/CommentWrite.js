@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import { getCookie } from "../../shared/Cookie";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
@@ -66,6 +66,7 @@ const CommentWriteContainer = styled.div`
   align-items: center;
   background: #fcfcfc;
 `;
+
 const ImgInput = styled.div`
   width: 100%;
   .writebox {
@@ -79,6 +80,7 @@ const ImgInput = styled.div`
     }
   }
 `;
+
 const SendBtn = styled.button`
   background-color: ${(props) => props.theme.color.orange};
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
