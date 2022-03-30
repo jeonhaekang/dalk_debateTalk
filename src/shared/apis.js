@@ -5,8 +5,8 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 
 export const instance = axios.create({
-  baseURL: "http://ddanddan.shop",
-  // baseURL: "https://raddas.site",
+  // baseURL: "http://ddanddan.shop",
+  baseURL: "https://raddas.site",
   // baseURL: "https://dongseok.shop",
 });
 
@@ -51,11 +51,13 @@ const apis = {
   signup: (user) => instance.post("/users/signup", user),
 
   //아이디 중복검사
-  idValidate: (username) => instance.post("/users/signup/usernamecheck", {username: username}),
-  
+  idValidate: (username) =>
+    instance.post("/users/signup/usernamecheck", { username: username }),
+
   //닉네임 중복검사
-  nicknameValidate : (nickname) => instance.post("/users/signup/nicknamecheck", {nickname : nickname}),
-  
+  nicknameValidate: (nickname) =>
+    instance.post("/users/signup/nicknamecheck", { nickname: nickname }),
+
   //로그인 체크
   check: () => instance.get("/loginCheck"),
 
@@ -184,11 +186,16 @@ const apis = {
   delNotice: (noticeId) => instance.delete(`/admin/notices/${noticeId}`),
   getDetailNotice: (noticeId) => instance.get(`/api/notices/${noticeId}`),
   //포인트 보내기
-  sendPoint : (username, point, content) => 
-    instance.post('/admin/eventpoint', { username: username, point: point, content: content}),
+  sendPoint: (username, point, content) =>
+    instance.post("/admin/eventpoint", {
+      username: username,
+      point: point,
+      content: content,
+    }),
   //불량댓글
-  getWarnComment : () => instance.get('/admin/comments'),
-  delWarnComment : (commentId) => instance.delete(`/admin/comments/${commentId}`),
+  getWarnComment: () => instance.get("/admin/comments"),
+  delWarnComment: (commentId) =>
+    instance.delete(`/admin/comments/${commentId}`),
 };
 
 export default apis;
