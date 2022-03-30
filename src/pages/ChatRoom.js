@@ -1,19 +1,14 @@
 import React from "react";
-import Header from "../shared/Header";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getCookie } from "../shared/Cookie";
 import ChatBox from "../components/chatroom/ChatBox";
 import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators } from "../redux/modules/chat";
-import FlexGrid from "../elements/FlexGrid";
 import { actionCreators as chatAction } from "../redux/modules/chat";
-import Text from "../elements/Text";
-import Container from "../elements/Container";
-import { ReactComponent as ReportIcon } from "../image/header/report.svg";
 import styled from "styled-components";
 
 const ChatRoom = (props) => {

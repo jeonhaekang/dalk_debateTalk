@@ -19,6 +19,7 @@ const ChatBox = ({ roomId, headers, client }) => {
     const state = document.visibilityState === "hidden";
     const mobile = mobileCheck();
 
+    // 모바일에서 화면전환이 이루어질 경우 실행
     if (state && mobile) {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
       history.replace("/");
@@ -33,11 +34,13 @@ const ChatBox = ({ roomId, headers, client }) => {
   };
 
   React.useEffect(() => {
+    // 이전 메세지 호출
     dispatch(chatAction.loadMessageLogDB(roomId));
+
+    // 소켓 연결
     connectSocket({ roomId, headers, client });
 
     window.addEventListener("visibilitychange", visibleHendler);
-
     window.addEventListener("beforeunload", (e) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
     });
@@ -60,13 +63,13 @@ const ChatBox = ({ roomId, headers, client }) => {
 
     // 스크롤이 맨 아래에 있을때
     setEndState(
-      scrollTop + clientHeight >= scrollHeight - clientHeight / 3 ? false : true
+      scrollTop + clientHeight >= scrollHeight - clientHeight ? false : true
     );
 
     setScrollState(
-      scrollTop + clientHeight >= scrollHeight - clientHeight / 5 ? true : false
+      scrollTop + clientHeight >= scrollHeight - clientHeight / 3 ? true : false
     );
-  }, 10);
+  }, 100);
   const scroll = React.useCallback(scrollEvent, []);
 
   const endScroll = () => {

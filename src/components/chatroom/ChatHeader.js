@@ -26,7 +26,6 @@ const ChatHeader = (props) => {
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
   const userList = useSelector((state) => state.chat.currentRoom.users);
-  console.log(roomInfo);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {
@@ -196,7 +195,7 @@ const TopicContainer = styled(FlexGrid).attrs(() => ({
   center: true,
   between: true,
 }))`
-  height: ${(props) => (props.foldstate ? 200 : 80)}px;
+  min-height: ${(props) => (props.foldstate ? 200 : 80)}px;
   padding: ${(props) => (props.foldstate ? "24px 28px" : "12px 28px")};
   transition: 0.2s;
   gap: 14px;
