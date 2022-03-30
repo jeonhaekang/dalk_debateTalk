@@ -114,18 +114,19 @@ const EggImg = styled.img`
 const Flag = styled.div`
   transform: translate(26px, -8px);
   display: inline-block;
-  width: 125px;
+  width: 130px;
   height: 40px;
   background: ${(props) => props.theme.color.orange};
-  :before {
+  position: relative;
+  &:after {
     border-top: 25px solid ${(props) => props.theme.color.orange};
-    border-left: 62px solid transparent;
-    border-right: 62px solid transparent;
+    border-left: 65px solid transparent;
+    border-right: 65px solid transparent;
     content: "";
     height: 0;
     left: 0;
     position: absolute;
-    top: 39px;
+    top: 40px;
     width: 0;
   }
   .title {
