@@ -59,7 +59,7 @@ const TopRank = (props) => {
 };
 const RankWrap = styled(FlexGrid)`
   background-color: #f1f1f1;
-  height: 40px;
+  min-height: 40px;
   border-top: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
   & * {
