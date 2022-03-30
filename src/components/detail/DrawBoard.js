@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
 
-import detailLogoFill from "../../image/detailElement/detaillogofill.svg";
-import eggFill from "../../image/detailElement/egg_fill.svg";
-import personFill from "../../image/detailElement/person_fill.svg";
-import thumbUpFill from "../../image/detailElement/thumb_up_black_fill.svg";
-import trendingUpFill from "../../image/detailElement/trending_up_fill.svg";
+import { ReactComponent as WinnerLogo } from "../../image/detailElement/winnerlogo.svg";
+import { ReactComponent as Egg } from "../../image/detailElement/egg.svg";
+import { ReactComponent as Person } from "../../image/detailElement/person.svg";
+import { ReactComponent as ThumbUp } from "../../image/detailElement/thumb_up_black.svg";
+import { ReactComponent as TrendingUp } from "../../image/detailElement/trending_up.svg";
 
 function DrawBoard({ debate, winnerRate, loserRate }) {
   return (
@@ -14,19 +14,19 @@ function DrawBoard({ debate, winnerRate, loserRate }) {
       <FlexGrid gap="0" backgroundColor="#fff">
         <DebateBox win={true} is_column center gap="0px">
           <DetailLogo center gap="4px">
-            <img src={detailLogoFill} alt="detaillogofill" />
+            <WinnerLogo />
             <div style={{ color: "#f19121" }}> DRAW </div>
           </DetailLogo>
           <TitleBox win={true}>{debate.winnerResponse?.topic}</TitleBox>
           <DetailBox section={true}>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={eggFill} />
+              <Egg fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 총 {debate.winnerResponse?.totalPoint} RP
               </div>
             </FlexGrid>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={thumbUpFill} />
+              <ThumbUp fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 최고 {debate.winnerResponse?.topPoint} RP
               </div>
@@ -34,13 +34,13 @@ function DrawBoard({ debate, winnerRate, loserRate }) {
           </DetailBox>
           <DetailBox section={false}>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={personFill} />
+              <Person fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 {debate.winnerResponse?.cnt}명 선택
               </div>
             </FlexGrid>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={thumbUpFill} />
+              <TrendingUp fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 배당 : {debate.winnerResponse?.rate}
               </div>
@@ -51,19 +51,19 @@ function DrawBoard({ debate, winnerRate, loserRate }) {
         </DebateBox>
         <DebateBox win={true} is_column center gap="0px">
           <DetailLogo center gap="4px">
-            <img src={detailLogoFill} alt="detaillogofill" />
+            <WinnerLogo />
             <div style={{ color: "#f19121" }}> DRAW </div>
           </DetailLogo>
           <TitleBox win={true}>{debate.loserResponse?.topic}</TitleBox>
           <DetailBox section={true}>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={eggFill} />
+              <Egg fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 총 {debate.loserResponse?.totalPoint}RP
               </div>
             </FlexGrid>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={thumbUpFill} />
+              <ThumbUp fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 최고 {debate.loserResponse?.topPoint}RP
               </div>
@@ -71,13 +71,13 @@ function DrawBoard({ debate, winnerRate, loserRate }) {
           </DetailBox>
           <DetailBox section={false}>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={personFill} />
+              <Person fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 {debate.loserResponse?.cnt}명 선택
               </div>
             </FlexGrid>
             <FlexGrid gap="0px" width="150px" alignItems="center">
-              <DetailImg src={trendingUpFill} />
+              <TrendingUp fill="#F19121" style={{ marginRight: "4px" }} />
               <div style={{ color: "#F19121" }}>
                 배당 : {debate.loserResponse?.rate}
               </div>
@@ -119,12 +119,6 @@ const DetailBox = styled.div`
   transform: ${(props) =>
     props.section ? "translate(-10px, 66px)" : "translate(84px, 66px)"};
   font-size: 12px;
-`;
-
-const DetailImg = styled.img`
-  width: 12px;
-  height: 12px;
-  margin-right: 4px;
 `;
 
 const GrapGauge = styled.div`
