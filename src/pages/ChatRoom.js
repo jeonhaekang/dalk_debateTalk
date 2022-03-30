@@ -14,11 +14,12 @@ import { actionCreators as chatAction } from "../redux/modules/chat";
 import Text from "../elements/Text";
 import Container from "../elements/Container";
 import { ReactComponent as ReportIcon } from "../image/header/report.svg";
+import styled from "styled-components";
 
 const ChatRoom = (props) => {
   const dispatch = useDispatch();
-  // const sock = SockJS("http://ddanddan.shop/ws-stomp");
-  const sock = SockJS("https://raddas.site/ws-stomp");
+  const sock = SockJS("http://ddanddan.shop/ws-stomp");
+  // const sock = SockJS("https://raddas.site/ws-stomp");
   // const sock = SockJS("https://dongseok.shop/ws-stomp");
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
@@ -29,10 +30,6 @@ const ChatRoom = (props) => {
     headers: {
       Authorization: getCookie("authorization"),
     },
-  };
-
-  const reportRoom = () => {
-    dispatch(chatAction.reportRoomDB(data.roomId));
   };
 
   React.useEffect(() => {
@@ -47,23 +44,18 @@ const ChatRoom = (props) => {
   }, []);
 
   return (
-    <>
-      <Header page="토론방" meatball>
-        <FlexGrid _onClick={reportRoom}>
-          <ReportIcon />
-          <Text marginBottom="3px" color="alert">
-            신고하기
-          </Text>
-        </FlexGrid>
-      </Header>
-
-      <Container>
-        <ChatHeader />
-        <ChatBox {...data} />
-        <ChatInput {...data} />
-      </Container>
-    </>
+    <ChatRoomContainer footer>
+      <ChatHeader />
+      <ChatBox {...data} />
+      <ChatInput {...data} />
+    </ChatRoomContainer>
   );
 };
+
+const ChatRoomContainer = styled.div`
+  height: calc(var(--vh) * 100);
+  display: flex;
+  flex-direction: column;
+`;
 
 export default ChatRoom;

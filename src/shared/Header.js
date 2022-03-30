@@ -92,6 +92,7 @@ const Left = styled.div`
   left: 16px;
 
   cursor: pointer;
+  display: flex;
 `;
 
 const Right = styled.div`
@@ -99,6 +100,7 @@ const Right = styled.div`
   right: 16px;
 
   cursor: pointer;
+  display: flex;
 `;
 
 const HeaderContainer = styled.div`

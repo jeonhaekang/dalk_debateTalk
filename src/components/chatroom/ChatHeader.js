@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Center from "../../elements/Center";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import CountDownTimer from "./CountDownTimer";
@@ -10,16 +9,23 @@ import Vote from "./Vote";
 import GaugeTimer from "./GaugeTimer";
 import { useDispatch } from "react-redux";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
-import { ReactComponent as Timer } from "../../image/chatRoom/timer.svg";
 import { ReactComponent as Unfold } from "../../image/chatRoom/unfold.svg";
+import { ReactComponent as BackIcon } from "../../image/header/arrow_back.svg";
+import { ReactComponent as MeatballIcon } from "../../image/header/meatball.svg";
+import { ReactComponent as ReportIcon } from "../../image/header/report.svg";
+import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
+import { actionCreators as chatAction } from "../../redux/modules/chat";
+import { history } from "../../redux/configStore";
 
 const ChatHeader = (props) => {
   const dispatch = useDispatch();
-  const [state, setState] = React.useState(false);
-  const [modalState, setModalState] = React.useState(false);
+  const [foldState, setFoldState] = React.useState(false); // 펼침 여부
+  const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
+  const [toggleModal, setToggleModal] = React.useState(false); // 신고하기 토글 모달
   const [data, setData] = React.useState();
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
+  const userList = useSelector((state) => state.chat.currentRoom.users);
   console.log(roomInfo);
 
   const vote = (topic) => {
@@ -28,171 +34,176 @@ const ChatHeader = (props) => {
       return;
     }
     setData({ topic: topic });
-    setModalState(true);
+    setVoteModal(true);
+  };
+
+  const reportRoom = () => {
+    dispatch(chatAction.reportRoomDB(roomInfo.roomId));
   };
 
   return (
     <>
       {roomInfo && (
         <>
-          <GaugeTimer {...roomInfo} page="chatRoom" />
-          <FlexGrid height="60px" padding="16px">
-            <Center>
+          {/* 헤더 부분 */}
+          <ChatHeaderContainer>
+            {toggleModal && (
+              <Modal
+                modalState={toggleModal}
+                setModalState={setToggleModal}
+                type="hamburger"
+              >
+                <FlexGrid _onClick={reportRoom}>
+                  <ReportIcon />
+                  <Text marginBottom="3px" color="alert">
+                    신고하기
+                  </Text>
+                </FlexGrid>
+              </Modal>
+            )}
+            <BackIcon onClick={() => history.goBack()} />
+            <FlexGrid center gap="0">
               <CountDownTimer {...roomInfo} />
-            </Center>
-
-            <FlexGrid justifyContent="flex-end">
-              <Open state={state} onClick={() => setState(!state)} />
+              <PersonIcon />
+              {userList.length}
             </FlexGrid>
-          </FlexGrid>
+            <MeatballIcon onClick={() => setToggleModal(true)} />
+          </ChatHeaderContainer>
 
-          <InfoWrap state={state}>
-            <DefaultTopic
-              onClick={() => vote(true)}
-              state={state}
-              userVote={roomInfo.userVote?.userPick === true}
+          {/* 타이머 게이지 */}
+          <GaugeTimer {...roomInfo} page="chatRoom" />
+
+          {/* 주제 부분 */}
+          <TopicContainer foldstate={foldState}>
+            <Open
+              foldstate={foldState ? 1 : 0}
+              onClick={() => setFoldState(!foldState)}
+            />
+            <TopicBox
+              _onClick={() => vote(true)}
+              userVote={roomInfo.userVote?.userPick === true ? true : false}
+              foldstate={foldState}
             >
-              <Topic>{roomInfo.topicA}</Topic>
-              {state && roomInfo.userVote?.userPick === true && (
-                <Text
-                  position="absolute"
-                  top="110px"
-                  fontSize="12px"
-                  color="white"
-                  lineHeight="20px"
-                >
-                  {roomInfo.userVote.userPoint}RP
-                </Text>
+              {/* 펼침 여부와 배팅 여부에 따른 안내문구 */}
+              {roomInfo.topicA}
+              {foldState && !roomInfo.userVote && (
+                <div className="voteInfo">선택하기</div>
               )}
+              {foldState && roomInfo.userVote.userPick === true && (
+                <div className="voteInfo">{roomInfo.userVote.userPoint}</div>
+              )}
+            </TopicBox>
 
-              {state && !roomInfo.userVote && (
-                <Text
-                  position="absolute"
-                  top="110px"
-                  fontSize="12px"
-                  color="#C0C0C0"
-                  lineHeight="20px"
-                >
-                  선택하기
-                </Text>
-              )}
-            </DefaultTopic>
             <Text size="headline2" weight="black" color="orange">
               VS
             </Text>
-            <DefaultTopic
-              onClick={() => vote(false)}
-              state={state}
-              userVote={roomInfo.userVote?.userPick === false}
+
+            <TopicBox
+              _onClick={() => vote(false)}
+              userVote={roomInfo.userVote?.userPick === false ? true : false}
+              foldstate={foldState}
             >
-              <Topic>{roomInfo.topicB}</Topic>
-              {state && roomInfo.userVote?.userPick === false && (
-                <Text
-                  position="absolute"
-                  top="110px"
-                  fontSize="12px"
-                  color="white"
-                  lineHeight="20px"
-                >
-                  {roomInfo.userVote.userPoint}RP
-                </Text>
+              {/* 펼침 여부와 배팅 여부에 따른 안내문구 */}
+              {roomInfo.topicB}
+              {foldState && !roomInfo.userVote && (
+                <div className="voteInfo">선택하기</div>
               )}
-              {state && !roomInfo.userVote && (
-                <Text
-                  position="absolute"
-                  top="110px"
-                  fontSize="12px"
-                  color="#C0C0C0"
-                  lineHeight="20px"
-                >
-                  선택하기
-                </Text>
+              {foldState && roomInfo.userVote.userPick === false && (
+                <div className="voteInfo">{roomInfo.userVote.userPoint} RP</div>
               )}
-            </DefaultTopic>
-          </InfoWrap>
+            </TopicBox>
+          </TopicContainer>
         </>
       )}
-      {modalState && (
-        <Modal modalState={modalState} setModalState={setModalState}>
-          <Vote {...data} setModalState={setModalState} />
+
+      {/* 투표 모달 */}
+      {voteModal && (
+        <Modal modalState={voteModal} setModalState={setVoteModal}>
+          <Vote {...data} setModalState={setVoteModal} />
         </Modal>
       )}
     </>
   );
 };
 
-const Open = styled(Unfold)`
-  transform: ${(props) => props.state && "rotate(180deg)"};
-  transition: 0.2s;
+const ChatHeaderContainer = styled(FlexGrid).attrs(() => ({
+  between: true,
+}))`
+  height: 70px;
+  padding: 16px;
 `;
 
-const Topic = styled.div``;
+const Open = styled(Unfold)`
+  /* 펼침 여부에 따른 화살표 방향 조정 */
+  transform: ${(props) =>
+    props.foldstate ? "rotate(180deg)" : "rotate(0deg)"};
 
-const DefaultTopic = styled.div`
-  position: relative;
-  width: 100%;
+  transition: 0.2s;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const TopicBox = styled(FlexGrid).attrs(() => ({
+  center: true,
+}))`
+  /* 펼침 여부에 따른 배경색 및 쉐도우 변환*/
+  ${(props) =>
+    props.foldstate &&
+    `backgroundColor:#FAFAFA; 
+     box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.2);
+     `}
+
+  /* 투표 여부에 따른 색 변환 */
+  ${(props) => props.userVote && `color:${props.theme.color.orange};`}
+
+  /* 투표 여부와 펼침 여부에 따른 색 변환 */
+  ${(props) =>
+    props.userVote &&
+    props.foldstate &&
+    `background-color:${props.theme.color.orange};
+     color:white;`}
+
+  border-radius: 10px;
+  max-width: 156px;
   height: 100%;
-  line-height: 28px;
+
+  display: -webkit-box;
+  position: relative;
+
+  overflow: hidden;
+  text-align: center;
 
   font-size: ${(props) => props.theme.fontSizes.headline2};
   font-weight: ${(props) => props.theme.fontWeight.medium};
+  line-height: 28px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: 0.2s;
 
-  text-align: center;
+  .voteInfo {
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    width: 100%;
 
-  border-radius: 10px;
-
-  transition: 0.3s;
-  //color: ${(props) => (props.state ? "orange" : "orange")};
-  & * {
-    color: ${(props) =>
-      props.state
-        ? props.userVote
-          ? "white"
-          : props.theme.color.black
-        : props.userVote
-        ? props.theme.color.orange
-        : props.theme.color.black};
-  }
-
-  background-color: ${(props) =>
-    props.state
-      ? props.userVote
-        ? props.theme.color.orange
-        : "#FAFAFA"
-      : "white"};
-
-  box-shadow: ${(props) => props.state && "0px 2px 6px rgba(0, 0, 0, 0.15)"};
-
-  ${Topic} {
-    max-width: 140px;
-
-    ${(props) =>
-      !props.state &&
-      "text-overflow: ellipsis; white-space: nowrap; overflow: hidden;"}
+    color: ${(props) => (props.userVote ? "white" : "#c0c0c0")};
   }
 `;
 
-const InfoWrap = styled.div`
-  background-color: #eee;
-  height: ${(props) => (props.state ? 200 : 80)}px;
+const TopicContainer = styled(FlexGrid).attrs(() => ({
+  center: true,
+  between: true,
+}))`
+  height: ${(props) => (props.foldstate ? 200 : 80)}px;
+  padding: ${(props) => (props.foldstate ? "24px 28px" : "12px 28px")};
   transition: 0.2s;
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
   gap: 14px;
 
-  border-top: 1px solid #c4c4c4;
   border-bottom: 1px solid #c4c4c4;
-
-  background: #fefefe;
-
-  padding: 16px 28px 24px 28px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+
+  position: relative;
 `;
 
 export default ChatHeader;
