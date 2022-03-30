@@ -3,11 +3,14 @@ import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
+import { cacheAdapterEnhancer } from "axios-extensions";
 
 export const instance = axios.create({
-  // baseURL: "http://ddanddan.shop",
-  baseURL: "https://raddas.site",
-  // baseURL: "https://dongseok.shop",
+  baseURL: "http://ddanddan.shop",
+  // baseURL: "https://raddas.site",
+  adapter: cacheAdapterEnhancer(axios.defaults.adapter, {
+    enabledByDefault: false,
+  }),
 });
 
 instance.interceptors.request.use((config) => {
@@ -77,7 +80,8 @@ const apis = {
   reportUser: (userId, message) => instance.get("/warnings/" + userId, message),
 
   // ---------캐러셀 관련------------
-  carousels: () => instance.get("/api/carousels"),
+  carousels: () =>
+    instance.get("/api/carousels", { forceUpdate: history.action === "PUSH" }),
 
   // ---------토론방 관련------------
   //토론방 생성
