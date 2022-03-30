@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
-import TestLogo from "../../image/testlogo.jpeg";
 import apis from "../../shared/apis";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { useDispatch } from "react-redux";
-import { history } from "../../redux/configStore";
-import { Link } from "react-router-dom";
 
 const MainCarousel = (props) => {
   const dispatch = useDispatch();

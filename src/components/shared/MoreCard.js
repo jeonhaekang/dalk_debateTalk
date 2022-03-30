@@ -11,6 +11,7 @@ import { loginCheck } from "../../modules/loginCheck";
 import short from "../../image/shared/short.svg";
 import long from "../../image/shared/long.svg";
 import noImage from "../../image/shared/noImage.png";
+import Text from "../../elements/Text";
 
 const MoreCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
@@ -61,15 +62,12 @@ const MoreCard = (props) => {
           </Users>
         </FlexGrid>
 
-        <FlexGrid is_column between gap="0" width="65%">
-          <FlexGrid
-            is_column
-            height="100%"
-            justifyContent="space-evenly"
-            gap="0"
-          >
+        <FlexGrid is_column between width="65%">
+          <FlexGrid is_column gap="10px" center height="100%">
             <Topic>{props.topicA}</Topic>
-            <VS center>VS</VS>
+            <Text size="headline2" weight="black" color="orange">
+              VS
+            </Text>
             <Topic>{props.topicB}</Topic>
           </FlexGrid>
           <FlexGrid>
@@ -88,8 +86,6 @@ const MoreCard = (props) => {
   );
 };
 
-MoreCard.defaultProps = {};
-
 const Time = styled.img`
   position: absolute;
   bottom: 8px;
@@ -107,12 +103,6 @@ const Users = styled.div`
   border-radius: 15px;
 
   display: flex;
-`;
-
-const VS = styled(FlexGrid)`
-  font-size: ${(props) => props.theme.fontSizes.body1};
-  font-weight: ${(props) => props.theme.fontWeight.black};
-  color: ${(props) => props.theme.color.black};
 `;
 
 const CardBox = styled(FlexGrid)`

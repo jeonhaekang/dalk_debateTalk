@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
@@ -37,17 +37,11 @@ const PostListCard = (props) => {
 
   return (
     <>
-      <CardBox
-        className="moreBox"
-        is_column
-        _onClick={enterDetail}
-      >
+      <CardBox className="moreBox" is_column _onClick={enterDetail}>
         <FlexGrid is_flex between>
           <FlexGrid is_flex gap="8px">
             {props.category.map((el, i) => {
-              return <Chip key={i}>
-                {el}
-              </Chip>;
+              return <Chip key={i}>{el}</Chip>;
             })}
           </FlexGrid>
 
@@ -64,7 +58,10 @@ const PostListCard = (props) => {
 
         <FlexGrid is_flex between center>
           <FlexGrid width="200px">
-            <Image src={props.filePath ? props.filePath : noImage} borderRadius="15px" />
+            <Image
+              src={props.filePath ? props.filePath : noImage}
+              borderRadius="15px"
+            />
           </FlexGrid>
 
           <FlexGrid
@@ -73,37 +70,42 @@ const PostListCard = (props) => {
             height="100%"
             gap="8px"
           >
-            {props.winner?.includes("무승부") ? 
+            {props.winner?.includes("무승부") ? (
               <>
                 <Topic>{props.topicA}</Topic>
                 <VS center>VS</VS>
                 <Topic>{props.topicB}</Topic>
-              </> 
-            :
-            (
-              props.winner?.includes(props.topicA) ? 
+              </>
+            ) : props.winner?.includes(props.topicA) ? (
               <>
                 <WinnerTopic>{props.topicA}</WinnerTopic>
                 <VS center>VS</VS>
                 <Topic>{props.topicB}</Topic>
-              </> 
-              : 
+              </>
+            ) : (
               <>
                 <Topic>{props.topicA}</Topic>
                 <VS center>VS</VS>
                 <WinnerTopic>{props.topicB}</WinnerTopic>
               </>
-            )
-            }
+            )}
 
             <DebateInfo>
               <Grid display="flex">
-                <img src={Person} style={{ padding: "0px 5px 0px 0px" }} alt="person"/>
+                <img
+                  src={Person}
+                  style={{ padding: "0px 5px 0px 0px" }}
+                  alt="person"
+                />
                 <div>{props.voteCnt}</div>
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img src={Textsms} style={{ padding: "0px 5px 0px 0px" }} alt="textsms"/>
+                <img
+                  src={Textsms}
+                  style={{ padding: "0px 5px 0px 0px" }}
+                  alt="textsms"
+                />
                 {props.commentCnt}
               </Grid>
               <div>|</div>
@@ -125,7 +127,7 @@ const PostListCard = (props) => {
 };
 
 const CardBox = styled(FlexGrid)`
-  padding: 16px;
+  padding: 16px 0;
   background-color: white;
   overflow: hidden;
   margin-bottom: 8px;
@@ -169,6 +171,6 @@ const DebateInfo = styled.div`
   border-radius: 10px;
   height: 30px;
   padding: 0px 30px;
-`
+`;
 
 export default React.memo(PostListCard);

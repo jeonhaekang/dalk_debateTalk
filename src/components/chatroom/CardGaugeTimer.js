@@ -55,6 +55,8 @@ const GaugeOuter = styled.div`
   height: 4px;
   width: 100%;
   background-color: #c4c4c4;
+
+  overflow: hidden;
 `;
 
 const GaugeInner = styled.div.attrs((props) => ({

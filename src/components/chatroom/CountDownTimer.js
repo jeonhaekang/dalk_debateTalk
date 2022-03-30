@@ -46,16 +46,6 @@ const CountDownTimer = (props) => {
 
   return (
     <Timer restTime={restTime < 60 && true}>
-      <svg width="24" height="24" viewBox="0 0 24 24">
-        <path
-          d="M15 1H9V3H15V1Z"
-          fill={restTime < 60 ? "#FF5454" : "#333333"}
-        />
-        <path
-          d="M19.03 7.39L20.45 5.97C20.02 5.46 19.55 4.98 19.04 4.56L17.62 5.98C16.07 4.74 14.12 4 12 4C7.03 4 3 8.03 3 13C3 17.97 7.02 22 12 22C16.98 22 21 17.97 21 13C21 10.88 20.26 8.93 19.03 7.39ZM13 14H11V8H13V14Z"
-          fill={restTime < 60 ? "#FF5454" : "#333333"}
-        />
-      </svg>
       <FlexGrid gap="0" marginBottom="5px">
         <Minutes>{minutes.toString().padStart(2, "0")}</Minutes> :
         <Seconds>{seconds.toString().padStart(2, "0")}</Seconds>

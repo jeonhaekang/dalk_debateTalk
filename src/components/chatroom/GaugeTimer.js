@@ -59,7 +59,7 @@ const GaugeTimer = (props) => {
 const GaugeOuter = styled.div`
   ${(props) =>
     props.page === "main" ? "position:absolute; left:0; bottom:0;" : ""}
-  height: 4px;
+  min-height: 4px;
   width: 100%;
   background-color: #c4c4c4;
 
