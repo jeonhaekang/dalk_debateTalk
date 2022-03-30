@@ -15,24 +15,9 @@ const refresh = createAction(REFRESH, (keyword) => ({ keyword }));
 
 //initialState
 const initialState = {
-  전체: { list: [], page: 0, has_next: false },
-  음식: { list: [], page: 0, has_next: false },
-  운동: { list: [], page: 0, has_next: false },
-  게임: { list: [], page: 0, has_next: false },
-  연애: { list: [], page: 0, has_next: false },
-  유머: { list: [], page: 0, has_next: false },
-  헬프: { list: [], page: 0, has_next: false },
-  망상: { list: [], page: 0, has_next: false },
-  정치: { list: [], page: 0, has_next: false },
-  기타: { list: [], page: 0, has_next: false },
+  // keyword: { list: null, page: 0, has_next: false },
   // page: 0 무한스크롤을 위한 페이지네이션 번호입니다
   // has_next: false  다음 페이지로 넘어갈건지에 대한 boolean값입니다.
-};
-
-const initialData = {
-  list: [],
-  page: 0,
-  has_next: false,
 };
 
 //middleWare
@@ -67,7 +52,7 @@ const loadListDB = (page, api, keyword) => {
 };
 
 const refreshDB = (api, keyword) => {
-  return async function (dispatch, getState, { history }) {
+  return function (dispatch, getState, { history }) {
     dispatch(refresh(keyword));
     dispatch(loadListDB(0, api, keyword));
   };
@@ -98,7 +83,7 @@ export default handleActions(
     [REFRESH]: (state, action) =>
       produce(state, (draft) => {
         const { keyword } = action.payload;
-        draft[keyword] = initialData;
+        delete draft[keyword];
       }),
   },
   initialState

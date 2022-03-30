@@ -3,9 +3,6 @@ import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators } from "../redux/modules/chat";
-
-import ContentContainer from "../elements/Container";
-
 import FlexGrid from "../elements/FlexGrid";
 import MainCarousel from "../components/main/MainCarousel";
 import TopRank from "../components/main/TopRank";
@@ -16,9 +13,10 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
 import fireDalk from "../image/shared/fireDalk.svg";
-import reset from "../image/shared/reset.svg";
-import empty from "../image/shared/emptyRoom.svg";
+import { ReactComponent as Reset } from "../image/shared/reset.svg";
 import Container from "../elements/Container";
+import MainContentSkeleton from "../components/skeleton/MainContentSkeleton";
+import EmptyRoom from "../components/shared/EmptyRoom";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -26,13 +24,11 @@ const Main = (props) => {
   const roomList = useSelector((state) => state.chat.roomList);
   // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
-    dispatch(actionCreators.loadMainRoomDB());
-
-    return () => dispatch(actionCreators.clear());
+    dispatch(actionCreators.mainRoomListDB());
   }, []);
 
   const refresh = () => {
-    dispatch(actionCreators.loadMainRoomDB());
+    dispatch(actionCreators.mainRoomListDB());
   };
 
   return (
@@ -46,57 +42,50 @@ const Main = (props) => {
 
         {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
         <FlexGrid is_column padding="24px" gap="22px">
-          <FlexGrid paddingBottom="58px" between alignItems="flex-start">
-            <Text size="headline1" weight="medium" lineHeight="38px">
-              실시간 HOT한
-              <br /> 토론에 참여해보세요!
-            </Text>
-            <img
-              alt="reset"
-              onClick={refresh}
-              src={reset}
-              style={{ zIndex: 1 }}
-            />
-          </FlexGrid>
-
-          {roomList.length !== 0 ? (
-            <FlexGrid is_column gap="24px">
-              <FireDalk src={fireDalk} />
-              {roomList.map((el, i) => {
-                if (i < 3)
-                  return <MainCard key={el.roomId} {...el} page="main" />;
-              })}
-
-              {/* 추천 카테고리 */}
-              <CategoryTap is_column>
-                <FlexGrid is_column padding="0 24px">
-                  <Text size="body1">일상토론 찾아보기</Text>
-                  <Text size="headline2" weight="medium">
-                    다양한 주제로 토론에 참여해보세요!
+          {roomList ? (
+            roomList.length !== 0 ? (
+              <>
+                <FlexGrid paddingBottom="58px" between alignItems="flex-start">
+                  <Text size="headline1" weight="medium" lineHeight="38px">
+                    실시간 HOT한
+                    <br /> 토론에 참여해보세요!
                   </Text>
+                  <Reset onClick={refresh} style={{ zIndex: 1 }}></Reset>
                 </FlexGrid>
-                <XScrollDrag gap="16px" padding="0 24px">
-                  <MainCategoryCard />
-                </XScrollDrag>
-              </CategoryTap>
+                <FlexGrid is_column gap="24px">
+                  <FireDalk src={fireDalk} />
+                  {roomList.map((el, i) => {
+                    if (i < 3)
+                      return <MainCard key={el.roomId} {...el} page="main" />;
+                  })}
 
-              {roomList.map((el, i) => {
-                if (i >= 3) return <MainCard key={i} {...el} page="main" />;
-              })}
-              {/* 더보기 버튼 */}
-              <MoreButton onClick={() => history.push("/more")}>
-                더 많은 토론보기 &gt;
-              </MoreButton>
-            </FlexGrid>
+                  {/* 추천 카테고리 */}
+                  <CategoryTap is_column>
+                    <FlexGrid is_column padding="0 24px">
+                      <Text size="body1">일상토론 찾아보기</Text>
+                      <Text size="headline3" weight="medium">
+                        다양한 주제로 토론에 참여해보세요!
+                      </Text>
+                    </FlexGrid>
+                    <XScrollDrag gap="16px" padding="0 24px">
+                      <MainCategoryCard />
+                    </XScrollDrag>
+                  </CategoryTap>
+
+                  {roomList.map((el, i) => {
+                    if (i >= 3) return <MainCard key={i} {...el} page="main" />;
+                  })}
+                  {/* 더보기 버튼 */}
+                  <MoreButton onClick={() => history.push("/more")}>
+                    더 많은 토론보기 &gt;
+                  </MoreButton>
+                </FlexGrid>
+              </>
+            ) : (
+              <EmptyRoom />
+            )
           ) : (
-            <FlexGrid center is_column textAlign="center">
-              <img alt="empty" src={empty} />
-              <Text>
-                아직 방이 없어요
-                <br />
-                방을 생성해주세요!
-              </Text>
-            </FlexGrid>
+            <MainContentSkeleton />
           )}
         </FlexGrid>
       </Container>

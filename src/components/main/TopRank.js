@@ -18,7 +18,7 @@ const TopRank = (props) => {
 
   // rankList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
-    if (rankList.length === 0) {
+    if (!rankList) {
       dispatch(userAction.setRankListDB());
     }
   }, []);
@@ -26,7 +26,7 @@ const TopRank = (props) => {
   // 유저 랭킹 정보
   React.useEffect(() => {
     let count = 0;
-    if (rankList.length !== 0) {
+    if (rankList) {
       setNickName(`${rankList[count].nickname}`);
       setRank(count + 1);
       count++;
@@ -45,15 +45,17 @@ const TopRank = (props) => {
 
   return (
     <RankWrap center>
-      <Rank key={nickName}>
-        <FlexGrid gap="17px">
-          <FlexGrid>{rank}위</FlexGrid>
-          <FlexGrid gap="3px" center>
-            <Badge src={rankBadge.img} />
-            <Text>{nickName}</Text>
+      {rankList && (
+        <Rank key={nickName}>
+          <FlexGrid gap="17px">
+            <FlexGrid>{rank}위</FlexGrid>
+            <FlexGrid gap="3px" center>
+              <Badge src={rankBadge.img} />
+              <Text>{nickName}</Text>
+            </FlexGrid>
           </FlexGrid>
-        </FlexGrid>
-      </Rank>
+        </Rank>
+      )}
     </RankWrap>
   );
 };

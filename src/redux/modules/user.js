@@ -26,7 +26,7 @@ const lottoCount = createAction(LOTTO_COUNT, () => ({}));
 const initialState = {
   user: null,
   userInfo: {},
-  rankList: [],
+  rankList: null,
 };
 
 //MiddleWare

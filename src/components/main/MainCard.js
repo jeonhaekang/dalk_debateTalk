@@ -94,6 +94,7 @@ const Users = styled.div`
   border-radius: 15px;
 
   display: flex;
+  align-items: center;
 `;
 
 const CardBox = styled(FlexGrid)`

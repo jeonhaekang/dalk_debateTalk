@@ -20,6 +20,7 @@ const More = () => {
   const [idx, setIdx] = React.useState(0);
 
   const refresh = () => {
+    console.log("refresh");
     dispatch(actionCreators.refreshDB(api, category));
   };
 

@@ -9,20 +9,20 @@ import moment from "moment";
 import axios from "axios";
 
 //Action
-const SET_ROOM = "SET_ROOM";
-const CREATE_ROOM = "CREATE_ROOM";
-const DELETE_ROOM = "CREATE_RODELETE_ROOMOM";
-const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
-const CLEAR = "CLEAR";
-const SET_MESSAGE = "SET_MESSAGE";
-const NEW_MESSAGE = "NEW_MESSAGE";
-const LOAD_USER_LIST = "LOAD_USER_LIST";
-const ENTER_USER = "ENTER_USER";
-const EXIT_USER = "EXIT_USER";
-const VOTE = "VOTE";
+const SET_ROOM_LIST = "chat/SET_ROOM_LIST";
+const CREATE_ROOM = "chat/CREATE_ROOM";
+const DELETE_ROOM = "chat/CREATE_RODELETE_ROOMOM";
+const SET_CURRENT_ROOM = "chat/SET_CURRENT_ROOM";
+const CLEAR = "chat/CLEAR";
+const SET_MESSAGE = "chat/SET_MESSAGE";
+const NEW_MESSAGE = "chat/NEW_MESSAGE";
+const LOAD_USER_LIST = "chat/LOAD_USER_LIST";
+const ENTER_USER = "chat/ENTER_USER";
+const EXIT_USER = "chat/EXIT_USER";
+const VOTE = "chat/VOTE";
 
 //Action Creator
-const setRoom = createAction(SET_ROOM, (list) => ({ list }));
+const setRoomList = createAction(SET_ROOM_LIST, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
@@ -39,7 +39,7 @@ const vote = createAction(VOTE, (data) => ({ data }));
 //initialState
 const initialState = {
   is_loaded: false,
-  roomList: [],
+  roomList: null,
   currentRoom: { roomInfo: null, messageLog: [], users: [] },
   itemState: false,
 };
@@ -50,18 +50,19 @@ const roomInitialState = {
 };
 
 //MiddleWare
-const loadMainRoomDB = () => {
+const mainRoomListDB = () => {
   // 메인 방 목록 가져오기
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, { history }) {
     apis
-      .loadMainRoom()
+      .mainRoomList()
       .then((res) => {
-        dispatch(setRoom(res.data));
+        dispatch(setRoomList(res.data));
       })
       .catch((err) => {
         dispatch(
           alertAction.open({
-            message: "에러가 발생하였습니다",
+            message: "채팅방 목록 불러오기에 실패하였습니다.",
+            history: () => history.push("/"),
           })
         );
       });
@@ -74,7 +75,7 @@ const loadCategoryRoomDB = (category) => {
     apis
       .loadCategoryRoom(category)
       .then((res) => {
-        dispatch(setRoom(res.data));
+        dispatch(setRoomList(res.data));
       })
       .catch((err) => {
         dispatch(
@@ -221,7 +222,8 @@ const reportRoomDB = (roomId) => {
 //Reducer
 export default handleActions(
   {
-    [SET_ROOM]: (state, action) =>
+    // 채팅방 목록 설정
+    [SET_ROOM_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.roomList = action.payload.list;
       }),
@@ -281,7 +283,7 @@ const actionCreators = {
   createRoomDB,
   getOneRoomDB,
   deleteRoom,
-  loadMainRoomDB,
+  mainRoomListDB,
   loadCategoryRoomDB,
   voteDB,
   clear,
