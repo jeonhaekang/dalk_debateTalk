@@ -119,13 +119,13 @@ const Flag = styled.div`
   background: ${(props) => props.theme.color.orange};
   :before {
     border-top: 25px solid ${(props) => props.theme.color.orange};
-    border-left: 62px solid transparent;
-    border-right: 62px solid transparent;
+    border-left: 62.5px solid transparent;
+    border-right: 62.5px solid transparent;
     content: "";
     height: 0;
     left: 0;
     position: absolute;
-    top: 39px;
+    top: 40px;
     width: 0;
   }
   .title {
