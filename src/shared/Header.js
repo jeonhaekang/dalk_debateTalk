@@ -7,7 +7,7 @@ import Center from "../elements/Center";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
 import SearchRoom from "../components/main/SearchChatRoom";
-import searchIcon from "../image/header/searchIcon.svg";
+// import searchIcon from "../image/header/searchIcon.svg";
 
 const Header = (props) => {
   const { page, users, children, meatball, color, line } = props;
@@ -21,7 +21,7 @@ const Header = (props) => {
         <Text color="orange" size="logo" weight="black">
           DALKING
         </Text>
-        <SearchButton onClick={() => setSearchState(true)} src={searchIcon} />
+        {/* <SearchButton onClick={() => setSearchState(true)} src={searchIcon} /> */}
         {searchState && (
           <SearchRoom state={searchState} setState={setSearchState} />
         )}

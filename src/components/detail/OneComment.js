@@ -12,9 +12,11 @@ import ThumbsUp from "../../image/comment/thumb_up.svg";
 import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg";
 import ThumbsDown from "../../image/comment/thumb_down.svg";
 import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg";
+
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import Grid from "../../elements/Grid";
+
 import { getCookie } from "../../shared/Cookie";
 
 const OneComment = (props) => {
