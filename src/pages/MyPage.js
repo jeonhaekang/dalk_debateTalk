@@ -6,7 +6,7 @@ import Convenience from "../components/mypage/Convenience";
 import FlexGrid from "../elements/FlexGrid";
 import Container from "../elements/Container";
 
-const MyPage = (props) => {
+const MyPage = () => {
   return (
     <>
       <Header line page="마이 페이지" />

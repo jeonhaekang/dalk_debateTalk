@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as alertAction } from '../../redux/modules/alert';
 
 import apis from '../../shared/apis';
+import FlexGrid from '../../elements/FlexGrid';
 
 
 function BlindBoard() {
@@ -16,7 +17,7 @@ function BlindBoard() {
             .then((res) => {
                 setBlindBoardList(res.data)
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch(alertAction.open({
                     message: "블라인드 게시물 불러오기 실패"
                 }))
@@ -25,12 +26,12 @@ function BlindBoard() {
 
     const delBlindBoard = (boardId) => {
         apis.delblindboard(boardId)
-            .then((res) => {
+            .then(() => {
                 dispatch(alertAction.open({
                     message: "블라인드 게시물 삭제 성공"
                 }))
             })
-            .catch((err) => {
+            .catch(() => {
                 dispatch(alertAction.open({
                     message: "블라인드 게시물 삭제 실패"
                 }))
@@ -41,28 +42,21 @@ function BlindBoard() {
         <>
         <Title>현재 블라인드 게시글</Title>
             {BlindBoardList.map((r, idx) => {
-                return <List key={idx}>
+                return <FlexGrid center gap="20px" padding="10px 0px" key={idx}>
                     <div> {r.topicA} VS {r.topicB} </div>
                     <div> 신고수 : {r.boardWarnCnt} </div>
                     <button onClick={()=>delBlindBoard(r.boardId)}> 삭제 </button>
-                </List>
+                </FlexGrid>
             })}
         </>
     )
 }
 
 const Title = styled.div`
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 10px;
     font-weight: bold;
     font-size: 20px;
-`
-const List = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px 0px;
 `
 
 export default BlindBoard

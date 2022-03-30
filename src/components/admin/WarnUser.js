@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as alertAction } from '../../redux/modules/alert';
 
 import apis from '../../shared/apis';
+import FlexGrid from '../../elements/FlexGrid';
 
 
 function WarnUser() {
@@ -41,12 +42,12 @@ function WarnUser() {
         <>
             <Title>다신고 유저 목록</Title>
             {WarnUserList.map((u, idx) => {
-                return <List key={idx}>
+                return <FlexGrid center gap="20px" padding="10px 0px" key={idx}>
                 <div> ID : {u.username} </div>
                 <div> 닉네임 : {u.nickname} </div>
                 <div> 신고수 : {u.userWarnCnt} </div>
                 <button onClick={()=>delWarnUser(u.userId)}> 삭제 </button>
-            </List>
+            </FlexGrid>
         })}
         </>
     )
@@ -58,12 +59,6 @@ const Title = styled.div`
     padding: 10px;
     font-weight: bold;
     font-size: 20px;
-`
-const List = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 0px;
 `
 
 export default WarnUser

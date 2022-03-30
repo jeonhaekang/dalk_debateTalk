@@ -16,7 +16,7 @@ import Container from "../../elements/Container";
 const MyGrade = () => {
   const user = useSelector((state) => state.user.user);
   const userRank = rank[discriminant(user?.ex, user?.rank)];
-  console.log(userRank, user);
+  
   const nowExp = user?.ex;
   const nextScore = () => {
     if (nowExp < 5000) {

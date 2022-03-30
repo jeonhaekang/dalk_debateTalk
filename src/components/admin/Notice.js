@@ -50,7 +50,7 @@ function Notice() {
       {noticeList.map((r, idx) => {
         return (
           <>
-            <List key={idx}>
+            <FlexGrid center gap="20px" padding="10px 0px" key={idx}>
               <div> {r.title} </div>
               <button onClick={() => setUpdateModalState(true)}>
                 {" "}
@@ -60,7 +60,7 @@ function Notice() {
                 {" "}
                 삭제{" "}
               </button>
-            </List>
+            </FlexGrid>
             {updateModalState && (
               <Modal
                 modalState={updateModalState}
@@ -68,19 +68,19 @@ function Notice() {
               >
                 <ModalLabel>
                   <div>타이틀</div>
-                  <ModalTitleInput
+                  <ModalInput
                     type="text"
                     onChange={onChangeTitle}
                     value={title}
-                  ></ModalTitleInput>
+                  ></ModalInput>
                 </ModalLabel>
                 <ModalLabel>
                   <div>내용</div>
-                  <ModalContentInput
+                  <ModalInput
                     rows="10"
                     onChange={onChangeContent}
                     value={content}
-                  ></ModalContentInput>
+                  ></ModalInput>
                 </ModalLabel>
                 <ModalBtn onClick={() => handleUpdateNotice(r.noticeId)}>
                   수정
@@ -98,17 +98,17 @@ function Notice() {
         >
           <FlexGrid is_column gap="10px" padding="30px">
             <div>타이틀</div>
-            <ModalTitleInput
+            <ModalInput
               type="text"
               onChange={onChangeTitle}
               value={title}
-            ></ModalTitleInput>
+            ></ModalInput>
             <div>내용</div>
-            <ModalContentInput
+            <ModalInput
               rows="10"
               onChange={onChangeContent}
               value={content}
-            ></ModalContentInput>
+            ></ModalInput>
           </FlexGrid>
           <ModalBtn onClick={handleAddNotice}>등록</ModalBtn>
         </Modal>
@@ -124,12 +124,7 @@ const Title = styled.div`
   font-weight: bold;
   font-size: 20px;
 `;
-const List = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px 0px;
-`;
+
 const Label = styled.div`
   margin: 10px;
   padding: 5px;
@@ -139,18 +134,17 @@ const Label = styled.div`
   background-color: #ddd;
   cursor: pointer;
 `;
+
 const ModalLabel = styled.div`
   padding: 30px;
   height: 300px;
 `;
-const ModalTitleInput = styled.input`
+
+const ModalInput = styled.textarea`
   width: 240px;
   border: 1px solid #333;
 `;
-const ModalContentInput = styled.textarea`
-  width: 240px;
-  border: 1px solid #333;
-`;
+
 const ModalBtn = styled.div`
   text-align: center;
   font-size: 14px;
