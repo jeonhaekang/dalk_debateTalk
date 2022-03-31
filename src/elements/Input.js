@@ -57,7 +57,7 @@ const Container = styled.div`
   height: 60px;
   padding: 12px;
   border-radius: 10px;
-  background-color: #eee;
+  background-color: #f1f1f1;
   position: relative;
   cursor: text;
 `;
