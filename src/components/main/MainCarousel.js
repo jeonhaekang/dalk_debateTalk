@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 const MainCarousel = (props) => {
   const dispatch = useDispatch();
-  const [imageList, setImageList] = useState([]);
+  const [imageList, setImageList] = useState(null);
 
   const style = {
     showArrows: true, // 화살표 표시
@@ -23,7 +23,6 @@ const MainCarousel = (props) => {
     apis
       .carousels()
       .then((res) => {
-        console.log(res.data)
         setImageList(res.data);
       })
       .catch((err) => {
@@ -37,24 +36,25 @@ const MainCarousel = (props) => {
 
   return (
     <>
-      <Carousel {...style}>
-        {imageList.map((el, i) => {
-          return el.status === true ? (
-            <a href={el.url} target="_blank" key={i}>
-              <Image src={el.image} />
-            </a>
-          ) : (
-            <a href={el.url} key={i}>
-              <Image src={el.image} />
-            </a>
-          );
-          // return (
-          //   <a href={el.url} target="_blank" key={i}>
-          //     <Image src={el.image} />
-          //   </a>
-          // );
-        })}
-      </Carousel>
+      {imageList ? (
+        <Carousel {...style}>
+          {imageList.map((el, i) => {
+            return el.status === true ? (
+              <a href={el.url} target="_blank" key={i}>
+                <Image src={el.image} />
+              </a>
+            ) : (
+              <a href={el.url} key={i}>
+                <Image src={el.image} />
+              </a>
+            );
+          })}
+        </Carousel>
+      ) : (
+        <SkeletonImageOuter>
+          <SkeletonImageInner />
+        </SkeletonImageOuter>
+      )}
     </>
   );
 };
@@ -65,6 +65,15 @@ const Image = styled.div`
   overflow: hidden;
   background-image: url("${(props) => props.src}");
   background-size: cover;
+`;
+
+const SkeletonImageInner = styled.div`
+  background: #e7e7e7;
+  padding-top: 50%;
+`;
+
+const SkeletonImageOuter = styled.div`
+  width: 100%;
 `;
 
 export default MainCarousel;

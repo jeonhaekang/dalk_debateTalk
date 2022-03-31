@@ -6,12 +6,10 @@ import { actionCreators as alertAction } from "./alert";
 //Action
 const GET_ROOM = "post/GET_ROOM";
 const CLEAR = "post/CLEAR";
-const REFRESH = "post/REFRESH";
 
 //Action Creator
 const getRoom = createAction(GET_ROOM, (keyword, data) => ({ keyword, data }));
 const clear = createAction(CLEAR, () => ({}));
-const refresh = createAction(REFRESH, (keyword) => ({ keyword }));
 
 //initialState
 const initialState = {
@@ -66,13 +64,6 @@ const loadListDB = (page, api, keyword) => {
   };
 };
 
-const refreshDB = (api, keyword) => {
-  return async function (dispatch, getState, { history }) {
-    dispatch(refresh(keyword));
-    dispatch(loadListDB(0, api, keyword));
-  };
-};
-
 //Reducer
 export default handleActions(
   {
@@ -95,11 +86,6 @@ export default handleActions(
       produce(state, (draft) => {
         return initialState;
       }),
-    [REFRESH]: (state, action) =>
-      produce(state, (draft) => {
-        const { keyword } = action.payload;
-        draft[keyword] = initialData;
-      }),
   },
   initialState
 );
@@ -108,7 +94,6 @@ export default handleActions(
 const actionCreators = {
   loadListDB,
   clear,
-  refreshDB,
 };
 
 export { actionCreators };

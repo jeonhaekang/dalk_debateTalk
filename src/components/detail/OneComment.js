@@ -12,9 +12,11 @@ import ThumbsUp from "../../image/comment/thumb_up.svg";
 import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg";
 import ThumbsDown from "../../image/comment/thumb_down.svg";
 import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg";
+
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import Grid from "../../elements/Grid";
+
 import { getCookie } from "../../shared/Cookie";
 
 const OneComment = (props) => {
@@ -113,6 +115,7 @@ const OneComment = (props) => {
   //타임 카운팅
   const timeForToday = (value) => {
     const today = new Date();
+    //아이폰은 - 를 인식 못하기에 NAN이 뜸, replaceAll을 이용해 /로 바꿈
     const timeValue = new Date(value.replaceAll("-", "/"));
 
     const betweenTime = Math.floor(
@@ -184,7 +187,6 @@ const OneComment = (props) => {
         <Content>{props.comment}</Content>
         <FlexGrid between>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {/* <CreatedAt>{TimeCounting(props.createdAt, option)}</CreatedAt> */}
             <CreatedAt>{timeForToday(props.createdAt)}</CreatedAt>
             <div
               style={{

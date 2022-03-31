@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+
 import { useDispatch } from "react-redux";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
-import styled from "styled-components";
 import apis from "../../shared/apis";
+
 import Header from "../../shared/Header";
+import Text from "../../elements/Text";
 
 function AnnounceDetail(props) {
   const dispatch = useDispatch();
@@ -34,10 +37,12 @@ function AnnounceDetail(props) {
   return (
     <AnnouncementDetailWrap>
       <Header page="공지사항" />
-      <Wrap>
-        <Title>{detailNotice.title}</Title>
-        <CreatedAt>{createdAt}</CreatedAt>
-      </Wrap>
+      <Title>
+        <Text size="gnb" weight="semibold">
+          {detailNotice.title}
+        </Text>
+        <Text size="body3">{createdAt}</Text>
+      </Title>
       <Content>{detailNotice.content}</Content>
     </AnnouncementDetailWrap>
   );
@@ -47,19 +52,13 @@ const AnnouncementDetailWrap = styled.div`
   height: 100%;
   background-color: #fff;
   overflow: scroll;
-`
+`;
 
-const Wrap = styled.div`
+const Title = styled.div`
   border-bottom: 1px solid #ccc;
   padding: 20px;
 `;
-const Title = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-`;
-const CreatedAt = styled.div`
-  font-size: 12px;
-`;
+
 const Content = styled.pre`
   padding: 15px;
   white-space: pre-wrap;

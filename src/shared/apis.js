@@ -7,16 +7,17 @@ import store from "../redux/configStore";
 export const instance = axios.create({
   // baseURL: "http://ddanddan.shop",
   baseURL: "https://raddas.site",
-  // baseURL: "https://dongseok.shop",
 });
 
 instance.interceptors.request.use((config) => {
+  // 사용자가 로그인하지 않고 url을 통해 로그인이 필요한 서비스에 접근시 차단
   const token = getCookie("authorization");
 
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
     throw new axios.Cancel(400);
   }
+  // ----------------------------------------------------------------------------------------------------
   config.headers["Content-Type"] =
     "application/json;charset=UTF-8; charset=UTF-8";
 
@@ -29,6 +30,8 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
+    // ----------------------------------------------------------------------------------------------------
+    // 로그인 하지 않아 차단된 유저에게 안내
     if (axios.isCancel(error) && error.message === 400) {
       store.dispatch(
         alertAction.open({
@@ -79,16 +82,16 @@ const apis = {
   // ---------캐러셀 관련------------
   carousels: () => instance.get("/api/carousels"),
 
-  // ---------토론방 관련------------
+  // 토론방 관련---------------------------------------------------------------------------------------------
+  //토론방 메인 리스트 가져오기
+  mainRoomList: () => instance.get("api/main/rooms"),
+
   //토론방 생성
   createRoom: (data) => instance.post("/rooms", data),
 
   //토론방 리스트 전체보기
   loadAllRoom: (size, page) =>
     instance.get(`/api/rooms?size=${size}&page=${page}`),
-
-  //토론방 메인 리스트 가져오기
-  loadMainRoom: () => instance.get("api/main/rooms"),
 
   //토론방 검색
   searchRoom: (size, page, keyword) =>
