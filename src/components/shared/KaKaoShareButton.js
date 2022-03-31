@@ -3,7 +3,7 @@
 //https://ellismin.com/2020/09/share-kakao/ 참고자료
 import React from "react";
 import styled from "styled-components";
-import kakaoLogo from "../../image/kakao-logo.png";
+import kakaoLogo from "../../image/shared/kakao-logo.png";
 
 const KakaoShareButton = (props) => {
   const { size } = props;

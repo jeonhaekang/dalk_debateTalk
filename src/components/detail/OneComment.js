@@ -7,17 +7,16 @@ import { history } from "../../redux/configStore";
 import { discriminant, rank } from "../../data/rank";
 import apis from "../../shared/apis";
 
-import Del from "../../image/comment/delete.svg";
-import ThumbsUp from "../../image/comment/thumb_up.svg";
-import ThumbsUpFill from "../../image/comment/thumb_up_fill.svg";
-import ThumbsDown from "../../image/comment/thumb_down.svg";
-import ThumbsDownFill from "../../image/comment/thumb_down_fill.svg";
+import { ReactComponent as Del } from "../../image/comment/delete.svg";
+import { ReactComponent as ThumbsUp } from "../../image/comment/thumb_up.svg";
+import { ReactComponent as ThumbsDown } from "../../image/comment/thumb_down.svg";
 
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
 import Grid from "../../elements/Grid";
 
 import { getCookie } from "../../shared/Cookie";
+import TimeForToday from "../../shared/TimeForToday";
 
 const OneComment = (props) => {
   //댓글 유저 뱃지
@@ -112,33 +111,6 @@ const OneComment = (props) => {
     dispatch(commentActions.delCommentDB(commentId));
   };
 
-  //타임 카운팅
-  const timeForToday = (value) => {
-    const today = new Date();
-    //아이폰은 - 를 인식 못하기에 NAN이 뜸, replaceAll을 이용해 /로 바꿈
-    const timeValue = new Date(value.replaceAll("-", "/"));
-
-    const betweenTime = Math.floor(
-      (today.getTime() - timeValue.getTime()) / 1000 / 60
-    );
-    if (betweenTime < 1) return "방금 전";
-    if (betweenTime < 60) {
-      return `${betweenTime}분 전`;
-    }
-
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-      return `${betweenTimeHour}시간 전`;
-    }
-
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-      return `${betweenTimeDay}일 전`;
-    }
-
-    return `${Math.floor(betweenTimeDay / 365)}년 전`;
-  };
-
   return (
     <Container>
       <FlexGrid between>
@@ -154,9 +126,9 @@ const OneComment = (props) => {
         <AgreeBtn>
           <Number className="agree-count" onClick={handleClickAgree}>
             {agreeList.includes(user?.userId) ? (
-              <img src={ThumbsUpFill} alt="ThumbsUpfill" />
+              <ThumbsUp fill="#f19121" style={{ cursor: "pointer" }} />
             ) : (
-              <img src={ThumbsUp} alt="ThumbsUp" />
+              <ThumbsUp fill="#c4c4c4" style={{ cursor: "pointer" }} />
             )}{" "}
             <div
               style={{ margin: "0px 4px", fontWeight: "400", color: "#8E8E8E" }}
@@ -166,13 +138,9 @@ const OneComment = (props) => {
           </Number>
           <Number className="disagree-count" onClick={handleClickDisagree}>
             {disagreeList.includes(user?.userId) ? (
-              <img
-                src={ThumbsDownFill}
-                style={{ backgroudColor: "#F19121" }}
-                alt="ThumbsDownfill"
-              />
+              <ThumbsDown fill="#333333" />
             ) : (
-              <img src={ThumbsDown} alt="ThumbsDown" />
+              <ThumbsDown fill="#c4c4c4" />
             )}{" "}
             <div
               style={{ marginLeft: "4px", fontWeight: "400", color: "#8E8E8E" }}
@@ -187,7 +155,7 @@ const OneComment = (props) => {
         <Content>{props.comment}</Content>
         <FlexGrid between>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <CreatedAt>{timeForToday(props.createdAt)}</CreatedAt>
+            <CreatedAt>{TimeForToday(props.createdAt)}</CreatedAt>
             <div
               style={{
                 display: "flex",
@@ -215,12 +183,7 @@ const OneComment = (props) => {
           </div>
 
           {user?.username === props.userInfo.username ? (
-            <img
-              onClick={deleteComment}
-              src={Del}
-              style={{ cursor: "pointer" }}
-              alt="delcomment"
-            />
+            <Del onClick={deleteComment} style={{ cursor: "pointer" }} />
           ) : null}
         </FlexGrid>
       </Grid>

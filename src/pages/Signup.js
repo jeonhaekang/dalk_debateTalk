@@ -211,22 +211,29 @@ const Signup = () => {
       <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
         <FlexGrid is_column center gap="20px">
           {/* 아이디 입력 */}
-          <FlexGrid is_column gap="8px">
-            <FlexGrid is_flex>
+          <FlexGrid is_column gap="0px" height="110px">
+            <FlexGrid is_column gap="8px">
               <Text size="body1" weight="medium">
                 아이디 입력
               </Text>
-              <ValBtn onClick={handleIdVal}>중복검사</ValBtn>
+              <InputContainer>
+                {username === "" ? (
+                  <span className="root"></span>
+                ) : (
+                  <span className="warn">
+                    5~20자 영문 숫자 입력
+                  </span>
+                )}
+                <LoginInput
+                  value={username}
+                  onChange={onChangeUsername}
+                  placeholder="아이디"
+                ></LoginInput>
+                {isUsername && idVal === true && (
+                  <CheckImg src={check} alt="check" />
+                )}
+              </InputContainer>
             </FlexGrid>
-            <InputContainer>
-              <LoginInput
-                defaultValue={username}
-                onChange={onChangeUsername}
-              ></LoginInput>
-              {isUsername && idVal === true && (
-                <CheckImg src={check} alt="check" />
-              )}
-            </InputContainer>
             {username.length > 0 && !isUsername && (
               <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
             )}
@@ -238,7 +245,6 @@ const Signup = () => {
               <Text size="body1" weight="medium">
                 닉네임 입력
               </Text>
-              <ValBtn onClick={handleNicknameVal}>중복검사</ValBtn>
             </FlexGrid>
             <InputContainer>
               <LoginInput
@@ -327,10 +333,10 @@ const Signup = () => {
             </Text>
           </Text>
         </FlexGrid>
-        {(isUsername === false ||
+        {isUsername === false ||
         isNickname === false ||
         isPassword === false ||
-        isPasswordCheck === false) ? (
+        isPasswordCheck === false ? (
           <SignupBox ok={false} onClick={clickSignUp}>
             가입하기
           </SignupBox>
@@ -355,16 +361,6 @@ const Signup = () => {
     </>
   );
 };
-
-const LoginInput = styled.input`
-  width: 100%;
-  height: 60px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f1f1f1;
-  padding: 16px;
-  font-size: 16px;
-`;
 
 const Validation = styled.p`
   margin-top: 5px;
@@ -393,10 +389,38 @@ const SignupBox = styled.div`
 `;
 
 const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 54px;
+  position: relative;
+  .root {
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .warn {
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    pointer-events: none;
+    transition: transform 0.2s ease 0s;
+    transform: translateY(-12px) scale(0.7);
+    transform-origin: left center;
+    z-index: 3;
+  }
+`;
+
+const LoginInput = styled.input`
   width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  padding: 21px 10px 7px;
+  font-size: 16px;
+  display: block;
+  position: relative;
+  :focus {
+  }
 `;
 
 const CheckImg = styled.img`
@@ -404,16 +428,6 @@ const CheckImg = styled.img`
   height: 20px;
   position: absolute;
   right: 20px;
-`;
-
-const ValBtn = styled.button`
-  background-color: ${(props) => props.theme.color.orange};
-  padding: 2px 6px;
-  border-radius: 10px;
-  border: none;
-  font-size: 10px;
-  color: #ffffff;
-  cursor: pointer;
 `;
 
 export default Signup;
