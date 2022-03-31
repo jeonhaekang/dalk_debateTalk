@@ -3,25 +3,16 @@ import { history } from "../redux/configStore";
 import { deleteCookie, getCookie } from "./Cookie";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
-import { cacheAdapterEnhancer } from "axios-extensions";
 
 export const instance = axios.create({
   baseURL: "http://ddanddan.shop",
   // baseURL: "https://raddas.site",
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter, {
-    enabledByDefault: false, // 기본 캐싱 설정을 false로
-  }),
 });
 
 instance.interceptors.request.use((config) => {
-  // ----------------------------------------------------------------------------------------------------
-  // history action이 push이면 데이터 갱신
-  config.forceUpdate = history.action === "PUSH"; // true일경우 캐시 데이터가 있더라도 서버에 데이터를 요청한다
-  config.cache = true;
-
-  const token = getCookie("authorization");
-  // ----------------------------------------------------------------------------------------------------
   // 사용자가 로그인하지 않고 url을 통해 로그인이 필요한 서비스에 접근시 차단
+  const token = getCookie("authorization");
+
   if (!config.url.includes("api") && !config.url.includes("users") && !token) {
     deleteCookie("authorization");
     throw new axios.Cancel(400);

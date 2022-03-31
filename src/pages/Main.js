@@ -13,10 +13,10 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import Text from "../elements/Text";
 import fireDalk from "../image/shared/fireDalk.svg";
-import { ReactComponent as Reset } from "../image/shared/reset.svg";
 import Container from "../elements/Container";
 import MainContentSkeleton from "../components/skeleton/MainContentSkeleton";
 import EmptyRoom from "../components/shared/EmptyRoom";
+import Refresh from "../elements/Refresh";
 
 const Main = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +24,9 @@ const Main = (props) => {
   const roomList = useSelector((state) => state.chat.roomList);
   // roomList가 비어있으면 서버에서 데이터 가져옴
   React.useEffect(() => {
+    if (roomList) {
+      return;
+    }
     dispatch(actionCreators.mainRoomListDB());
   }, []);
 
@@ -43,15 +46,15 @@ const Main = (props) => {
         {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
         <FlexGrid is_column padding="24px" gap="22px">
           {roomList ? (
-            roomList.length !== 0 ? (
-              <>
-                <FlexGrid paddingBottom="58px" between alignItems="flex-start">
-                  <Text size="headline1" weight="medium" lineHeight="38px">
-                    실시간 HOT한
-                    <br /> 토론에 참여해보세요!
-                  </Text>
-                  <Reset onClick={refresh} style={{ zIndex: 1 }}></Reset>
-                </FlexGrid>
+            <>
+              <FlexGrid paddingBottom="58px" between alignItems="flex-start">
+                <Text size="headline1" weight="medium" lineHeight="38px">
+                  실시간 HOT한
+                  <br /> 토론에 참여해보세요!
+                </Text>
+                <Refresh onClick={refresh} />
+              </FlexGrid>
+              {roomList.length !== 0 ? (
                 <FlexGrid is_column gap="24px">
                   <FireDalk src={fireDalk} />
                   {roomList.map((el, i) => {
@@ -80,10 +83,10 @@ const Main = (props) => {
                     더 많은 토론보기 &gt;
                   </MoreButton>
                 </FlexGrid>
-              </>
-            ) : (
-              <EmptyRoom />
-            )
+              ) : (
+                <EmptyRoom />
+              )}
+            </>
           ) : (
             <MainContentSkeleton />
           )}

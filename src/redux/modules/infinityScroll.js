@@ -22,7 +22,7 @@ const initialState = {
 
 //middleWare
 const loadListDB = (page, api, keyword) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     const size = 5;
 
     apis[api](size, page, keyword)
@@ -48,13 +48,6 @@ const loadListDB = (page, api, keyword) => {
           })
         );
       });
-  };
-};
-
-const refreshDB = (api, keyword) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(refresh(keyword));
-    dispatch(loadListDB(0, api, keyword));
   };
 };
 
@@ -93,7 +86,7 @@ export default handleActions(
 const actionCreators = {
   loadListDB,
   clear,
-  refreshDB,
+  refresh,
 };
 
 export { actionCreators };

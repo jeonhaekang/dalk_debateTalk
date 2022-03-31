@@ -6,6 +6,7 @@ import MainCard from "../../components/main/MainCard";
 import apis from "../../shared/apis";
 import reset from "../../image/shared/reset.svg";
 import pinkReset from "../../image/shared/pinkReset.svg";
+import Refresh from "../../elements/Refresh";
 
 const BestContent = ({ category, time, refresh }) => {
   const [most, setMost] = React.useState();
@@ -28,7 +29,7 @@ const BestContent = ({ category, time, refresh }) => {
             <Text size="headline1" weight="medium" lineHeight="38px">
               실시간 베스트 토론
             </Text>
-            <img alt="reset" src={pinkReset} onClick={refresh} />
+            <Refresh onClick={refresh} />
           </FlexGrid>
           {most && <MainCard key={most.roomId} {...most} page="main" />}
         </BestBox>

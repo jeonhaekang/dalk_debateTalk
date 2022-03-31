@@ -13,19 +13,15 @@ const MoreContent = ({ category }) => {
   const data = useSelector((props) => props.infinityScroll[category]);
 
   const getRoomList = (page) => {
-    console.log("roomList");
     dispatch(infinityAction.loadListDB(page, api, category));
   };
 
-  console.log(data);
-
   React.useEffect(() => {
     if (data) {
-      dispatch(infinityAction.refreshDB(api, category));
-    } else {
-      getRoomList(0);
+      return;
     }
-  }, []);
+    getRoomList(0);
+  }, [data]);
 
   return (
     <>
@@ -38,7 +34,7 @@ const MoreContent = ({ category }) => {
                 paging={{ next: data.has_next }}
               >
                 {data.list.map((el, i) => {
-                  return <MoreCard key={i} {...el} />;
+                  return <MoreCard key={el.roomId} {...el} />;
                 })}
               </InfinityScroll>
             ) : (

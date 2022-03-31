@@ -50,11 +50,11 @@ const roomInitialState = {
 };
 
 //MiddleWare
-const mainRoomListDB = () => {
+const mainRoomListDB = (state) => {
   // 메인 방 목록 가져오기
   return function (dispatch, { history }) {
     apis
-      .mainRoomList()
+      .mainRoomList(state)
       .then((res) => {
         dispatch(setRoomList(res.data));
       })
