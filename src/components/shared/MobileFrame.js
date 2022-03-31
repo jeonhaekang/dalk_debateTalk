@@ -14,13 +14,14 @@ const MobileFrame = ({ children }) => {
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    return () =>
-      window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <MobileContainer>
-      <MobileWrap id="globalPortal">{children}</MobileWrap>
+      <MobileWrap id="globalPortal">
+        <MobileContent>{children}</MobileContent>
+      </MobileWrap>
     </MobileContainer>
   );
 };
@@ -41,12 +42,19 @@ const MobileWrap = styled.div`
 
   margin: 0 auto;
 
-  position: relative;
-  overflow: hidden;
-
   @media screen and (min-width: 1024px) {
     transform: translateX(70%);
   }
+
+  position: relative;
+`;
+
+const MobileContent = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+  overflow: hidden;
 `;
 
 export default MobileFrame;

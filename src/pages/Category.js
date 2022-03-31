@@ -22,7 +22,7 @@ const Category = (props) => {
 
   const refresh = () => {
     setTime(new Date().getTime());
-    dispatch(actionCreators.refreshDB("loadCategoryRoom", category));
+    dispatch(actionCreators.refresh(category));
   };
 
   return (

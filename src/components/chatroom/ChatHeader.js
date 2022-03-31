@@ -53,7 +53,7 @@ const ChatHeader = (props) => {
                 type="hamburger"
               >
                 <FlexGrid _onClick={reportRoom}>
-                  <ReportIcon />
+                  <ReportIcon fill="black" />
                   <Text marginBottom="3px" color="alert">
                     신고하기
                   </Text>

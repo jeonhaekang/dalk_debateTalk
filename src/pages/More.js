@@ -10,17 +10,16 @@ import MoreContent from "../components/more/MoreContent";
 import MoreHeader from "../components/more/MoreHeader";
 import styled from "styled-components";
 import { actionCreators } from "../redux/modules/infinityScroll";
-import reset from "../image/shared/reset.svg";
+import Refresh from "../elements/Refresh";
 
 const More = () => {
   const dispatch = useDispatch();
 
   const [category, setCategory] = React.useState("전체");
-  const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
   const [idx, setIdx] = React.useState(0);
 
   const refresh = () => {
-    dispatch(actionCreators.refreshDB(api, category));
+    dispatch(actionCreators.refresh(category));
   };
 
   return (
@@ -33,8 +32,7 @@ const More = () => {
             <br />
             참여해보세요
           </Text>
-          <img alt="reset" onClick={refresh} src={reset} />
-          {/* <button onClick={refresh}>새로고침</button> */}
+          <Refresh onClick={refresh} />
         </FlexGrid>
 
         <MoreHeader
@@ -46,9 +44,9 @@ const More = () => {
         <FlexGrid gap="0">
           {categoryDate.map((el, i) => {
             return (
-              <Test idx={idx} key={i}>
+              <MoreContentBox idx={idx} key={i}>
                 <MoreContent category={el.name} />
-              </Test>
+              </MoreContentBox>
             );
           })}
         </FlexGrid>
@@ -57,7 +55,7 @@ const More = () => {
     </>
   );
 };
-const Test = styled.div`
+const MoreContentBox = styled.div`
   --idx: ${(props) => props.idx * -100}%;
   transform: translateX(var(--idx));
   transition: 0.3s;
