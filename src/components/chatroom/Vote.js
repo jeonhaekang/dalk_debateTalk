@@ -65,14 +65,9 @@ const Vote = ({ topic, setModalState }) => {
             <Text> 몇 알포인트를 사용할까요?</Text>
 
             <FlexGrid center padding="5px 8px" backgroundColor="#F5F5F5">
-              <Input
-                fontSize="16px"
-                width="100%"
+              <PointInput
                 onChange={(e) => setPoint(e.target.value)}
                 type="number"
-                padding="0"
-                border="none"
-                backgroundColor="#F5F5F5"
                 placeholder="포인트를 입력해주세요"
               />
               <Text>RP</Text>
@@ -86,6 +81,13 @@ const Vote = ({ topic, setModalState }) => {
     </>
   );
 };
+
+const PointInput = styled.input`
+  width: 100%;
+  background-color: #f5f5f5;
+  border: none;
+  font-size: 16px;
+`;
 
 const Button = styled.button`
   width: 100%;
