@@ -32,30 +32,22 @@ export const shake = keyframes`
 
 export const broken = keyframes`
   0%{
-    transform: rotate(30deg);
+    transform: rotate(45deg);
   }
   50%{
-    transform: rotate(-30deg);
+    transform: rotate(-45deg);
   }
   100%{
-    transform: rotate(30deg);
+    transform: rotate(45deg);
   }
 `;
 
-export const zoomIn = keyframes`
-  from {
-    transform: scale(1);
+export const fadeIn = keyframes`
+  0%{
+    opacity: 0.3;
+    transform: translateY(30%);
   }
-  to {
-    transform: scale(30);
-  }
-`;
-
-export const zoomOut = keyframes`
-  from {
-    transform: scale(30);
-  }
-  to {
-    transform: scale(1);
+  100%{
+    opacity: 1;
   }
 `;
