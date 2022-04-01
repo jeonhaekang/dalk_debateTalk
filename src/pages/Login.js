@@ -12,6 +12,7 @@ import Text from "../elements/Text";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 import FlexGrid from "../elements/FlexGrid";
 import { getCookie } from "../shared/Cookie";
+import Input from "../elements/Input";
 
 const Login = () => {
   React.useEffect(() => {
@@ -117,7 +118,7 @@ const Login = () => {
             </InputContainer>
           </FlexGrid>
 
-          {(password === "") ? (
+          {password === "" ? (
             <LoginBtn ok={false} onClick={handleLogin}>
               시작하기
             </LoginBtn>

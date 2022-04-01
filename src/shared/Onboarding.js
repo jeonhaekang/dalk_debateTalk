@@ -20,14 +20,6 @@ const Onboarding = () => {
     setPage(page < onbordingData.length - 1 ? page + 1 : 0);
   };
 
-  React.useEffect(() => {
-    const time = setInterval(nextPage, 5000);
-
-    return () => {
-      clearInterval(time);
-    };
-  });
-
   const start = () => {
     localStorage.setItem("onboarding", true);
     // 시작하기 버튼 클릭시 로컬스토리지에 기록 남김
