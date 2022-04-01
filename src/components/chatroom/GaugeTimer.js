@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { actionCreators as chatAction } from "../../redux/modules/chat";
-import { useDispatch } from "react-redux";
 
 const GaugeTimer = (props) => {
-  const { deleteRoom } = props;
-  const dispatch = useDispatch();
-
   const end = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
@@ -27,10 +22,7 @@ const GaugeTimer = (props) => {
 
   React.useEffect(() => {
     if (restTime <= 0) {
-      dispatch(chatAction.deleteRoom(props.roomId));
-      if (deleteRoom) {
-        deleteRoom(props.roomId);
-      }
+      props.setTimeState(true);
       return;
     }
     const timer = setInterval(() => tick(), 1000);
@@ -43,8 +35,6 @@ const GaugeTimer = (props) => {
     per = (restTime / 60) * 100;
   }
 
-  //const per = (restTime / (props.time ? 1200 : 3600)) * 100;
-
   return (
     <GaugeOuter {...props} style={{ ...props }}>
       <GaugeInner
@@ -54,6 +44,10 @@ const GaugeTimer = (props) => {
       />
     </GaugeOuter>
   );
+};
+
+GaugeTimer.defaultProps = {
+  setTimeState: () => {},
 };
 
 const GaugeOuter = styled.div`
@@ -71,10 +65,12 @@ const GaugeInner = styled.div.attrs((props) => ({
     transform: `scaleX(${props.width / 100})`,
   },
 }))`
+  min-height: 4px;
   height: 100%;
 
   transform-origin: left;
-  // transform 생성 기준 위치
+  transition: 0.2s;
+
   background-color: ${(props) =>
     props.restTime ? "#FF5454" : props.theme.color.orange};
 `;

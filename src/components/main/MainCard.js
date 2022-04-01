@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
-import CardGaugeTimer from "../chatroom/CardGaugeTimer";
+import GaugeTimer from "../chatroom/GaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
@@ -66,11 +66,7 @@ const MainCard = (props) => {
         </FlexGrid>
       </FlexGrid>
 
-      <CardGaugeTimer
-        {...props}
-        page={props.page}
-        setTimeState={setTimeState}
-      />
+      <GaugeTimer {...props} setTimeState={setTimeState} />
       {blindState && <Blind>블라인드 처리된 채팅방</Blind>}
       {timeState && <Blind>종료된 채팅방</Blind>}
     </CardBox>

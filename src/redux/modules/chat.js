@@ -11,7 +11,6 @@ import axios from "axios";
 //Action
 const SET_ROOM_LIST = "chat/SET_ROOM_LIST";
 const CREATE_ROOM = "chat/CREATE_ROOM";
-const DELETE_ROOM = "chat/CREATE_RODELETE_ROOMOM";
 const SET_CURRENT_ROOM = "chat/SET_CURRENT_ROOM";
 const CLEAR = "chat/CLEAR";
 const SET_MESSAGE = "chat/SET_MESSAGE";
@@ -24,7 +23,6 @@ const VOTE = "chat/VOTE";
 //Action Creator
 const setRoomList = createAction(SET_ROOM_LIST, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
-const deleteRoom = createAction(DELETE_ROOM, (roomId) => ({ roomId }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
 const clear = createAction(CLEAR, () => ({}));
 const setMessage = createAction(SET_MESSAGE, (messages) => ({ messages }));
@@ -231,12 +229,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.roomList.unshift(action.payload.room);
       }),
-    [DELETE_ROOM]: (state, action) =>
-      produce(state, (draft) => {
-        draft.roomList = draft.roomList.filter(
-          (el) => el.roomId !== action.payload.roomId
-        );
-      }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.currentRoom.roomInfo = action.payload.data;
@@ -282,7 +274,6 @@ const actionCreators = {
   setCurrentRoom,
   createRoomDB,
   getOneRoomDB,
-  deleteRoom,
   mainRoomListDB,
   loadCategoryRoomDB,
   voteDB,

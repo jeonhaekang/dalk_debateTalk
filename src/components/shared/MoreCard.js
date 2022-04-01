@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Blind from "../shared/Blind";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
-import CardGaugeTimer from "../chatroom/CardGaugeTimer";
+import GaugeTimer from "../chatroom/GaugeTimer";
 import Image from "../../elements/Image";
 import { rank, discriminant } from "../../data/rank";
 import Badge from "../../elements/Badge";
@@ -71,7 +71,7 @@ const MoreCard = (props) => {
             <Topic>{props.topicB}</Topic>
           </FlexGrid>
           <FlexGrid>
-            <CardGaugeTimer
+            <GaugeTimer
               {...props}
               borderRadius="10px"
               height="6px"
