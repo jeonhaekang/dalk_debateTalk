@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# 밸런스게임 토론 플랫폼, DALKING 입니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![dalkBackground](https://user-images.githubusercontent.com/96935557/161001991-400df069-b345-4ce4-ae9c-5d447223fd4b.jpg)
 
-## Available Scripts
+<b>공식 사이트</b> : https://debate-talk.com <br/>
+DALKING 팀 노션 : https://www.notion.so/haekang/DALK-Debate-TALK-e02be647022c42bc826ddb588c31f572 <br />
+FrontEnd GITHUB : https://github.com/jeonhaekang/dalk_debateTalk <br />
+BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
+시연 영상 <br />
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## 🗂 프로젝트 소개
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 개발 기간 : 2022.02.25 ~ 2022.04.08 (4주 MVP 구현, 1주 User-Test, 1주 Re-Factoring)
+- 개발 언어 : Javascript
+- 개발 라이브러리 : React.js v17.0.2
+- 배포 환경 : Amazon S3
+- 협업 툴 : Git / Notion / Figma / Slack
+- 핵심 기능 :
+- 프로젝트 설명 :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `yarn test`
+## 👥 팀 구성
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+|                                                        [김영민](https://github.com/raddaslul)                                                         |                                                          [신동석](https://github.com/dss1222)                                                          |                                                          [현지훈](https://github.com/hyeonjh)                                                          |                                                       [전해강](https://github.com/jeonhaekang)                                                        |                                                        [차민재](https://github.com/letminjae)                                                         |                                                                      박다혜                                                                       |                                                                      이규리                                                                       |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/160993263-a421e956-69d1-4973-ab65-2b0369f3e093.jpg" alt="프로필 이미지" width="200px"/> | <img src="https://user-images.githubusercontent.com/96935557/160993261-1f741cea-7483-45bc-ba5b-358b94e88c1e.png" alt="프로필 이미지" width="200px" /> | <img src="https://user-images.githubusercontent.com/96935557/160993257-885ee21a-33b9-423b-aa84-deb2ac783bc5.jpg" alt="프로필 이미지" width="200px" /> | <img src="https://user-images.githubusercontent.com/91620721/152671737-f29d8e5c-76fd-482f-a133-32bedf3a4805.png" alt="프로필 이미지" width="200px" /> | <img src="https://user-images.githubusercontent.com/96935557/160993266-97fde786-4d9a-44f8-9add-2930b5dc7947.png" alt="프로필 이미지" width="200px" /> | <img width="200px" alt="프로필 이미지" src="https://user-images.githubusercontent.com/96935557/160994847-0d364594-19e4-41ea-b0b3-449ddc3d52a6.png"> | <img width="200px" alt="프로필 이미지" src="https://user-images.githubusercontent.com/96935557/160994828-fee4f002-2576-4be3-9a39-42f3e6ec3495.png"> |
+|                                                                      `Back-end`                                                                       |                                                                       `Back-end`                                                                       |                                                                      `Front-end`                                                                       |                                                                      `Front-end`                                                                      |                                                                      `Front-end`                                                                      |                                                                    `Designer`                                                                     |                                                                    `Designer`                                                                     |
 
-### `yarn build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🎥 데모
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+|                                                                토론방 채팅                                                                 |                                                                밸런스 투표                                                                 |                                                                아이템 사용                                                               |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/161021106-6b6ca8b6-c14d-4a1b-95a9-185fca9e95fc.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161022511-85b7ba71-68b1-41f8-9089-7fbb1422a636.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161027809-a2c18e4c-7336-4119-888f-332bf22c2ca1.gif" alt="demo" width="80%" /> |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br/>
 
-### `yarn eject`
+|                                                                 카테고리 별 토론, 결과방 조회                                                                  |                                                                 토론, 결과방 검색                                                                  |                                                                 결과방 통계                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/161029832-13ad234e-45c5-444e-bfab-b6408ab7cc9c.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161034287-29677099-4849-4580-ad30-5982073fdb97.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161034297-4519036f-4cea-45a2-9420-8cb5ff3a7f43.gif" alt="demo" width="80%" /> |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+|                                                                전체 랭킹                                                                 |                                                                 알포인트 상점                                                                  |                                                               알포인트 뽑기                                                               |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/161111439-16be1036-1328-45a1-8ca5-07102f59a2a8.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161111417-04daff13-e4ce-4281-bff5-1941992756f5.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161111429-f2631ad9-b5e7-45d7-a705-74d1ecc1f561.gif" alt="demo" width="80%" /> |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+|                                                               등급 안내                                                               |                                                                         댓글 등록&삭제                                                       |                                                                      댓글 찬성&반대                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/161114764-a8dbe498-c572-4114-b3e1-39233948910e.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161114761-47ad8539-9527-43c2-8623-b8235d817517.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161114755-e673d71d-c320-44ae-8244-f82c3fe17960.gif" alt="demo" width="80%" /> |
 
-## Learn More
+<br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+|                                                               유저, 토론, 결과방 신고                                                                |                                                                무한 스크롤                                                                 |                                                               공유하기                                                                |
+| :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/96935557/161129182-92fc399b-4ec6-428f-88be-9cda60d22d89.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161129195-77e3cdd0-0e51-4f29-9037-8590cdc769b5.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161129191-b829da82-d1cd-4dfe-9af2-2278958ea866.gif" alt="demo" width="80%" /> |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🧩 아키텍쳐
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![dalkArchitecture](https://user-images.githubusercontent.com/96935557/160998932-99d23bea-c77b-4cfb-9409-f6879eef7f4c.PNG)
+---
 
-### Analyzing the Bundle Size
+## 🔨 기술 스택
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+ -
+ -
+ -
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## ⛔️ 트러블 슈팅
+-
+-
+-
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 👨‍👨‍👦‍👦 유저 피드백
+-
+-
+-
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 👍 런칭 성과
+-
+-
+-
 
-### `yarn build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🤝 후기 및 회고
+<code>전해강</code> <br />
+Write your comment
+
+
+<code>차민재</code> <br />
+Write your comment
+
+---

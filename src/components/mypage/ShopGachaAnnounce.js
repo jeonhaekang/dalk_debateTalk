@@ -4,11 +4,11 @@ import { history } from "../../redux/configStore";
 
 import FlexGrid from "../../elements/FlexGrid";
 
-import shop from "../../image/mypage/shop.svg";
-import gacha from "../../image/mypage/gacha.svg";
-import flag from "../../image/mypage/outlined_flag.svg";
+import { ReactComponent as Shop} from "../../image/mypage/shop.svg";
+import { ReactComponent as Gacha} from "../../image/mypage/gacha.svg";
+import { ReactComponent as Flag} from "../../image/mypage/outlined_flag.svg";
 
-const ShopGachaAnnounce = (props) => {
+const ShopGachaAnnounce = () => {
   return (
     <Wrap>
       <FlexGrid center is_column gap="0">
@@ -17,7 +17,7 @@ const ShopGachaAnnounce = (props) => {
             history.push("/mypage/pointshop");
           }}
         >
-          <ImgSrc src={shop} />
+          <Shop style={{width: "30px"}} />
         </ContentImage>
         <ContentTitle>알포인트 상점</ContentTitle>
       </FlexGrid>
@@ -25,7 +25,7 @@ const ShopGachaAnnounce = (props) => {
       <FlexGrid center is_column gap="0">
         <ContentImage center
         _onClick={() => history.push("/mypage/gacha")}>
-          <ImgSrc src={gacha} />
+          <Gacha style={{width: "30px"}} />
         </ContentImage>
         <ContentTitle>행운뽑기</ContentTitle>
       </FlexGrid>
@@ -36,7 +36,7 @@ const ShopGachaAnnounce = (props) => {
             history.push("/announcement");
           }}
         >
-          <ImgSrc src={flag} />
+          <Flag style={{width: "30px"}} />
         </ContentImage>
         <ContentTitle>공지사항</ContentTitle>
       </FlexGrid>
@@ -49,10 +49,6 @@ const Wrap = styled.div`
   justify-content: space-evenly;
   padding: 24px;
   background-color: #fff;
-`;
-
-const ImgSrc = styled.img`
-  width: 30px;
 `;
 
 const ContentImage = styled(FlexGrid)`

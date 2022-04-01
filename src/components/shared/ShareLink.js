@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { actionCreators as alertAction } from '../../redux/modules/alert'
 import { KakaoShareButton } from './KaKaoShareButton'
 
-import link from '../../image/link.png'
+import link from '../../image/shared/link.png'
 
 //카카오 공유하기 Developer Script 사용
 import useScript from './useScript'

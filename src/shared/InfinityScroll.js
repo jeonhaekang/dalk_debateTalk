@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
-import loadingSpinner from "../image/loadingSpinner.svg"
+import loadingSpinner from "../image/shared/loadingSpinner.svg"
 
 const InfinityScroll = ({ children, callNext, paging }) => {
   //스피너 Ref

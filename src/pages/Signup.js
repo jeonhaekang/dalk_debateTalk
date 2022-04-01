@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 
@@ -9,12 +9,12 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import Text from "../elements/Text";
 import FlexGrid from "../elements/FlexGrid";
 
-import check from "../image/login/check.svg";
-
 import Modal from "../components/shared/Modal";
 import MemberPolicy from "../components/shared/MemberPolicy";
 import { getCookie } from "../shared/Cookie";
 import apis from "../shared/apis";
+import Input from "../elements/Input";
+import _ from "lodash";
 
 const Signup = () => {
   React.useEffect(() => {
@@ -44,62 +44,83 @@ const Signup = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
 
   // 유효성검사 체크
-  const [isUsername, setIsUsername] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordCheck, setIsPasswordCheck] = useState(false);
-  const [isNickname, setIsNickname] = useState(false);
-  const [idVal, setIdVal] = useState(false);
-  const [nicknameVal, setNicknameVal] = useState(false);
+  const [usernameVal, setUsernameVal] = useState(null);
+  const [nicknameVal, setNicknameVal] = useState(null);
+  const [passwordVal, setPasswordVal] = useState(null);
+  const [passCheckVal, setPassCheckVal] = useState(null);
 
-  //5자이상 15자 이하 아이디
-  const onChangeUsername = (e) => {
-    let userNameReg = /^[A-za-z0-9]{5,15}/g;
-    const currentUsername = e.target.value;
-    setUsername(currentUsername);
+  // 아이디 유효성 검사 및 중복 검사 -------------------------------------------------------------
+  const usernameCheckDB = useCallback(
+    _.debounce((username) => {
+      const result = /^[A-za-z0-9]{5,15}/g.test(username);
+      if (result) {
+        apis
+          .idValidate(username)
+          .then(() => setUsernameVal(1))
+          .catch(() => setUsernameVal(-1));
+      } else {
+        setUsernameVal(0);
+      }
+    }, 1000),
+    []
+  );
 
-    if (!userNameReg.test(currentUsername)) {
-      setIsUsername(false);
-    } else {
-      setIsUsername(true);
+  useEffect(() => {
+    if (username === "") {
+      return;
     }
-  };
+    setUsernameVal(null);
+    usernameCheckDB(username);
+  }, [username]);
 
-  //영문 숫자 조합 8자리 패스워드
-  const onChangePassword = (e) => {
-    let pwReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    const currentPassword = e.target.value;
-    setPassword(currentPassword);
+  // 닉네임 유효성 검사 및 중복 검사 -------------------------------------------------------------
+  const nicknameCheckDB = useCallback(
+    _.debounce((nickname) => {
+      const result = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}$/.test(nickname);
+      if (result) {
+        apis
+          .nicknameValidate(nickname)
+          .then(() => setNicknameVal(1))
+          .catch(() => setNicknameVal(-1));
+      } else {
+        setNicknameVal(0);
+      }
+    }, 500),
+    []
+  );
 
-    if (!pwReg.test(currentPassword)) {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
+  useEffect(() => {
+    if (nickname === "") {
+      return;
     }
-  };
+    setNicknameVal(null);
+    nicknameCheckDB(nickname);
+  }, [nickname]);
 
-  const onChangePasswordCheck = (e) => {
-    const currentPasswordCheck = e.target.value;
-    setPasswordCheck(currentPasswordCheck);
-
-    if (password !== currentPasswordCheck) {
-      setIsPasswordCheck(false);
-    } else {
-      setIsPasswordCheck(true);
+  // 비밀번호 유효성 검사 ---------------------------------------------------------------------
+  useEffect(() => {
+    if (password === "") {
+      return;
     }
-  };
-
-  // 2자 이상 8자 이하의 닉네임
-  const onChangeNickname = (e) => {
-    let nicknameReg = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{2,8}$/;
-    const currentNickname = e.target.value;
-    setNickname(currentNickname);
-
-    if (!nicknameReg.test(currentNickname)) {
-      setIsNickname(false);
+    const result = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+    if (result) {
+      setPasswordVal(1);
     } else {
-      setIsNickname(true);
+      setPasswordVal(0);
     }
-  };
+  }, [password]);
+
+  // 비밀번호 재입력 검사 ---------------------------------------------------------------------
+  useEffect(() => {
+    if (passwordCheck === "") {
+      return;
+    }
+    if (password === passwordCheck) {
+      setPassCheckVal(1);
+    } else {
+      setPassCheckVal(0);
+    }
+  }, [password, passwordCheck]);
 
   // 올바르게 되었으면 체크표시
   const useBtnEvent = () => {
@@ -110,100 +131,20 @@ const Signup = () => {
     }
   };
 
-  //아이디 닉네임 중복검사
-  const handleIdVal = () => {
-    apis
-      .idValidate(username)
-      .then((res) => {
-        setIdVal(true);
-        dispatch(
-          alertAction.open({
-            message: "사용가능한 아이디입니다",
-          })
-        );
-      })
-      .catch((err) => {
-        dispatch(
-          alertAction.open({
-            message: "이미 사용중인 아이디입니다",
-          })
-        );
-      });
-  };
-
-  const handleNicknameVal = () => {
-    apis
-      .nicknameValidate(nickname)
-      .then((res) => {
-        setNicknameVal(true);
-        dispatch(
-          alertAction.open({
-            message: "사용가능한 닉네임입니다",
-          })
-        );
-      })
-      .catch((err) => {
-        dispatch(
-          alertAction.open({
-            message: "이미 사용중인 닉네임입니다",
-          })
-        );
-      });
-  };
-
   //회원가입 하면 자동로그인하게 만들기
   //signDB redux에 자동으로 로그인되게 함
   const clickSignUp = () => {
     if (
-      username === "" ||
-      password === "" ||
-      passwordCheck === "" ||
-      nickname === ""
+      !usernameVal ||
+      !nicknameVal ||
+      !passwordVal ||
+      !passCheckVal ||
+      !useCheck
     ) {
-      dispatch(
-        alertAction.open({
-          message: "빈칸을 모두 채워주세요!",
-        })
-      );
+      dispatch(alertAction.open({ message: "입력 정보를 확인해 주세요." }));
       return;
-    } else if (
-      isUsername === false ||
-      isNickname === false ||
-      isPassword === false ||
-      isPasswordCheck === false
-    ) {
-      dispatch(
-        alertAction.open({
-          message: "올바르게 가입했는지 다시 한번 확인해주세요!",
-        })
-      );
-      return;
-    } else if (useCheck === false) {
-      dispatch(
-        alertAction.open({
-          message: "이용약관에 동의해주세요!",
-        })
-      );
-      return;
-    } else if (idVal === false) {
-      dispatch(
-        alertAction.open({
-          message: "아이디 중복검사를 해주세요!",
-        })
-      );
-      return;
-    } else if (nicknameVal === false) {
-      dispatch(
-        alertAction.open({
-          message: "닉네임 중복검사를 해주세요!",
-        })
-      );
-      return;
-    } else {
-      dispatch(
-        userActions.signUpDB(username, password, nickname, passwordCheck)
-      );
     }
+    dispatch(userActions.signUpDB(username, password, nickname, passwordCheck));
   };
 
   return (
@@ -211,89 +152,60 @@ const Signup = () => {
       <FlexGrid center is_column height="100%" padding="16px" overflow="scroll">
         <FlexGrid is_column center gap="20px">
           {/* 아이디 입력 */}
-          <FlexGrid is_column gap="8px">
-            <FlexGrid is_flex>
-              <Text size="body1" weight="medium">
-                아이디 입력
-              </Text>
-              <ValBtn onClick={handleIdVal}>중복검사</ValBtn>
-            </FlexGrid>
-            <InputContainer>
-              <LoginInput
-                defaultValue={username}
-                onChange={onChangeUsername}
-              ></LoginInput>
-              {isUsername && idVal === true && (
-                <CheckImg src={check} alt="check" />
-              )}
-            </InputContainer>
-            {username.length > 0 && !isUsername && (
-              <Validation>아이디는 5자리 이상으로 해주세요.</Validation>
+          <FlexGrid is_column gap="0">
+            <Input
+              type="text"
+              message="아이디"
+              focusMessage="아이디는 5자리 이상으로 해주세요"
+              setFormData={setUsername}
+              state={usernameVal}
+            />
+            {usernameVal === -1 && (
+              <Text color="alert">중복된 아이디 입니다.</Text>
+            )}
+            {usernameVal === 0 && (
+              <Text color="alert">사용할 수 없는 아이디 입니다.</Text>
             )}
           </FlexGrid>
-
-          {/* 닉네임 입력 */}
-          <FlexGrid is_column gap="8px">
-            <FlexGrid is_flex>
-              <Text size="body1" weight="medium">
-                닉네임 입력
-              </Text>
-              <ValBtn onClick={handleNicknameVal}>중복검사</ValBtn>
-            </FlexGrid>
-            <InputContainer>
-              <LoginInput
-                defaultValue={nickname}
-                onChange={onChangeNickname}
-              ></LoginInput>
-              {isNickname && nicknameVal === true && (
-                <CheckImg src={check} alt="check" />
-              )}
-            </InputContainer>
-            {nickname.length > 0 && !isNickname && (
-              <Validation>
-                닉네임은 2자리 이상 8자리 이하로 해주세요.
-              </Validation>
+          <FlexGrid is_column gap="0">
+            <Input
+              type="text"
+              message="닉네임"
+              focusMessage="닉네임은 2자리 이상 8자리 이하로 해주세요"
+              setFormData={setNickname}
+              state={nicknameVal}
+            />
+            {nicknameVal === -1 && (
+              <Text color="alert">중복된 닉네임 입니다.</Text>
+            )}
+            {nicknameVal === 0 && (
+              <Text color="alert">사용할 수 없는 닉네임 입니다.</Text>
             )}
           </FlexGrid>
-
-          {/* 패스워드 입력 */}
-          <FlexGrid is_column gap="8px">
-            <Text size="body1" weight="medium">
-              패스워드 입력
-            </Text>
-            <InputContainer>
-              <LoginInput
-                type="password"
-                defaultValue={password}
-                onChange={onChangePassword}
-              ></LoginInput>
-              {isPassword === true && <CheckImg src={check} alt="check" />}
-            </InputContainer>
-            {password.length > 0 && !isPassword && (
-              <Validation>
-                8자 이상의 영문과 숫자조합을 입력해주세요.
-              </Validation>
+          <FlexGrid is_column gap="0">
+            <Input
+              type="password"
+              message="패스워드 입력"
+              focusMessage="8자 이상의 영문, 숫자 조합을 입력해주세요"
+              setFormData={setPassword}
+              state={passwordVal}
+            />
+            {passwordVal === 0 && (
+              <Text color="alert">사용할 수 없는 비밀번호 입니다.</Text>
             )}
           </FlexGrid>
-
-          {/* 패스워드 재확인 */}
-          <FlexGrid is_column gap="8px">
-            <Text size="body1" weight="medium">
-              패스워드 재확인
-            </Text>
-            <InputContainer>
-              <LoginInput
-                type="password"
-                defaultValue={passwordCheck}
-                onChange={onChangePasswordCheck}
-              ></LoginInput>
-              {isPasswordCheck === true && <CheckImg src={check} alt="check" />}
-            </InputContainer>
-            {passwordCheck.length > 0 && !isPasswordCheck && (
-              <Validation>비밀번호가 다릅니다.</Validation>
+          <FlexGrid is_column gap="0">
+            <Input
+              type="password"
+              message="패스워드 재입력"
+              focusMessage="패스워드 재입력"
+              setFormData={setPasswordCheck}
+              state={passCheckVal}
+            />
+            {passCheckVal === 0 && (
+              <Text color="alert">패스워드가 다릅니다.</Text>
             )}
           </FlexGrid>
-
           <FlexGrid center gap="4px">
             <input
               type="checkbox"
@@ -302,7 +214,7 @@ const Signup = () => {
               style={{ margin: "2px 0 0 3px" }}
             />
             <label>
-              이용약관 동의 <Text weight="medium">(필수)</Text>{" "}
+              이용약관 동의 <Text weight="medium">(필수)</Text>
             </label>
             <Text
               color="orange"
@@ -314,7 +226,7 @@ const Signup = () => {
           </FlexGrid>
 
           <Text>
-            이미 계정이 있으신가요?{" "}
+            이미 계정이 있으신가요?
             <Text
               color="orange"
               weight="medium"
@@ -327,15 +239,12 @@ const Signup = () => {
             </Text>
           </Text>
         </FlexGrid>
-        {(isUsername === false ||
-        isNickname === false ||
-        isPassword === false ||
-        isPasswordCheck === false) ? (
-          <SignupBox ok={false} onClick={clickSignUp}>
+        {usernameVal && nicknameVal && passwordVal && passCheckVal ? (
+          <SignupBox ok={true} onClick={clickSignUp}>
             가입하기
           </SignupBox>
         ) : (
-          <SignupBox ok={true} onClick={clickSignUp}>
+          <SignupBox ok={false} onClick={clickSignUp}>
             가입하기
           </SignupBox>
         )}
@@ -356,21 +265,6 @@ const Signup = () => {
   );
 };
 
-const LoginInput = styled.input`
-  width: 100%;
-  height: 60px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f1f1f1;
-  padding: 16px;
-  font-size: 16px;
-`;
-
-const Validation = styled.p`
-  margin-top: 5px;
-  font-size: 12px;
-`;
-
 const SignupBox = styled.div`
   display: flex;
   justify-content: center;
@@ -389,30 +283,6 @@ const SignupBox = styled.div`
   max-width: 430px;
   bottom: 0;
   height: 74px;
-  cursor: pointer;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 54px;
-  width: 100%;
-`;
-
-const CheckImg = styled.img`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 20px;
-`;
-
-const ValBtn = styled.button`
-  background-color: ${(props) => props.theme.color.orange};
-  padding: 2px 6px;
-  border-radius: 10px;
-  border: none;
-  font-size: 10px;
-  color: #ffffff;
   cursor: pointer;
 `;
 

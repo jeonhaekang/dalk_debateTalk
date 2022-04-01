@@ -66,8 +66,10 @@ const Main = (props) => {
                   <CategoryTap is_column>
                     <FlexGrid is_column padding="0 24px">
                       <Text size="body1">일상토론 찾아보기</Text>
-                      <Text size="headline3" weight="medium">
-                        다양한 주제로 토론에 참여해보세요!
+                      <Text size="headline2" weight="medium" lineHeight="28px">
+                        다양한 주제로
+                        <br />
+                        토론에 참여해보세요!
                       </Text>
                     </FlexGrid>
                     <XScrollDrag gap="16px" padding="0 24px">
