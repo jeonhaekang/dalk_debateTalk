@@ -30,6 +30,18 @@ export const shake = keyframes`
   }
 `;
 
+export const broken = keyframes`
+  0%{
+    transform: rotate(30deg);
+  }
+  50%{
+    transform: rotate(-30deg);
+  }
+  100%{
+    transform: rotate(30deg);
+  }
+`;
+
 export const zoomIn = keyframes`
   from {
     transform: scale(1);

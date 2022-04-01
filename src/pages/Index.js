@@ -8,7 +8,7 @@ import PostList from "./PostList";
 import Signup from "./Signup";
 import More from "./More";
 import Category from "./Category";
-import Gacha from "./Gacha";
+import Gacha from "./MyPageContent/Gacha";
 import SearchRoom from "./SearchRoom";
 import CreateRoom from "./CreateRoom";
 import Guide from "./MyPageContent/Guide";

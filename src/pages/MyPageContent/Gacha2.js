@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Container from "../elements/Container";
-import Header from "../shared/Header";
-import FlexGrid from "../elements/FlexGrid";
-import Text from "../elements/Text";
-import apis from "../shared/apis";
-import gachaData from "../data/gachaData";
+import Container from "../../elements/Container";
+import Header from "../../shared/Header";
+import FlexGrid from "../../elements/FlexGrid";
+import Text from "../../elements/Text";
+import apis from "../../shared/apis";
+import gachaData from "../../data/gachaData";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators } from "../redux/modules/user";
-import { actionCreators as alertAction } from "../redux/modules/alert";
-import { shake, zoomIn, zoomOut } from "../animation/gacha";
+import { actionCreators } from "../../redux/modules/user";
+import { actionCreators as alertAction } from "../../redux/modules/alert";
+import { shake, zoomIn, zoomOut } from "../../animation/gacha";
 
 const Gacha = (props) => {
   const dispatch = useDispatch();
@@ -116,6 +116,7 @@ const ResultImg = styled.img`
   animation-name: ${(props) => props.animation.animation};
   animation-duration: ${(props) => props.animation.duration}ms;
   animation-iteration-count: ${(props) => props.animation.infinite};
+  animation-timing-function: ease-in;
   animation-fill-mode: forwards;
 `;
 
