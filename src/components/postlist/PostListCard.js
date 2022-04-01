@@ -12,9 +12,9 @@ import noImage from "../../image/shared/noImage.png";
 import Blind from "../shared/Blind";
 import { rank, discriminant } from "../../data/rank";
 
-import Person from "../../image/post/person.svg";
-import Textsms from "../../image/post/textsms.svg";
-import Notification from "../../image/post/notification.svg";
+import { ReactComponent as Person } from "../../image/post/person.svg";
+import { ReactComponent as Textsms } from "../../image/post/textsms.svg";
+import { ReactComponent as Notification } from "../../image/post/notification.svg";
 
 const PostListCard = (props) => {
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
@@ -92,29 +92,17 @@ const PostListCard = (props) => {
 
             <DebateInfo>
               <Grid display="flex">
-                <img
-                  src={Person}
-                  style={{ padding: "0px 5px 0px 0px" }}
-                  alt="person"
-                />
+                <Person style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
                 <div>{props.voteCnt}</div>
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img
-                  src={Textsms}
-                  style={{ padding: "0px 5px 0px 0px" }}
-                  alt="textsms"
-                />
+                <Textsms style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
                 {props.commentCnt}
               </Grid>
               <div>|</div>
               <Grid display="flex">
-                <img
-                  src={Notification}
-                  style={{ padding: "0px 5px 0px 0px" }}
-                  alt="noti"
-                />
+                <Notification style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
                 {props.warnCnt}
               </Grid>
             </DebateInfo>

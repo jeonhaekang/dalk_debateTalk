@@ -239,7 +239,6 @@ const Signup = () => {
             </Text>
           </Text>
         </FlexGrid>
-
         {usernameVal && nicknameVal && passwordVal && passCheckVal ? (
           <SignupBox ok={true} onClick={clickSignUp}>
             가입하기
@@ -265,6 +264,7 @@ const Signup = () => {
     </>
   );
 };
+
 const SignupBox = styled.div`
   display: flex;
   justify-content: center;
