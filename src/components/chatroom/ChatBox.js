@@ -14,8 +14,6 @@ const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
 
-  // const client = useSelector((state) => state.chat.currentRoom.roomInfo.client);
-
   const visibleHendler = (e) => {
     const state = document.visibilityState === "hidden";
     const mobile = mobileCheck();

@@ -21,10 +21,7 @@ const VOTE = "chat/VOTE";
 //Action Creator
 const setRoomList = createAction(SET_ROOM_LIST, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
-const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data, category) => ({
-  data,
-  category,
-}));
+const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
 const currentRoomClear = createAction(CURRENT_ROOM_CLEAR, () => ({}));
 const setMessage = createAction(SET_MESSAGE, (messages) => ({ messages }));
 const newMessage = createAction(NEW_MESSAGE, (message) => ({ message }));
@@ -38,7 +35,7 @@ const vote = createAction(VOTE, (data) => ({ data }));
 //initialState
 const initialState = {
   roomList: null,
-  currentRoom: { client: null, roomInfo: null, messageLog: null, users: [] },
+  currentRoom: { roomInfo: null, messageLog: null, users: [] },
   itemState: false,
 };
 const currentInitial = {
@@ -159,7 +156,7 @@ const getOneRoomDB = (roomId) => {
     apis
       .getOneRoom(roomId)
       .then((res) => {
-        dispatch(setCurrentRoom(res.data, "roomInfo"));
+        dispatch(setCurrentRoom(res.data));
       })
       .catch((err) => {
         dispatch(
@@ -232,7 +229,7 @@ export default handleActions(
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom[action.payload.category] = action.payload.data;
+        draft.currentRoom.roomInfo = action.payload.data;
         draft.itemState = false;
       }),
     [CURRENT_ROOM_CLEAR]: (state) =>

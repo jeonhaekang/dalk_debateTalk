@@ -16,8 +16,10 @@ const ChatRoom = (props) => {
   const sock = SockJS(`${process.env.REACT_APP_API_URL}/ws-stomp`);
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
+  const [client, setClient] = useState(null);
+
   const data = {
-    client: Stomp.over(sock),
+    client: client,
     // over를 사용하여 webSocket의 유형을 sockjs로 변경해준다.
     roomId: props.match.params.chatRoomId, // 입장 채팅방
     headers: {
@@ -26,14 +28,13 @@ const ChatRoom = (props) => {
   };
 
   React.useEffect(() => {
+    setClient(Stomp.over(sock));
     dispatch(spinnerAction.start());
-    dispatch(chatAction.setCurrentRoom(data.client, "client"));
     dispatch(chatAction.getOneRoomDB(data.roomId));
     // 방에 들어오면 데이터 업데이트
 
     dispatch(chatAction.loadUserListDB(data.roomId));
     return () => {
-      console.log("실행");
       dispatch(chatAction.currentRoomClear());
       // 방에서 나갈 때 정보 초기화
     };
@@ -51,8 +52,16 @@ const ChatRoom = (props) => {
   return (
     <ChatRoomContainer footer>
       <ChatHeader is_loaded={setRoomInfoLoaded} />
-      <ChatBox {...data} loaded={messageLoaded} is_loaded={setMessageLoaded} />
-      <ChatInput {...data} />
+      {client && (
+        <>
+          <ChatBox
+            {...data}
+            loaded={messageLoaded}
+            is_loaded={setMessageLoaded}
+          />
+          <ChatInput {...data} />
+        </>
+      )}
     </ChatRoomContainer>
   );
 };
