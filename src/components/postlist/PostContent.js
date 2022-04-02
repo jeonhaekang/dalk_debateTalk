@@ -2,44 +2,47 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import InfinityScroll from "../../shared/InfinityScroll";
-import Text from "../../elements/Text";
-import { actionCreators } from "../../redux/modules/post";
-import FlexGrid from "../../elements/FlexGrid";
-import empty from "../../image/shared/emptyRoom.svg";
+import { actionCreators as infinityAction } from "../../redux/modules/infinityScroll";
 import PostListCard from "./PostListCard";
+import EmptyRoom from "../shared/EmptyRoom";
+import MoreContentSkeleton from "../skeleton/MoreContentSkeleton";
 
 const PostContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "getDebate" : "getDebateCategory";
-  const data = useSelector((props) => props.post[category]);
+  const data = useSelector((props) => props.infinityScroll["post"][category]);
 
-  const getRoomList = () => {
-    dispatch(actionCreators.loadListDB(data.page, api, category));
+  const getRoomList = (page) => {
+    dispatch(infinityAction.loadListDB(page, api, category, "post"));
   };
 
   React.useEffect(() => {
-    getRoomList();
-  }, []);
+    if (data) {
+      return;
+    }
+    getRoomList(0);
+  }, [data]);
 
   return (
     <>
-      <InfinityScroll callNext={getRoomList} paging={{ next: data.has_next }}>
-        {data.list.length !== 0 ? (
-          <MoreBox>
-            {data.list.map((el, i) => {
-              return <PostListCard key={i} {...el} />;
-            })}
-          </MoreBox>
+      <MoreBox>
+        {data ? (
+          data.list.length !== 0 ? (
+            <InfinityScroll
+              callNext={() => getRoomList(data.page)}
+              paging={{ next: data.has_next }}
+            >
+              {data.list.map((el, i) => {
+                return <PostListCard key={i} {...el} />;
+              })}
+            </InfinityScroll>
+          ) : (
+            <EmptyRoom />
+          )
         ) : (
-          <FlexGrid is_column center padding="50px 0" textAlign="center">
-            <img alt="empty" src={empty} />
-            <Text size="body2">
-              아직 방이 없어요 <br />
-              방을 생성해주세요!
-            </Text>
-          </FlexGrid>
+          <MoreContentSkeleton />
         )}
-      </InfinityScroll>
+      </MoreBox>
     </>
   );
 };

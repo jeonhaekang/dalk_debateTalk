@@ -10,10 +10,10 @@ import EmptyRoom from "../shared/EmptyRoom";
 const MoreContent = ({ category }) => {
   const dispatch = useDispatch();
   const api = category === "전체" ? "loadAllRoom" : "loadCategoryRoom";
-  const data = useSelector((props) => props.infinityScroll[category]);
+  const data = useSelector((props) => props.infinityScroll["chat"][category]);
 
   const getRoomList = (page) => {
-    dispatch(infinityAction.loadListDB(page, api, category));
+    dispatch(infinityAction.loadListDB(page, api, category, "chat"));
   };
 
   React.useEffect(() => {
@@ -25,26 +25,24 @@ const MoreContent = ({ category }) => {
 
   return (
     <>
-      <div style={{ border: "1px solid rgba(0,0,0,0)" }}>
-        <MoreBox>
-          {data ? (
-            data.list.length !== 0 ? (
-              <InfinityScroll
-                callNext={() => getRoomList(data.page)}
-                paging={{ next: data.has_next }}
-              >
-                {data.list.map((el, i) => {
-                  return <MoreCard key={el.roomId} {...el} />;
-                })}
-              </InfinityScroll>
-            ) : (
-              <EmptyRoom />
-            )
+      <MoreBox>
+        {data ? (
+          data.list.length !== 0 ? (
+            <InfinityScroll
+              callNext={() => getRoomList(data.page)}
+              paging={{ next: data.has_next }}
+            >
+              {data.list.map((el, i) => {
+                return <MoreCard key={el.roomId} {...el} />;
+              })}
+            </InfinityScroll>
           ) : (
-            <MoreContentSkeleton />
-          )}
-        </MoreBox>
-      </div>
+            <EmptyRoom />
+          )
+        ) : (
+          <MoreContentSkeleton />
+        )}
+      </MoreBox>
     </>
   );
 };
