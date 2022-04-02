@@ -30,18 +30,6 @@ export const shake = keyframes`
   }
 `;
 
-export const broken = keyframes`
-  0%{
-    transform: rotate(45deg);
-  }
-  50%{
-    transform: rotate(-45deg);
-  }
-  100%{
-    transform: rotate(45deg);
-  }
-`;
-
 export const fadeIn = keyframes`
   0%{
     opacity: 0.3;

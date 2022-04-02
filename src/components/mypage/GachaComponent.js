@@ -1,6 +1,6 @@
 import { ReactComponent as Egg } from "../../image/gacha/egg.svg";
 import styled from "styled-components";
-import { shake, broken, fadeIn } from "../../animation/gacha";
+import { shake, fadeIn } from "../../animation/gacha";
 import { ReactComponent as Fail } from "../../image/gacha/fail.svg";
 import { ReactComponent as Success } from "../../image/gacha/success.svg";
 import FlexGrid from "../../elements/FlexGrid";
@@ -26,9 +26,9 @@ export const EggComponent = ({ start }) => {
 };
 
 const EggImage = styled(Egg)`
-  animation-name: ${(props) => (props.start ? broken : shake)};
+  animation-name: ${shake};
   animation-iteration-count: infinite;
-  animation-duration: ${(props) => (props.start ? "150ms" : "2000ms")};
+  animation-duration: ${(props) => (props.start ? "700ms" : "2000ms")};
 `;
 
 export const ResultConponent = ({ result, setStart }) => {
