@@ -16,8 +16,9 @@ import { ReactComponent as ReportIcon } from "../../image/header/report.svg";
 import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { history } from "../../redux/configStore";
+import { actionCreators as spinnerAction } from "../../redux/modules/spinner";
 
-const ChatHeader = (props) => {
+const ChatHeader = ({ loaded }) => {
   const dispatch = useDispatch();
   const [foldState, setFoldState] = React.useState(true); // 펼침 여부
   const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
@@ -26,6 +27,10 @@ const ChatHeader = (props) => {
 
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
   const userList = useSelector((state) => state.chat.currentRoom.users);
+
+  React.useEffect(() => {
+    if (roomInfo) loaded(true);
+  }, [roomInfo]);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {

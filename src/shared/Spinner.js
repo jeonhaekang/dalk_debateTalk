@@ -24,8 +24,8 @@ const SpinnerBox = styled(FlexGrid)`
   top: 0;
   left: 0;
   height: 100vh;
-  z-index: 1;
-  background-color: white;
+  z-index: 10;
+  background-color: ${(props) => props.theme.color.orange};
 `;
 
 export default Spinner;

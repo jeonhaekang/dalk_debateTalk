@@ -10,7 +10,7 @@ import { mobileCheck } from "../../modules/mobileCheck";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 
-const ChatBox = ({ roomId, headers, client }) => {
+const ChatBox = ({ roomId, headers, client, loaded }) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
 
@@ -79,6 +79,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   React.useEffect(() => {
+    if (messageLog) loaded(true);
     if (scrollState) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
@@ -87,7 +88,7 @@ const ChatBox = ({ roomId, headers, client }) => {
   return (
     <>
       <ShowChat ref={boxRef}>
-        {messageLog.map((el, i) => {
+        {messageLog?.map((el, i) => {
           return <Chat {...el} key={i} boxRef={boxRef} />;
         })}
         <div ref={scrollRef} />

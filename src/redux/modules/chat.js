@@ -1,10 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
-import { actionCreators as imageAction } from "./image";
 import { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
-import { actionCreators as spinnerAction } from "./spinner";
 import moment from "moment";
 import axios from "axios";
 
@@ -36,9 +34,8 @@ const vote = createAction(VOTE, (data) => ({ data }));
 
 //initialState
 const initialState = {
-  is_loaded: false,
   roomList: null,
-  currentRoom: { roomInfo: null, messageLog: [], users: [] },
+  currentRoom: { roomInfo: null, messageLog: null, users: [] },
   itemState: false,
 };
 
@@ -111,7 +108,6 @@ const voteDB = (roomId, topic, point) => {
 const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
-    // dispatch(spinnerAction.start());
     const image = getState().image;
 
     const formdata = new FormData();
@@ -135,7 +131,6 @@ const createRoomDB = (data) => {
           restTime: data.time ? 1200 : 3600,
         };
         dispatch(createRoom(setData));
-        dispatch(imageAction.clear());
         history.replace("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
@@ -153,7 +148,6 @@ const createRoomDB = (data) => {
 const getOneRoomDB = (roomId) => {
   // 방 상세정보 가져오기
   return function (dispatch) {
-    // dispatch(spinnerAction.start());
     apis
       .getOneRoom(roomId)
       .then((res) => {
@@ -175,7 +169,6 @@ const loadMessageLogDB = (roomId) => {
       .messageLog(roomId)
       .then((res) => {
         dispatch(setMessage(res.data));
-        dispatch(spinnerAction.end());
       })
       .catch((err) => {
         dispatch(
@@ -240,6 +233,7 @@ export default handleActions(
       }),
     [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
+        draft.is_loaded = false;
         draft.currentRoom.messageLog = action.payload.messages;
       }),
     [NEW_MESSAGE]: (state, action) =>

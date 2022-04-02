@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import { getCookie } from "../shared/Cookie";
 import ChatBox from "../components/chatroom/ChatBox";
 import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
-import { actionCreators } from "../redux/modules/chat";
+import { actionCreators as spinnerAction } from "../redux/modules/spinner";
 import { actionCreators as chatAction } from "../redux/modules/chat";
 import styled from "styled-components";
 
@@ -26,20 +26,30 @@ const ChatRoom = (props) => {
   };
 
   React.useEffect(() => {
-    dispatch(actionCreators.getOneRoomDB(data.roomId));
+    dispatch(spinnerAction.start());
+    dispatch(chatAction.getOneRoomDB(data.roomId));
     // 방에 들어오면 데이터 업데이트
 
     dispatch(chatAction.loadUserListDB(data.roomId));
     return () => {
-      dispatch(actionCreators.setCurrentRoom(null));
+      dispatch(chatAction.setCurrentRoom(null));
       // 방에서 나갈 때 정보 초기화
     };
   }, []);
 
+  const [roomInfoLoaded, setRoomInfoLoaded] = React.useState(false);
+  const [messageLoaded, setMessageLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    if (roomInfoLoaded && messageLoaded) {
+      dispatch(spinnerAction.end());
+    }
+  }, [roomInfoLoaded, messageLoaded]);
+
   return (
     <ChatRoomContainer footer>
-      <ChatHeader />
-      <ChatBox {...data} />
+      <ChatHeader loaded={setRoomInfoLoaded} />
+      <ChatBox {...data} loaded={setMessageLoaded} />
       <ChatInput {...data} />
     </ChatRoomContainer>
   );
