@@ -18,7 +18,7 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { history } from "../../redux/configStore";
 import { actionCreators as spinnerAction } from "../../redux/modules/spinner";
 
-const ChatHeader = ({ loaded }) => {
+const ChatHeader = ({ is_loaded }) => {
   const dispatch = useDispatch();
   const [foldState, setFoldState] = React.useState(true); // 펼침 여부
   const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
@@ -29,8 +29,10 @@ const ChatHeader = ({ loaded }) => {
   const userList = useSelector((state) => state.chat.currentRoom.users);
 
   React.useEffect(() => {
-    if (roomInfo) loaded(true);
+    if (roomInfo) is_loaded(true);
   }, [roomInfo]);
+
+  console.log(userList);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {

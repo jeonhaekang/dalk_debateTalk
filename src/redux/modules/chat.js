@@ -10,7 +10,7 @@ import axios from "axios";
 const SET_ROOM_LIST = "chat/SET_ROOM_LIST";
 const CREATE_ROOM = "chat/CREATE_ROOM";
 const SET_CURRENT_ROOM = "chat/SET_CURRENT_ROOM";
-const CLEAR = "chat/CLEAR";
+const CURRENT_ROOM_CLEAR = "chat/CURRENT_ROOM_CLEAR";
 const SET_MESSAGE = "chat/SET_MESSAGE";
 const NEW_MESSAGE = "chat/NEW_MESSAGE";
 const LOAD_USER_LIST = "chat/LOAD_USER_LIST";
@@ -21,8 +21,11 @@ const VOTE = "chat/VOTE";
 //Action Creator
 const setRoomList = createAction(SET_ROOM_LIST, (list) => ({ list }));
 const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
-const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
-const clear = createAction(CLEAR, () => ({}));
+const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data, category) => ({
+  data,
+  category,
+}));
+const currentRoomClear = createAction(CURRENT_ROOM_CLEAR, () => ({}));
 const setMessage = createAction(SET_MESSAGE, (messages) => ({ messages }));
 const newMessage = createAction(NEW_MESSAGE, (message) => ({ message }));
 const loadUserList = createAction(LOAD_USER_LIST, (userList) => ({
@@ -35,8 +38,13 @@ const vote = createAction(VOTE, (data) => ({ data }));
 //initialState
 const initialState = {
   roomList: null,
-  currentRoom: { roomInfo: null, messageLog: null, users: [] },
+  currentRoom: { client: null, roomInfo: null, messageLog: null, users: [] },
   itemState: false,
+};
+const currentInitial = {
+  roomInfo: null,
+  messageLog: null,
+  users: [],
 };
 
 const roomInitialState = {
@@ -151,7 +159,7 @@ const getOneRoomDB = (roomId) => {
     apis
       .getOneRoom(roomId)
       .then((res) => {
-        dispatch(setCurrentRoom(res.data));
+        dispatch(setCurrentRoom(res.data, "roomInfo"));
       })
       .catch((err) => {
         dispatch(
@@ -224,12 +232,12 @@ export default handleActions(
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom.roomInfo = action.payload.data;
+        draft.currentRoom[action.payload.category] = action.payload.data;
         draft.itemState = false;
       }),
-    [CLEAR]: (state) =>
+    [CURRENT_ROOM_CLEAR]: (state) =>
       produce(state, (draft) => {
-        draft.roomList = [];
+        draft.currentRoom = currentInitial;
       }),
     [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
@@ -271,7 +279,7 @@ const actionCreators = {
   mainRoomListDB,
   loadCategoryRoomDB,
   voteDB,
-  clear,
+  currentRoomClear,
   loadMessageLogDB,
   newMessage,
   loadUserListDB,

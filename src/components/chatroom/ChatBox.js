@@ -10,9 +10,11 @@ import { mobileCheck } from "../../modules/mobileCheck";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 
-const ChatBox = ({ roomId, headers, client, loaded }) => {
+const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
+
+  // const client = useSelector((state) => state.chat.currentRoom.roomInfo.client);
 
   const visibleHendler = (e) => {
     const state = document.visibilityState === "hidden";
@@ -36,9 +38,6 @@ const ChatBox = ({ roomId, headers, client, loaded }) => {
     // 이전 메세지 호출
     dispatch(chatAction.loadMessageLogDB(roomId));
 
-    // 소켓 연결
-    connectSocket({ roomId, headers, client });
-
     window.addEventListener("visibilitychange", visibleHendler);
     window.addEventListener("beforeunload", (e) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
@@ -49,6 +48,15 @@ const ChatBox = ({ roomId, headers, client, loaded }) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
     };
   }, []);
+
+  React.useEffect(() => {
+    if (loaded) {
+      // 소켓 연결
+      connectSocket({ roomId, headers, client });
+    }
+  }, [loaded]);
+
+  console.log(client);
 
   const [scrollState, setScrollState] = useState(true); // 자동 스크롤 여부
   const [endState, setEndState] = React.useState(false); // 아래로 버튼 등장 여부
@@ -79,7 +87,7 @@ const ChatBox = ({ roomId, headers, client, loaded }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   React.useEffect(() => {
-    if (messageLog) loaded(true);
+    if (messageLog) is_loaded(true);
     if (scrollState) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
