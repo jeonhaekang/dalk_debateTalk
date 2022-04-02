@@ -44,22 +44,31 @@ const Main = (props) => {
         <TopRank />
 
         {/* 채팅방 컨텐츠 3개 -> 추천 카테고리 -> 3개 */}
-        <FlexGrid is_column padding="24px" gap="22px">
+        <FlexGrid between padding="24px" alignItems="flex-end">
+          <Text size="headline1" weight="medium" lineHeight="38px">
+            실시간 HOT한
+            <br /> 토론에 참여해보세요!
+          </Text>
+          <Refresh onClick={refresh} />
+        </FlexGrid>
+        <ContentContainer is_column>
           {roomList ? (
             <>
-              <FlexGrid paddingBottom="58px" between alignItems="flex-start">
-                <Text size="headline1" weight="medium" lineHeight="38px">
-                  실시간 HOT한
-                  <br /> 토론에 참여해보세요!
-                </Text>
-                <Refresh onClick={refresh} />
-              </FlexGrid>
               {roomList.length !== 0 ? (
                 <FlexGrid is_column gap="24px">
-                  <FireDalk src={fireDalk} />
+                  <FlexGrid justifyContent="flex-end">
+                    <FireDalk src={fireDalk} />
+                  </FlexGrid>
                   {roomList.map((el, i) => {
                     if (i < 3)
-                      return <MainCard key={el.roomId} {...el} page="main" />;
+                      return (
+                        <MainCard
+                          className="mainCard"
+                          key={el.roomId}
+                          {...el}
+                          page="main"
+                        />
+                      );
                   })}
 
                   {/* 추천 카테고리 */}
@@ -92,7 +101,7 @@ const Main = (props) => {
           ) : (
             <MainContentSkeleton />
           )}
-        </FlexGrid>
+        </ContentContainer>
       </Container>
       <Footer />
     </>
@@ -107,18 +116,18 @@ const CategoryTap = styled(FlexGrid)`
 `;
 
 const MoreButton = styled.div`
-  margin: 31px 0 58px 0;
+  margin: 31px 0 82px 0;
   font-size: ${(props) => props.theme.fontSizes.subtitle1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
   text-align: center;
 `;
 
 const FireDalk = styled.img`
-  max-width: 219px;
+  margin: -24px 24px;
+`;
 
-  position: absolute;
-  right: -20px;
-  top: -155px;
+const ContentContainer = styled(FlexGrid)`
+  padding: 0 24px;
 `;
 
 export default Main;
