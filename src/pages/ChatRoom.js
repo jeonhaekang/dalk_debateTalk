@@ -8,7 +8,7 @@ import ChatBox from "../components/chatroom/ChatBox";
 import ChatInput from "../components/chatroom/ChatInput";
 import ChatHeader from "../components/chatroom/ChatHeader";
 import { actionCreators as spinnerAction } from "../redux/modules/spinner";
-import chat, { actionCreators as chatAction } from "../redux/modules/chat";
+import { actionCreators as chatAction } from "../redux/modules/chat";
 import styled from "styled-components";
 
 const ChatRoom = (props) => {

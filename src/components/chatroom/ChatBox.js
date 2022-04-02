@@ -54,8 +54,6 @@ const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
     }
   }, [loaded]);
 
-  console.log(client);
-
   const [scrollState, setScrollState] = useState(true); // 자동 스크롤 여부
   const [endState, setEndState] = React.useState(false); // 아래로 버튼 등장 여부
 

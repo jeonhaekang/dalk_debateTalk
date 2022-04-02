@@ -16,7 +16,6 @@ import { ReactComponent as ReportIcon } from "../../image/header/report.svg";
 import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { history } from "../../redux/configStore";
-import { actionCreators as spinnerAction } from "../../redux/modules/spinner";
 
 const ChatHeader = ({ is_loaded }) => {
   const dispatch = useDispatch();
@@ -31,8 +30,6 @@ const ChatHeader = ({ is_loaded }) => {
   React.useEffect(() => {
     if (roomInfo) is_loaded(true);
   }, [roomInfo]);
-
-  console.log(userList);
 
   const vote = (topic) => {
     if (roomInfo.userVote) {
