@@ -18,22 +18,20 @@ const ChatRoom = (props) => {
 
   const [client, setClient] = useState(null);
 
-  const data = {
-    client: client,
-    // over를 사용하여 webSocket의 유형을 sockjs로 변경해준다.
-    roomId: props.match.params.chatRoomId, // 입장 채팅방
-    headers: {
-      Authorization: getCookie("authorization"),
-    },
-  };
-
   React.useEffect(() => {
-    setClient(Stomp.over(sock));
+    setClient({
+      time: new Date().getTime(),
+      client: Stomp.over(sock),
+      roomId: props.match.params.chatRoomId,
+      headers: {
+        Authorization: getCookie("authorization"),
+      },
+    });
     dispatch(spinnerAction.start());
-    dispatch(chatAction.getOneRoomDB(data.roomId));
+    dispatch(chatAction.getOneRoomDB(props.match.params.chatRoomId));
     // 방에 들어오면 데이터 업데이트
 
-    dispatch(chatAction.loadUserListDB(data.roomId));
+    dispatch(chatAction.loadUserListDB(props.match.params.chatRoomId));
     return () => {
       dispatch(chatAction.currentRoomClear());
       // 방에서 나갈 때 정보 초기화
@@ -42,6 +40,8 @@ const ChatRoom = (props) => {
 
   const [roomInfoLoaded, setRoomInfoLoaded] = React.useState(false);
   const [messageLoaded, setMessageLoaded] = React.useState(false);
+
+  console.log(client);
 
   React.useEffect(() => {
     if (roomInfoLoaded && messageLoaded) {
@@ -55,11 +55,11 @@ const ChatRoom = (props) => {
       {client && (
         <>
           <ChatBox
-            {...data}
+            {...client}
             loaded={messageLoaded}
             is_loaded={setMessageLoaded}
           />
-          <ChatInput {...data} />
+          <ChatInput {...client} />
         </>
       )}
     </ChatRoomContainer>
