@@ -37,7 +37,6 @@ const CategoryBox = styled.div`
   border-bottom: 2px solid #e5e5e5;
 
   background-color: white;
-  z-index: 100;
 `;
 
 const Category = styled(FlexGrid)`
