@@ -1,6 +1,7 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Portal from "../../shared/Portal";
+import { fadeIn, fadeOut, slideIn, slideOut } from "../../animation/modal";
 
 const Modal = (props) => {
   const { modalState, setModalState, children, type, top } = props;
@@ -75,24 +76,6 @@ const CloseBtn = styled.div`
   }
 `;
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const fadeOut = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`;
-
 const ModalLayout = styled.div`
   display: ${(props) => (props.modalState ? "block" : "none")};
   position: absolute;
@@ -104,24 +87,6 @@ const ModalLayout = styled.div`
   animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
   z-index: 10;
   overflow: hidden;
-`;
-
-const slideIn = keyframes`
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0%);
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-      transform: translateY(0%);
-  }
-  to {
-      transform: translateY(100%);
-  }
 `;
 
 const HambergerContents = styled.div`

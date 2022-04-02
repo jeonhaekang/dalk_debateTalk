@@ -5,14 +5,21 @@ import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import { actionCreators } from "../redux/modules/alert";
 import Portal from "./Portal";
+import { fadeIn, fadeOut, slideIn } from "../animation/alert";
 
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert);
+  const [aniState, setAniState] = React.useState(false);
 
   const close = () => {
-    alert.history();
-    dispatch(actionCreators.close());
+    setAniState(true);
+
+    setTimeout(() => {
+      setAniState(false);
+      alert.history();
+      dispatch(actionCreators.close());
+    }, 200);
   };
 
   const action = () => {
@@ -23,7 +30,7 @@ const Alert = () => {
   if (alert.openState) {
     return (
       <Portal>
-        <Background>
+        <AlertLayout aniState={aniState}>
           <Content is_column>
             <FlexGrid center padding="40px 24px">
               <Text size="subtitle1" weight="medium">
@@ -48,14 +55,14 @@ const Alert = () => {
               )}
             </FlexGrid>
           </Content>
-        </Background>
+        </AlertLayout>
       </Portal>
     );
   }
   return null;
 };
 
-const Background = styled.div`
+const AlertLayout = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
@@ -66,6 +73,8 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10;
+
+  animation: ${(props) => (props.aniState ? fadeOut : fadeIn)} 0.2s;
 `;
 
 const Content = styled(FlexGrid)`
@@ -74,6 +83,8 @@ const Content = styled(FlexGrid)`
   background-color: white;
   gap: 0;
   overflow: hidden;
+
+  animation: ${(props) => (!props.aniState && slideIn)} 0.2s;
 `;
 
 const Yes = styled(FlexGrid)`
