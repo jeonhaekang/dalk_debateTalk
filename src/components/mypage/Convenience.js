@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { history } from "../../redux/configStore";
 
 import FlexGrid from "../../elements/FlexGrid";
-import Text from "../../elements/Text";
 
 import Modal from "../shared/Modal";
 import UserOut from "./UserOut";

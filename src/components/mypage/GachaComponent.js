@@ -10,7 +10,6 @@ import { useEffect } from "react";
 
 export const EggComponent = ({ start }) => {
   const user = useSelector((props) => props.user.user);
-  console.log(user);
 
   return (
     <>
@@ -33,8 +32,6 @@ const EggImage = styled(Egg)`
 `;
 
 export const ResultConponent = ({ result, setStart }) => {
-  console.log(result);
-
   useEffect(() => {
     setStart(false);
   }, []);

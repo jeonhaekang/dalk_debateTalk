@@ -1,0 +1,13 @@
+<svg width="46" height="46" viewBox="0 0 46 46">
+    <circle cx="23" cy="23" r="23" fill="#F19121" />
+    <rect x="21" y="11" width="4" height="25" rx="2" fill="white" />
+    <rect
+    x="35"
+    y="21"
+    width="4"
+    height="25"
+    rx="2"
+    transform="rotate(90 35 21)"
+    fill="white"
+    />
+</svg>
