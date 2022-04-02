@@ -1,7 +1,7 @@
 import Header from "../shared/Header";
 import Footer from "../shared/Footer";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import FlexGrid from "../elements/FlexGrid";
 import Container from "../elements/Container";
 import categoryDate from "../data/categoryData";
