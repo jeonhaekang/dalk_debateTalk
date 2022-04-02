@@ -27,10 +27,6 @@ const ChatHeader = ({ is_loaded }) => {
   const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
   const userList = useSelector((state) => state.chat.currentRoom.users);
 
-  React.useEffect(() => {
-    if (roomInfo) is_loaded(true);
-  }, [roomInfo]);
-
   const vote = (topic) => {
     if (roomInfo.userVote) {
       dispatch(alertAction.open({ message: "이미 투표에 참가하셨습니다." }));

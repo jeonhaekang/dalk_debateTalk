@@ -10,7 +10,7 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { actionCreators as itemAction } from "../../redux/modules/item";
 
-const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
+const ChatBox = ({ roomId, headers, client }) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
 
@@ -35,6 +35,7 @@ const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
   React.useEffect(() => {
     // 이전 메세지 호출
     dispatch(chatAction.loadMessageLogDB(roomId));
+    client.connect(headers, connectCallback, errorCallback);
 
     window.addEventListener("visibilitychange", visibleHendler);
     window.addEventListener("beforeunload", (e) => {
@@ -47,44 +48,31 @@ const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
     };
   }, []);
 
-  React.useEffect(() => {
-    if (loaded) {
-      // 소켓 연결
-      connectSocket({ roomId, headers, client });
-    }
-  }, [loaded]);
+  // 연결 성공시 호출함수
+  const connectCallback = () => {
+    client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
+    // subscribe("url", callback, headers)
+    EnterMessage({ client, headers, roomId });
+  };
 
-  const connectSocket = ({ roomId, headers, client }) => {
-    // 연결 성공시 호출함수
-    const connectCallback = () => {
-      client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
-      // subscribe("url", callback, headers)
-      EnterMessage({ client, headers, roomId });
-    };
+  // 연결 실패시 호출함수
+  const errorCallback = () => {
+    client.disconnect(() => client.unsubscribe("sub-0"), headers);
+  };
 
-    // 연결 실패시 호출함수
-    const errorCallback = () => {
-      client.disconnect(() => client.unsubscribe("sub-0"), headers);
-    };
-
-    // 구독 여부 확인
-    const EnterMessage = () => {
-      setTimeout(() => {
-        if (client.subscriptions["sub-0"]) {
-          client.send(
-            "/pub/chat/enter",
-            headers,
-            JSON.stringify({ type: "ENTER", roomId: roomId })
-          );
-          return;
-        }
-        EnterMessage();
-      }, 100);
-    };
-
-    // 소켓 연결
-    client.connect(headers, connectCallback, errorCallback);
-    // connect(headers, connectCallback, errorCallback); : 헤더를 전달해야 하는 경우의 형식
+  // 구독 여부 확인
+  const EnterMessage = () => {
+    setTimeout(() => {
+      if (client.subscriptions["sub-0"]) {
+        client.send(
+          "/pub/chat/enter",
+          headers,
+          JSON.stringify({ type: "ENTER", roomId: roomId })
+        );
+        return;
+      }
+      EnterMessage();
+    }, 100);
   };
 
   // 메세지 수신시 호출 함수
@@ -159,7 +147,6 @@ const ChatBox = ({ roomId, headers, client, loaded, is_loaded }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   React.useEffect(() => {
-    if (messageLog) is_loaded(true);
     if (scrollState) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;
     }
