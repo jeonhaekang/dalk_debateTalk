@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as infinityAction } from "../redux/modules/infinityScroll";
 import Header from "../shared/Header";
@@ -9,18 +9,24 @@ import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
 import empty from "../image/shared/emptyRoom.svg";
 import styled from "styled-components";
+import InfinityScroll from "../shared/InfinityScroll";
 
 const SearchRoom = (props) => {
   const dispatch = useDispatch();
   const keyword = props.match.params.keyword;
 
-  const roomList = useSelector((props) => props.infinityScroll[keyword]);
+  const data = useSelector((props) => props.infinityScroll["search"][keyword]);
 
-  useEffect(() => {
-    dispatch(infinityAction.loadListDB(0, "searchRoom", keyword));
+  const getRoomList = (page) => {
+    dispatch(infinityAction.loadListDB(page, "searchRoom", keyword, "search"));
+  };
 
-    return () => dispatch(infinityAction.clear());
-  }, []);
+  React.useEffect(() => {
+    if (data) {
+      return;
+    }
+    getRoomList(0);
+  }, [data]);
   return (
     <>
       <Header page="검색 결과" />
@@ -29,12 +35,17 @@ const SearchRoom = (props) => {
         <FlexGrid gap="0">
           "<Text color="orange">{keyword}</Text>"검색 결과
         </FlexGrid>
-        {roomList &&
-          (roomList.list.length !== 0 ? (
+        {data &&
+          (data.list.length !== 0 ? (
             <SearchBox is_column>
-              {roomList.list.map((el, i) => {
-                return <MoreCard {...el} key={el.roomId} />;
-              })}
+              <InfinityScroll
+                callNext={() => getRoomList(data.page)}
+                paging={{ next: data.has_next }}
+              >
+                {data.list.map((el, i) => {
+                  return <MoreCard {...el} key={el.roomId} />;
+                })}
+              </InfinityScroll>
             </SearchBox>
           ) : (
             <FlexGrid center is_column textAlign="center">
@@ -54,7 +65,6 @@ const SearchRoom = (props) => {
 };
 
 const SearchBox = styled.div`
-  padding: 0 16px;
   .moreBox {
     border-bottom: 1px solid #c4c4c4;
   }

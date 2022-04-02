@@ -15,6 +15,7 @@ const refresh = createAction(REFRESH, (keyword) => ({ keyword }));
 const initialState = {
   chat: {},
   post: {},
+  search: {},
   // keyword: { list: null, page: 0, has_next: false },
   // page: 0 무한스크롤을 위한 페이지네이션 번호입니다
   // has_next: false  다음 페이지로 넘어갈건지에 대한 boolean값입니다.

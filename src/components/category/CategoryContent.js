@@ -11,7 +11,9 @@ const CategoryContent = ({ category }) => {
   const data = useSelector((props) => props.infinityScroll["chat"][category]);
 
   const getRoomList = (page) => {
-    dispatch(infinityAction.loadListDB(page, "loadCategoryRoom", category,"chat"));
+    dispatch(
+      infinityAction.loadListDB(page, "loadCategoryRoom", category, "chat")
+    );
   };
 
   React.useEffect(() => {
@@ -20,6 +22,8 @@ const CategoryContent = ({ category }) => {
     }
     getRoomList(0);
   }, [data]);
+
+  console.log(data);
 
   return (
     <>
