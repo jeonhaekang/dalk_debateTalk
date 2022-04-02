@@ -1,10 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
-import { setCookie, deleteCookie } from "../../shared/Cookie";
+import { deleteCookie, setCookie } from "../../shared/Cookie";
 import { instance } from "../../shared/apis";
 import { actionCreators as alertAction } from "./alert";
-import { useDispatch } from "react-redux";
+
 //Action
 const SETUSER = "SETUSER";
 const BUY_ITEM = "BUY_ITEM";
@@ -131,6 +131,7 @@ const logincheckDB = () => {
         dispatch(setUser(res.data));
       })
       .catch((err) => {
+        deleteCookie("authorization");
         dispatch(
           alertAction.open({
             message: "다시 로그인 해주세요!",
