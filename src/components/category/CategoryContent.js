@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import InfinityScroll from "../../shared/InfinityScroll";
 import MoreCard from "../../components/shared/MoreCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,12 +6,12 @@ import { actionCreators as infinityAction } from "../../redux/modules/infinitySc
 import MoreContentSkeleton from "../skeleton/MoreContentSkeleton";
 import EmptyRoom from "../shared/EmptyRoom";
 
-const CategoryContent = ({ category, time }) => {
+const CategoryContent = ({ category }) => {
   const dispatch = useDispatch();
-  const data = useSelector((props) => props.infinityScroll[category]);
+  const data = useSelector((props) => props.infinityScroll["chat"][category]);
 
   const getRoomList = (page) => {
-    dispatch(infinityAction.loadListDB(page, "loadCategoryRoom", category));
+    dispatch(infinityAction.loadListDB(page, "loadCategoryRoom", category,"chat"));
   };
 
   React.useEffect(() => {

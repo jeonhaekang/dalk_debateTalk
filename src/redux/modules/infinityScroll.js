@@ -73,7 +73,7 @@ export default handleActions(
     [REFRESH]: (state, action) =>
       produce(state, (draft) => {
         const { keyword } = action.payload;
-        delete draft[keyword];
+        delete draft["chat"][keyword];
       }),
   },
   initialState
