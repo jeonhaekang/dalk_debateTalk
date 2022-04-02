@@ -11,7 +11,6 @@ import comment from "./modules/comment";
 import banner from "./modules/banner";
 import image from "./modules/image";
 import alert from "./modules/alert";
-import post from "./modules/post";
 import search from "./modules/search";
 import notice from "./modules/notice";
 import infinityScroll from "./modules/infinityScroll";
@@ -21,18 +20,17 @@ export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   // 모듈 적어주세요.
-  item: item,
-  user: user,
-  chat: chat,
-  comment: comment,
-  banner: banner,
-  image: image,
-  alert: alert,
-  post: post,
-  search: search,
-  notice: notice,
-  infinityScroll: infinityScroll,
-  spinner: spinner,
+  item,
+  user,
+  chat,
+  comment,
+  banner,
+  image,
+  alert,
+  search,
+  notice,
+  infinityScroll,
+  spinner,
 
   router: connectRouter(history),
 });
@@ -45,7 +43,6 @@ const middlewares = [
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
 
-// 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
 // if (env === "development") {
 //   const { logger } = require("redux-logger");
 //   middlewares.push(logger);
