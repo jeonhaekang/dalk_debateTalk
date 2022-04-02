@@ -35,12 +35,12 @@ const vote = createAction(VOTE, (data) => ({ data }));
 //initialState
 const initialState = {
   roomList: null,
-  currentRoom: { roomInfo: null, messageLog: null, users: [] },
+  currentRoom: { roomInfo: null, messageLog: [], users: [] },
   itemState: false,
 };
 const currentInitial = {
   roomInfo: null,
-  messageLog: null,
+  messageLog: [],
   users: [],
 };
 

@@ -27,7 +27,6 @@ const ChatRoom = (props) => {
         Authorization: getCookie("authorization"),
       },
     });
-    dispatch(spinnerAction.start());
     dispatch(chatAction.getOneRoomDB(props.match.params.chatRoomId));
     // 방에 들어오면 데이터 업데이트
 
@@ -38,27 +37,12 @@ const ChatRoom = (props) => {
     };
   }, []);
 
-  const [roomInfoLoaded, setRoomInfoLoaded] = React.useState(false);
-  const [messageLoaded, setMessageLoaded] = React.useState(false);
-
-  console.log(client);
-
-  React.useEffect(() => {
-    if (roomInfoLoaded && messageLoaded) {
-      dispatch(spinnerAction.end());
-    }
-  }, [roomInfoLoaded, messageLoaded]);
-
   return (
     <ChatRoomContainer footer>
-      <ChatHeader is_loaded={setRoomInfoLoaded} />
+      <ChatHeader />
       {client && (
         <>
-          <ChatBox
-            {...client}
-            loaded={messageLoaded}
-            is_loaded={setMessageLoaded}
-          />
+          <ChatBox {...client} />
           <ChatInput {...client} />
         </>
       )}
