@@ -10,6 +10,7 @@ import Container from "../../elements/Container";
 import Text from "../../elements/Text";
 import ItemButton from "../../elements/ItemButton";
 import XScrollDrag from "../../components/shared/XScrollDrag";
+import Center from "../../elements/Center";
 
 const PointShop = () => {
   const dispatch = useDispatch();
@@ -78,14 +79,14 @@ const PointShop = () => {
 
             <FlexGrid is_column padding="0 24px">
               <ItemInfo center>
-                <Text>{item.name}</Text>
-                <Text color="white">|</Text>
-                <Text center gap="3px">
+                <FlexGrid center>{item.name}</FlexGrid>
+                <Center color="white">|</Center>
+                <FlexGrid center>
                   <Text weight="medium" color="orange">
                     {item.price.toLocaleString("ko-KR")}
                   </Text>
                   RP
-                </Text>
+                </FlexGrid>
               </ItemInfo>
 
               {/* 프리뷰 부분 */}
@@ -131,7 +132,6 @@ const ItemInfo = styled(FlexGrid)`
   font-size: ${(props) => props.theme.fontSizes.body2};
   justify-content: space-evenly;
 
-  width: auto;
   height: 62px;
   border-radius: 10px;
 `;
