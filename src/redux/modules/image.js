@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
+import defaultImage from "../../image/shared/defaultImage.svg";
 
 // Action
 const SET_PREVIEW = "SET_PREVIEW";
@@ -13,10 +14,8 @@ const clear = createAction(CLEAR, () => ({}));
 
 // initialState
 const initialState = {
-  image: {
-    preview: null,
-    file: null,
-  },
+  preview: defaultImage,
+  file: null,
 };
 
 // Reducer
@@ -24,16 +23,15 @@ export default handleActions(
   {
     [SET_PREVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.image["preview"] = action.payload.image;
+        draft["preview"] = action.payload.image;
       }),
     [SET_FILE]: (state, action) =>
       produce(state, (draft) => {
-        draft.image["file"] = action.payload.image;
+        draft["file"] = action.payload.image;
       }),
     [CLEAR]: (state) =>
       produce(state, (draft) => {
-        draft.image["preview"] = null;
-        draft.image["file"] = null;
+        return initialState;
       }),
   },
   initialState

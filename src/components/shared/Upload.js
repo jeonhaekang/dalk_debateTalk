@@ -10,8 +10,8 @@ const Upload = () => {
   const fileInput = useRef();
   const [preview, setPreview] = useState();
 
-  const image = useSelector((props) => props.image.image.preview);
-
+  const image = useSelector((props) => props.image.preview);
+  
   useEffect(() => {
     setPreview(image);
   }, [image]);
@@ -43,21 +43,19 @@ const Upload = () => {
     };
   };
   return (
-    <>
-      <File
-        type="file"
-        accept=".jpg, .png"
-        onChange={ImageSelect}
-        ref={fileInput}
-        src={preview}
-      />
-    </>
+    <File
+      type="file"
+      accept=".jpg, .png"
+      onChange={ImageSelect}
+      ref={fileInput}
+      src={preview}
+    />
   );
 };
 
 const File = styled.input`
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 180px;
   border-radius: 15px;
   background-color: #f3f3f3;
   background-image: url("${(props) => props.src}");

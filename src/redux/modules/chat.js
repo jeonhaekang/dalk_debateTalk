@@ -112,7 +112,7 @@ const createRoomDB = (data) => {
   // 채팅 방 생성
   return function (dispatch, getState, { history }) {
     // dispatch(spinnerAction.start());
-    const image = getState().image.image;
+    const image = getState().image;
 
     const formdata = new FormData();
     image.file && formdata.append("image", image.file);

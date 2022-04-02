@@ -1,23 +1,34 @@
 import Container from "../elements/Container";
 import Header from "../shared/Header";
 import React, { useEffect, useState } from "react";
-import { actionCreators } from "../redux/modules/chat";
+import { actionCreators as chatAction } from "../redux/modules/chat";
+import { actionCreators as imageAction } from "../redux/modules/image";
+import { actionCreators as alertAction } from "../redux/modules/alert";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Upload from "../components/shared/Upload";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
-import { ReactComponent as Short } from "../image/shared/fill_shortTime.svg";
-import { ReactComponent as Long } from "../image/shared/fill_longTime.svg";
+import categoryDate from "../data/categoryData";
+import { ReactComponent as FillShort } from "../image/shared/fill_shortTimer.svg";
+import { ReactComponent as FillLong } from "../image/shared/fill_longTimer.svg";
+import { ReactComponent as Long } from "../image/shared/longTimer.svg";
+import { ReactComponent as Short } from "../image/shared/shortTimer.svg";
 
 const CreateRoom = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => dispatch(imageAction.clear());
+  }, []);
 
   const [roomInfo, setRoomInfo] = React.useState({
     topicA: "",
     topicB: "",
     time: null,
   });
+
+  console.log(roomInfo.time);
 
   const { topicA, topicB } = roomInfo;
 
@@ -34,9 +45,9 @@ const CreateRoom = () => {
     기타: false,
   });
 
-  const selectCategory = (e) => {
+  const selectCategory = (name) => {
     // 카테고리 선택
-    const { name } = e.target;
+    console.log(name);
     if (category[name]) {
       setCategory({ ...category, [name]: false });
       setCateCount(cateCount - 1);
@@ -61,7 +72,7 @@ const CreateRoom = () => {
   const createRoom = () => {
     for (const value in roomInfo) {
       if (!roomInfo[value] || cateCount === 0) {
-        alert("모든 항목을 입력해주세요.");
+        dispatch(alertAction.open({ message: "모든 항목을 입력해주세요." }));
         return;
       }
     }
@@ -70,7 +81,7 @@ const CreateRoom = () => {
       value && cate.push(key);
     } // 선택한 카테고리만 배열로 만들어서 넘겨줌
     setBtnState(false);
-    dispatch(actionCreators.createRoomDB({ ...roomInfo, category: cate }));
+    dispatch(chatAction.createRoomDB({ ...roomInfo, category: cate }));
   };
 
   return (
@@ -109,23 +120,26 @@ const CreateRoom = () => {
 
         {/* 카테고리 선택 */}
         <FlexGrid is_column gap="24px">
-          <FlexGrid is_column gap="0">
-            <Text size="headline2" weight="medium">
+          <FlexGrid gap="5px" alignItems="flex-end">
+            <Text size="headline2" weight="medium" lineHeight="28px">
               카테고리를 선택해주세요.
             </Text>
             <Text>최대 3개</Text>
           </FlexGrid>
-          <FlexGrid flexWrap="wrap" center padding="0 68px">
-            {Object.keys(category).map((el) => {
+          <FlexGrid flexWrap="wrap" gap="18px">
+            {categoryDate.map((el, i) => {
+              if (i === 0) return null;
               return (
                 <Chip
-                  state={category[el]}
+                  state={category[el.name]}
                   id="category"
-                  name={el}
-                  key={el}
-                  onClick={selectCategory}
+                  key={el.code}
+                  onClick={() => selectCategory(el.name)}
                 >
-                  {el}
+                  <FlexGrid center gap="13px">
+                    {el.name}
+                    {<img src={el.img} alt="categoryIMG" width="28" />}
+                  </FlexGrid>
                 </Chip>
               );
             })}
@@ -138,32 +152,42 @@ const CreateRoom = () => {
             토론참가 시간 선택해주세요
           </Text>
 
-          <FlexGrid center>
-            <TimeBox name="time" value={true} onClick={onChange}>
-              <TimerBox center is_column gap="7px">
-                <Short />
-                20m
-              </TimerBox>
-              <TextBox center state={roomInfo.time === "true"}>
-                스몰 토크
-              </TextBox>
+          <FlexGrid center gap="16px">
+            <TimeBox
+              state={roomInfo.time === "true"}
+              name="time"
+              value={true}
+              onClick={onChange}
+            >
+              <FlexGrid gap="3px" center is_column>
+                {roomInfo.time === "true" ? <Short /> : <FillShort />}
+                <Text size="body3">20m</Text>
+              </FlexGrid>
+              <Text size="subtitle1" weight="medium">
+                짧게 토크
+              </Text>
             </TimeBox>
-            <TimeBox name="time" value={false} onClick={onChange}>
-              <TimerBox center is_column gap="7px">
-                <Long />
-                1h
-              </TimerBox>
-              <TextBox center state={roomInfo.time === "false"}>
-                길게 토크
-              </TextBox>
+            <TimeBox
+              state={roomInfo.time === "false"}
+              name="time"
+              value={false}
+              onClick={onChange}
+            >
+              <FlexGrid gap="3px" center is_column>
+                {roomInfo.time === "false" ? <Long /> : <FillLong />}
+                <Text size="body3">1h</Text>
+              </FlexGrid>
+              <Text size="subtitle1" weight="medium">
+                짧게 토크
+              </Text>
             </TimeBox>
           </FlexGrid>
         </FlexGrid>
 
         {/* 썸네일 등록 */}
         <FlexGrid is_column gap="24px">
-          <FlexGrid is_column gap="0">
-            <Text size="headline2" weight="medium">
+          <FlexGrid gap="3px" alignItems="flex-end">
+            <Text size="headline2" weight="medium" lineHeight="28px">
               썸네일
             </Text>
             <Text>최대 1장 업로드 가능해요</Text>
@@ -185,12 +209,14 @@ const CreateRoom = () => {
 const Chip = styled.button`
   background-color: ${(props) =>
     props.state ? props.theme.color.orange : "#f3f3f3"};
-  color: ${(props) => (props.state ? "white" : props.theme.color.black)};
-  height: 34px;
-  border-radius: 10px;
-  width: calc(100% / 3 - 10px);
+  & div {
+    color: ${(props) => (props.state ? "white" : props.theme.color.black)};
+  }
+  height: 48px;
+  border-radius: 20px;
+  width: calc(100% / 3 - 12px);
 
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
+  font-size: ${(props) => props.theme.fontSizes.gnb};
   font-weight: ${(props) => props.theme.fontWeight.medium};
 
   box-sizing: border-box;
@@ -199,32 +225,25 @@ const Chip = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: 0.2s;
 `;
 
 const TimeBox = styled.button`
-  width: 117px;
-  height: 133px;
-  background-color: #faede1;
+  width: calc(100% / 2);
+  height: 144px;
+
   border-radius: 10px;
   border: none;
-  overflow: hidden;
+
+  background-color: ${(props) => (props.state ? "#F19121" : "#f3f3f3")};
 
   & * {
     pointer-events: none;
+    color: ${(props) => (props.state ? "white" : "black")};
   }
-`;
 
-const TimerBox = styled(FlexGrid)`
-  height: 80px;
-`;
-
-const TextBox = styled(FlexGrid)`
-  height: 53px;
-  background-color: #f19121;
-
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  color: ${(props) => (props.state ? "white" : "black")};
+  transition: 0.3s;
 `;
 
 const CreateButton = styled(FlexGrid)`
