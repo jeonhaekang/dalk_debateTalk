@@ -178,7 +178,7 @@ const CreateRoom = () => {
                 <Text size="body3">1h</Text>
               </FlexGrid>
               <Text size="subtitle1" weight="medium">
-                짧게 토크
+                길게 토크
               </Text>
             </TimeBox>
           </FlexGrid>

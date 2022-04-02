@@ -11,7 +11,7 @@ const Upload = () => {
   const [preview, setPreview] = useState();
 
   const image = useSelector((props) => props.image.preview);
-  
+
   useEffect(() => {
     setPreview(image);
   }, [image]);
@@ -21,11 +21,6 @@ const Upload = () => {
     if (!file) return;
 
     const reader = new FileReader();
-
-    if (file.name.length > 20) {
-      dispatch(actionCreators.open({ message: "파일명이 너무 깁니다." }));
-      return;
-    }
 
     reader.readAsDataURL(file);
 
