@@ -238,12 +238,22 @@ export default handleActions(
       }),
     [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loaded = false;
-        draft.currentRoom.messageLog = action.payload.messages;
+        if (draft.currentRoom.messageLog) {
+          draft.currentRoom.messageLog = [
+            ...action.payload.messages,
+            ...draft.currentRoom.messageLog,
+          ];
+        } else {
+          draft.currentRoom.messageLog = [...action.payload.messages];
+        }
       }),
     [NEW_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.currentRoom.messageLog.push(action.payload.message);
+        if (draft.currentRoom.messageLog) {
+          draft.currentRoom.messageLog.push(action.payload.message);
+        } else {
+          draft.currentRoom.messageLog = [...action.payload.messages];
+        }
       }),
     [LOAD_USER_LIST]: (state, action) =>
       produce(state, (draft) => {
