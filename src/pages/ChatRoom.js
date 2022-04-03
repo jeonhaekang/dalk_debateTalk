@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useDispatch } from "react-redux";
@@ -16,33 +16,43 @@ const ChatRoom = (props) => {
   const sock = SockJS(`${process.env.REACT_APP_API_URL}/ws-stomp`);
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
-  const [client, setClient] = useState(null);
+  const [client, setClient] = useState(null); // 웹소켓 클라이언트
+  const roomId = props.match.params.chatRoomId;
 
   React.useEffect(() => {
+    dispatch(spinnerAction.start());
     setClient({
-      time: new Date().getTime(),
       client: Stomp.over(sock),
-      roomId: props.match.params.chatRoomId,
+      roomId: roomId,
       headers: {
         Authorization: getCookie("authorization"),
       },
     });
-    dispatch(chatAction.getOneRoomDB(props.match.params.chatRoomId));
-    // 방에 들어오면 데이터 업데이트
 
-    dispatch(chatAction.loadUserListDB(props.match.params.chatRoomId));
     return () => {
       dispatch(chatAction.currentRoomClear());
       // 방에서 나갈 때 정보 초기화
     };
   }, []);
 
+  const [infoLoaded, setInfoLoaded] = useState(false);
+  const [messageLoaded, setMessageLoaded] = useState(false);
+
+  useEffect(() => {
+    infoLoaded && messageLoaded && dispatch(spinnerAction.end());
+    console.log(infoLoaded, messageLoaded);
+  }, [infoLoaded, messageLoaded]);
+
   return (
     <ChatRoomContainer footer>
-      <ChatHeader />
+      <ChatHeader roomId={roomId} setInfoLoaded={setInfoLoaded} />
       {client && (
         <>
-          <ChatBox {...client} />
+          <ChatBox
+            {...client}
+            messageLoaded={messageLoaded}
+            setMessageLoaded={setMessageLoaded}
+          />
           <ChatInput {...client} />
         </>
       )}

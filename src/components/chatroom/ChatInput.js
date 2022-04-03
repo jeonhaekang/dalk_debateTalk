@@ -13,8 +13,7 @@ import { ReactComponent as ItemBuy } from "../../image/chatRoom/itemBuy.svg";
 import { ReactComponent as SendIcon } from "../../image/chatRoom/send.svg";
 import { ReactComponent as RocketIcon } from "../../image/chatRoom/rocket.svg";
 
-const ChatInput = (props) => {
-  const { client, roomId, headers } = props;
+const ChatInput = ({ client, roomId, headers }) => {
   const dispatch = useDispatch();
   const [message, setMessage] = React.useState("");
 

@@ -17,7 +17,7 @@ import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
 import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { history } from "../../redux/configStore";
 
-const ChatHeader = ({ is_loaded }) => {
+const ChatHeader = ({ roomId, setInfoLoaded }) => {
   const dispatch = useDispatch();
   const [foldState, setFoldState] = React.useState(true); // 펼침 여부
   const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
@@ -39,6 +39,17 @@ const ChatHeader = ({ is_loaded }) => {
   const reportRoom = () => {
     dispatch(chatAction.reportRoomDB(roomInfo.roomId));
   };
+
+  useEffect(() => {
+    dispatch(chatAction.getOneRoomDB(roomId));
+    // 방에 들어오면 데이터 업데이트
+
+    dispatch(chatAction.loadUserListDB(roomId));
+  }, []);
+
+  useEffect(() => {
+    roomInfo && setInfoLoaded(true);
+  }, [roomInfo]);
 
   return (
     <>

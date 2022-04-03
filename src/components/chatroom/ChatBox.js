@@ -10,7 +10,13 @@ import { actionCreators as chatAction } from "../../redux/modules/chat";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { actionCreators as itemAction } from "../../redux/modules/item";
 
-const ChatBox = ({ roomId, headers, client }) => {
+const ChatBox = ({
+  client,
+  roomId,
+  headers,
+  messageLoaded,
+  setMessageLoaded,
+}) => {
   const dispatch = useDispatch();
   const scrollRef = React.useRef();
 
@@ -147,9 +153,9 @@ const ChatBox = ({ roomId, headers, client }) => {
   const messageLog = useSelector((props) => props.chat.currentRoom.messageLog);
 
   React.useEffect(() => {
-    if (scrollState) {
-      boxRef.current.scrollTop = boxRef.current.scrollHeight;
-    }
+    messageLog && setMessageLoaded(true);
+    scrollState && (boxRef.current.scrollTop = boxRef.current.scrollHeight);
+    // console.log(messageLog);
   }, [messageLog]);
 
   return (
