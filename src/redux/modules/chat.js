@@ -238,7 +238,6 @@ export default handleActions(
       }),
     [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loaded = false;
         draft.currentRoom.messageLog = action.payload.messages;
       }),
     [NEW_MESSAGE]: (state, action) =>

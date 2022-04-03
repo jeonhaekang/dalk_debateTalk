@@ -28,8 +28,6 @@ const CreateRoom = () => {
     time: null,
   });
 
-  console.log(roomInfo.time);
-
   const { topicA, topicB } = roomInfo;
 
   const [cateCount, setCateCount] = React.useState(0);

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import itemData from "../../data/itemData";
@@ -15,16 +15,17 @@ import { ReactComponent as RocketIcon } from "../../image/chatRoom/rocket.svg";
 
 const ChatInput = ({ client, roomId, headers }) => {
   const dispatch = useDispatch();
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState(""); // 입력 메세지
+  const [fontState, setFontState] = useState(false); // 빅폰트 사용 유무
+  const [state, setState] = useState(false); // 아이템 창 표시 상태
 
-  const [fontState, setFontState] = React.useState(false);
-  const [state, setState] = React.useState(false);
+  const itemState = useSelector((state) => state.item.itemState); // 아이템 사용 가능 여부
+  const itemList = useSelector((state) => state.item.itemList); // 아이템 발동시킨 유저 정보
+  const user = useSelector((state) => state.user.user); // 내 정보
 
-  const itemState = useSelector((state) => state.item.itemState);
-  const itemList = useSelector((state) => state.item.itemList);
-  const user = useSelector((state) => state.user.user);
-
+  //채팅 송신--------------------------------------------------------------------------------------
   const sendMessage = () => {
+    // 나만 말하기 아이템 발동 여부 채크
     if (itemList.onlyMe && itemList.onlyMe !== user.nickname) {
       dispatch(
         alertAction.open({
@@ -33,9 +34,11 @@ const ChatInput = ({ client, roomId, headers }) => {
       );
       return;
     }
+    // 입력 메세지 없을시 리턴
     if (message === "") {
       return;
     }
+
     const data = {
       type: "TALK",
       roomId: roomId,
@@ -50,12 +53,15 @@ const ChatInput = ({ client, roomId, headers }) => {
     setMessage("");
   };
 
+  //Enter로 채팅 송신--------------------------------------------------------------------------------------
   const MessageEnter = (e) => {
     // enter입력시 메세지 전송
     if (e.key === "Enter") {
       sendMessage();
     }
   };
+
+  //아이템 사용--------------------------------------------------------------------------------------
   const itemUse = (item) => {
     // 빅폰트사용
     if (user.item[item] > 0 && item === "bigFont") {
@@ -87,6 +93,8 @@ const ChatInput = ({ client, roomId, headers }) => {
 
     client.send("/pub/chat/message", headers, JSON.stringify(data));
   };
+
+  //----------------------------------------------------------------------------------------------
   return (
     <InputContainer>
       <InputWrap>

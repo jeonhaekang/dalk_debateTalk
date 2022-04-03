@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
@@ -19,14 +19,28 @@ import { history } from "../../redux/configStore";
 
 const ChatHeader = ({ roomId, setInfoLoaded }) => {
   const dispatch = useDispatch();
-  const [foldState, setFoldState] = React.useState(true); // 펼침 여부
-  const [voteModal, setVoteModal] = React.useState(false); // 투표 모달
-  const [toggleModal, setToggleModal] = React.useState(false); // 신고하기 토글 모달
-  const [data, setData] = React.useState();
+  const [foldState, setFoldState] = useState(true); // 펼침 여부
+  const [voteModal, setVoteModal] = useState(false); // 투표 모달
+  const [toggleModal, setToggleModal] = useState(false); // 신고하기 토글 모달
+  const [data, setData] = useState();
 
-  const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo);
-  const userList = useSelector((state) => state.chat.currentRoom.users);
+  const roomInfo = useSelector((state) => state.chat.currentRoom.roomInfo); // 채팅방 정보
+  const userList = useSelector((state) => state.chat.currentRoom.users); // 채팅방 참여 인원
 
+  //채팅방 정보 및 유저 목록 호출--------------------------------------------------------------------------------
+  useEffect(() => {
+    dispatch(chatAction.getOneRoomDB(roomId));
+    // 방에 들어오면 데이터 업데이트
+
+    dispatch(chatAction.loadUserListDB(roomId));
+  }, []);
+
+  //채팅방 정보 로딩 상태 체크-----------------------------------------------------------------------------------
+  useEffect(() => {
+    roomInfo && setInfoLoaded(true);
+  }, [roomInfo]);
+
+  //투표 하기------------------------------------------------------------------------------------------------
   const vote = (topic) => {
     if (roomInfo.userVote) {
       dispatch(alertAction.open({ message: "이미 투표에 참가하셨습니다." }));
@@ -36,21 +50,12 @@ const ChatHeader = ({ roomId, setInfoLoaded }) => {
     setVoteModal(true);
   };
 
+  //채팅방 신고----------------------------------------------------------------------------------------------
   const reportRoom = () => {
     dispatch(chatAction.reportRoomDB(roomInfo.roomId));
   };
 
-  useEffect(() => {
-    dispatch(chatAction.getOneRoomDB(roomId));
-    // 방에 들어오면 데이터 업데이트
-
-    dispatch(chatAction.loadUserListDB(roomId));
-  }, []);
-
-  useEffect(() => {
-    roomInfo && setInfoLoaded(true);
-  }, [roomInfo]);
-
+  //-------------------------------------------------------------------------------------------------------
   return (
     <>
       {roomInfo && (
