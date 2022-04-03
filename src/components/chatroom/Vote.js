@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../../elements/FlexGrid";
 import Text from "../../elements/Text";
-import Input from "../../elements/Input";
 import test from "../../image/chatRoom/voteDalk.svg";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { actionCreators as chatAction } from "../../redux/modules/chat";

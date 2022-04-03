@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, memo } from "react";
 import styled from "styled-components";
 import { FcSpeaker } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,17 +8,18 @@ import { rank, discriminant } from "../../data/rank";
 import { actionCreators as userAction } from "../../redux/modules/user";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 
-const Chat = (props) => {
+const Chat = ({ userInfo, message, bigFont, type, createdAt }) => {
   const dispatch = useDispatch();
-  const { userInfo, message, bigFont, type, createdAt } = props;
 
-  const [togleState, setTogleState] = React.useState(false);
+  const [togleState, setTogleState] = useState(false); // 신고 버튼 표시 상태
 
-  const time = moment(createdAt).format("HH:mm");
+  const time = moment(createdAt).format("HH:mm"); // 표기 시간 포멧 변경
 
-  const user = useSelector((state) => state.user.user);
-  const myName = useSelector((state) => state.item.itemList.myName);
+  const user = useSelector((state) => state.user.user); // 내 정보
+  const myName = useSelector((state) => state.item.itemList.myName); // 내 이름으로 아이템 발동 여부
+  const userRank = rank[discriminant(userInfo.ex, userInfo.rank)]; // 각 유저 랭크 정보
 
+  //신고 버튼--------------------------------------------------------------------------------------
   const togleShow = (e) => {
     if (userInfo.userId !== user.userId) setTogleState(!togleState);
     setTimeout(() => {
@@ -26,6 +27,7 @@ const Chat = (props) => {
     }, 3000);
   };
 
+  //유저 신고--------------------------------------------------------------------------------------
   const reportUser = (e) => {
     if (userInfo.userId === user.userId) {
       return;
@@ -41,6 +43,7 @@ const Chat = (props) => {
     );
   };
 
+  //알림 메세지일 경우--------------------------------------------------------------------------------------
   if (type !== "TALK") {
     return (
       <Alert>
@@ -50,13 +53,12 @@ const Chat = (props) => {
     );
   }
 
-  const userRank = rank[discriminant(userInfo.ex, userInfo.rank)];
-
+  //--------------------------------------------------------------------------------------------
   return (
     <>
       <ChatBox
         bigFont={bigFont}
-        user={userInfo.userId === user.userId ? true : false}
+        user={userInfo?.userId === user?.userId ? true : false}
       >
         <NickName gap="3px" width="auto" center onClick={togleShow}>
           <Badge src={userRank.img}></Badge>
@@ -132,4 +134,4 @@ const ChatBox = styled.div`
   }
 `;
 
-export default React.memo(Chat);
+export default memo(Chat);

@@ -4,7 +4,7 @@ import { actionCreators as alertAction } from "../redux/modules/alert";
 import store from "../redux/configStore";
 import { history } from "../redux/configStore";
 
-export const connectSocket = ({ roomId, headers, client }) => {
+export const connectSocket = (roomId, headers, client ) => {
   // 연결 성공시 호출함수
   const connectCallback = () => {
     client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);

@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FlexGrid from "../elements/FlexGrid";
 import Text from "../elements/Text";
-import { actionCreators } from "../redux/modules/alert";
+import { actionCreators as alertAction } from "../redux/modules/alert";
 import Portal from "./Portal";
 import { fadeIn, fadeOut, slideIn } from "../animation/alert";
+import { history } from "../redux/configStore";
 
 const Alert = () => {
   const dispatch = useDispatch();
   const alert = useSelector((props) => props.alert);
   const [aniState, setAniState] = React.useState(false);
+
+  useEffect(() => {
+    // history 변경 감지
+    if (alert.openState) {
+      history.listen(() => {
+        dispatch(alertAction.close());
+      });
+    }
+  }, [alert.openState]);
 
   const close = () => {
     setAniState(true);
@@ -18,13 +28,13 @@ const Alert = () => {
     setTimeout(() => {
       setAniState(false);
       alert.history();
-      dispatch(actionCreators.close());
+      dispatch(alertAction.close());
     }, 200);
   };
 
   const action = () => {
     alert.action();
-    dispatch(actionCreators.close());
+    dispatch(alertAction.close());
   };
 
   if (alert.openState) {
@@ -84,7 +94,7 @@ const Content = styled(FlexGrid)`
   gap: 0;
   overflow: hidden;
 
-  animation: ${(props) => (!props.aniState && slideIn)} 0.2s;
+  animation: ${(props) => !props.aniState && slideIn} 0.2s;
 `;
 
 const Yes = styled(FlexGrid)`

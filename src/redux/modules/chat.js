@@ -35,12 +35,12 @@ const vote = createAction(VOTE, (data) => ({ data }));
 //initialState
 const initialState = {
   roomList: null,
-  currentRoom: { roomInfo: null, messageLog: [], users: [] },
+  currentRoom: { roomInfo: null, messageLog: null, users: [] },
   itemState: false,
 };
 const currentInitial = {
   roomInfo: null,
-  messageLog: [],
+  messageLog: null,
   users: [],
 };
 
@@ -238,7 +238,6 @@ export default handleActions(
       }),
     [SET_MESSAGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loaded = false;
         draft.currentRoom.messageLog = action.payload.messages;
       }),
     [NEW_MESSAGE]: (state, action) =>
