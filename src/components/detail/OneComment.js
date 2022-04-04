@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
@@ -64,11 +64,8 @@ const OneComment = (props) => {
   };
 
   //신고 기능
-  const [isWarn, setIsWarn] = useState(false);
 
-  const handleClickWarning = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleClickWarning = () => {
     if (!token) {
       dispatch(
         alertAction.open({
@@ -76,19 +73,18 @@ const OneComment = (props) => {
         })
       );
       history.replace("/login");
-    } else if (isWarn === false) {
-      await apis
+    } else {
+      apis
         .warningComment(commentId)
-        .then((res) => {
+        .then(() => {
           dispatch(
             alertAction.open({
               type: "confirm",
               message: "정말로 신고하시겠어요?",
             })
           );
-          setIsWarn(true);
         })
-        .catch((err) => {
+        .catch(() => {
           dispatch(
             alertAction.open({
               message: "이미 신고를 하셨습니다",
@@ -96,13 +92,6 @@ const OneComment = (props) => {
           );
           return;
         });
-    } else {
-      dispatch(
-        alertAction.open({
-          message: "이미 신고를 하셨습니다",
-        })
-      );
-      return;
     }
   };
 
