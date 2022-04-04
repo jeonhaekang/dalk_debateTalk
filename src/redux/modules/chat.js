@@ -132,7 +132,7 @@ const createRoomDB = (data) => {
           ...data,
           roomId: res.data.roomId,
           userInfo: user,
-          filePath: image.file,
+          filePath: image.preview,
           createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
           restTime: data.time ? 1200 : 3600,
         };
