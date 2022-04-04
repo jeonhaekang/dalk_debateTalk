@@ -17,7 +17,8 @@ const Chat = ({ userInfo, message, bigFont, type, createdAt }) => {
 
   const user = useSelector((state) => state.user.user); // 내 정보
   const myName = useSelector((state) => state.item.itemList.myName); // 내 이름으로 아이템 발동 여부
-  const userRank = rank[discriminant(userInfo.ex, userInfo.rank)]; // 각 유저 랭크 정보
+
+  const userRank = rank[discriminant(userInfo?.ex, userInfo?.rank)]; // 각 유저 랭크 정보
 
   //신고 버튼--------------------------------------------------------------------------------------
   const togleShow = (e) => {
