@@ -5,20 +5,18 @@ import { actionCreators as commentActions } from "../../redux/modules/comment";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
 import { history } from "../../redux/configStore";
 import { discriminant, rank } from "../../data/rank";
-import apis from "../../shared/apis";
 
 import { ReactComponent as Del } from "../../image/comment/delete.svg";
 import { ReactComponent as ThumbsUp } from "../../image/comment/thumb_up.svg";
 import { ReactComponent as ThumbsDown } from "../../image/comment/thumb_down.svg";
 
-import FlexGrid from "../../elements/FlexGrid";
-import Text from "../../elements/Text";
-import Grid from "../../elements/Grid";
+import { FlexGrid, Text } from "../../elements/Index";
 
 import { getCookie } from "../../shared/Cookie";
 import TimeForToday from "../../shared/TimeForToday";
 
 const OneComment = (props) => {
+  console.log(props);
   //댓글 유저 뱃지
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
 

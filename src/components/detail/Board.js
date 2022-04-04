@@ -88,7 +88,7 @@ const BoardContainer = styled(FlexGrid)`
   height: 200px;
   position: relative;
   background-color: ${(props) =>
-    !props.winner ? "rgb(249,248,248)" : "white"};
+    !props.resultState ? "rgb(249,248,248)" : "white"};
   & * {
     color: ${(props) => props.resultState && props.theme.color.orange};
   }
