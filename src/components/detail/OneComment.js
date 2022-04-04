@@ -72,27 +72,14 @@ const OneComment = (props) => {
           message: "로그인을 해주세요!",
         })
       );
-      history.replace("/login");
-    } else {
-      apis
-        .warningComment(commentId)
-        .then(() => {
-          dispatch(
-            alertAction.open({
-              type: "confirm",
-              message: "정말로 신고하시겠어요?",
-            })
-          );
-        })
-        .catch(() => {
-          dispatch(
-            alertAction.open({
-              message: "이미 신고를 하셨습니다",
-            })
-          );
-          return;
-        });
     }
+    dispatch(
+      alertAction.open({
+        type: "confirm",
+        message: "덧글을 신고하시겠습니까?",
+        action: () => dispatch(commentActions.commentWarnDB(commentId)),
+      })
+    );
   };
 
   // 코멘트 삭제
@@ -102,62 +89,55 @@ const OneComment = (props) => {
 
   return (
     <Container>
-
       <FlexGrid between>
-        <Grid display="flex">
+        <FlexGrid gap="0">
           <LevelImg src={userRank.img} />
-          <FlexGrid is_column center>
-            <Text size="body2" weight="medium" lineHeight="22px">
-              {props.userInfo.nickname}
-            </Text>
-          </FlexGrid>
-        </Grid>
+          <Text size="body2" weight="medium" lineHeight="22px">
+            {props.userInfo.nickname}
+          </Text>
+        </FlexGrid>
 
-        <Grid display="flex" justifyContent="center">
-          <Number onClick={handleClickAgree}>
-            {agreeList.includes(user?.userId) ? (
-              <ThumbsUp fill="#f19121" style={{ cursor: "pointer" }} />
-            ) : (
-              <ThumbsUp fill="#c4c4c4" style={{ cursor: "pointer" }} />
-            )}
-            <Text fontWeight="regular" color="comment" margin="0px 4px">
+        <FlexGrid center justifyContent="flex-end">
+          <FlexGrid width="auto" _onClick={handleClickAgree} gap="6px">
+            <ThumbsUp
+              fill={agreeList.includes(user?.userId) ? "#f19121" : "#c4c4c4"}
+              style={{ cursor: "pointer" }}
+            />
+            <Text color="comment" size="body3">
               {agreeList.length}
             </Text>
-          </Number>
+          </FlexGrid>
 
-          <Number onClick={handleClickDisagree}>
-            {disagreeList.includes(user?.userId) ? (
-              <ThumbsDown fill="#333333" style={{ cursor: "pointer" }} />
-            ) : (
-              <ThumbsDown fill="#c4c4c4" style={{ cursor: "pointer" }} />
-            )}
-            <Text fontWeight="regular" color="comment" margin="0px 4px">
+          <FlexGrid width="auto" _onClick={handleClickDisagree} gap="6px">
+            <ThumbsDown
+              fill={disagreeList.includes(user?.userId) ? "#333333" : "#c4c4c4"}
+              style={{ cursor: "pointer" }}
+            />
+            <Text color="comment" size="body3">
               {disagreeList.length}
             </Text>
-          </Number>
-        </Grid>
+          </FlexGrid>
+        </FlexGrid>
       </FlexGrid>
 
       <Content>{props.comment}</Content>
 
       <FlexGrid between>
-        <Grid display="flex" alignItems="center">
-          <Text color="comment" fontWeight="light" size="body3">
+        <FlexGrid gap="10px" width="auto" center>
+          <Text color="comment" size="body3">
             {TimeForToday(props.createdAt)}
           </Text>
-          <Text margin="0px 0px 2px 10px" size="body3" color="comment">
-            |
-          </Text>
-          <Number
-            onClick={handleClickWarning}
-            style={{
-              marginLeft: "10px",
-              color: "#8E8E8E",
-            }}
-          >
-            {props.warnUserList.includes(user?.userId) ? null : "신고"}
-          </Number>
-        </Grid>
+          {!props.warnUserList.includes(user?.userId) && (
+            <>
+              <Text size="body3" color="comment">
+                |
+              </Text>
+              <Text size="body3" color="comment" onClick={handleClickWarning}>
+                신고
+              </Text>
+            </>
+          )}
+        </FlexGrid>
 
         {user?.username === props.userInfo.username ? (
           <Del onClick={deleteComment} style={{ cursor: "pointer" }} />

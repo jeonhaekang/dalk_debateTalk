@@ -159,6 +159,27 @@ const pushDisAgreeDB = (commentId, index) => {
   };
 };
 
+const commentWarnDB = (commentId) => {
+  return function (dispatch) {
+    apis
+      .warningComment(commentId)
+      .then(() => {
+        dispatch(
+          alertAction.open({
+            message: "덧글을 신고하였습니다.",
+          })
+        );
+      })
+      .catch(() => {
+        dispatch(
+          alertAction.open({
+            message: "이미 신고를 하셨습니다",
+          })
+        );
+      });
+  };
+};
+
 //Reducer
 export default handleActions(
   {
@@ -249,6 +270,7 @@ const actionCreators = {
   pushAgreeDB,
   pushDisAgree,
   pushDisAgreeDB,
+  commentWarnDB,
 };
 
 export { actionCreators };
