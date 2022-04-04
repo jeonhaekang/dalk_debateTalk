@@ -1,47 +1,28 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useInterval } from "../../modules/useInterval";
 
 const GaugeTimer = (props) => {
-  const end = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
+  const start = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
+  const end = new Date(props.endAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
-  // 긴방인지 짧은방인지 판단 후 종료시간에 더함
-  if (props.time) end.setMinutes(end.getMinutes() + 20);
-  else end.setHours(end.getHours() + 1);
+  const [time, setTime] = useState((end - now) / 1000 + 1);
 
-  // 종료 시간에서 현재 시간을 빼서 남은 시간 구함
-  const restTime = Math.floor((end - now) / 1000);
+  useInterval(() => setTime((end - now) / 1000), time);
+  //setInterval 커스텀 훅
 
-  // 리렌더링을 위한 state
-  const [time, setTime] = React.useState(0);
-
-  // 1초마다 실행
-  const tick = () => {
-    if (restTime > 0) setTime(time + 1);
-  };
-
-  React.useEffect(() => {
-    if (restTime <= 0) {
-      props.setTimeState(true);
-      return;
-    }
-    const timer = setInterval(() => tick(), 1000);
-    return () => clearInterval(timer);
-  });
+  useEffect(() => {
+    if (time <= 0) props.setTimeState(true);
+  }, [time]);
 
   // 게이지 퍼센트
-  let per = (restTime / (props.time ? 1200 : 3600)) * 100;
-  if (restTime < 60) {
-    per = (restTime / 60) * 100;
-  }
+  const per =
+    time > 60 ? (time / ((end - start) / 1000)) * 100 : (time / 60) * 100;
 
   return (
     <GaugeOuter {...props} style={{ ...props }}>
-      <GaugeInner
-        {...props}
-        width={per}
-        restTime={restTime < 60 ? true : false}
-      />
+      <GaugeInner {...props} width={per} restTime={time < 60 ? true : false} />
     </GaugeOuter>
   );
 };
