@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { useInterval } from "../../modules/useInterval";
 
 const GaugeTimer = (props) => {
-  const start = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
+  const start = new Date(props.createdAt.replaceAll("-", "/")); // 해당 채팅방 생성
   const end = new Date(props.endAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
-  const [time, setTime] = useState((end - now) / 1000 + 1);
+  const [time, setTime] = useState((end - now) / 1000 + 1); // 남은 시간
 
-  useInterval(() => setTime((end - now) / 1000), time);
+  useInterval(() => setTime((end - now) / 1000), time); // 남은 시간 갱신
   //setInterval 커스텀 훅
 
+  //채팅방이 종료되면 방 상태 변경 ------------------------------------------------------------------
   useEffect(() => {
     if (time <= 0) props.setTimeState(true);
   }, [time]);

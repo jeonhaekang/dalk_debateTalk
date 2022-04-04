@@ -12,14 +12,14 @@ const CountDownTimer = (props) => {
   const end = new Date(props.endAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
   const now = new Date(); // 현재 시간
 
-  // 리렌더링을 위한 state
-  const [time, setTime] = useState((end - now) / 1000 + 1);
+  const [time, setTime] = useState((end - now) / 1000 + 1); // 남은 시간
 
-  useInterval(() => setTime((end - now) / 1000), time);
+  useInterval(() => setTime((end - now) / 1000), time); // 남은 시간 갱신
 
+  //채팅방이 종료되면 퇴장 ------------------------------------------------------------------
   useEffect(() => {
     if (time <= 0) {
-      history.push("/");
+      history.replace("/");
       dispatch(
         alertAction.open({
           message: "토론이 종료되었습니다.",
@@ -29,9 +29,8 @@ const CountDownTimer = (props) => {
     }
   }, [time]);
 
-  // 분이랑 초로 변경
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
+  const minutes = Math.floor(time / 60); // 분
+  const seconds = Math.floor(time % 60); // 초
 
   return (
     <Timer restTime={time < 60 && true}>
