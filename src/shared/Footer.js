@@ -45,7 +45,6 @@ const Icon = styled.div`
   flex-direction: column;
   align-items: center;
   white-space: nowrap;
-  gap: 0;
 `;
 
 const FooterContainer = styled.div`

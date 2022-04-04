@@ -12,6 +12,7 @@ const BUY_EXP = "BUY_EXP";
 const SET_POINT = "SET_POINT";
 const SET_RANK_LIST = "SET_RANK_LIST";
 const LOTTO_COUNT = "LOTTO_COUNT";
+
 //Action Creator
 // const logIn = createAction(LOGIN, (user) => ({ user }));
 const setUser = createAction(SETUSER, (user) => ({ user }));
@@ -29,8 +30,7 @@ const initialState = {
 };
 
 //MiddleWare
-
-// 회원가입 시 바로 로그인
+// 회원가입 ----------------------------------------------------------------------------
 const signUpDB = (username, password, nickname, passwordCheck) => {
   return function (dispatch) {
     const user = { username, password, passwordCheck, nickname };
@@ -49,6 +49,7 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
   };
 };
 
+// 로그인 ----------------------------------------------------------------------------
 const logInDB = (username, password) => {
   return async function (dispatch, getState, { history }) {
     const user = { username, password };
@@ -69,6 +70,7 @@ const logInDB = (username, password) => {
   };
 };
 
+// 유저정보 가져오기 ----------------------------------------------------------------------------
 const logincheckDB = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -88,6 +90,7 @@ const logincheckDB = () => {
   };
 };
 
+// 아이템 구매 ----------------------------------------------------------------------------
 const buyItemDB = (item) => {
   return function (dispatch) {
     apis
@@ -106,6 +109,7 @@ const buyItemDB = (item) => {
   };
 };
 
+// 아이템 사용 ----------------------------------------------------------------------------
 const useItemDB = (item) => {
   return function (dispatch) {
     apis
@@ -123,6 +127,7 @@ const useItemDB = (item) => {
   };
 };
 
+// 랭킹 리스트 호출 ----------------------------------------------------------------------------
 const setRankListDB = (item) => {
   return function (dispatch, getState, { history }) {
     apis
@@ -133,29 +138,24 @@ const setRankListDB = (item) => {
       .catch((err) => {
         dispatch(
           alertAction.open({
-            message: "랭크목록 불러오기 실패",
+            message: "랭크목록 불러오기 못하였습니다",
+            history: () => history.replace("/"),
           })
         );
       });
   };
 };
 
+// 유저 신고 ----------------------------------------------------------------------------
 const reportUserDB = (userId, message) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis
       .reportUser(userId, message)
-      .then((res) => {
-        dispatch(
-          alertAction.open({ type: "alert", message: "유저를 신고하였습니다." })
-        );
+      .then(() => {
+        dispatch(alertAction.open({ message: "유저를 신고하였습니다." }));
       })
       .catch((err) => {
-        dispatch(
-          alertAction.open({
-            type: "alert",
-            message: "이미 신고한 유저입니다.",
-          })
-        );
+        dispatch(alertAction.open({ message: "이미 신고한 유저입니다." }));
       });
   };
 };
@@ -163,7 +163,7 @@ const reportUserDB = (userId, message) => {
 //Reducer
 export default handleActions(
   {
-    [LOTTO_COUNT]: (state, action) =>
+    [LOTTO_COUNT]: (state) =>
       produce(state, (draft) => {
         draft.user.lottoCount -= 1;
       }),
