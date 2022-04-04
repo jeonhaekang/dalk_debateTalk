@@ -34,6 +34,7 @@ const color = {
   pink: "#E33287",
   brown: "#C6653C",
   alert: "#FF5454",
+  comment: "#8E8E8E",
 };
 
 const theme = {

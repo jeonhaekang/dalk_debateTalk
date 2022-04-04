@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
@@ -64,11 +64,8 @@ const OneComment = (props) => {
   };
 
   //신고 기능
-  const [isWarn, setIsWarn] = useState(false);
 
-  const handleClickWarning = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleClickWarning = () => {
     if (!token) {
       dispatch(
         alertAction.open({
@@ -76,19 +73,18 @@ const OneComment = (props) => {
         })
       );
       history.replace("/login");
-    } else if (isWarn === false) {
-      await apis
+    } else {
+      apis
         .warningComment(commentId)
-        .then((res) => {
+        .then(() => {
           dispatch(
             alertAction.open({
               type: "confirm",
               message: "정말로 신고하시겠어요?",
             })
           );
-          setIsWarn(true);
         })
-        .catch((err) => {
+        .catch(() => {
           dispatch(
             alertAction.open({
               message: "이미 신고를 하셨습니다",
@@ -96,13 +92,6 @@ const OneComment = (props) => {
           );
           return;
         });
-    } else {
-      dispatch(
-        alertAction.open({
-          message: "이미 신고를 하셨습니다",
-        })
-      );
-      return;
     }
   };
 
@@ -113,80 +102,67 @@ const OneComment = (props) => {
 
   return (
     <Container>
+
       <FlexGrid between>
-        <FlexAlign>
+        <Grid display="flex">
           <LevelImg src={userRank.img} />
           <FlexGrid is_column center>
             <Text size="body2" weight="medium" lineHeight="22px">
               {props.userInfo.nickname}
             </Text>
           </FlexGrid>
-        </FlexAlign>
+        </Grid>
 
-        <AgreeBtn>
-          <Number className="agree-count" onClick={handleClickAgree}>
+        <Grid display="flex" justifyContent="center">
+          <Number onClick={handleClickAgree}>
             {agreeList.includes(user?.userId) ? (
               <ThumbsUp fill="#f19121" style={{ cursor: "pointer" }} />
             ) : (
               <ThumbsUp fill="#c4c4c4" style={{ cursor: "pointer" }} />
-            )}{" "}
-            <div
-              style={{ margin: "0px 4px", fontWeight: "400", color: "#8E8E8E" }}
-            >
+            )}
+            <Text fontWeight="regular" color="comment" margin="0px 4px">
               {agreeList.length}
-            </div>
+            </Text>
           </Number>
-          <Number className="disagree-count" onClick={handleClickDisagree}>
+
+          <Number onClick={handleClickDisagree}>
             {disagreeList.includes(user?.userId) ? (
-              <ThumbsDown fill="#333333" />
+              <ThumbsDown fill="#333333" style={{ cursor: "pointer" }} />
             ) : (
-              <ThumbsDown fill="#c4c4c4" />
-            )}{" "}
-            <div
-              style={{ marginLeft: "4px", fontWeight: "400", color: "#8E8E8E" }}
-            >
+              <ThumbsDown fill="#c4c4c4" style={{ cursor: "pointer" }} />
+            )}
+            <Text fontWeight="regular" color="comment" margin="0px 4px">
               {disagreeList.length}
-            </div>
+            </Text>
           </Number>
-        </AgreeBtn>
+        </Grid>
       </FlexGrid>
 
-      <Grid padding="4px 0px">
-        <Content>{props.comment}</Content>
-        <FlexGrid between>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <CreatedAt>{TimeForToday(props.createdAt)}</CreatedAt>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                margin: "0px 0px 2px 10px",
-                fontSize: "10px",
-                color: "#8E8E8E",
-              }}
-            >
-              |
-            </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Number
-                className="warning-count"
-                onClick={handleClickWarning}
-                style={{
-                  cursor: "pointer",
-                  marginLeft: "10px",
-                  color: "#8E8E8E",
-                }}
-              >
-                {props.warnUserList.includes(user?.userId) ? null : "신고"}
-              </Number>
-            </div>
-          </div>
+      <Content>{props.comment}</Content>
 
-          {user?.username === props.userInfo.username ? (
-            <Del onClick={deleteComment} style={{ cursor: "pointer" }} />
-          ) : null}
-        </FlexGrid>
-      </Grid>
+      <FlexGrid between>
+        <Grid display="flex" alignItems="center">
+          <Text color="comment" fontWeight="light" size="body3">
+            {TimeForToday(props.createdAt)}
+          </Text>
+          <Text margin="0px 0px 2px 10px" size="body3" color="comment">
+            |
+          </Text>
+          <Number
+            onClick={handleClickWarning}
+            style={{
+              marginLeft: "10px",
+              color: "#8E8E8E",
+            }}
+          >
+            {props.warnUserList.includes(user?.userId) ? null : "신고"}
+          </Number>
+        </Grid>
+
+        {user?.username === props.userInfo.username ? (
+          <Del onClick={deleteComment} style={{ cursor: "pointer" }} />
+        ) : null}
+      </FlexGrid>
     </Container>
   );
 };
@@ -197,42 +173,23 @@ const Container = styled.div`
   padding: 10px 16px;
 `;
 
-const FlexAlign = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const LevelImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 25px;
   margin-right: 4px;
-`;
-
-const CreatedAt = styled.div`
-  font-size: 8px;
-  font-weight: 300;
-  color: #8e8e8e;
 `;
 
 const Content = styled.div`
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.regular};
   line-height: 16px;
-  display: flex;
-  padding: 12px 0px;
+  padding: 16px 0px;
 `;
 
 const Number = styled.div`
   display: flex;
   font-size: 12px;
   font-weight: ${(props) => props.theme.fontWeight.light};
-  margin: 0px 6px 0px 0px;
-`;
-
-const AgreeBtn = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  margin-right: 6px;
 `;
 
 export default OneComment;
