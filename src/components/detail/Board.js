@@ -11,9 +11,9 @@ import Text from "../../elements/Text";
 const Board = (props) => {
   const { winner, state, topic, cnt, rate, topPoint, totalPoint, totalCnt } =
     props;
-  const voteRate = (cnt / totalCnt) * 100;
+  const voteRate = (cnt / totalCnt) * 100; // 득표율 계산
 
-  const resultState = state === "무승부" || state === topic;
+  const resultState = state === "무승부" || state === topic; // 무승부인지 승리했는지 판단
 
   return (
     <BoardContainer center resultState={resultState}>

@@ -3,12 +3,10 @@ import produce from "immer";
 import apis from "../../shared/apis";
 import { actionCreators as userAction } from "./user";
 import { actionCreators as alertAction } from "./alert";
-import moment from "moment";
 import axios from "axios";
 
 //Action
 const SET_ROOM_LIST = "chat/SET_ROOM_LIST";
-const CREATE_ROOM = "chat/CREATE_ROOM";
 const SET_CURRENT_ROOM = "chat/SET_CURRENT_ROOM";
 const CURRENT_ROOM_CLEAR = "chat/CURRENT_ROOM_CLEAR";
 const SET_MESSAGE = "chat/SET_MESSAGE";
@@ -20,7 +18,6 @@ const VOTE = "chat/VOTE";
 
 //Action Creator
 const setRoomList = createAction(SET_ROOM_LIST, (list) => ({ list }));
-const createRoom = createAction(CREATE_ROOM, (room) => ({ room }));
 const setCurrentRoom = createAction(SET_CURRENT_ROOM, (data) => ({ data }));
 const currentRoomClear = createAction(CURRENT_ROOM_CLEAR, () => ({}));
 const setMessage = createAction(SET_MESSAGE, (messages) => ({ messages }));
@@ -42,12 +39,6 @@ const currentInitial = {
   roomInfo: null,
   messageLog: null,
   users: [],
-};
-
-const roomInitialState = {
-  userCnt: 0,
-  warnCnt: 0,
-  warnUserList: null,
 };
 
 //MiddleWare
@@ -72,7 +63,7 @@ const mainRoomListDB = (state) => {
 
 const loadCategoryRoomDB = (category) => {
   // 모든 방 목록 가져오기
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis
       .loadCategoryRoom(category)
       .then((res) => {
@@ -89,7 +80,7 @@ const loadCategoryRoomDB = (category) => {
 };
 
 const voteDB = (roomId, topic, point) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis
       .vote(roomId, { topic: topic, point: point })
       .then((res) => {
@@ -126,17 +117,6 @@ const createRoomDB = (data) => {
     apis
       .createRoom(formdata)
       .then((res) => {
-        const user = getState().user.user;
-        const setData = {
-          ...roomInitialState,
-          ...data,
-          roomId: res.data.roomId,
-          userInfo: user,
-          filePath: image.preview,
-          createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
-          restTime: data.time ? 1200 : 3600,
-        };
-        dispatch(createRoom(setData));
         history.replace("/chatroom/" + res.data.roomId);
       })
       .catch((err) => {
@@ -223,10 +203,6 @@ export default handleActions(
     [SET_ROOM_LIST]: (state, action) =>
       produce(state, (draft) => {
         draft.roomList = action.payload.list;
-      }),
-    [CREATE_ROOM]: (state, action) =>
-      produce(state, (draft) => {
-        draft.roomList.unshift(action.payload.room);
       }),
     [SET_CURRENT_ROOM]: (state, action) =>
       produce(state, (draft) => {

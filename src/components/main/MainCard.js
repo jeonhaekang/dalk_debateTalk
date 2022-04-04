@@ -43,8 +43,6 @@ const MainCard = (props) => {
     }
   }, []);
 
-  console.log(filePath);
-
   return (
     <CardBox is_column _onClick={enterRoom}>
       <FlexGrid is_flex between>
