@@ -45,6 +45,7 @@ const currentInitial = {
 };
 
 const roomInitialState = {
+  userCnt: 0,
   warnCnt: 0,
   warnUserList: null,
 };
@@ -131,7 +132,7 @@ const createRoomDB = (data) => {
           ...data,
           roomId: res.data.roomId,
           userInfo: user,
-          filePath: image.preview,
+          filePath: image.file,
           createdAt: moment(new Date()).format("YYYY/MM/DD HH:mm:ss"),
           restTime: data.time ? 1200 : 3600,
         };

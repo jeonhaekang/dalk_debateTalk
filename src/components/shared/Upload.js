@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { imageResize } from "../../modules/imageResize";
 import { actionCreators } from "../../redux/modules/alert";
 import { actionCreators as imageAction } from "../../redux/modules/image";
+import defaultImage from "../../image/shared/defaultImage.svg";
 
 const Upload = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Upload = () => {
       accept=".jpg, .png"
       onChange={ImageSelect}
       ref={fileInput}
-      src={preview}
+      src={preview ? preview : defaultImage}
     />
   );
 };

@@ -15,7 +15,18 @@ import { ReactComponent as PersonIcon } from "../../image/header/person.svg";
 import Text from "../../elements/Text";
 
 const MainCard = (props) => {
-  const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
+  const {
+    filePath,
+    userInfo,
+    roomId,
+    category,
+    userCnt,
+    topicA,
+    topicB,
+    warnCnt,
+    time,
+  } = props;
+  const userRank = rank[discriminant(userInfo.ex, userInfo.rank)];
   const [blindState, setBlindState] = useState(false);
   const [timeState, setTimeState] = useState(false);
 
@@ -23,46 +34,48 @@ const MainCard = (props) => {
     if (blindState || timeState) {
       return;
     }
-    loginCheck("push", "/chatroom/" + props.roomId);
+    loginCheck("push", "/chatroom/" + roomId);
   };
 
   useEffect(() => {
-    if (props.warnCnt >= 3) {
+    if (warnCnt >= 3) {
       setBlindState(true);
     }
   }, []);
+
+  console.log(filePath);
 
   return (
     <CardBox is_column _onClick={enterRoom}>
       <FlexGrid is_flex between>
         <FlexGrid is_flex gap="8px">
-          {props.category.map((el, i) => {
+          {category.map((el, i) => {
             return <Chip key={i}>{el}</Chip>;
           })}
         </FlexGrid>
 
         <FlexGrid center justifyContent="flex-end" gap="4px">
           <Badge src={userRank.img} />
-          {props.userInfo.nickname}
+          {userInfo.nickname}
         </FlexGrid>
       </FlexGrid>
 
       <FlexGrid is_flex between center>
         <FlexGrid>
-          <Image src={props.filePath ? props.filePath : noImage} />
-          <Time src={props.time ? short : long}></Time>
+          <Image src={filePath ? filePath : noImage} />
+          <Time src={time ? short : long}></Time>
           <Users>
             <PersonIcon />
-            {props.userCnt}
+            {userCnt}
           </Users>
         </FlexGrid>
 
         <FlexGrid center is_column>
-          <Topic>{props.topicA}</Topic>
+          <Topic>{topicA}</Topic>
           <Text size="headline2" weight="black" color="orange">
             VS
           </Text>
-          <Topic>{props.topicB}</Topic>
+          <Topic>{topicB}</Topic>
         </FlexGrid>
       </FlexGrid>
 
