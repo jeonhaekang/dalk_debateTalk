@@ -33,4 +33,10 @@ const loginAction = (action) => {
   }
 };
 
-export { loginCheck, loginAction };
+const isLogin = () => {
+  const token = getCookie("authorization");
+
+  return token;
+};
+
+export { loginCheck, loginAction, isLogin };

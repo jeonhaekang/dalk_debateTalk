@@ -36,6 +36,7 @@ import SearchPost from "../pages/SearchPost";
 import ProjectMember from "../pages/ProjectMember";
 import { getCookie } from "./Cookie";
 import MobileFrame from "../components/shared/MobileFrame";
+import RoutePrivate from "../modules/RoutePrivate";
 
 function App() {
   // loginCheck
@@ -55,25 +56,25 @@ function App() {
         <Alert />
         <Spinner />
         <Route path="/" exact component={Main} />
-        <Route path="/createroom" exact component={CreateRoom} />
+        <RoutePrivate path="/createroom" exact component={CreateRoom} />
         <Route path="/search/:keyword" exact component={SearchRoom} />
         <Route path="/admin" exact component={Admin} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/signup" exact component={Signup} />
-        <Route path="/mypage" exact component={MyPage} />
-        <Route path="/mypage/eggpoint" exact component={MyEggPoint} />
-        <Route path="/mypage/guide" exact component={Guide} />
-        <Route path="/mypage/grade" exact component={MyGrade} />
-        <Route path="/mypage/pointshop" exact component={PointShop} />
-        <Route path="/mypage/gacha" exact component={Gacha} />
+        <RoutePrivate login path="/login" exact component={Login} />
+        <RoutePrivate login path="/signup" exact component={Signup} />
+        <RoutePrivate path="/mypage" exact component={MyPage} />
+        <RoutePrivate path="/mypage/eggpoint" exact component={MyEggPoint} />
+        <RoutePrivate path="/mypage/guide" exact component={Guide} />
+        <RoutePrivate path="/mypage/grade" exact component={MyGrade} />
+        <RoutePrivate path="/mypage/pointshop" exact component={PointShop} />
+        <RoutePrivate path="/mypage/gacha" exact component={Gacha} />
         <Route path="/announcement" exact component={Announcement} />
         <Route
           path="/announcement/:noticeId"
           exact
           component={AnnounceDetail}
         />
-        <Route path="/ranking" exact component={UserRanking} />
-        <Route path="/chatroom/:chatRoomId" exact component={ChatRoom} />
+        <RoutePrivate path="/ranking" exact component={UserRanking} />
+        <RoutePrivate path="/chatroom/:chatRoomId" exact component={ChatRoom} />
         <Route path="/postlist" exact component={PostList} />
         <Route path="/postlist/search/:keyword" exact component={SearchPost} />
         <Route path="/detail/:boardId" exact component={Detail} />

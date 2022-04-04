@@ -1,8 +1,5 @@
 import axios from "axios";
-import { history } from "../redux/configStore";
-import { deleteCookie, getCookie } from "./Cookie";
-import { actionCreators as alertAction } from "../redux/modules/alert";
-import store from "../redux/configStore";
+import { getCookie } from "./Cookie";
 
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -12,38 +9,12 @@ instance.interceptors.request.use((config) => {
   // 사용자가 로그인하지 않고 url을 통해 로그인이 필요한 서비스에 접근시 차단
   const token = getCookie("authorization");
 
-  if (!config.url.includes("api") && !config.url.includes("users") && !token) {
-    deleteCookie("authorization");
-    throw new axios.Cancel(400);
-  }
-  // ----------------------------------------------------------------------------------------------------
   config.headers["Content-Type"] =
     "application/json;charset=UTF-8; charset=UTF-8";
 
   config.headers.common["authorization"] = `${token}`;
   return config;
 });
-
-instance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    // ----------------------------------------------------------------------------------------------------
-    // 로그인 하지 않아 차단된 유저에게 안내
-    if (axios.isCancel(error) && error.message === 400) {
-      store.dispatch(
-        alertAction.open({
-          type: "confirm",
-          message: "로그인이 필요합니다.",
-          history: () => history.replace("/"),
-          action: () => history.replace("/login"),
-        })
-      );
-    }
-    return Promise.reject(error);
-  }
-);
 
 const apis = {
   //유저 로그인 api

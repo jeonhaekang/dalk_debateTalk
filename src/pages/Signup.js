@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 
@@ -6,30 +6,15 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as alertAction } from "../redux/modules/alert";
 
-import Text from "../elements/Text";
-import FlexGrid from "../elements/FlexGrid";
+import { Text, Input, FlexGrid } from "../elements/Index.js";
 
 import Modal from "../components/shared/Modal";
 import MemberPolicy from "../components/shared/MemberPolicy";
-import { getCookie } from "../shared/Cookie";
 import apis from "../shared/apis";
-import Input from "../elements/Input";
+
 import _ from "lodash";
 
 const Signup = () => {
-  React.useEffect(() => {
-    const token = getCookie("authorization");
-
-    if (token) {
-      dispatch(
-        alertAction.open({
-          message: "비정상적인 접근입니다.",
-          history: () => history.replace("/"),
-        })
-      );
-    }
-  }, []);
-
   const dispatch = useDispatch();
   //약관 체크
   const [useCheck, setUseCheck] = useState(false);

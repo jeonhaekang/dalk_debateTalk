@@ -1,62 +1,42 @@
 import { useEffect, useState } from "react";
-import { history } from "../redux/configStore";
 import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configStore";
 import styled from "styled-components";
+
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import { ReactComponent as Visible } from "../image/login/visible.svg";
 import { ReactComponent as NoneVisible } from "../image/login/noneVisible.svg";
-
-import { actionCreators as alertAction } from "../redux/modules/alert";
-
-import { getCookie } from "../shared/Cookie";
 
 import { Text, FlexGrid } from "../elements/Index";
 
 const Login = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = getCookie("authorization");
+  const [username, setUsername] = useState(""); // 아이디
+  const [password, setPassword] = useState(""); // 패스워드
+  const [state, setState] = useState(false); // 로그인 버튼 활성화 여부
+  const [passwordType, setPasswordType] = useState(false); // 비밀번호 표시 여부
 
-    if (token) {
-      dispatch(
-        alertAction.open({
-          message: "비정상적인 접근입니다.",
-          history: () => history.replace("/"),
-        })
-      );
-    }
-  }, []);
-  // 유저ID, PW 상태관리
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [state, setState] = useState(false);
-
+  //아이디, 비밀번호 입력 여부 확인 ------------------------------------------------------------------------
   useEffect(() => {
     if (username !== "" && password !== "") setState(true);
     else setState(false);
   }, [username, password]);
 
-  //인풋 패스워드 눈
-  const [passwordType, setPasswordType] = useState(false);
-
-  //로그인 버튼 onClick
+  //로그인 액션 ----------------------------------------------------------------------------------
   const handleLogin = () => {
     if (!state) return;
-
-    //DB dispatch 하기
     dispatch(userActions.logInDB(username, password));
   };
 
-  //엔터버튼 동작 Keydown
+  //엔터키 입력시 로그인 액션 실행-----------------------------------------------------------------------
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleLogin();
     }
   };
-
+  //------------------------------------------------------------------------------------------------
   return (
     <>
       <FlexGrid is_column center height="100%" padding="16px" gap="20px">
@@ -69,20 +49,21 @@ const Login = () => {
             <input
               type="text"
               placeholder={"아이디 입력"}
+              onKeyDown={handleKeyDown}
               onChange={(e) => setUsername(e.target.value)}
             />
           </InputBox>
           <InputBox center>
             <input
-              type={passwordType ? "password" : "text"}
+              type={passwordType ? "text" : "password"}
               placeholder={"패스워드 입력"}
               onKeyDown={handleKeyDown}
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordType ? (
-              <Visible onClick={() => setPasswordType(!passwordType)} />
-            ) : (
               <NoneVisible onClick={() => setPasswordType(!passwordType)} />
+            ) : (
+              <Visible onClick={() => setPasswordType(!passwordType)} />
             )}
           </InputBox>
 

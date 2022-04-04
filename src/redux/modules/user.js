@@ -57,7 +57,7 @@ const logInDB = (username, password) => {
       .then((res) => {
         setCookie(res.headers.authorization, 7);
         dispatch(logincheckDB());
-        history.push("/");
+        history.replace("/");
       })
       .catch(() => {
         dispatch(
@@ -83,7 +83,7 @@ const logincheckDB = () => {
             message: "다시 로그인 해주세요!",
           })
         );
-        history.push("/login");
+        history.replace("/login");
       });
   };
 };
