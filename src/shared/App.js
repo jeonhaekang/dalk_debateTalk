@@ -1,9 +1,10 @@
-import "./App.css";
 import { history } from "../redux/configStore";
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Route } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { GlobalStyle } from "../styles/globalStyle";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Admin,
@@ -20,20 +21,20 @@ import {
   SearchRoom,
   CreateRoom,
   Guide,
+  Announcement,
+  AnnounceDetail,
+  MyEggPoint,
+  MyGrade,
+  UserRanking,
+  PointShop,
+  SearchPost,
+  ProjectMember,
 } from "../pages/Index";
-import Announcement from "../pages/MyPageContent/Announcement";
-import MyEggPoint from "../pages/MyPageContent/MyEggPoint";
-import MyGrade from "../pages/MyPageContent/MyGrade";
-import UserRanking from "../pages/MyPageContent/UserRanking";
-import PointShop from "../pages/MyPageContent/PointShop";
-import AnnounceDetail from "../pages/MyPageContent/AnnounceDetail";
-import { GlobalStyle } from "../styles/globalStyle";
-import { useDispatch, useSelector } from "react-redux";
+
 import Spinner from "./Spinner";
 import Onboarding from "./Onboarding";
 import Alert from "./Alert";
-import SearchPost from "../pages/SearchPost";
-import ProjectMember from "../pages/ProjectMember";
+
 import { getCookie } from "./Cookie";
 import MobileFrame from "../components/shared/MobileFrame";
 import RoutePrivate from "../modules/RoutePrivate";

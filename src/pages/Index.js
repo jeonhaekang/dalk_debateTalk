@@ -12,6 +12,14 @@ import Gacha from "./MyPageContent/Gacha";
 import SearchRoom from "./SearchRoom";
 import CreateRoom from "./CreateRoom";
 import Guide from "./MyPageContent/Guide";
+import Announcement from "./MyPageContent/Announcement";
+import AnnounceDetail from "./MyPageContent/AnnounceDetail";
+import MyEggPoint from "./MyPageContent/MyEggPoint";
+import MyGrade from "./MyPageContent/MyGrade";
+import UserRanking from "./MyPageContent/UserRanking";
+import PointShop from "./MyPageContent/PointShop";
+import SearchPost from "./SearchPost";
+import ProjectMember from "./ProjectMember";
 
 export {
   Guide,
@@ -28,4 +36,12 @@ export {
   Gacha,
   SearchRoom,
   CreateRoom,
+  Announcement,
+  AnnounceDetail,
+  MyEggPoint,
+  MyGrade,
+  UserRanking,
+  PointShop,
+  SearchPost,
+  ProjectMember,
 };
