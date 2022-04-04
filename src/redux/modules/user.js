@@ -2,7 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import apis from "../../shared/apis";
 import { deleteCookie, setCookie } from "../../shared/Cookie";
-import { instance } from "../../shared/apis";
 import { actionCreators as alertAction } from "./alert";
 
 //Action
@@ -33,55 +32,17 @@ const initialState = {
 
 // 회원가입 시 바로 로그인
 const signUpDB = (username, password, nickname, passwordCheck) => {
-  return async function (dispatch, getState, { history }) {
-    const user = {
-      username: username,
-      password: password,
-      passwordCheck: passwordCheck,
-      nickname: nickname,
-    };
-    await apis
+  return function (dispatch) {
+    const user = { username, password, passwordCheck, nickname };
+    apis
       .signup(user)
-      .then(function (response) {
-        const _user = {
-          username: user.username,
-          password: user.password,
-        };
-        apis
-          .login(_user)
-          .then((res) => {
-            const token = res.headers.authorization;
-            setCookie(res.headers.authorization, 7);
-            instance
-              .get("/loginCheck", {
-                headers: {
-                  authorization: token,
-                },
-              })
-              .then((res) => {
-                dispatch(setUser(res.data));
-                history.replace("/");
-              })
-              .catch((err) => {
-                dispatch(
-                  alertAction.open({
-                    message: "로그인 체크 실패",
-                  })
-                );
-              });
-          })
-          .catch((err) => {
-            dispatch(
-              alertAction.open({
-                message: "로그인 실패",
-              })
-            );
-          });
+      .then(() => {
+        dispatch(logInDB(username, password));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
-            message: "아이디 또는 닉네임이 중복입니다.",
+            message: "회원가입에 실패하였습니다.",
           })
         );
       });
@@ -90,30 +51,15 @@ const signUpDB = (username, password, nickname, passwordCheck) => {
 
 const logInDB = (username, password) => {
   return async function (dispatch, getState, { history }) {
-    const user = {
-      username: username,
-      password: password,
-    };
+    const user = { username, password };
     await apis
       .login(user)
-      .then(function (response) {
-        setCookie(response.headers.authorization, 7);
-
-        apis
-          .check()
-          .then((res) => {
-            dispatch(setUser(res.data));
-            history.replace("/");
-          })
-          .catch((err) => {
-            dispatch(
-              alertAction.open({
-                message: "로그인 체크 실패",
-              })
-            );
-          });
+      .then((res) => {
+        setCookie(res.headers.authorization, 7);
+        dispatch(logincheckDB());
+        history.push("/");
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "아이디나 비밀번호가 틀렸습니다.",
@@ -130,7 +76,7 @@ const logincheckDB = () => {
       .then((res) => {
         dispatch(setUser(res.data));
       })
-      .catch((err) => {
+      .catch(() => {
         deleteCookie("authorization");
         dispatch(
           alertAction.open({
@@ -143,14 +89,14 @@ const logincheckDB = () => {
 };
 
 const buyItemDB = (item) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis
       .buyItem(item.itemCode)
-      .then((res) => {
+      .then(() => {
         dispatch(buyItem(item));
         dispatch(alertAction.open({ message: "아이템을 구매하였습니다" }));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "아이템 구매 실패",
@@ -161,13 +107,13 @@ const buyItemDB = (item) => {
 };
 
 const useItemDB = (item) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch) {
     apis
       .ItemUse(item)
-      .then((res) => {
+      .then(() => {
         dispatch(ItemUse(item));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "아이템 사용 실패",

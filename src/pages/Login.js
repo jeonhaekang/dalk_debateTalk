@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { history } from "../redux/configStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 
-import noon from "../image/login/noon.svg";
-import opennoon from "../image/login/opennoon.svg";
+import { ReactComponent as Visible } from "../image/login/visible.svg";
+import { ReactComponent as NoneVisible } from "../image/login/noneVisible.svg";
 
-import Grid from "../elements/Grid";
-import Text from "../elements/Text";
 import { actionCreators as alertAction } from "../redux/modules/alert";
-import FlexGrid from "../elements/FlexGrid";
+
 import { getCookie } from "../shared/Cookie";
-import Input from "../elements/Input";
+
+import { Text, FlexGrid } from "../elements/Index";
 
 const Login = () => {
-  React.useEffect(() => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
     const token = getCookie("authorization");
 
     if (token) {
@@ -27,37 +28,26 @@ const Login = () => {
       );
     }
   }, []);
-
-  const dispatch = useDispatch();
-
   // 유저ID, PW 상태관리
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  //로그인 onchange
-  const onChangeUsername = (e) => {
-    const currentUsername = e.target.value;
-    setUsername(currentUsername);
-  };
+  const [state, setState] = useState(false);
 
-  //패스워드 onchange
-  const onChangePassword = (e) => {
-    const currentPassword = e.target.value;
-    setPassword(currentPassword);
-  };
+  useEffect(() => {
+    if (username !== "" && password !== "") setState(true);
+    else setState(false);
+  }, [username, password]);
+
+  //인풋 패스워드 눈
+  const [passwordType, setPasswordType] = useState(false);
 
   //로그인 버튼 onClick
   const handleLogin = () => {
-    if (username === "" || password === "") {
-      dispatch(
-        alertAction.open({
-          message: "아이디, 비밀번호를 모두 적어주세요",
-        })
-      );
-    } else {
-      //DB dispatch 하기
-      dispatch(userActions.logInDB(username, password));
-    }
+    if (!state) return;
+
+    //DB dispatch 하기
+    dispatch(userActions.logInDB(username, password));
   };
 
   //엔터버튼 동작 Keydown
@@ -67,78 +57,52 @@ const Login = () => {
     }
   };
 
-  //인풋 패스워드 눈
-  const [passwordType, setPasswordType] = useState({
-    type: "password",
-    visible: false,
-  });
-
-  const handlePasswordType = (e) => {
-    setPasswordType(() => {
-      if (!passwordType.visible) {
-        return { type: "text", visible: true };
-      }
-      return { type: "password", visible: false };
-    });
-  };
-
   return (
     <>
       <FlexGrid is_column center height="100%" padding="16px" gap="20px">
-        <FlexGrid center margin="80px 0px">
-          <Text size="headline1" weight="black" color="orange">
-            LET'S DALKING
-          </Text>
-        </FlexGrid>
+        <Text size="headline1" weight="black" color="orange" margin="80px 0">
+          LET'S DALKING
+        </Text>
 
         <FlexGrid is_column gap="20px">
-          <FlexGrid is_column gap="8px">
-            <LoginInput
+          <InputBox center>
+            <input
               type="text"
               placeholder={"아이디 입력"}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </InputBox>
+          <InputBox center>
+            <input
+              type={passwordType ? "password" : "text"}
+              placeholder={"패스워드 입력"}
               onKeyDown={handleKeyDown}
-              onChange={onChangeUsername}
-            ></LoginInput>
-          </FlexGrid>
-          <FlexGrid is_column gap="8px">
-            <InputContainer>
-              <LoginInput
-                type={passwordType.type}
-                placeholder={"패스워드 입력"}
-                onKeyDown={handleKeyDown}
-                onChange={onChangePassword}
-              ></LoginInput>
-              <VisiblePw onClick={handlePasswordType}>
-                {passwordType.visible ? (
-                  <img src={noon} alt="noon" />
-                ) : (
-                  <img src={opennoon} alt="opennoon" />
-                )}
-              </VisiblePw>
-            </InputContainer>
-          </FlexGrid>
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordType ? (
+              <Visible onClick={() => setPasswordType(!passwordType)} />
+            ) : (
+              <NoneVisible onClick={() => setPasswordType(!passwordType)} />
+            )}
+          </InputBox>
 
-          {password === "" ? (
-            <LoginBtn ok={false} onClick={handleLogin}>
-              시작하기
-            </LoginBtn>
-          ) : (
-            <LoginBtn ok={true} onClick={handleLogin}>
-              시작하기
-            </LoginBtn>
-          )}
+          <LoginBtn state={state} onClick={handleLogin}>
+            시작하기
+          </LoginBtn>
         </FlexGrid>
 
-        <Grid padding="20px 0px">
-          <Signuptext
-            onClick={() => {
-              history.push("/signup");
-            }}
-          >
-            아직 회원이 아니신가요? 지금 <span className="gosignup">가입</span>
-            하세요
-          </Signuptext>
-        </Grid>
+        <Text
+          margin="20px 0"
+          size="body1"
+          weight="medium"
+          textDecoration="underline"
+          onClick={() => {
+            history.push("/signup");
+          }}
+        >
+          아직 회원이 아니신가요? 지금 <Text color="orange">가입</Text>
+          하세요
+        </Text>
 
         <Text onClick={() => history.push("/")} cursor="pointer">
           한번 둘러볼래요
@@ -147,59 +111,32 @@ const Login = () => {
     </>
   );
 };
-
-const LoginInput = styled.input`
-  width: 100%;
+const InputBox = styled(FlexGrid)`
   height: 60px;
-  border: none;
   border-radius: 10px;
-  background-color: #f1f1f1;
-  padding: 25px;
-  font-size: 16px;
-  ::placeholder {
-    color: #333333;
+  padding: 0 25px;
+
+  &,
+  & input {
+    width: 100%;
+    background-color: #f1f1f1;
     font-size: 16px;
-    font-weight: ${(props) => props.theme.fontWeight.light};
+    font-weight: 300;
+    border: none;
   }
 `;
 
 const LoginBtn = styled.button`
   background-color: ${(props) =>
-    props.ok ? props.theme.color.orange : "#CBCBCB"};
+    props.state ? props.theme.color.orange : "#CBCBCB"};
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: white;
   width: 100%;
   height: 60px;
   font-size: 24px;
   font-weight: ${(props) => props.theme.fontWeight.medium};
   cursor: pointer;
-  pointer-events: ${(props) => (props.ok ? null : "none")};
-`;
-
-const Signuptext = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.body1};
-  font-weight: ${(props) => props.theme.fontWeight.medium};
-  text-decoration: underline;
-  cursor: pointer;
-  .gosignup {
-    color: ${(props) => props.theme.color.orange};
-  }
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 54px;
-  width: 100%;
-`;
-
-const VisiblePw = styled.div`
-  cursor: pointer;
-  position: absolute;
-  width: 22px;
-  height: 20px;
-  right: 20px;
 `;
 
 export default Login;
