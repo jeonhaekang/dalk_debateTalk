@@ -50,6 +50,7 @@ const Login = () => {
               type="text"
               placeholder={"아이디 입력"}
               onKeyDown={handleKeyDown}
+              autoComplete="off"
               onChange={(e) => setUsername(e.target.value)}
             />
           </InputBox>
@@ -58,6 +59,7 @@ const Login = () => {
               type={passwordType ? "text" : "password"}
               placeholder={"패스워드 입력"}
               onKeyDown={handleKeyDown}
+              autoComplete="off"
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordType ? (

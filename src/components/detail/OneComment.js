@@ -16,7 +16,6 @@ import { getCookie } from "../../shared/Cookie";
 import TimeForToday from "../../shared/TimeForToday";
 
 const OneComment = (props) => {
-  console.log(props);
   //댓글 유저 뱃지
   const userRank = rank[discriminant(props.userInfo.ex, props.userInfo.rank)];
 
@@ -161,13 +160,6 @@ const Content = styled.div`
   font-weight: ${(props) => props.theme.fontWeight.regular};
   line-height: 16px;
   padding: 16px 0px;
-`;
-
-const Number = styled.div`
-  display: flex;
-  font-size: 12px;
-  font-weight: ${(props) => props.theme.fontWeight.light};
-  margin-right: 6px;
 `;
 
 export default OneComment;

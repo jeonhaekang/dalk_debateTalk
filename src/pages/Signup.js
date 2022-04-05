@@ -146,6 +146,7 @@ const Signup = () => {
               formData={username}
               setFormData={setUsername}
               state={usernameVal}
+              autoComplete="off"
             />
             {usernameVal === -1 && (
               <Text color="alert">중복된 아이디 입니다.</Text>
@@ -162,6 +163,7 @@ const Signup = () => {
               formData={nickname}
               setFormData={setNickname}
               state={nicknameVal}
+              autoComplete="off"
             />
             {nicknameVal === -1 && (
               <Text color="alert">중복된 닉네임 입니다.</Text>
@@ -178,6 +180,7 @@ const Signup = () => {
               formData={password}
               setFormData={setPassword}
               state={passwordVal}
+              autoComplete="off"
             />
             {passwordVal === 0 && (
               <Text color="alert">사용할 수 없는 비밀번호 입니다.</Text>
@@ -191,6 +194,7 @@ const Signup = () => {
               formData={passwordCheck}
               setFormData={setPasswordCheck}
               state={passCheckVal}
+              autoComplete="off"
             />
             {passCheckVal === 0 && (
               <Text color="alert">패스워드가 다릅니다.</Text>
