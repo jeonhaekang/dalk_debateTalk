@@ -1,20 +1,14 @@
 import { Route, Redirect } from "react-router-dom";
-import { isLogin, adminCheck } from "./loginCheck";
+import { isLogin } from "./loginCheck";
 
-const RoutePrivate = ({
-  user,
-  admin,
-  login,
-  component: Component,
-  ...rest
-}) => {
-  //관리자 페이지 접근 막음 -------------------------------------------------------------
-  if (admin) {
+const RoutePrivate = ({ login, component: Component, ...rest }) => {
+  //로그인시 로그인, 회원가입 페이지 접근 막음 -------------------------------------------------------------
+  if (login) {
     return (
       <Route
         {...rest}
         render={(props) =>
-          adminCheck() ? <Component {...props} /> : <Redirect to="/" />
+          !isLogin() ? <Component {...props} /> : <Redirect to="/" />
         }
       />
     );

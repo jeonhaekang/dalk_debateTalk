@@ -58,7 +58,6 @@ const Signup = () => {
     usernameCheckDB(username);
   }, [username]);
 
-  console.log(usernameVal);
   // 닉네임 유효성 검사 및 중복 검사 -------------------------------------------------------------
   const nicknameCheckDB = useCallback(
     _.debounce((nickname) => {

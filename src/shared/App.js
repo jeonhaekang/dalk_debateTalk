@@ -61,7 +61,7 @@ function App() {
           <Route path="/" exact component={Main} />
           <RoutePrivate path="/createroom" exact component={CreateRoom} />
           <Route path="/search/:keyword" exact component={SearchRoom} />
-          <RoutePrivate path="/admin" exact component={Admin} />
+          <Route path="/admin" exact component={Admin} />
           <RoutePrivate login path="/login" exact component={Login} />
           <RoutePrivate login path="/signup" exact component={Signup} />
           <RoutePrivate path="/mypage" exact component={MyPage} />
