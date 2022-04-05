@@ -138,6 +138,9 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
 # ⛔️ 트러블 슈팅
 
 ## 1. 채팅방 입력 메세지 미출력 에러
+<details>
+  <summary>펼치기</summary>
+
   <div align="center">
   <img width="50%" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cc49ae3f-6c58-484d-9f4f-35f50ced3db7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-28_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_7.34.20.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220405%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220405T090713Z&X-Amz-Expires=86400&X-Amz-Signature=46fa62b81c40c85b0dcf70da2b421dd9c01bd7e0703d09f6e886ae4ce9474468&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-03-28%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25207.34.20.png%22&x-id=GetObject"></div>
   <br/>
@@ -199,8 +202,13 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
 
       EnterMessage메소드 setTimeout를 이용하였고, **client의 구독 상태를 체크**하여 구독이 완료되었으면 서버에 완료 신호를 보내고,
       구독이 안되었으면 재귀 함수 형태로 다시 EnterMessage메소드를 실행시켜 주었습니다.<br/><br/>
+</details>
 
-# 2. 모바일 토론방 이용중 홈버튼 및 화면전환시 에러 발생
+<br/>
+
+## 2. 모바일 토론방 이용중 홈버튼 및 화면전환시 에러 발생
+<details>
+  <summary>펼치기</summary>
     
 서비스를 배포하고 실제 유저들이 사용중에 발견한 에러입니다😰<br/>
 기존에는 컴포넌트가 언마운트 될 때, beforeunload 이벤트를 이용해 브라우저가 새로고침 될 때, 닫힐 때
@@ -268,9 +276,13 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
   };
   ```
   <br/>
+</details>
 
-# 3. 채팅방 타이머 시간이 어긋나는 문제
+<br/>
 
+## 3. 채팅방 타이머 시간이 어긋나는 문제
+<details>
+  <summary>펼치기</summary>
 최초 채팅방 타이머는 서버로 부터 남은 시간을 받아 setInterval을 사용해 1초씩 빼주었습니다.
 하지만 이런 방식은 여러가지 문제가 발생하였습니다.
 
@@ -323,8 +335,10 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
     ```
     https://haekang.notion.site/setInterval-useInterval-d62a416e2db147c48ef5304de44a23f3
 
-
 <br />
+</details>
+
+<br/>
 
 # 👨‍👨‍👦‍👦 유저 피드백
 
@@ -332,6 +346,9 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
 >  ### 피드백 수 : 총 22개
 
 <br />
+
+<details>
+  <summary>피드백 내용 확인</summary>
 
 - 긍정적인 피드백
   - 채팅에서 논리로 이겨버리고 받은 포인트로 랩업해서 랭킹 1등했어요!
@@ -389,6 +406,8 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
         |개선 전|개선 후|
         |:-:|:-:|
         |<img src="https://user-images.githubusercontent.com/96935557/161725088-df287b72-2cd5-4724-842d-22b6ed015591.png">|<img src="https://user-images.githubusercontent.com/96935557/161725389-8c3cc822-1549-4bc2-b8bd-dfd474b7e2cf.png">|
+</details>
+
 <br />
 
 # 🤝 후기 및 회고
