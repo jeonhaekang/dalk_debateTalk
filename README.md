@@ -6,6 +6,7 @@
 DALKING 팀 노션 : https://www.notion.so/haekang/DALK-Debate-TALK-e02be647022c42bc826ddb588c31f572 <br />
 FrontEnd GITHUB : https://github.com/jeonhaekang/dalk_debateTalk <br />
 BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
+<br />
 시연 영상 <br />
 
 ---
@@ -24,7 +25,9 @@ DALKING은 실시간으로 밸런스게임을 즐길 수 있는 채팅 서비스
 
 ---
 ## ✔ 핵심 기능
+
 <br />
+
 ### 💬  밸런스 게임을 주제로 실시간 채팅
 
 - 깻잎논쟁, 부먹or찍먹등 다양한 주제로 채팅방을 개설하세요!
