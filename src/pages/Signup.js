@@ -58,6 +58,7 @@ const Signup = () => {
     usernameCheckDB(username);
   }, [username]);
 
+  console.log(usernameVal);
   // 닉네임 유효성 검사 및 중복 검사 -------------------------------------------------------------
   const nicknameCheckDB = useCallback(
     _.debounce((nickname) => {
@@ -142,6 +143,7 @@ const Signup = () => {
               type="text"
               message="아이디"
               focusMessage="아이디는 5자리 이상으로 해주세요"
+              formData={username}
               setFormData={setUsername}
               state={usernameVal}
             />
@@ -157,6 +159,7 @@ const Signup = () => {
               type="text"
               message="닉네임"
               focusMessage="닉네임은 2자리 이상 8자리 이하로 해주세요"
+              formData={nickname}
               setFormData={setNickname}
               state={nicknameVal}
             />
@@ -172,6 +175,7 @@ const Signup = () => {
               type="password"
               message="패스워드 입력"
               focusMessage="8자 이상의 영문, 숫자 조합을 입력해주세요"
+              formData={password}
               setFormData={setPassword}
               state={passwordVal}
             />
@@ -184,6 +188,7 @@ const Signup = () => {
               type="password"
               message="패스워드 재입력"
               focusMessage="패스워드 재입력"
+              formData={passwordCheck}
               setFormData={setPasswordCheck}
               state={passCheckVal}
             />

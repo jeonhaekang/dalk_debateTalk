@@ -1,45 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as Check } from "../image/login/check.svg";
-import FlexGrid from "./FlexGrid";
 
 const Input = (props) => {
-  const { message, focusMessage, setFormData, state, type } = props;
-  const [focus, setFocus] = useState(false);
-  const [info, setInfo] = useState(message);
-  const [data, setData] = useState("");
+  const { message, focusMessage, formData, setFormData, state, type } = props;
+  const [focus, setFocus] = useState(false); // Input focus여부
+  const [info, setInfo] = useState(message); // 알림 메세지
 
-  useEffect(() => {
-    setFormData(data);
-  }, [data]);
-
-  const inputRef = useRef();
-
+  // focus, blur상황에 실행 ---------------------------------------------------------------
   const check = (e) => {
     if (e.type === "focus") {
       setFocus(true);
       setInfo(focusMessage);
-    } else if (e.type === "blur" && data === "") {
+    } else if (e.type === "blur" && formData === "") {
       setFocus(false);
       setInfo(message);
     }
   };
 
-  const onChagneInput = (e) => {
-    setData(e.target.value);
-  };
+  // Input창 포커스를 위한 코드 ---------------------------------------------------------------
+  const inputRef = useRef();
 
   const boxFocus = () => {
     inputRef.current.focus();
   };
 
+  // -----------------------------------------------------------------------------------
   return (
     <Container onClick={boxFocus}>
       <Label focus={focus}>{info}</Label>
       <InputContainer>
         <InputBox
           type={type}
-          onChange={onChagneInput}
+          onChange={(e) => setFormData(e.target.value)}
           onFocus={check}
           onBlur={check}
           ref={inputRef}
@@ -76,7 +69,7 @@ const InputBox = styled.input`
 
   box-sizing: border-box;
   border: none;
-  background-color: #eee;
+  background-color: #f1f1f1;
 `;
 
 const Label = styled.label`
