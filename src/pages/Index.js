@@ -20,6 +20,7 @@ import UserRanking from "./MyPageContent/UserRanking";
 import PointShop from "./MyPageContent/PointShop";
 import SearchPost from "./SearchPost";
 import ProjectMember from "./ProjectMember";
+import EmptyPage from "./EmptyPage";
 
 export {
   Guide,
@@ -44,4 +45,5 @@ export {
   PointShop,
   SearchPost,
   ProjectMember,
+  EmptyPage,
 };
