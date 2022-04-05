@@ -144,6 +144,7 @@ const Signup = () => {
               focusMessage="아이디는 5자리 이상으로 해주세요"
               setFormData={setUsername}
               state={usernameVal}
+              autoComplete="off"
             />
             {usernameVal === -1 && (
               <Text color="alert">중복된 아이디 입니다.</Text>
@@ -159,6 +160,7 @@ const Signup = () => {
               focusMessage="닉네임은 2자리 이상 8자리 이하로 해주세요"
               setFormData={setNickname}
               state={nicknameVal}
+              autoComplete="off"
             />
             {nicknameVal === -1 && (
               <Text color="alert">중복된 닉네임 입니다.</Text>
@@ -174,6 +176,7 @@ const Signup = () => {
               focusMessage="8자 이상의 영문, 숫자 조합을 입력해주세요"
               setFormData={setPassword}
               state={passwordVal}
+              autoComplete="off"
             />
             {passwordVal === 0 && (
               <Text color="alert">사용할 수 없는 비밀번호 입니다.</Text>
@@ -186,6 +189,7 @@ const Signup = () => {
               focusMessage="패스워드 재입력"
               setFormData={setPasswordCheck}
               state={passCheckVal}
+              autoComplete="off"
             />
             {passCheckVal === 0 && (
               <Text color="alert">패스워드가 다릅니다.</Text>
