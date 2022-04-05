@@ -29,7 +29,7 @@ function SearchPost(props) {
     <>
       <Header page="검색 결과" />
       <SearchWrap>
-        <FlexGrid padding="20px" gap="0px">
+        <FlexGrid padding="4px" gap="0px">
           <Text size="subtitle1" weight="medium">
             <Text color="orange">"{keyword}"</Text> 검색 결과
           </Text>
@@ -50,6 +50,7 @@ function SearchPost(props) {
 const SearchWrap = styled.div`
   height: calc(var(--vh) * 100 - 70px);
   overflow: scroll;
+  padding: 16px;
 `;
 
 export default SearchPost;
