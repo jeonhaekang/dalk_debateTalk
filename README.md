@@ -1,24 +1,22 @@
-dd# 밸런스게임 토론 플랫폼, DALKING 입니다.
+# 실시간 채팅 토론 플랫폼 DALKING
+## 끝나지않는 토론은 멈춰!!✋ 덕킹에서 한판 붙자!
 
 <img width="150" src="https://user-images.githubusercontent.com/73621658/161711654-dd92e728-7253-4d2f-b418-745cf0355ff5.png">
 
 <b>공식 사이트</b> : https://debate-talk.com <br/>
-DALKING 팀 노션 : https://www.notion.so/haekang/DALK-Debate-TALK-e02be647022c42bc826ddb588c31f572 <br />
 FrontEnd GITHUB : https://github.com/jeonhaekang/dalk_debateTalk <br />
 BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
-시연 영상 <br />
+소개 영상 : <br />
 
 # 🗂 프로젝트 소개
 
-- 개발 기간 : 2022.02.25 ~ 2022.04.08 (4주 MVP 구현, 1주 User-Test, 1주 Re-Factoring)
+- 개발 기간 : 2022.02.25 ~ 2022.04.08
 - 개발 언어 : Javascript
-- 개발 라이브러리 : React.js v17.0.2
-- 배포 환경 : Amazon S3
+- 개발 프레임워크 : React
+- 배포 환경 : AWS Amplify
 - 협업 툴 : Git / Notion / Figma / Slack
-- 프로젝트 한줄 설명
   <br />
-  끝나지않던 토론은 이제 그만!!✋
-  DALKING은 실시간으로 밸런스게임을 즐길 수 있는 채팅 서비스입니다.
+
 
 <br />
 
@@ -31,13 +29,15 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
 - 나만말하거나 상대방의 채팅을 랜덤으로 번역하는 등 다양한 아이템을 사용해서
   상대방의 어필을 방해해보세요!
 
-  > ### 🗳 단순 투표가 아닌 포인트를 걸고 투표
+  <br/>
+> ### 🗳 단순 투표가 아닌 포인트를 걸고 투표
 
 - 밸런스채팅에서 내의견을 말할 때 포인트를 걸고 투표를 할 수 있습니다.
 - 채팅이 종료된 후 내가 투표한 주제가 승리했다면 상대방의 포인트와 내가 건 포인트에
   비례해서 더 많은 포인트를 획득할 수 있습니다.
 - 이 주제의 승리가 확실하다면 포인트를 많이 걸어서 더 많은 포인트를 획득하세요!
 
+  <br/>
 > ### 🎰 다양한 재미적 요소(아이템 상점, 뽑기, 등급, 랭킹)
 
 - 밸런스 게임을 이기기 위해 많은 아이템을 판매하고 있어요. (파파고, 채팅얼리기, 로꾸꺼 등)
@@ -45,7 +45,7 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
 - 토론에서 이긴 알포인트로 경험치를 구매해 등급을 올려보세요.
   TOP 1,2,3 등에게는 멋진 휘장이 부여 됩니다.
 
-<br/>
+  <br/>
 
 # 👥 팀 구성
 
@@ -141,69 +141,73 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
   <div align="center">
   <img width="50%" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cc49ae3f-6c58-484d-9f4f-35f50ced3db7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-03-28_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_7.34.20.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220405%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220405T090713Z&X-Amz-Expires=86400&X-Amz-Signature=46fa62b81c40c85b0dcf70da2b421dd9c01bd7e0703d09f6e886ae4ce9474468&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA%25202022-03-28%2520%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE%25207.34.20.png%22&x-id=GetObject"></div>
   <br/>
-  저희 채팅방은 유저가 채팅방에 입장 시 위 사진처럼 입장 메세지가 나오는데
+  저희 채팅방은 유저가 채팅방에 입장 시 위 사진처럼 입장 메세지가 나오는데<br/>
   이 입장 메세지와 함께 서버에서 어떤 아이템을 어떤 유저가 발동 중인지 정보 받아 입장 유저의 상태를 업데이트 합니다
 
   <br/>
 
   > ### 1. 에러 현상
+  * 채팅방 입장시 본인은 본인의 입장 메세지를 받지 못함 (정말 간헐적으로 메세지를 출력)
 
-  * 채팅방 입장시 본인은 본인의 입장 메세지를 받지 못함 (정말 간헐적으로 메세지를 출력)<br/>
-  * 다른 유저들은 신규 유저의 입장 메세지를 잘 받아서 출력함<br/>
-  * 입장 메세지를 수신하지 못하기 때문에, 신규 유저의 아이템 사용이 불가능<br/>
+  * 다른 유저들은 신규 유저의 입장 메세지를 잘 받아서 출력함
+
+  * 입장 메세지를 수신하지 못하기 때문에, 신규 유저의 아이템 사용이 불가능
 
   <br/>
-
+  
   > ### 2. 에러 해결 과정
 
-*    해당 에러는 DB를 변경하면서 발생하였고, 본인은 메세지를 받지 못하나 다른 유저들은 메세지를 성공적으로 수신하였습니다.<br/>
-    일단 정말 간헐적으로 입장 메세지가 출력되는 것을 바탕으로 생각해 봤을 때,
-    클라이언트에서 <b>구독 요청을 보내고 구독이 완료되기 전에 서버에서 입장 메세지를 보내주어</b> 신규 유저는 메세지를 받지 못하고, 원래 채팅을 하던 유저들은 메세지를 정상적으로 받고 있는 것이라 생각하여,<br/> 백엔드에 subscribe신호를 받고 3초 후에 메세지를 보내달라고 요청하였습니다.*
+  * 해당 에러는 DB를 변경하면서 발생하였고, 본인은 메세지를 받지 못하나 다른 유저들은 메세지를 성공적으로           수신하였습니다.<br/><br/>
+    일단 정말 간헐적으로 입장 메세지가 출력되는 것을 바탕으로 생각해 봤을 때,<br/><br/>
+    클라이언트에서 <b>구독 요청을 보내고 구독이 완료되기 전에 서버에서 입장 메세지를 보내주어</b> 신규 유저는 메세지를 받지 못하고,<br/>
+    원래 채팅을 하던 유저들은 메세지를 정상적으로 받고 있는 것이라 생각하여<br/><br/>
+    백엔드에 subscribe신호를 받고 3초 후에 메세지를 보내달라고 요청하였습니다.
 
-  <br/>
-
-  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/42042483-6cdb-407e-9245-501b03b31db0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220405%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220405T091323Z&X-Amz-Expires=86400&X-Amz-Signature=8b7c7be716bd2433e329074e7d9e22e0d2530db4194d4be5a97b96e58d7b3641&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject"/>
-  Thread.sleep으로 딜레이를 준 백엔드 코드<br/>
-  이렇게 3초 딜레이를 주니 정상적으로 잘 메세지를 수신할 수 있었습니다.<br/><br/>
+    <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/42042483-6cdb-407e-9245-501b03b31db0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220405%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220405T091323Z&X-Amz-Expires=86400&X-Amz-Signature=8b7c7be716bd2433e329074e7d9e22e0d2530db4194d4be5a97b96e58d7b3641&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject"/>
+    Thread.sleep으로 딜레이를 준 백엔드 코드<br/><br/>
+    이렇게 3초 딜레이를 주니 정상적으로 잘 메세지를 수신할 수 있었습니다.<br/><br/>
 
   > ### 3.해결 코드
 
-*  딜레이를 주면 정상적으로 작동은 하지만 사용자의 네트워크 상태에 따라 해당 딜레이 시간 동안 구독이  완료되지 않을 가능성 등 여러 가지 문제가 있고 스마트하지 못하다고 생각했습니다. <br/><br/>
-  따라서 프론트에서 <b>구독요청 후 구독이 완료되었는지 검사</b> 후 구독이 완료되면 백엔드에 신호를 보내주었습니다.
-
-    ```javascript
-    const EnterMessage = () => {
+  *  딜레이를 주면 정상적으로 작동은 하지만 사용자의 네트워크 상태에 따라 해당 딜레이 시간 동안 구독이  완료되지 않을 가능성 등 여러 가지 문제가 있고 스마트하지 못하다고 생각했습니다. <br/><br/>
+    따라서 프론트에서 <b>구독요청 후 구독이 완료되었는지 검사</b> 후 구독이 완료되면 백엔드에 신호를 보내주었습니다.
+      <label >
+      ```javascript
+      const EnterMessage = () => {
         setTimeout(() => {
-            if (client.subscriptions["sub-0"]) {
+          if (client.subscriptions["sub-0"]) {
             client.send(
                 "/pub/chat/enter",
                 headers,
-                JSON.stringify({ type: "ENTER", roomId: roomId })
-            );
-                    return;
-            }
-            EnterMessage();
+                JSON.stringify({ type: "ENTER", roomId: roomId }));
+            return;
+          }
+          EnterMessage();
         }, 100);
-    };
+      };
 
-    const connectCallback = () => {
-      // 연결 성공시 호출함수
-      client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
-      EnterMessage();
-    };
-    ```
-    생각한 방법은 이러했습니다.
+      const connectCallback = () => {
+        // 연결 성공시 호출함수
+        client.subscribe(`/sub/chat/${roomId}`, subCallback, headers);
+        EnterMessage();
+      };
+      ```
+      </label>
+      생각한 방법은 이러했습니다.
 
-    연결에  성공하면 subscribe를 하고 EnterMessage메소드를 실행시킵니다.
+      연결에  성공하면 subscribe를 하고 EnterMessage메소드를 실행시킵니다.
 
-    EnterMessage메소드 setTimeout를 이용하였고, **client의 구독 상태를 체크**하여 구독이 완료되었으면 서버에 완료 신호를 보내고,
-    구독이 안되었으면 재귀 함수 형태로 다시 EnterMessage메소드를 실행시켜 주었습니다.<br/><br/>
+      EnterMessage메소드 setTimeout를 이용하였고, **client의 구독 상태를 체크**하여 구독이 완료되었으면 서버에 완료 신호를 보내고,
+      구독이 안되었으면 재귀 함수 형태로 다시 EnterMessage메소드를 실행시켜 주었습니다.<br/><br/>
 
 # 2. 모바일 토론방 이용중 홈버튼 및 화면전환시 에러 발생
     
 서비스를 배포하고 실제 유저들이 사용중에 발견한 에러입니다😰<br/>
 기존에는 컴포넌트가 언마운트 될 때, beforeunload 이벤트를 이용해 브라우저가 새로고침 될 때, 닫힐 때
-disconnect신호를 서버에 전달하였으나, 모바일 환경에서 다시 문제가 발생하였습니다.<br/>
+disconnect신호를 서버에 전달하였으나, 모바일 환경에서 다시 문제가 발생하였습니다.
+
+<br/>
+
 > ### 1. 에러 현상
 
 * 모바일 환경에서 탭 이동, 홈버튼, 화면 전환 버튼 클릭 시, 해당 채팅방이 종료될 때까지 유저가 다시 채팅방에 입장할 수 없는 심각한 오류를 발견하였습니다.
@@ -270,51 +274,54 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
 최초 채팅방 타이머는 서버로 부터 남은 시간을 받아 setInterval을 사용해 1초씩 빼주었습니다.
 하지만 이런 방식은 여러가지 문제가 발생하였습니다.
 
-> ### 원인
-* setInterval이 1초마다 실행된다는 보장성이 없다.
-* alert, confirm등 브라우저가 멈추면 타이머도 멈춰 시간이 어긋난다
-<br/><br/>
+<br/>
 
-> ### 해결
-* 일단 alert이나 confirm이 브라우저를 멈춘다면 사용하지 않으면 된다고 생각하여,<br/>직접 redux와 portal을 이용해 만들어 사용하였습니다.<br/><br/>
-그리고 서버로부터 채팅방의 종료예정시간을 받아 현재 시간과 비교하며 얼마나 남았는지 계산, useInterval커스텀 훅을 사용하여 1초마다 정보를 갱신해주었습니다.
+  > ### 원인
+  * setInterval이 1초마다 실행된다는 보장성이 없다.
+  * alert, confirm등 브라우저가 멈추면 타이머도 멈춰 시간이 어긋난다
 
-  ```javascript
-  const CountDownTimer = (props) => {
-    const dispatch = useDispatch();
+  <br/>
 
-    const end = new Date(props.endAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
-    const now = new Date(); // 현재 시간
+  > ### 해결
+  * 일단 alert이나 confirm이 브라우저를 멈춘다면 사용하지 않으면 된다고 생각하여,<br/>직접 redux와 portal을 이용해 만들어 사용하였습니다.<br/><br/>
+  그리고 서버로부터 채팅방의 종료예정시간을 받아 현재 시간과 비교하며 얼마나 남았는지 계산, useInterval커스텀 훅을 사용하여 1초마다 정보를 갱신해주었습니다.
 
-    const [time, setTime] = useState((end - now) / 1000 + 1);
+    ```javascript
+    const CountDownTimer = (props) => {
+      const dispatch = useDispatch();
 
-    useInterval(() => setTime((end - now) / 1000), time);
+      const end = new Date(props.endAt.replaceAll("-", "/")); // 해당 채팅방 종료 시간
+      const now = new Date(); // 현재 시간
 
-    useEffect(() => {
-      if (time <= 0) {
-        history.push("/");
-        dispatch(
-          alertAction.open({
-            message: "토론이 종료되었습니다.",
-          })
-        );
-        return;
-      }
-    }, [time]);
+      const [time, setTime] = useState((end - now) / 1000 + 1);
 
-    // 분이랑 초로 변경
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
+      useInterval(() => setTime((end - now) / 1000), time);
 
-    return (
-      <Timer restTime={time < 60 && true}>
-        <Minutes>{minutes.toString().padStart(2, "0")}</Minutes> :
-        <Seconds>{seconds.toString().padStart(2, "0")}</Seconds>
-      </Timer>
-    );
-  };
-  ```
-  https://haekang.notion.site/setInterval-useInterval-d62a416e2db147c48ef5304de44a23f3
+      useEffect(() => {
+        if (time <= 0) {
+          history.push("/");
+          dispatch(
+            alertAction.open({
+              message: "토론이 종료되었습니다.",
+            })
+          );
+          return;
+        }
+      }, [time]);
+
+      // 분이랑 초로 변경
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+
+      return (
+        <Timer restTime={time < 60 && true}>
+          <Minutes>{minutes.toString().padStart(2, "0")}</Minutes> :
+          <Seconds>{seconds.toString().padStart(2, "0")}</Seconds>
+        </Timer>
+      );
+    };
+    ```
+    https://haekang.notion.site/setInterval-useInterval-d62a416e2db147c48ef5304de44a23f3
 
 
 <br />
@@ -327,10 +334,10 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
 <br />
 
 - 긍정적인 피드백
-    - 채팅에서 논리로 이겨버리고 받은 포인트로 랩업해서 랭킹 1등했어요!
-    - 행운뽑기 기능이 신박하고 도박요소가 있어서 재밌었습니다 ㅎㅎ 그리고 아이템 구매하는 창에서 하나씩 어떤 기능인지 설명해줘서 좋았어요 1조 분들 너무너무 고생하셨습니다.
-    - DALK를 프로젝트를 준비하며, A가 좋을까 B가 더 나은 것은 아닐까. 가장 많이 고민하고 또 토론한 분들이 운영진 분들이시겠다는 생각이 들었습니다. 정말 수고 많으셨고, 앞으로 나아가실 길도 진심으로 응원하겠습니다. 모두 건강 잘 챙겨가면서 하시길 바라며.. 좋은 서비스 만들어주셔서 감사합니다🙆‍♀️
-    - 아이디어 좋은거 같아요 사용자가 많아지면 더재밌게 채팅할 수있을 거같아요! 번창하시길 바랄게요!
+  - 채팅에서 논리로 이겨버리고 받은 포인트로 랩업해서 랭킹 1등했어요!
+  - 행운뽑기 기능이 신박하고 도박요소가 있어서 재밌었습니다 ㅎㅎ 그리고 아이템 구매하는 창에서 하나씩 어떤 기능인지 설명해줘서 좋았어요 1조 분들 너무너무 고생하셨습니다.
+  - DALK를 프로젝트를 준비하며, A가 좋을까 B가 더 나은 것은 아닐까. 가장 많이 고민하고 또 토론한 분들이 운영진 분들이시겠다는 생각이 들었습니다. 정말 수고 많으셨고, 앞으로 나아가실 길도 진심으로 응원하겠습니다. 모두 건강 잘 챙겨가면서 하시길 바라며.. 좋은 서비스 만들어주셔서 감사합니다🙆‍♀️
+  - 아이디어 좋은거 같아요 사용자가 많아지면 더재밌게 채팅할 수있을 거같아요! 번창하시길 바랄게요!
     
     <br />
 
@@ -353,25 +360,25 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
 
         ```Javascript
         const MobileFrame = ({ children }) => {
-            const handleResize = () => {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty("--vh", `${vh}px`);
-            };
+          const handleResize = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty("--vh", `${vh}px`);
+          };
 
-            useEffect(() => {
-                handleResize();
-                window.addEventListener("resize", handleResize);
+          useEffect(() => {
+            handleResize();
+            window.addEventListener("resize", handleResize);
 
-                return () => window.removeEventListener("resize", handleResize);
-            }, []);
+            return () => window.removeEventListener("resize", handleResize);
+          }, []);
 
-            return (
-                <MobileContainer>
-                <MobileWrap id="globalPortal">
-                    <MobileContent>{children}</MobileContent>
-                </MobileWrap>
-                </MobileContainer>
-            );
+          return (
+            <MobileContainer>
+            <MobileWrap id="globalPortal">
+                <MobileContent>{children}</MobileContent>
+            </MobileWrap>
+            </MobileContainer>
+          );
         };
         ```
 
