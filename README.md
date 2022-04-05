@@ -41,11 +41,7 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
 
 |                                                                 카테고리 별 토론, 결과방 조회                                                                  |                                                                 토론, 결과방 검색                                                                  |                                                                 결과방 통계                                                                  |
 | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
-<<<<<<< HEAD
-| <img src="https://user-images.githubusercontent.com/96935557/161029832-13ad234e-45c5-444e-bfab-b6408ab7cc9c.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161034287-29677099-4849-4580-ad30-5982073fdb97.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161029832-13ad234e-45c5-444e-bfab-b6408ab7cc9c.gif" alt="demo" width="80%" /> |
-=======
 | <img src="https://user-images.githubusercontent.com/96935557/161029832-13ad234e-45c5-444e-bfab-b6408ab7cc9c.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161034287-29677099-4849-4580-ad30-5982073fdb97.gif" alt="demo" width="80%" /> | <img src="https://user-images.githubusercontent.com/96935557/161034297-4519036f-4cea-45a2-9420-8cb5ff3a7f43.gif" alt="demo" width="80%" /> |
->>>>>>> bb2e4633325129df66f63287db65401175380c28
 
 <br/>
 
