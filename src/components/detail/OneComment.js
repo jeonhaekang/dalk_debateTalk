@@ -163,11 +163,4 @@ const Content = styled.div`
   padding: 16px 0px;
 `;
 
-const Number = styled.div`
-  display: flex;
-  font-size: 12px;
-  font-weight: ${(props) => props.theme.fontWeight.light};
-  margin-right: 6px;
-`;
-
 export default OneComment;
