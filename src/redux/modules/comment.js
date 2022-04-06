@@ -68,13 +68,13 @@ const initialState = {
 
 //MiddleWare
 const getCommentDB = (boardId) => {
-  return async function (dispatch, getState, { history }) {
-    await apis
+  return function (dispatch) {
+    apis
       .getComment(boardId)
       .then((res) => {
         dispatch(getComment(res.data));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "댓글 가져오기 실패",
@@ -85,11 +85,11 @@ const getCommentDB = (boardId) => {
 };
 
 const addCommentDB = (boardId, comment) => {
-  return async function (dispatch, getState, { history }) {
+  return function (dispatch) {
     if (!boardId) {
       return;
     }
-    await apis
+    apis
       .addComment(boardId, comment)
       .then((res) => {
         dispatch(getCommentDB(boardId));
@@ -105,13 +105,13 @@ const addCommentDB = (boardId, comment) => {
 };
 
 const delCommentDB = (commentId) => {
-  return async function (dispatch, getState, { history }) {
+  return async function (dispatch) {
     await apis
       .deleteComment(commentId)
-      .then((res) => {
+      .then(() => {
         dispatch(delComment(commentId));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "댓글 삭제 실패",
@@ -122,15 +122,15 @@ const delCommentDB = (commentId) => {
 };
 
 const pushAgreeDB = (commentId, index) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, getState) {
     const userId = getState().user.user.userId;
 
     apis
       .agreeComment(commentId)
-      .then((res) => {
+      .then(() => {
         dispatch(pushAgree(userId, index));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "찬성 버튼 에러",
@@ -141,15 +141,15 @@ const pushAgreeDB = (commentId, index) => {
 };
 
 const pushDisAgreeDB = (commentId, index) => {
-  return function (dispatch, getState, { history }) {
+  return function (dispatch, getState) {
     const userId = getState().user.user.userId;
 
     apis
       .disagreeComment(commentId)
-      .then((res) => {
+      .then(() => {
         dispatch(pushDisAgree(userId, index));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(
           alertAction.open({
             message: "반대 버튼 에러",
@@ -185,8 +185,6 @@ export default handleActions(
   {
     [GET_COMMENTS]: (state, action) =>
       produce(state, (draft) => {
-        // const boardId = action.payload.boardId;
-        // 게시글 안에서 코멘트를 불러오기 때문에 굳이 boardId ㄴㄴ
         draft.commentList = action.payload.data;
       }),
     [ADD_COMMENT]: (state, action) =>

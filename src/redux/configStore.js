@@ -2,7 +2,6 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-import promiseMiddleware from "redux-promise-middleware";
 
 import user from "./modules/user";
 import chat from "./modules/chat";
@@ -13,6 +12,7 @@ import image from "./modules/image";
 import alert from "./modules/alert";
 import search from "./modules/search";
 import notice from "./modules/notice";
+import post from "./modules/post";
 import infinityScroll from "./modules/infinityScroll";
 import spinner from "./modules/spinner";
 
@@ -31,14 +31,12 @@ const rootReducer = combineReducers({
   notice,
   infinityScroll,
   spinner,
+  post,
 
   router: connectRouter(history),
 });
 
-const middlewares = [
-  thunk.withExtraArgument({ history: history }),
-  promiseMiddleware,
-];
+const middlewares = [thunk.withExtraArgument({ history: history })];
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
