@@ -49,17 +49,13 @@ function Notice() {
       <Label onClick={() => setCreateModalState(true)}>공지사항 등록하기</Label>
       {noticeList.map((r, idx) => {
         return (
-          <>
+          <div key={idx}>
             <FlexGrid center gap="20px" padding="10px 0px" key={idx}>
               <div> {r.title} </div>
               <button onClick={() => setUpdateModalState(true)}>
-                {" "}
-                수정하기{" "}
+                수정하기
               </button>
-              <button onClick={() => handleDelNotice(r.noticeId)}>
-                {" "}
-                삭제{" "}
-              </button>
+              <button onClick={() => handleDelNotice(r.noticeId)}>삭제</button>
             </FlexGrid>
             {updateModalState && (
               <Modal
@@ -87,7 +83,7 @@ function Notice() {
                 </ModalBtn>
               </Modal>
             )}
-          </>
+          </div>
         );
       })}
 

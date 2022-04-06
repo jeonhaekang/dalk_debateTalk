@@ -13,11 +13,14 @@ import { history } from "../redux/configStore";
 
 const Admin = () => {
   const user = useSelector((store) => store.user.user?.role);
-  
+  console.log(user);
+
   const [admin, setAdmin] = useState(false);
-  
+
   useEffect(() => {
-    if (user) user === "ADMIN" ? setAdmin(true) : history.goBack();
+    if (user) {
+      user === "ADMIN" ? setAdmin(true) : history.goBack();
+    }
   }, [user]);
 
   return (
