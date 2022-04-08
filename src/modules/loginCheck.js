@@ -26,12 +26,4 @@ const isLogin = () => {
   return token;
 };
 
-//관리자 권한 판단---------------------------------------------------------------
-const adminCheck = () => {
-  const user = store.getState();
-  console.log(user.user.userInfo);
-
-  return false;
-};
-
-export { loginCheck, isLogin, adminCheck };
+export { loginCheck, isLogin};

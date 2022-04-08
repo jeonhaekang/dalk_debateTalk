@@ -45,7 +45,6 @@ const CreateRoom = () => {
 
   const selectCategory = (name) => {
     // 카테고리 선택
-    console.log(name);
     if (category[name]) {
       setCategory({ ...category, [name]: false });
       setCateCount(cateCount - 1);

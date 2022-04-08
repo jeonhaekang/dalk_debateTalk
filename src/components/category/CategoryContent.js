@@ -23,8 +23,6 @@ const CategoryContent = ({ category }) => {
     getRoomList(0);
   }, [data]);
 
-  console.log(data);
-
   return (
     <>
       {data ? (
