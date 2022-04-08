@@ -6,7 +6,7 @@
 <b>공식 사이트</b> : https://debate-talk.com <br/>
 FrontEnd GITHUB : https://github.com/jeonhaekang/dalk_debateTalk <br />
 BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
-소개 영상 : <br />
+소개 영상 : https://www.youtube.com/watch?v=0pZMK9UqOqA <br />
 
 # 🗂 프로젝트 소개
 
