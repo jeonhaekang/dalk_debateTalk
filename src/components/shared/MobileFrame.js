@@ -27,11 +27,15 @@ const MobileFrame = ({ children }) => {
 };
 
 const MobileContainer = styled.div`
-  background-image: url(${backgroundImage});
+  background-color: #eee;
   background-size: cover;
   background-repeat: no-repeat;
 
   height: calc(var(--vh) * 100);
+
+  @media screen and (min-width: 430px) {
+    background-image: url(${backgroundImage});
+  }
 `;
 
 const MobileWrap = styled.div`
