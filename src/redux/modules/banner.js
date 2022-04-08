@@ -52,12 +52,12 @@ const addBannerDB = (image, url, status) => {
     apis
       .addBanner(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // dispatch(addBanner(data))
         // dispatch(getBannerDB())
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response);
         dispatch(
           alertAction.open({
             message: "배너 추가 실패",

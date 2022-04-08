@@ -23,6 +23,7 @@ const ChatRoom = (props) => {
   // 기본 유형의 webSocket은 구버전 브라우저 에서는 지원하지 않는다, sockjs는 구버전 브라우저의 지원을 도와준다
 
   const client = Stomp.over(sock);
+  client.debug = null;
   // 클라이언트를 state나 redux에 저장하지 않고 이렇게 선언해 사용하면 ChatRoom페이지가 렌더링 될 시, 새로운 client가 생성되는 것 같다
   // 하지만 우리 소켓 서버는 중앙 서버에 데이터를 전송하면 중앙 서버에서 각 채팅방에 메세지를 뿌려주는 형태이기에
   // 클라이언트가 바뀌더라도 useEffect에서 connect할 때와 disconnect할 때의 클라이언트가 동일하다면 send할 때 다른 클라이언트에 보내더라도 동일한 결과를 가져오는 것 같다

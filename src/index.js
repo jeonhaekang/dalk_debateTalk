@@ -18,11 +18,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        {/* <div className="container">
-          <div className="wrap" id="globalPortal"> */}
         <App />
-        {/* </div>
-        </div> */}
       </BrowserRouter>
     </ThemeProvider>
   </Provider>,

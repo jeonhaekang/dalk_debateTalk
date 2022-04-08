@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { ReactComponent as Reset } from "../image/shared/reset.svg";
 
 const Refresh = ({ onClick }) => {
-  console.log("refresh");
-  
   return (
     <ResetButton onClick={onClick}>
       <Reset />
