@@ -243,26 +243,30 @@ disconnect 미작동으로 인해 해당 유저가 채팅방에 남아있는걸�
 * visibilitychange 이벤트를 연결해 현재 화면이 보이고 있는지 visibleHendler함수를 만들어 판단 후 disconnect신호를 서버에 보내줌
 
   ```javascript
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!messageLoaded) return;
+
+    connectSocket(roomId, headers, client);
+    // 메세지 로딩이 끝나면 소켓 서버에 연결
+
     window.addEventListener("beforeunload", (e) => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
     }); // 브라우저를 새로고침 하거나 종료하면 disconnect신호 보냄
 
-    window.addEventListener("visibilitychange", visibleHendler);
+    const mobile = mobileCheck();
+    mobile && window.addEventListener("visibilitychange", visibleHendler);
     // 모바일 환경에서 탭 전환이나 화면 전환시 disconnect신호를 보내지 못해 발생하는 오류 해결을 위해 사용
 
     return () => {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
-      window.removeEventListener("visibilitychange", visibleHendler);
+      mobile && window.removeEventListener("visibilitychange", visibleHendler);
     };
   }, [messageLoaded]);
 
   const visibleHendler = (e) => {
     const state = document.visibilityState === "hidden"; // 화면에 안보이면
-    const mobile = mobileCheck(); // 모바일인지 체크
 
-    // 모바일에서 화면전환이 이루어질 경우 실행
-    if (state && mobile) {
+    if (state) {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
       history.replace("/");
       dispatch(

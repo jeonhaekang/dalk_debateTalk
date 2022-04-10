@@ -69,10 +69,9 @@ const ChatRoom = (props) => {
   //화면 전환이 이루어지면 실행할 함수------------------------------------------------------------------------------------------------
   const visibleHendler = (e) => {
     const state = document.visibilityState === "hidden"; // 화면에 안보이면
-    const mobile = mobileCheck(); // 모바일인지 체크
 
     // 모바일에서 화면전환이 이루어질 경우 실행
-    if (state && mobile) {
+    if (state) {
       client.disconnect(() => client.unsubscribe("sub-0"), headers);
       history.replace("/");
       dispatch(
