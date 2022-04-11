@@ -23,7 +23,7 @@ export const MemberInfo = [
     email: "1003gorkd@naver.com",
     github: "https://github.com/jeonhaekang/",
     blog: "https://haekang.notion.site/haekang-s-wiki-bfa0e27446654d4eb8495dadd5bfd231",
-    content: "꽉",
+    content: "몰입하고 해결하는 개발자를 목표합니다.",
   },
   {
     name: "신동석",

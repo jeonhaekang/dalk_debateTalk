@@ -47,12 +47,10 @@ const TopRank = (props) => {
     <RankWrap center>
       {rankList && (
         <Rank key={nickName}>
-          <FlexGrid gap="17px">
-            <FlexGrid>{rank}위</FlexGrid>
-            <FlexGrid gap="3px" center>
-              <Badge src={rankBadge.img} />
-              <Text>{nickName}</Text>
-            </FlexGrid>
+          <FlexGrid>{rank}위</FlexGrid>
+          <FlexGrid gap="3px" center>
+            <Badge src={rankBadge.img} />
+            <Text>{nickName}</Text>
           </FlexGrid>
         </Rank>
       )}
@@ -86,6 +84,10 @@ const Rank = styled.div`
   animation: ${fadeIn} 0.4s;
   font-size: ${(props) => props.theme.fontSizes.body1};
   font-weight: ${(props) => props.theme.fontWeight.medium};
+
+  display: flex;
+  gap: 17px;
+  align-items: center;
 `;
 
 TopRank.defaultProps = {

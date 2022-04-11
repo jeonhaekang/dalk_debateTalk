@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled  from "styled-components";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { rank, discriminant } from "../../data/rank";
 import { actionCreators as alertAction } from "../../redux/modules/alert";
@@ -55,37 +55,35 @@ const UserRanking = () => {
           <Text marginRight="10px">EXP</Text>
         </FlexGrid>
 
-        <Grid padding="12px 24px 24px 24px">
+        <FlexGrid is_column padding="24px">
           {SliceRankingList.map((r, idx) => {
             return (
               <div key={idx}>
-                <ListWrap>
+                <FlexGrid center gap="20px">
                   <RankingBox>{idx + 4}</RankingBox>
-                  <GradeLevel>
-                    <Grid display="flex">
-                      <LevelImgList
-                        src={rank[discriminant(r.ex)].img}
-                      ></LevelImgList>
-                      <div style={{ fontSize: "16px", fontWeight: "400" }}>
+                  <FlexGrid between >
+                    <FlexGrid center justifyContent="flex-start">
+                      <LevelImgList src={rank[discriminant(r.ex)].img} />
+                      <Text size="16px" weight="regular">
                         {r.nickname}
-                      </div>
-                    </Grid>
+                      </Text>
+                    </FlexGrid>
 
                     <div style={{ fontSize: "16px", fontWeight: "400" }}>
                       {r.ex.toLocaleString("ko-KR")}
                     </div>
-                  </GradeLevel>
-                </ListWrap>
+                  </FlexGrid>
+                </FlexGrid>
               </div>
             );
           })}
-        </Grid>
+        </FlexGrid>
 
         <Me>
           <MyGradeLevel style={{ backgroundColor: "#fff" }}>
             <RankingBox>{myrank + 1}</RankingBox>
             <Grid display="flex">
-              <LevelImgList src={userRank.img}></LevelImgList>
+              <LevelImgList src={userRank.img} />
               <div style={{ fontSize: "16px", fontWeight: "400" }}>
                 {user?.nickname}
               </div>
@@ -100,27 +98,12 @@ const UserRanking = () => {
   );
 };
 
-const ListWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const GradeLevel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 12px 0px 36px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #e7e7e7;
-  width: 290px;
-`;
-
 const RankingBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   background-color: #fdb178;
   font-size: 18px;
   font-weight: bolder;
@@ -128,7 +111,6 @@ const RankingBox = styled.div`
 
 const LevelImgList = styled.img`
   width: 30px;
-  margin-right: 10px;
 `;
 
 const MyGradeLevel = styled.div`

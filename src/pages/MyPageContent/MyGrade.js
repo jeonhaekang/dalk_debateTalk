@@ -8,7 +8,6 @@ import { rank, RankInfo, discriminant } from "../../data/rank";
 import point from "../../image/mypage/point.svg";
 
 import FlexGrid from "../../elements/FlexGrid";
-import Grid from "../../elements/Grid";
 import Text from "../../elements/Text";
 
 import Container from "../../elements/Container";
@@ -16,7 +15,7 @@ import Container from "../../elements/Container";
 const MyGrade = () => {
   const user = useSelector((state) => state.user.user);
   const userRank = rank[discriminant(user?.ex, user?.rank)];
-  
+
   const nowExp = user?.ex;
   const nextScore = () => {
     if (nowExp < 5000) {
@@ -33,7 +32,7 @@ const MyGrade = () => {
 
   return (
     <>
-      <Header page="등급안내" line/>
+      <Header page="등급안내" line />
       {user && (
         <Container>
           <FlexGrid
@@ -61,35 +60,33 @@ const MyGrade = () => {
             )}
           </FlexGrid>
 
-        <FlexGrid
-          is_column
-          gap="8px"
-          borderTop="16px solid #F1F1F1"
-          padding="20px"
-        >
-          <Text size="headline2" weight="medium">
-            알포인트 등급
-          </Text>
+          <FlexGrid
+            is_column
+            gap="8px"
+            borderTop="16px solid #F1F1F1"
+            padding="20px"
+          >
+            <Text size="headline2" weight="medium">
+              알포인트 등급
+            </Text>
 
             <FlexGrid is_column gap="4px">
               {RankInfo.map((el, i) => {
                 return (
                   <FlexGrid key={i}>
-                    <div>
-                      <GradeImg src={el.img} />
-                    </div>
-                    <RankList>
-                      <Grid display="flex">
-                        <div className="LevelBox">{el.level}</div>
-                        <div className="NameBox">{el.name}</div>
-                      </Grid>
-                      <Grid display="flex">
+                    <GradeImg src={el.img} />
+                    <FlexGrid center>
+                      <LevelBox center>{el.level}</LevelBox>
+                      <Text size="body1" weight="medium" width="100%">
+                        {el.name}
+                      </Text>
+                      <FlexGrid center justifyContent="flex-end">
                         <PointImg src={point} />
                         <Text size="body1" weight="light">
                           {el.exp}
                         </Text>
-                      </Grid>
-                    </RankList>
+                      </FlexGrid>
+                    </FlexGrid>
                   </FlexGrid>
                 );
               })}
@@ -128,32 +125,21 @@ const NextGrade = styled.div`
     color: #e9c718;
   }
 `;
+const LevelBox = styled(FlexGrid)`
+  background-color: #faa94c;
+  min-width: 45px;
+  width: 45px;
+  height: 23px;
+  font-size: ${(props) => props.theme.fontSizes.body3};
 
-const RankList = styled(FlexGrid)`
-  justify-content: space-between;
-  font-size: ${(props) => props.theme.fontSizes.subtitle1};
-  align-items: center;
-  .LevelBox {
-    background-color: #faa94c;
-    font-size: 12px;
-    font-weight: ${(props) => props.theme.fontWeight.light};
-    padding: 4px 12px 0px 12px;
-    border-radius: 30px;
-    margin-right: 12px;
-  }
-  .NameBox {
-    font-size: ${(props) => props.theme.fontSizes.body1};
-    font-weight: ${(props) => props.theme.fontWeight.medium};
-    margin-bottom: 4px;
-  }
+  border-radius: 30px;
 `;
+
 const GradeImg = styled.img`
   width: 70px;
 `;
 const PointImg = styled.img`
   width: 18px;
-  height: 18px;
-  margin: 4px 8px 0px 0px;
 `;
 
 export default MyGrade;
