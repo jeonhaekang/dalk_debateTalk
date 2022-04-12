@@ -5,7 +5,6 @@ import { history } from "../../redux/configStore";
 import FlexGrid from "../../elements/FlexGrid";
 import Chip from "../../elements/Chip";
 import Badge from "../../elements/Badge";
-import Grid from "../../elements/Grid";
 import Image from "../../elements/Image";
 import noImage from "../../image/shared/noImage.png";
 
@@ -90,21 +89,21 @@ const PostListCard = (props) => {
               </>
             )}
 
-            <DebateInfo>
-              <Grid display="flex">
-                <Person style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
-                <div>{props.voteCnt}</div>
-              </Grid>
-              <div>|</div>
-              <Grid display="flex">
-                <Textsms style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
+            <DebateInfo center>
+              <FlexGrid center gap="5px">
+                <Person />
+                {props.voteCnt}
+              </FlexGrid>
+              |
+              <FlexGrid center gap="5px">
+                <Textsms />
                 {props.commentCnt}
-              </Grid>
-              <div>|</div>
-              <Grid display="flex">
-                <Notification style={{ margin: "4px 4px 0px 0px", width: "20px" }} />
+              </FlexGrid>
+              |
+              <FlexGrid center gap="5px">
+                <Notification />
                 {props.warnCnt}
-              </Grid>
+              </FlexGrid>
             </DebateInfo>
           </FlexGrid>
         </FlexGrid>
@@ -150,10 +149,7 @@ const Topic = styled.div`
   line-height: 20px;
 `;
 
-const DebateInfo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const DebateInfo = styled(FlexGrid)`
   gap: 20px;
   background-color: #efefef;
   border-radius: 10px;
