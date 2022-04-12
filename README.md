@@ -164,11 +164,8 @@ BackEnd GITHUB : https://github.com/raddaslul/dalk.git <br />
     일단 정말 간헐적으로 입장 메세지가 출력되는 것을 바탕으로 생각해 봤을 때,<br/><br/>
     클라이언트에서 <b>구독 요청을 보내고 구독이 완료되기 전에 서버에서 입장 메세지를 보내주어</b> 신규 유저는 메세지를 받지 못하고,<br/>
     원래 채팅을 하던 유저들은 메세지를 정상적으로 받고 있는 것이라 생각하여<br/><br/>
-    백엔드에 subscribe신호를 받고 3초 후에 메세지를 보내달라고 요청하였습니다.
-
-    <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/42042483-6cdb-407e-9245-501b03b31db0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220405%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220405T091323Z&X-Amz-Expires=86400&X-Amz-Signature=8b7c7be716bd2433e329074e7d9e22e0d2530db4194d4be5a97b96e58d7b3641&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject"/>
-    Thread.sleep으로 딜레이를 준 백엔드 코드<br/><br/>
-    이렇게 3초 딜레이를 주니 정상적으로 잘 메세지를 수신할 수 있었습니다.<br/><br/>
+    백엔드에 subscribe신호를 받고 3초 후에 메세지를 보내달라고 요청하였고.
+    3초 딜레이를 주니 정상적으로 잘 메세지를 수신할 수 있었습니다.<br/><br/>
 
   > ### 3.해결 코드
 
